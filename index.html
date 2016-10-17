@@ -10,12 +10,15 @@
 		<script type="text/javascript" >
 			VK.init(function() {
 				console.log('ok');
-				VK.api('users.get', {'users_ids':'80417072'}, function(data) {
-					console.log(data);
-				});
 			}, function() {
 				console.log('error');
-			}, '5.58');
+			}, '5.58');			
+			function getUsers() {
+				VK.api('users.get', {'users_ids':'80417072'}, function(data) {
+					console.log(data.response[0]);
+				});
+			}			
 		</script>
+		<input type="button" value="test" onclick="getUsers();" />
 	</body>
 </html>
