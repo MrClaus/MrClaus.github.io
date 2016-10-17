@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title>Youtube Game</title>
-		<script src="game.js"></script>
-		<link rel="stylesheet" href="style.css">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width,user-scalable=no" />
+		<script src="http://vk.com/js/api/xd_connection.js?2" type="text/javascript"></script>
+		<title>html5 page</title>
 	</head>
 	<body>		
-		<canvas id="map"></canvas>
-		<canvas id="player"></canvas>
-		<canvas id="enemy"></canvas>
-		<canvas id="text"></canvas>
-		<input id="drawBtn" type="Button" value="Draw">
-		<input id="clearBtn" type="Button" value="Clear">
+		<script type="text/javascript" >
+			VK.init(function() {
+				console.log('ok');
+				VK.api('users.get', {'users_ids':'80417072'}, function(data) {
+					console.log(data);
+				});
+			}, function() {
+				console.log('error');
+			}, '5.58');
+		</script>
 	</body>
 </html>
