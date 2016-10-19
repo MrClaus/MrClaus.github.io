@@ -58,7 +58,7 @@ function initApplication() {
 				console.log('Texture completed');
 			},
 			function ( xhr ) {
-				console.log('Texture load...');
+				console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
 			},
 			function ( xhr ) {
 				console.log('Texture not loading');
