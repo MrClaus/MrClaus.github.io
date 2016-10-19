@@ -9,7 +9,8 @@ var requestAF = window.requestAnimationFrame ||
 				window.oRequestAnimationFrame ||
 				window.msRequestAnimationFrame;
 
-var scene, camera, renderer, geometry, texture, material, cube, connect_api;
+var scene, camera, renderer, geometry, texture, material, cube;
+var connect_api = false;
 var user = {
 	photo : '',
 };
