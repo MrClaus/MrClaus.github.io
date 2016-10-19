@@ -28,9 +28,9 @@ function initApplication() {
 			console.log('4.2/');
 			console.log(user['photo']);
 			connect_api = true;
+			startGame();
 		});
-		console.log('5');
-		if (connect_api) startGame();
+		console.log('5');		
 	}, function() {
 		console.log('Error starting application');
 	}, '5.58');
