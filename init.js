@@ -23,6 +23,7 @@ function initApplication() {
 			user['photo'] = String(data.response[0].photo_50);
 			console.log(user['photo']);
 		});
+		if(user['photo']=='https://pp.vk.me/c627825/v627825072/63562/r4hYBXbhJP8.jpg') console.log('True');
 		initScene();
 		initStaticData();
 		window.addEventListener( 'resize', screenResize, false );
