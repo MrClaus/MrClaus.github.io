@@ -21,40 +21,36 @@ function initApplication() {
 	VK.init(function() {
 		console.log('3');
 		console.log('Application start');
-		console.log('4');
-		getUser();
+		console.log('4');		
+		VK.api('users.get', {'fields':'photo_50'}, function(data) {		
+			console.log('4.1/');
+			user['photo'] = String(data.response[0].photo_50);
+			console.log('4.2/');
+			console.log(user['photo']);
+			connect_api = true;
+		});
 		console.log('5');
-		if(user['photo']=='https://pp.vk.me/c627825/v627825072/63562/r4hYBXbhJP8.jpg') console.log('True');
-		console.log('6');
-		initScene();
-		console.log('7');
-		initStaticData();
-		console.log('8');
-		window.addEventListener( 'resize', screenResize, false );
-		console.log('9');
-		startLoopApp();
+		startGame();
 	}, function() {
 		console.log('Error starting application');
 	}, '5.58');
 }
 
-function getUser() {
-	console.log('4.1/');
-	VK.api('users.get', {'fields':'photo_50'}, function(data) {		
-		console.log('4.2/');
-		user['photo'] = String(data.response[0].photo_50);
-		console.log('4.3/');
-		console.log(user['photo']);
-		connect_api = true;
-	});
-	while (connect_api == false) {
-		i++;
-		console.log(i);
-	}
+function startGame() {
+	console.log('6');
+	if(user['photo']=='https://pp.vk.me/c627825/v627825072/63562/r4hYBXbhJP8.jpg') console.log('True');
+	console.log('7');
+	initScene();
+	console.log('8');
+	initStaticData();
+	console.log('9');
+	window.addEventListener( 'resize', screenResize, false );
+	console.log('10');
+	startLoopApp();
 }
 
 function initScene() {
-	console.log('6.1/');
+	console.log('7.1/');
 	// Создаем объект - Сцена
 	scene = new THREE.Scene();
 	// Создаем объект - Камера, тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
@@ -95,7 +91,7 @@ function initScene() {
 
 
 function initStaticData() {
-	console.log('7.1/');
+	console.log('8.1/');
 	// Задаем объекту камера координату ЗЕТ, равную 5
 	camera.position.z = 5;
 }
@@ -111,7 +107,7 @@ function screenResize() {
 
 // Основная функция, где находиться ваш быдлокод игры/программки
 function startLoopApp() {
-	console.log('9.1/');
+	console.log('10.1/');
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
 	requestAF( startLoopApp );
 	
