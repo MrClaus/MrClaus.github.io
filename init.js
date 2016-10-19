@@ -16,23 +16,31 @@ var user = {
 
 function initApplication() {
 	
-	
+	console.log('1');
 	VK.init(function() {
+		console.log('2');
 		console.log('Application start');		
 		VK.api('users.get', {'fields':'photo_50'}, function(data) {
+			console.log('3');
 			user['photo'] = String(data.response[0].photo_50);
+			console.log('4');
 			console.log(user['photo']);
 		});
+		console.log('5');
 		if(user['photo']=='https://pp.vk.me/c627825/v627825072/63562/r4hYBXbhJP8.jpg') console.log('True');
+		console.log('6');
 		initScene();
+		console.log('7');
 		initStaticData();
+		console.log('8');
 		window.addEventListener( 'resize', screenResize, false );
+		console.log('9');
 		startLoopApp();
 	}, function() {
 		console.log('Error starting application');
 	}, '5.58');
 	
-	
+	console.log('// 10');
 	function initScene() {	
 		// Создаем объект - Сцена
 		scene = new THREE.Scene();
@@ -72,13 +80,13 @@ function initApplication() {
 		scene.add( cube );
 	}
 
-	
+	console.log('// 11');
 	function initStaticData() {
 		// Задаем объекту камера координату ЗЕТ, равную 5
 		camera.position.z = 5;
 	}
 
-	
+	console.log('// 12');
 	// Изменяет пропорционально отображаемый размер экрана	
 	function screenResize() {
 		camera.aspect = window.innerWidth / window.innerHeight;
@@ -86,7 +94,7 @@ function initApplication() {
 		renderer.setSize( window.innerWidth, window.innerHeight );
 	}
 
-
+	console.log('// 13');
 	// Основная функция, где находиться ваш быдлокод игры/программки
 	function startLoopApp() {
 		// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
