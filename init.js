@@ -21,6 +21,7 @@ function initApplication() {
 		console.log('Application start');
 		VK.api('users.get', {'fields':'photo_50'}, function(data) {
 			user['photo'] = String(data.response[0].photo_50);
+			console.log(user['photo']);
 			resLoaded();
 		});
 	}, function() {
