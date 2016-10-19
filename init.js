@@ -9,6 +9,7 @@ var requestAF = window.requestAnimationFrame ||
 				window.oRequestAnimationFrame ||
 				window.msRequestAnimationFrame;
 
+var scene, camera, renderer, geometry, texture, material, cube;
 
 function initApplication() {
 	
@@ -27,12 +28,12 @@ function initApplication() {
 	
 	function initScene() {	
 		// Создаем объект - Сцена
-		var scene = new THREE.Scene();
+		scene = new THREE.Scene();
 		// Создаем объект - Камера, тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
-		var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 		
 		// Создается объект - рендерный движок, который будет рендрить нашу сцену
-		var renderer = new THREE.WebGLRenderer();
+		renderer = new THREE.WebGLRenderer();
 		// Задается пиксельное отображаемое разрешение
 		renderer.setPixelRatio( window.devicePixelRatio );
 		// Задаются параметры рендерного движка как размеры вьюпорта - экрна/сетчатки (попиксельно), на котором будет отображаться 2д проекция рендера
@@ -42,13 +43,13 @@ function initApplication() {
 		
 		// Создаем куб
 		// Сначала создаем геометрический скелет куба <т.к. задали соотношение сторон 1:1:1> (вершинно-полигональная модель)
-		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+		geometry = new THREE.BoxGeometry( 1, 1, 1 );
 		// Загружаем текстуру и пихаем её в материал
-		var texture = new THREE.TextureLoader().load( 'data.response[0].photo_50' );
-		var material = new THREE.MeshBasicMaterial( { map: texture } );
+		texture = new THREE.TextureLoader().load( 'data.response[0].photo_50' );
+		material = new THREE.MeshBasicMaterial( { map: texture } );
 		
 		// Теперь создаем объект куб путем натягивания материала на геометрический скелет куба
-		var cube = new THREE.Mesh( geometry, material );
+		cube = new THREE.Mesh( geometry, material );
 		// Добавляем созданный объект куб на сцену, которую будет видеть камера
 		scene.add( cube );
 	}
