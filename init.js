@@ -22,6 +22,7 @@ function initApplication() {
 		VK.api('users.get', {'fields':'photo_50'}, function(data) {
 			user['photo'] = String(data.response[0].photo_50);
 			console.log(user['photo']);
+			if (user['photo'].substr(0, 5)!='https') user['photo'] = 'ich.jpg';
 			resLoaded();
 		});
 	}, function() {
@@ -41,7 +42,7 @@ function resLoaded() {
 			console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
 		},
 		function ( xhr ) {
-			console.log('Texture not loading');
+			console.log('Texture not loading');			
 		}
 	);
 }
