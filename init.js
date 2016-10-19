@@ -45,7 +45,7 @@ function initApplication() {
 		// Сначала создаем геометрический скелет куба <т.к. задали соотношение сторон 1:1:1> (вершинно-полигональная модель)
 		geometry = new THREE.BoxGeometry( 1, 1, 1 );
 		// Загружаем текстуру и пихаем её в материал
-		texture = new THREE.TextureLoader().load( 'data.response[0].photo_50' );
+		texture = new THREE.TextureLoader().load( data.response[0].photo_50 );
 		material = new THREE.MeshBasicMaterial( { map: texture } );
 		
 		// Теперь создаем объект куб путем натягивания материала на геометрический скелет куба
