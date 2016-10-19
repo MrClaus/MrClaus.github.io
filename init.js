@@ -28,12 +28,29 @@ function initApplication() {
 			console.log('4.2/');
 			console.log(user['photo']);
 			connect_api = true;
-			startGame();
+			resLoaded();
 		});
 		console.log('5');		
 	}, function() {
 		console.log('Error starting application');
 	}, '5.58');
+}
+
+function resLoaded() {
+	// Загружаем текстуру и пихаем её в материал
+	texture = new THREE.TextureLoader().load(
+		user['photo'],
+		function ( texture ) {			
+			console.log('Texture completed');
+			startGame();
+		},
+		function ( xhr ) {
+			console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
+		},
+		function ( xhr ) {
+			console.log('Texture not loading');
+		}
+	);
 }
 
 function startGame() {
@@ -68,20 +85,8 @@ function initScene() {
 	// Создаем куб
 	// Сначала создаем геометрический скелет куба <т.к. задали соотношение сторон 1:1:1> (вершинно-полигональная модель)
 	geometry = new THREE.BoxGeometry( 1, 1, 1 );
-	// Загружаем текстуру и пихаем её в материал
-	texture = new THREE.TextureLoader().load(
-		user['photo'],
-		function ( texture ) {
-			material = new THREE.MeshBasicMaterial( { map: texture } );
-			console.log('Texture completed');
-		},
-		function ( xhr ) {
-			console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
-		},
-		function ( xhr ) {
-			console.log('Texture not loading');
-		}
-	);
+	material = new THREE.MeshBasicMaterial( { map: texture } );
+
 	
 	// Теперь создаем объект куб путем натягивания материала на геометрический скелет куба
 	cube = new THREE.Mesh( geometry, material );
