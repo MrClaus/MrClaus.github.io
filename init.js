@@ -9,7 +9,7 @@ var requestAF = window.requestAnimationFrame ||
 				window.oRequestAnimationFrame ||
 				window.msRequestAnimationFrame;
 
-var scene, camera, renderer, geometry, texture, material, cube;
+var scene, camera, renderer, geometry, texture, material, cube, i;
 var connect_api = false;
 var user = {
 	photo : '',
@@ -47,7 +47,8 @@ function getUser() {
 		connect_api = true;
 	});
 	while (connect_api == false) {
-		// код, тело цикла
+		i++;
+		console.log(i);
 	}
 }
 
