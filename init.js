@@ -16,8 +16,9 @@ function initApplication() {
 	
 	VK.init(function() {
 		console.log('Application start');		
-		VK.api('users.get', {}, function(data) {});
-		resURL = data.response[0].photo_50;
+		VK.api('users.get', {}, function(data) {
+			resURL = data.response[0].photo_50;
+		});
 		console.log(resURL);
 		initScene();
 		initStaticData();
