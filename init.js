@@ -13,15 +13,23 @@ var scene, camera, renderer, geometry, texture, material, cube;
 var user = {
 	photo : '',
 };
-
+console.log('1');
 function initApplication() {
-	VK.init(function() {		
+	console.log('2');
+	VK.init(function() {
+		console.log('3');
 		console.log('Application start');
-		getUser();		
+		console.log('4');
+		getUser();
+		console.log('5');
 		if(user['photo']=='https://pp.vk.me/c627825/v627825072/63562/r4hYBXbhJP8.jpg') console.log('True');
+		console.log('6');
 		initScene();
+		console.log('7');
 		initStaticData();
+		console.log('8');
 		window.addEventListener( 'resize', screenResize, false );
+		console.log('9');
 		startLoopApp();
 	}, function() {
 		console.log('Error starting application');
@@ -29,13 +37,17 @@ function initApplication() {
 }
 
 function getUser() {
+	console.log('4.1/');
 	VK.api('users.get', {'fields':'photo_50'}, function(data) {
+		console.log('4.2/');
 		user['photo'] = String(data.response[0].photo_50);
+		console.log('4.3/');
 		console.log(user['photo']);
 	});
 }
 
-function initScene() {	
+function initScene() {
+	console.log('6.1/');
 	// Создаем объект - Сцена
 	scene = new THREE.Scene();
 	// Создаем объект - Камера, тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
@@ -76,6 +88,7 @@ function initScene() {
 
 
 function initStaticData() {
+	console.log('7.1/');
 	// Задаем объекту камера координату ЗЕТ, равную 5
 	camera.position.z = 5;
 }
@@ -91,6 +104,7 @@ function screenResize() {
 
 // Основная функция, где находиться ваш быдлокод игры/программки
 function startLoopApp() {
+	console.log('9.1/');
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
 	requestAF( startLoopApp );
 	
