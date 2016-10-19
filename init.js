@@ -14,7 +14,12 @@ function initApplication() {
 	
 	
 	VK.init(function() {
-		console.log('Application start');
+		console.log('Application start');		
+		VK.api('users.get', {}, function(data) {});		
+		initScene();
+		initStaticData();
+		window.addEventListener( 'resize', screenResize, false );
+		startLoopApp();
 	}, function() {
 		console.log('Error starting application');
 	}, '5.58');
