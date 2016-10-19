@@ -30,7 +30,7 @@ function initApplication() {
 			connect_api = true;
 		});
 		console.log('5');
-		startGame();
+		if (connect_api) startGame();
 	}, function() {
 		console.log('Error starting application');
 	}, '5.58');
