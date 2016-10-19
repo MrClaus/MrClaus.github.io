@@ -9,7 +9,7 @@ var requestAF = window.requestAnimationFrame ||
 				window.oRequestAnimationFrame ||
 				window.msRequestAnimationFrame;
 
-var scene, camera, renderer, geometry, texture, material, cube;
+var scene, camera, renderer, geometry, texture, material, cube, connect_api;
 var user = {
 	photo : '',
 };
@@ -38,12 +38,16 @@ function initApplication() {
 
 function getUser() {
 	console.log('4.1/');
-	VK.api('users.get', {'fields':'photo_50'}, function(data) {
+	VK.api('users.get', {'fields':'photo_50'}, function(data) {		
 		console.log('4.2/');
 		user['photo'] = String(data.response[0].photo_50);
 		console.log('4.3/');
 		console.log(user['photo']);
+		connect_api = true;
 	});
+	while (connect_api == false) {
+		// код, тело цикла
+	}
 }
 
 function initScene() {
