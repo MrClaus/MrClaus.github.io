@@ -39,7 +39,9 @@
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
+			console.log('01');
 			init();
+			console.log('02');
 			animate();
 			function init() {
 				container = document.createElement( 'div' );
@@ -108,12 +110,18 @@
 				
 				// render
 				renderer = new THREE.WebGLRenderer();
+				console.log('18');
 				renderer.setPixelRatio( window.devicePixelRatio );
+				console.log('19');
 				renderer.setSize( window.innerWidth, window.innerHeight );
+				console.log('20');
 				container.appendChild( renderer.domElement );
+				console.log('21');
 				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				console.log('22');
 				//
 				window.addEventListener( 'resize', onWindowResize, false );
+				console.log('23');
 			}
 			function onWindowResize() {
 				windowHalfX = window.innerWidth / 2;
