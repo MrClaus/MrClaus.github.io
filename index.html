@@ -85,7 +85,11 @@
 					console.log('9');
 					texture.image = image;
 					texture.needsUpdate = true;
-				} );
+				}, function () {
+					console.log('process...');
+				}, function () {
+					console.log('error tex');
+				});
 				
 				
 				// model
