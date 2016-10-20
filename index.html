@@ -56,39 +56,55 @@
 				
 				
 				// manager
+				console.log('1');
 				var manager = new THREE.LoadingManager();
+				console.log('2');
 				manager.onProgress = function ( item, loaded, total ) {
+					console.log('3');
 					console.log( item, loaded, total );
 				};
 				manager.onLoad = function ( item ) {
+					console.log('4');
 					console.log( item, ' is loaded' );
 				};
 				manager.onError = function ( item ) {
+					console.log('5');
 					console.log( item, ' is NOT loaded' );
 				};
 				
 				
 				// texture
+				console.log('6');
 				var texture = new THREE.Texture();
+				console.log('7');
 				var loader = new THREE.ImageLoader( manager );
+				console.log('8');
 				loader.load( 'UV_Grid_Sm.jpg', function ( image ) {
+					console.log('9');
 					texture.image = image;
 					texture.needsUpdate = true;
 				} );
 				
 				
 				// model
+				console.log('10');
 				var loader = new THREE.OBJLoader( manager );
+				console.log('11');
 				loader.load( 'male02.obj', function ( object ) {
+					console.log('12');
 					object.traverse( function ( child ) {
+						console.log('13');
 						if ( child instanceof THREE.Mesh ) {
+							console.log('14');
 							child.material.map = texture;
 						}
 					} );
+					console.log('15');
 					object.position.y = - 95;
+					console.log('16');
 					scene.add( object );
 				} );
-				
+				console.log('17');
 				
 				// render
 				renderer = new THREE.WebGLRenderer();
