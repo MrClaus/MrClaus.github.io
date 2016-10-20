@@ -53,25 +53,30 @@
 				var directionalLight = new THREE.DirectionalLight( 0xffeedd );
 				directionalLight.position.set( 0, 0, 1 );
 				scene.add( directionalLight );
-				// texture
+				
+				
+				// manager
 				var manager = new THREE.LoadingManager();
 				manager.onProgress = function ( item, loaded, total ) {
 					console.log( item, loaded, total );
 				};
+				manager.onLoad = function ( item ) {
+					console.log( item, ' is loaded' );
+				};
+				manager.onError = function ( item ) {
+					console.log( item, ' is NOT loaded' );
+				};
+				
+				
+				// texture
 				var texture = new THREE.Texture();
-				var onProgress = function ( xhr ) {
-					if ( xhr.lengthComputable ) {
-						var percentComplete = xhr.loaded / xhr.total * 100;
-						console.log( Math.round(percentComplete, 2) + '% downloaded' );
-					}
-				};
-				var onError = function ( xhr ) {
-				};
 				var loader = new THREE.ImageLoader( manager );
 				loader.load( 'UV_Grid_Sm.jpg', function ( image ) {
 					texture.image = image;
 					texture.needsUpdate = true;
 				} );
+				
+				
 				// model
 				var loader = new THREE.OBJLoader( manager );
 				loader.load( 'male02.obj', function ( object ) {
@@ -82,8 +87,10 @@
 					} );
 					object.position.y = - 95;
 					scene.add( object );
-				}, onProgress, onError );
-				//
+				} );
+				
+				
+				// render
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
