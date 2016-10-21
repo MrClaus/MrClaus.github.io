@@ -110,11 +110,11 @@ function initScene() {
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); // Тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
 	
 	// Создаются источники освещения
-	var ambient = new THREE.AmbientLight( 0xC0C0C0 );
-	scene.add( ambient );
-	//var directionalLight = new THREE.DirectionalLight( 0xffeedd );
-	//directionalLight.position.set( 0, 0, 1 );
-	//scene.add( directionalLight );
+	//var ambient = new THREE.AmbientLight( 0xC0C0C0 );
+	//scene.add( ambient );
+	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+	directionalLight.position.set( 0, 0, 1 );
+	scene.add( directionalLight );
 	
 		
 	// Создается объект - рендерный движок, который будет рендрить нашу сцену
