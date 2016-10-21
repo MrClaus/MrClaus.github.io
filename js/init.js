@@ -59,9 +59,9 @@ function resLoaded( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
 	console.log('4');
 	this.statURL = '...';
-	var gel = new THREE.TextureLoader().load(
+	this.gel = new THREE.TextureLoader().load(
 		getURL,
-		function ( gel ) {
+		function ( this.gel ) {
 			console.log('5');
 			this.statURL = 'loaded';
 		},
@@ -74,7 +74,7 @@ function resLoaded( getURL ) {
 			this.statURL = 'error';
 		}
 	);
-	return gel;
+	return this.gel;
 	console.log('8');
 }
 resLoaded.prototype.status = function() {
