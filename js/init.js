@@ -61,7 +61,7 @@ function resLoaded( getURL ) {
 	this.statURL = '...';
 	this.gel = new THREE.TextureLoader().load(
 		getURL,
-		function ( this.gel ) {
+		function ( gel ) {
 			console.log('5');
 			this.statURL = 'loaded';
 		},
