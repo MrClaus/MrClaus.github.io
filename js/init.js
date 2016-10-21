@@ -43,6 +43,8 @@ function imgResLoad( getURL ) {
 var objResErr = false;
 function objResLoad( getObjUrl, getTexUrl ) {
 	var texModel = new THREE.Texture();
+	texModel.image = imgResLoad( getTexUrl );
+	texModel.needsUpdate = true;
 	//var loader = new THREE.ImageLoader();
 	//loader.load( getTexUrl, function ( image ) {
 	//	texModel.image = image;
@@ -53,9 +55,6 @@ function objResLoad( getObjUrl, getTexUrl ) {
 	loader.load( getObjUrl, function ( object ) {
 		object.traverse( function ( child ) {
 			if ( child instanceof THREE.Mesh ) {
-				//var texModel = new THREE.Texture();
-				texModel.image = imgResLoad( getTexUrl );
-				texModel.needsUpdate = true;
 				child.material.map = texModel;
 			}
 		} );
