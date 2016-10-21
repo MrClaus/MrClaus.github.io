@@ -170,7 +170,7 @@ function startLoopApp() {
 	cube.rotation.y += 0.1;
 	
 	// Процесс рендера сцены и её отображения
-	camera.lookAt( scene.position );
+	
 	renderer.render( scene, camera );
 }
 	
