@@ -45,7 +45,11 @@ function objResLoad( getObjUrl, getTexUrl ) {
 	var obj = new THREE.OBJLoader().load(
 		getObjUrl,
 		function ( object ) {
-			object.traverse( function ( child ) { if ( child instanceof THREE.Mesh ) child.material.map = imgResLoad( getTexUrl ); } );
+			object.traverse( function ( child ) {
+				if ( child instanceof THREE.Mesh ) {
+					child.material.map = imgResLoad( getTexUrl );
+				}
+			} );
 		},
 		function ( xhr ) {},
 		function ( xhr ) {
