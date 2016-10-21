@@ -50,10 +50,12 @@ function objResLoad( getObjUrl, getTexUrl ) {
 					child.material.map = imgResLoad( getTexUrl );
 				}
 			} );
+			console.log('obj is loaded');
 		},
 		function ( xhr ) {},
 		function ( xhr ) {
 			objResErr = true;
+			console.log('obj NOT loaded');
 			return;
 		}
 	);
