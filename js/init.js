@@ -42,14 +42,18 @@ function imgResLoad( getURL ) {
 // Функция для загрузки 3Д объекта *.OBJ, глобальная переменная objResErr сигналит об ошибке в загрузке модели
 var objResErr = false;
 function objResLoad( getObjUrl, getTexUrl ) {
+	var texModel = new THREE.Texture();
+	var loader = new THREE.ImageLoader();
+	loader.load( getTexUrl, function ( image ) {
+		texModel.image = image;
+		texModel.needsUpdate = true;
+	} );
+	
 	var obj = new THREE.OBJLoader().load(
 		getObjUrl,
 		function ( object ) {
 			object.traverse( function ( child ) {
 				if ( child instanceof THREE.Mesh ) {
-					var texModel = new THREE.Texture();
-					texModel.image = imgResLoad( getTexUrl );
-					texModel.needsUpdate = true;
 					child.material.map = texModel;
 				}
 			} );
