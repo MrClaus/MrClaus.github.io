@@ -52,7 +52,6 @@ function resLoaded( getURL ) {
 			console.log('Texture not loading');
 			return;
 		}
-		console.log('7');
 	);
 	console.log('8');
 }
