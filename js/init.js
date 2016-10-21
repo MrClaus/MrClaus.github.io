@@ -122,6 +122,7 @@ function initObject() {
 	scene.add( cube ); // Добавляем куб на сцену
 	
 	// Загружаем модель
+	model = new THREE.OBJLoader();
 	model = objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
 	scene.add( model );
 
