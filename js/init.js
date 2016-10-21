@@ -55,7 +55,7 @@ function objResLoad( getObjUrl, getTexUrl ) {
 		//scene.add( object );
 	},
 	function ( xhr ) {},
-	function ( xhr ) { return; }
+	function ( xhr ) {}
 	);
 	return obj;
 }
