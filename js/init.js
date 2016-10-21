@@ -133,7 +133,7 @@ function initStaticData() {
 	camera.position.z = 5;
 	
 	// Задаем объекту модель позицию У = -95
-	model..position.y = - 95;
+	model.position.y = - 95;
 }
 
 
