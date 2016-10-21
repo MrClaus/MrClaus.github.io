@@ -122,6 +122,13 @@ function initScene() {
 
 
 function initObject() {
+	// Создаются источники освещения
+	var ambient = new THREE.AmbientLight( 0x101030 );
+	scene.add( ambient );
+	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+	directionalLight.position.set( 0, 0, 1 );
+	scene.add( directionalLight );
+	
 	// Создаем куб
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 	var texture = imgResLoad(user['photo']);
