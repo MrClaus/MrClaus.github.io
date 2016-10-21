@@ -51,6 +51,8 @@ function objResLoad( getObjUrl, getTexUrl ) {
 				}
 			} );
 			console.log('obj is loaded');
+			object.position.y = - 95;
+			scene.add( object );
 		},
 		function ( xhr ) {},
 		function ( xhr ) {
@@ -127,11 +129,8 @@ function initObject() {
 	cube = new THREE.Mesh( geometry, material );
 	scene.add( cube ); // Добавляем куб на сцену
 	
-	// Загружаем модель
-	model = new THREE.OBJLoader();
+	// Загружаем модель	
 	model = objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
-	scene.add( model );
-
 }
 
 
