@@ -51,12 +51,13 @@ function objResLoad( getObjUrl, getTexUrl ) {
 			}
 		} );
 		object.position.y = - 95;
+		return object;
 		//scene.add( object );
 	},
 	function ( xhr ) {},
 	function ( xhr ) { return; }
 	);
-	return loader;
+	return object;
 }
 
 
