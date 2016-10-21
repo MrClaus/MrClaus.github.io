@@ -47,7 +47,10 @@ function objResLoad( getObjUrl, getTexUrl ) {
 		function ( object ) {
 			object.traverse( function ( child ) {
 				if ( child instanceof THREE.Mesh ) {
-					child.material.map = imgResLoad( getTexUrl );
+					var texModel = new THREE.Texture();
+					texModel.image = imgResLoad( getTexUrl );
+					texModel.needsUpdate = true;
+					child.material.map = texModel;
 				}
 			} );
 			console.log('obj is loaded');
