@@ -50,7 +50,7 @@ function preLoadingApp() {
 function start() {
 	console.log('3');
 	console.log('Preload is ', i);
-	texture1 = imgResLoad('js/ich.jpg');
+	texture1 = imgResLoad('js/i_ch.jpg');
 	texture = imgResLoad(user['photo']);
 	console.log('9');
 	startGame();	
