@@ -15,19 +15,24 @@ var user = {
 	photo : '',
 };
 
+function getUser() {
+	console.log('0');
+	VK.api('users.get', {'fields':'photo_50'}, function(data) {
+		user['photo'] = String(data.response[0].photo_50);
+		console.log(user['photo']);
+		if (user['photo'].substr(0, 5)!='https') user['photo'] = 'js/ich.jpg';
+		console.log('00');
+	});
+}
 
 function initApplication() {	
 	VK.init(function() {
 		console.log('Application start');
-		VK.api('users.get', {'fields':'photo_50'}, function(data) {
-			user['photo'] = String(data.response[0].photo_50);
-			console.log(user['photo']);
-			if (user['photo'].substr(0, 5)!='https') user['photo'] = 'js/ich.jpg';
-			console.log('1');
-			texture=resLoaded(user['photo']);
-			console.log('9');
-			startGame();
-		});
+		getUser();
+		console.log('1');
+		texture=resLoaded(user['photo']);
+		console.log('9');
+		startGame();		
 	}, function() {
 		console.log('Error starting application');
 	}, '5.58');
