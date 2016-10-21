@@ -151,7 +151,7 @@ function startLoopApp() {
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
 
 	for(var i=0;i<imgResLenght();i++) {
-		console.log(imgRes[i].name + ' ' + imgRes[i].status);
+		console.log(imgRes[i].name, imgRes[i].status);
 	}
 	
 	requestAF( startLoopApp );
