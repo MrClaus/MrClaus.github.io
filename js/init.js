@@ -41,16 +41,8 @@ function imgResLoad( getURL ) {
 
 // Функция для загрузки 3Д объекта *.OBJ, глобальная переменная objResErr сигналит об ошибке в загрузке модели
 var objResErr = false;
-function objResLoad( getObjUrl, getTexUrl ) {
-	//var texModel = new THREE.Texture();
-	var texModel = imgResLoad( getTexUrl );
-	//texModel.needsUpdate = true;
-	//var loader = new THREE.ImageLoader();
-	//loader.load( getTexUrl, function ( image ) {
-	//	texModel.image = image;
-	//	texModel.needsUpdate = true;
-	//} );
-	
+function objResLoad( getObjUrl, getTexUrl ) {	
+	var texModel = imgResLoad( getTexUrl );	
 	var loader = new THREE.OBJLoader();
 	loader.load( getObjUrl, function ( object ) {
 		object.traverse( function ( child ) {
@@ -59,11 +51,12 @@ function objResLoad( getObjUrl, getTexUrl ) {
 			}
 		} );
 		object.position.y = - 95;
-		scene.add( object );
+		//scene.add( object );
 	},
 	function ( xhr ) {},
-	function ( xhr ) {}
+	function ( xhr ) { return; }
 	);
+	return loader;
 }
 
 
@@ -130,7 +123,8 @@ function initObject() {
 	scene.add( cube ); // Добавляем куб на сцену
 	
 	// Загружаем модель	
-	objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
+	model = objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
+	scene.add( model );
 	
 	// Создается источник освещения
 	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
