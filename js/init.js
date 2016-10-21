@@ -10,52 +10,20 @@ var requestAF = window.requestAnimationFrame ||
 				window.msRequestAnimationFrame;
 
 
-var scene, camera, renderer, geometry, texture, material, cube;
+var container; // Объявляется контейнер, куда будет отрисовываться экран
+var renderer, scene, camera; // Объявляются основные инструменты по работе с 3Д
+// Объявляются прочие объекты и инструменты 3Д сцены, которые в дальнейшем понадобятся
+var cube;
+
+
+// Объявляется переменная юзер, куда, при старте, будут сохраняться загруженные параметры с VK.api
 var user = {
 	photo : '',
 };
-var i=0;
 
 
+// Функция для загрузки текстуры, глобальная переменная imgResErr сигналит об ошибке в загрузке текстур
 var imgResErr = false;
-
-
-
-function initApplication() {	
-	VK.init(function() {
-		console.log('Application start');
-		vk_initUser();					
-	}, function() {
-		console.log('Error starting application');
-	}, '5.58');
-}
-
-function vk_initUser() {
-	console.log('0');
-	VK.api('users.get', {'fields':'photo_50'}, function(data) {
-		user['photo'] = String(data.response[0].photo_50);
-		if (user['photo'].substr(0, 5)!='https') user['photo'] = 'js/ich.jpg';
-		console.log('1');
-		start();
-	});
-	console.log('2');
-	preLoadingApp();
-}
-
-function preLoadingApp() {
-	i++;
-	requestAF(preLoadingApp);
-}
-
-function start() {
-	console.log('3');
-	console.log('Preload is ', i);
-	texture1 = imgResLoad('js/i_ch.jpg');
-	texture = imgResLoad(user['photo']);
-	console.log('9');
-	startGame();	
-}
-
 function imgResLoad( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
 	var gel = new THREE.TextureLoader().load(
@@ -71,49 +39,70 @@ function imgResLoad( getURL ) {
 }
 
 
+// Стартовая функция, которая инициализирует текущее iFrame приложение для VK
+function initApplication() {	
+	VK.init(function() {
+		console.log('Application start');
+		vk_initUser();					
+	}, function() {
+		console.log('Error starting application');
+	}, '5.58');
+}
 
-function startGame() {
-	console.log('10');
-	initScene();
-	console.log('16');
-	initStaticData();
-	console.log('17');
-	window.addEventListener( 'resize', screenResize, false );
-	console.log('18');
-	startLoopApp();
-	console.log('19');
+
+// Инициализация профиля пользователя
+function vk_initUser() {	
+	VK.api('users.get', {'fields':'photo_50'}, function(data) {
+		user['photo'] = String(data.response[0].photo_50);
+		if (user['photo'].substr(0, 5)!='https') user['photo'] = 'js/ich.jpg';
+		console.log('User profile inited');
+		startGame();
+	});
+	preLoadingApp();
+}
+function preLoadingApp() {
+	// Код преЛоада
+	requestAF(preLoadingApp);
+}
+
+
+// Функция, отвечающая за дальнейшую работу приложения после загрузки
+function startGame() {	
+	initScene(); // Инициализация сцены
+	initObject(); // Инициализация объектов сцены
+	initStaticData(); // Инициализация стартовых данных
+	window.addEventListener( 'resize', screenResize, false ); // Автоматическое изменение размера экрана приложения под отображаемых размер
+	startLoopApp(); // Основной цикл игры
 }
 
 
 function initScene() {
-	console.log('11');
-	// Создаем объект - Сцена
-	scene = new THREE.Scene();
-	// Создаем объект - Камера, тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
-	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	// Создается объект - контейнер, куда будет отрисовываться графика, и добавляем его в html -документ
+	container = document.createElement( 'div' );
+	document.body.appendChild( container );
 	
-	console.log('12');
+	// Создается объект сцены и камеры
+	scene = new THREE.Scene();	
+	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); // Тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
+	
 	// Создается объект - рендерный движок, который будет рендрить нашу сцену
-	renderer = new THREE.WebGLRenderer();
-	// Задается пиксельное отображаемое разрешение
-	renderer.setPixelRatio( window.devicePixelRatio );
-	// Задаются параметры рендерного движка как размеры вьюпорта - экрна/сетчатки (попиксельно), на котором будет отображаться 2д проекция рендера
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	// Добавляем что-то наподобие канваса в наш АхТэЭмЭль документ, чтобы юзер узрел сие творение в окне браузера
-	document.body.appendChild( renderer.domElement );	
+	renderer = new THREE.WebGLRenderer();	
+	renderer.setPixelRatio( window.devicePixelRatio ); // Задается пиксельное отображаемое разрешение	
+	renderer.setSize( window.innerWidth, window.innerHeight ); // Задаются параметры рендерного движка как размеры вьюпорта - экрна/сетчатки (попиксельно), на котором будет отображаться 2д проекция рендера
 	
-	console.log('13');
-	// Создаем куб
-	// Сначала создаем геометрический скелет куба <т.к. задали соотношение сторон 1:1:1> (вершинно-полигональная модель)
-	geometry = new THREE.BoxGeometry( 1, 1, 1 );
-	material = new THREE.MeshBasicMaterial( { map: texture } );
+	// Добавляем визуализатор-рендер в контейнер
+	container.appendChild( renderer.domElement );
+}
 
-	console.log('14');
-	// Теперь создаем объект куб путем натягивания материала на геометрический скелет куба
+
+function initObject() {
+	// Создаем куб
+	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+	var texture = imgResLoad(user['photo']);
+	var material = new THREE.MeshBasicMaterial( { map: texture } );
 	cube = new THREE.Mesh( geometry, material );
-	// Добавляем созданный объект куб на сцену, которую будет видеть камера
-	scene.add( cube );
-	console.log('15');
+	scene.add( cube ); // Добавляем куб на сцену	
+
 }
 
 
@@ -123,7 +112,6 @@ function initStaticData() {
 }
 
 
-// Изменяет пропорционально отображаемый размер экрана	
 function screenResize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
@@ -131,18 +119,15 @@ function screenResize() {
 }
 
 
-// Основная функция, где находиться ваш быдлокод игры/программки
 function startLoopApp() {
-	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
-
-	console.log('res is ',imgResErr);
-	
+	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере	
 	requestAF( startLoopApp );
-	// Собственно ваш основной быдлокод
-	// Поворачиваем наш объект - куб - вокруг оси Х и У (точнее ХУи)
+	
+	// Код игры
 	cube.rotation.x += 0.1;
 	cube.rotation.y += 0.1;
-	// И уже далее совершить процедуру рендринга по передаваемым атрибутам - сцена и камера
+	
+	// Процесс рендера сцены и её отображения
 	renderer.render( scene, camera );
 }
 	
