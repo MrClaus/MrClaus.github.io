@@ -2,7 +2,7 @@
 window.onload = initApplication;
 
 
-// Добавляем поддежку плавного обновления экрана (requestAnimationFrame) в разных браузерах
+// Добавляем поддежку плавного обновления экрана (requestAnimationFrame) в разных браузерах 
 var requestAF = window.requestAnimationFrame ||
 				window.webkitRequestAnimationFrame ||
 				window.mozRequestAnimationFrame ||
