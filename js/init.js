@@ -49,7 +49,8 @@ function preLoadingApp() {
 function start() {
 	console.log('3');
 	console.log('Preload is ', i);
-	texture=resLoaded(user['photo']);
+	texture1 = new resLoaded('js/ich.jpg');
+	texture = new resLoaded(user['photo']);
 	console.log('9');
 	startGame();	
 }
@@ -57,10 +58,12 @@ function start() {
 function resLoaded( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
 	console.log('4');
+	this.statURL = '...';
 	var gel = new THREE.TextureLoader().load(
 		getURL,
 		function ( gel ) {
-			console.log('5');			
+			console.log('5');
+			this.statURL = 'loaded';
 		},
 		function ( xhr ) {
 			console.log('6');
@@ -68,11 +71,14 @@ function resLoaded( getURL ) {
 		},
 		function ( xhr ) {
 			console.log('7');
-			console.log('Texture not loading');			
+			this.statURL = 'error';
 		}
 	);
 	return gel;
 	console.log('8');
+}
+resLoaded.prototype.status = function() {
+	return this.statURL;
 }
 
 
@@ -138,12 +144,15 @@ function screenResize() {
 // Основная функция, где находиться ваш быдлокод игры/программки
 function startLoopApp() {
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
+	console.log('0 '+texture.status());
+	console.log('1 '+texture1.status());
 	requestAF( startLoopApp );
 	// Собственно ваш основной быдлокод
 	// Поворачиваем наш объект - куб - вокруг оси Х и У (точнее ХУи)
 	cube.rotation.x += 0.1;
 	cube.rotation.y += 0.1;
-	
+	console.log('0 '+texture.status());
+	console.log('1 '+texture1.status());
 	// И уже далее совершить процедуру рендринга по передаваемым атрибутам - сцена и камера
 	renderer.render( scene, camera );
 }
