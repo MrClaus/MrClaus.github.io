@@ -38,7 +38,6 @@ function resLoaded( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
 	console.log('2');
 	var gel = new THREE.TextureLoader().load(
-		console.log('3');
 		getURL,
 		function ( gel ) {
 			console.log('4');
