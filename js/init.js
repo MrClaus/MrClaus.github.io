@@ -97,7 +97,7 @@ function startGame() {
 	initScene(); // Инициализация сцены
 	initObject(); // Инициализация объектов сцены
 	initStaticData(); // Инициализация стартовых данных
-	window.addEventListener( 'resize', screenResize, false ); // Автоматическое изменение размера экрана приложения под отображаемых размер
+	
 	startLoopApp(); // Основной цикл игры
 }
 
@@ -108,8 +108,18 @@ function initScene() {
 	document.body.appendChild( container );
 	
 	// Создается объект сцены и камеры
-	scene = new THREE.Scene();	
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); // Тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
+	camera.position.z = 250;
+	scene = new THREE.Scene();	
+	
+	// Создаются источники освещения
+	var ambient = new THREE.AmbientLight( 0x101030 );
+	scene.add( ambient );
+	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+	directionalLight.position.set( 0, 0, 1 );
+	scene.add( directionalLight );
+	
+	objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
 	
 	// Создается объект - рендерный движок, который будет рендрить нашу сцену
 	renderer = new THREE.WebGLRenderer();	
@@ -118,16 +128,13 @@ function initScene() {
 	
 	// Добавляем визуализатор-рендер в контейнер
 	container.appendChild( renderer.domElement );
+	
+	window.addEventListener( 'resize', screenResize, false ); // Автоматическое изменение размера экрана приложения под отображаемых размер
 }
 
 
 function initObject() {
-	// Создаются источники освещения
-	var ambient = new THREE.AmbientLight( 0x101030 );
-	scene.add( ambient );
-	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
-	directionalLight.position.set( 0, 0, 1 );
-	scene.add( directionalLight );
+
 	
 	// Создаем куб
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -137,13 +144,13 @@ function initObject() {
 	scene.add( cube ); // Добавляем куб на сцену
 	
 	// Загружаем модель	
-	objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
+	
 }
 
 
 function initStaticData() {
 	// Задаем объекту камера координату ЗЕТ, равную 5
-	camera.position.z = 5;
+	
 	
 	// Задаем объекту модель позицию У = -95	
 }
@@ -165,6 +172,7 @@ function startLoopApp() {
 	cube.rotation.y += 0.1;
 	
 	// Процесс рендера сцены и её отображения
+	camera.lookAt( scene.position );
 	renderer.render( scene, camera );
 }
 	
