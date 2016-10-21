@@ -59,18 +59,24 @@ function resLoaded( getURL ) {
 function startGame() {
 	console.log('10');
 	initScene();
+	console.log('16');
 	initStaticData();
+	console.log('17');
 	window.addEventListener( 'resize', screenResize, false );
+	console.log('18');
 	startLoopApp();
+	console.log('20');
 }
 
 
 function initScene() {
+	console.log('11');
 	// Создаем объект - Сцена
 	scene = new THREE.Scene();
 	// Создаем объект - Камера, тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 	
+	console.log('12');
 	// Создается объект - рендерный движок, который будет рендрить нашу сцену
 	renderer = new THREE.WebGLRenderer();
 	// Задается пиксельное отображаемое разрешение
@@ -80,15 +86,18 @@ function initScene() {
 	// Добавляем что-то наподобие канваса в наш АхТэЭмЭль документ, чтобы юзер узрел сие творение в окне браузера
 	document.body.appendChild( renderer.domElement );	
 	
+	console.log('13');
 	// Создаем куб
 	// Сначала создаем геометрический скелет куба <т.к. задали соотношение сторон 1:1:1> (вершинно-полигональная модель)
 	geometry = new THREE.BoxGeometry( 1, 1, 1 );
 	material = new THREE.MeshBasicMaterial( { map: texture } );
 
+	console.log('14');
 	// Теперь создаем объект куб путем натягивания материала на геометрический скелет куба
 	cube = new THREE.Mesh( geometry, material );
 	// Добавляем созданный объект куб на сцену, которую будет видеть камера
 	scene.add( cube );
+	console.log('15');
 }
 
 
@@ -110,7 +119,7 @@ function screenResize() {
 function startLoopApp() {
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
 	requestAF( startLoopApp );
-	
+	console.log('19');
 	// Собственно ваш основной быдлокод
 	// Поворачиваем наш объект - куб - вокруг оси Х и У (точнее ХУи)
 	cube.rotation.x += 0.1;
