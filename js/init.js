@@ -17,7 +17,7 @@ var user = {
 var i=0;
 
 
-var imgResLog = 0;
+var imgResErr = false;
 
 
 
@@ -58,32 +58,18 @@ function start() {
 
 function imgResLoad( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
-	if (imgResLog>=0) {
-		console.log('4');
-		imgResLog = 0;
-		var gel = new THREE.TextureLoader().load(
-			getURL,
-			function ( gel ) {
-				console.log('5');
-				if(imgResLog!=-1) imgResLog = 1;
-			},
-			function ( xhr ) {
-				console.log('6');
-				console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
-			},
-			function ( xhr ) {
-				console.log('7');
-				imgResLog = -1;
-			}
-		);
-		return gel;
-	}
-	return;
+	var gel = new THREE.TextureLoader().load(
+		getURL,
+		function ( gel ) {},
+		function ( xhr ) {},
+		function ( xhr ) {
+			imgResErr = true;
+			return;
+		}
+	);
+	return gel;
 }
-function imgResErr() {
-	if (imgResLog<0) { return true; }
-	return false;
-}
+
 
 
 function startGame() {
@@ -149,7 +135,7 @@ function screenResize() {
 function startLoopApp() {
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
 
-	console.log('res is ',imgResErr());
+	console.log('res is ',imgResErr);
 	
 	requestAF( startLoopApp );
 	// Собственно ваш основной быдлокод
