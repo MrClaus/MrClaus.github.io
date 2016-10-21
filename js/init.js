@@ -42,7 +42,8 @@ function imgResLoad( getURL ) {
 // Функция для загрузки 3Д объекта *.OBJ, глобальная переменная objResErr сигналит об ошибке в загрузке модели
 var objResErr = false;
 function objResLoad( getObjUrl, getTexUrl ) {	
-	var texModel = imgResLoad( getTexUrl );	
+	var texModel = imgResLoad( getTexUrl );
+	var obj;
 	var loader = new THREE.OBJLoader();
 	loader.load( getObjUrl, function ( object ) {
 		object.traverse( function ( child ) {
@@ -51,13 +52,13 @@ function objResLoad( getObjUrl, getTexUrl ) {
 			}
 		} );
 		object.position.y = - 95;
-		return object;
+		obj = object;
 		//scene.add( object );
 	},
 	function ( xhr ) {},
 	function ( xhr ) { return; }
 	);
-	return object;
+	return obj;
 }
 
 
