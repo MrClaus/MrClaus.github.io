@@ -103,9 +103,7 @@ function startGame() {
 
 
 function initScene() {
-	// Создается объект - контейнер, куда будет отрисовываться графика, и добавляем его в html -документ
-	container = document.createElement( 'div' );
-	document.body.appendChild( container );
+
 	
 	// Создается объект сцены и камеры
 	scene = new THREE.Scene();
@@ -124,8 +122,10 @@ function initScene() {
 	renderer.setPixelRatio( window.devicePixelRatio ); // Задается пиксельное отображаемое разрешение	
 	renderer.setSize( window.innerWidth, window.innerHeight ); // Задаются параметры рендерного движка как размеры вьюпорта - экрна/сетчатки (попиксельно), на котором будет отображаться 2д проекция рендера
 	
-	// Добавляем визуализатор-рендер в контейнер
-	container.appendChild( renderer.domElement );
+	// Создается объект - контейнер, куда будет отрисовываться графика, и добавляем его в html -документ
+	container = document.createElement( 'div' );
+	document.body.appendChild( container );
+	container.appendChild( renderer.domElement ); // Добавляем визуализатор-рендер в контейнер
 	
 	
 }
