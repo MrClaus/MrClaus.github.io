@@ -65,10 +65,8 @@ function objResLoad( getObjUrl, getTexUrl ) {
 		function ( xhr ) {
 			objResErr = true;
 			console.log('obj NOT loaded');
-			return;
 		}
 	);
-	return obj;
 }
 
 
@@ -144,7 +142,7 @@ function initObject() {
 	scene.add( cube ); // Добавляем куб на сцену
 	
 	// Загружаем модель	
-	model = objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
+	objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
 }
 
 
