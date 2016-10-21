@@ -103,20 +103,10 @@ function startGame() {
 
 
 function initScene() {
-
-	
 	// Создается объект сцены и камеры
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); // Тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
-	
-	// Создаются источники освещения
-	//var ambient = new THREE.AmbientLight( 0xC0C0C0 );
-	//scene.add( ambient );
-	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
-	directionalLight.position.set( 0, 0, 1 );
-	scene.add( directionalLight );
-	
-		
+			
 	// Создается объект - рендерный движок, который будет рендрить нашу сцену
 	renderer = new THREE.WebGLRenderer();	
 	renderer.setPixelRatio( window.devicePixelRatio ); // Задается пиксельное отображаемое разрешение	
@@ -125,15 +115,11 @@ function initScene() {
 	// Создается объект - контейнер, куда будет отрисовываться графика, и добавляем его в html -документ
 	container = document.createElement( 'div' );
 	document.body.appendChild( container );
-	container.appendChild( renderer.domElement ); // Добавляем визуализатор-рендер в контейнер
-	
-	
+	container.appendChild( renderer.domElement ); // Добавляем визуализатор-рендер в контейнер	
 }
 
 
-function initObject() {
-
-	
+function initObject() {	
 	// Создаем куб
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 	var texture = imgResLoad(user['photo']);
@@ -143,6 +129,11 @@ function initObject() {
 	
 	// Загружаем модель	
 	objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
+	
+	// Создается источник освещения
+	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+	directionalLight.position.set( 0, 0, 1 );
+	scene.add( directionalLight );
 }
 
 
@@ -169,8 +160,7 @@ function startLoopApp() {
 	cube.rotation.x += 0.1;
 	cube.rotation.y += 0.1;
 	
-	// Процесс рендера сцены и её отображения
-	
+	// Процесс рендера сцены и её отображения	
 	renderer.render( scene, camera );
 }
 	
