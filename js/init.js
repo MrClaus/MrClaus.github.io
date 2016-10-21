@@ -49,23 +49,18 @@ function objResLoad( getObjUrl, getTexUrl ) {
 		texModel.needsUpdate = true;
 	} );
 	
-	var obj = new THREE.OBJLoader().load(
-		getObjUrl,
-		function ( object ) {
-			object.traverse( function ( child ) {
-				if ( child instanceof THREE.Mesh ) {
-					child.material.map = texModel;
-				}
-			} );
-			console.log('obj is loaded');
-			object.position.y = - 95;
-			scene.add( object );
-		},
-		function ( xhr ) {},
-		function ( xhr ) {
-			objResErr = true;
-			console.log('obj NOT loaded');
-		}
+	var loader = new THREE.OBJLoader();
+	loader.load( getObjUrl, function ( object ) {
+		object.traverse( function ( child ) {
+			if ( child instanceof THREE.Mesh ) {
+				child.material.map = texModel;
+			}
+		} );
+		object.position.y = - 95;
+		scene.add( object );
+	},
+	function ( xhr ) {},
+	function ( xhr ) {}
 	);
 }
 
