@@ -109,7 +109,7 @@ function initScene() {
 	
 	// Создается объект сцены и камеры
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); // Тип - Перспективная камера (угол обзора| соотношение сторон| расстояния, где начинается обзор и где он заканчивается)
-	camera.position.z = 250;
+	camera.position.z = 5;
 	scene = new THREE.Scene();	
 	
 	// Создаются источники освещения
