@@ -65,7 +65,7 @@ function imgResLoad( getURL ) {
 			getURL,
 			function ( gel ) {
 				console.log('5');
-				imgResLog = 1;
+				if(imgResLog!=-1) imgResLog = 1;
 			},
 			function ( xhr ) {
 				console.log('6');
