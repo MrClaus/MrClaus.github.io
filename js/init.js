@@ -17,6 +17,8 @@ var user = {
 var i=0;
 
 
+var imgResLen=0;
+var imgRes = [];
 
 
 
@@ -49,21 +51,21 @@ function preLoadingApp() {
 function start() {
 	console.log('3');
 	console.log('Preload is ', i);
-	texture1 = new resLoaded('js/ich.jpg');
-	texture = new resLoaded(user['photo']);
+	texture1 = resLoaded('js/ich.jpg');
+	texture = resLoaded(user['photo']);
 	console.log('9');
 	startGame();	
 }
 
-function resLoaded( getURL ) {
+function imgResLoad( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
+	imgResLen++;
 	console.log('4');
-	this.statURL = '...';
-	this.gel = new THREE.TextureLoader().load(
+	var gel = new THREE.TextureLoader().load(
 		getURL,
 		function ( gel ) {
 			console.log('5');
-			this.statURL = 'loaded';
+			imgRes[imgResLen] = new imgResStatus(getURL, 'loaded');
 		},
 		function ( xhr ) {
 			console.log('6');
@@ -71,15 +73,17 @@ function resLoaded( getURL ) {
 		},
 		function ( xhr ) {
 			console.log('7');
-			this.statURL = 'error';
+			imgRes[imgResLen] = new imgResStatus(getURL, 'error');
 		}
 	);
-	return this.gel;
+	return gel;
 	console.log('8');
 }
-resLoaded.prototype.status = function() {
-	return this.statURL;
+function imgResStatus(getURL, getStatus) {
+	this.name = getURL;
+	this.status = getStatus;
 }
+function imgResLenght() { return imgResLen; }
 
 
 function startGame() {
@@ -144,15 +148,16 @@ function screenResize() {
 // Основная функция, где находиться ваш быдлокод игры/программки
 function startLoopApp() {
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
-	console.log('0 '+texture.status());
-	console.log('1 '+texture1.status());
+
+	for(var i=0;i<imgResLenght();i++) {
+		console.log(imgRes[i].name + ' ' + imgRes[i].status);
+	}
+	
 	requestAF( startLoopApp );
 	// Собственно ваш основной быдлокод
 	// Поворачиваем наш объект - куб - вокруг оси Х и У (точнее ХУи)
 	cube.rotation.x += 0.1;
 	cube.rotation.y += 0.1;
-	console.log('0 '+texture.status());
-	console.log('1 '+texture1.status());
 	// И уже далее совершить процедуру рендринга по передаваемым атрибутам - сцена и камера
 	renderer.render( scene, camera );
 }
