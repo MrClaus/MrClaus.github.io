@@ -40,8 +40,7 @@ function resLoaded( getURL ) {
 	var gel = new THREE.TextureLoader().load(
 		getURL,
 		function ( gel ) {
-			console.log('4');
-			return gel;
+			console.log('4');			
 		},
 		function ( xhr ) {
 			console.log('5');
@@ -49,10 +48,10 @@ function resLoaded( getURL ) {
 		},
 		function ( xhr ) {
 			console.log('6');
-			console.log('Texture not loading');
-			return;
+			console.log('Texture not loading');			
 		}
 	);
+	return gel;
 	console.log('8');
 }
 
