@@ -14,45 +14,60 @@ var scene, camera, renderer, geometry, texture, material, cube;
 var user = {
 	photo : '',
 };
+var i=0;
 
-function getUser() {
-	console.log('0');
-	VK.api('users.get', {'fields':'photo_50'}, function(data) {
-		user['photo'] = String(data.response[0].photo_50);
-		console.log(user['photo']);
-		if (user['photo'].substr(0, 5)!='https') user['photo'] = 'js/ich.jpg';
-		console.log('00');
-	});
-}
+
+
+
 
 function initApplication() {	
 	VK.init(function() {
 		console.log('Application start');
-		getUser();
-		console.log('1');
-		texture=resLoaded(user['photo']);
-		console.log('9');
-		startGame();		
+		vk_initUser();					
 	}, function() {
 		console.log('Error starting application');
 	}, '5.58');
 }
 
+function vk_initUser() {
+	console.log('0');
+	VK.api('users.get', {'fields':'photo_50'}, function(data) {
+		user['photo'] = String(data.response[0].photo_50);
+		if (user['photo'].substr(0, 5)!='https') user['photo'] = 'js/ich.jpg';
+		console.log('1');
+		start();
+	});
+	console.log('2');
+	preLoadingApp();
+}
+
+function preLoadingApp() {
+	i++;
+	requestAF(preLoadingApp);
+}
+
+function start() {
+	console.log('3');
+	console.log('Preload is ', i);
+	texture=resLoaded(user['photo']);
+	console.log('9');
+	startGame();	
+}
 
 function resLoaded( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
-	console.log('2');
+	console.log('4');
 	var gel = new THREE.TextureLoader().load(
 		getURL,
 		function ( gel ) {
-			console.log('4');			
-		},
-		function ( xhr ) {
-			console.log('5');
-			console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
+			console.log('5');			
 		},
 		function ( xhr ) {
 			console.log('6');
+			console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
+		},
+		function ( xhr ) {
+			console.log('7');
 			console.log('Texture not loading');			
 		}
 	);
@@ -70,7 +85,7 @@ function startGame() {
 	window.addEventListener( 'resize', screenResize, false );
 	console.log('18');
 	startLoopApp();
-	console.log('20');
+	console.log('19');
 }
 
 
@@ -124,7 +139,6 @@ function screenResize() {
 function startLoopApp() {
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
 	requestAF( startLoopApp );
-	console.log('19');
 	// Собственно ваш основной быдлокод
 	// Поворачиваем наш объект - куб - вокруг оси Х и У (точнее ХУи)
 	cube.rotation.x += 0.1;
