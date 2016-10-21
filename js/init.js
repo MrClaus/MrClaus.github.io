@@ -17,8 +17,7 @@ var user = {
 var i=0;
 
 
-var imgResLen=0;
-var imgRes = [];
+var imgResLog = 0;
 
 
 
@@ -59,32 +58,32 @@ function start() {
 
 function imgResLoad( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
-	imgResLen++;
-	console.log('4');
-	imgRes[imgResLen] = new imgResStatus(getURL, '...');
-	var gel = new THREE.TextureLoader().load(
-		getURL,
-		function ( gel ) {
-			console.log('5');
-			imgRes[imgResLen].status = 'loaded';
-		},
-		function ( xhr ) {
-			console.log('6');
-			console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
-		},
-		function ( xhr ) {
-			console.log('7');
-			imgRes[imgResLen].status = 'error';
-		}
-	);
-	return gel;
-	console.log('8');
+	if (imgResLog>=0) {
+		console.log('4');
+		imgResLog = 0;
+		var gel = new THREE.TextureLoader().load(
+			getURL,
+			function ( gel ) {
+				console.log('5');
+				imgResLog = 1;
+			},
+			function ( xhr ) {
+				console.log('6');
+				console.log((xhr.loaded / xhr.total * 100) +'% texture load...');
+			},
+			function ( xhr ) {
+				console.log('7');
+				imgResLog = -1;
+			}
+		);
+		return gel;
+	}
+	return;
 }
-function imgResStatus(getURL, getStatus) {
-	this.name = getURL;
-	this.status = getStatus;
+function imgResErr() {
+	if (imgResLog<0) { return true; }
+	return false;
 }
-function imgResLenght() { return imgResLen; }
 
 
 function startGame() {
@@ -150,9 +149,7 @@ function screenResize() {
 function startLoopApp() {
 	// Прежде, чем рендер даст нам картинку, мы должны дать ему доступ к визуализации в браузере
 
-	for(var i=0;i<imgResLenght();i++) {
-		console.log(imgRes[i].name, imgRes[i].status);
-	}
+	console.log('res is ',imgResErr());
 	
 	requestAF( startLoopApp );
 	// Собственно ваш основной быдлокод
