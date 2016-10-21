@@ -61,11 +61,12 @@ function imgResLoad( getURL ) {
 	// Загружаем текстуру и пихаем её в материал
 	imgResLen++;
 	console.log('4');
+	imgRes[imgResLen] = new imgResStatus(getURL, '...');
 	var gel = new THREE.TextureLoader().load(
 		getURL,
 		function ( gel ) {
 			console.log('5');
-			imgRes[imgResLen] = new imgResStatus(getURL, 'loaded');
+			imgRes[imgResLen].status = 'loaded';
 		},
 		function ( xhr ) {
 			console.log('6');
@@ -73,7 +74,7 @@ function imgResLoad( getURL ) {
 		},
 		function ( xhr ) {
 			console.log('7');
-			imgRes[imgResLen] = new imgResStatus(getURL, 'error');
+			imgRes[imgResLen].status = 'error';
 		}
 	);
 	return gel;
