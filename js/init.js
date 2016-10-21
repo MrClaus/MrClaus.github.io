@@ -13,7 +13,7 @@ var requestAF = window.requestAnimationFrame ||
 var container; // Объявляется контейнер, куда будет отрисовываться экран
 var renderer, scene, camera; // Объявляются основные инструменты по работе с 3Д
 // Объявляются прочие объекты и инструменты 3Д сцены, которые в дальнейшем понадобятся
-var cube;
+var cube, model;
 
 
 // Объявляется переменная юзер, куда, при старте, будут сохраняться загруженные параметры с VK.api
@@ -36,6 +36,24 @@ function imgResLoad( getURL ) {
 		}
 	);
 	return gel;
+}
+
+
+// Функция для загрузки 3Д объекта *.OBJ, глобальная переменная objResErr сигналит об ошибке в загрузке модели
+var objResErr = false;
+function objResLoad( getObjUrl, getTexUrl ) {
+	var obj = new THREE.OBJLoader().load(
+		getObjUrl,
+		function ( object ) {
+			object.traverse( function ( child ) { if ( child instanceof THREE.Mesh ) child.material.map = imgResLoad( getTexUrl ); } );
+		},
+		function ( xhr ) {},
+		function ( xhr ) {
+			objResErr = true;
+			return;
+		}
+	);
+	return obj;
 }
 
 
@@ -101,7 +119,11 @@ function initObject() {
 	var texture = imgResLoad(user['photo']);
 	var material = new THREE.MeshBasicMaterial( { map: texture } );
 	cube = new THREE.Mesh( geometry, material );
-	scene.add( cube ); // Добавляем куб на сцену	
+	scene.add( cube ); // Добавляем куб на сцену
+	
+	// Загружаем модель
+	model = objResLoad( 'male02.obj', 'tmale.jpg' );
+	scene.add( model );
 
 }
 
@@ -109,6 +131,9 @@ function initObject() {
 function initStaticData() {
 	// Задаем объекту камера координату ЗЕТ, равную 5
 	camera.position.z = 5;
+	
+	// Задаем объекту модель позицию У = -95
+	model..position.y = - 95;
 }
 
 
