@@ -45,13 +45,13 @@ function objResLoad( getObjUrl, getTexUrl ) {
 	var texModel = imgResLoad( getTexUrl );
 	
 	var obj = new THREE.OBJLoader();
-	obj.load( getObjUrl, function ( objt ) {
-		objt.traverse( function ( child ) {
+	obj.load( getObjUrl, function ( object ) {
+		object.traverse( function ( child ) {
 			//if ( child instanceof THREE.Mesh ) {
 			child.material.map = texModel;
 			//}
 		} );
-		objt.position.y = - 95;
+		object.position.y = - 95;
 		//scene.add( object );
 	},
 	function ( xhr ) {},
