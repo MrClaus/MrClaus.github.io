@@ -47,9 +47,9 @@ function objResLoad( getObjUrl, getTexUrl ) {
 	var obj = new THREE.OBJLoader();
 	obj.load( getObjUrl, function ( obj ) {
 		obj.traverse( function ( child ) {
-			if ( child instanceof THREE.Mesh ) {
-				child.material.map = texModel;
-			}
+			//if ( child instanceof THREE.Mesh ) {
+			child.material.map = texModel;
+			//}
 		} );
 		obj.position.y = - 95;
 		//scene.add( object );
