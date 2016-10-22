@@ -54,7 +54,10 @@
 				directionalLight.position.set( 0, 0, 1 );
 				scene.add( directionalLight );
 				
+				// ВОТ ЗДЕСЬ ХУЕТА ОДНА, ФУНКЦИЮ, КУДА ССЫЛАЕТСЯ, БЫЛА ПРЯМО ЗДЕСЬ ПРОПИСАНА, НО ДЛЯ СЕБЯ, ЧТОБЫ ПРИ
+				// ОБЪЯВЛЕНИИ НОВЫХ ОБЪЕКТОВ НЕ ПИСАТЬ ТОННУ ОДНОГО И ТОГО ЖЕ КОДА, РЕШИЛ ВЫНЕСТИ ОТДЕЛЬНО В ФУНКЦИЮ             РИ ЗА
 				objResLoad( objt, 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
+				// КОНЕЦ ХУЕТЫ
 				
 				//
 				renderer = new THREE.WebGLRenderer();
@@ -89,7 +92,7 @@
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
 			}
-			// new object
+			// СОБСТВЕННО ФУНКЦИЯ, КОТОРАЯ СВЯЗАНА С ЭТОЙ ХУЕТОЙ
 			function objResLoad( obj, objURL, texURL ) {
 				status = false;
 				// texture
