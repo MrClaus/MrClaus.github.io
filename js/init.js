@@ -43,20 +43,27 @@ function imgResLoad( getURL ) {
 var objResErr = false;
 function objResLoad( getObjUrl, getTexUrl ) {	
 	var texModel = imgResLoad( getTexUrl );
-	
+	console.log('2');
 	var object = new THREE.OBJLoader();
+	console.log('3');
 	object.load( getObjUrl, function ( object ) {
+		console.log('4');
 		object.traverse( function ( child ) {
+			console.log('5');
 			if ( child instanceof THREE.Mesh ) {
 				child.material.map = texModel;
+				console.log('6');
 			}
+			console.log('7');
 		} );
 		object.position.y = - 95;
+		console.log('8');
 		//scene.add( object );
 	},
 	function ( xhr ) {},
-	function ( xhr ) {}
+	function ( xhr ) {console.log('8.1');}
 	);
+	console.log('9');
 	return object;
 }
 
@@ -123,9 +130,12 @@ function initObject() {
 	cube = new THREE.Mesh( geometry, material );
 	scene.add( cube ); // Добавляем куб на сцену
 	
-	// Загружаем модель	
+	// Загружаем модель
+	console.log('1');
 	model = objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
+	console.log('10');
 	scene.add( model );
+	console.log('11');
 	
 	// Создается источник освещения
 	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
@@ -154,6 +164,7 @@ function startLoopApp() {
 	requestAF( startLoopApp );
 	
 	// Код игры
+	console.log('12');
 	cube.rotation.x += 0.1;
 	cube.rotation.y += 0.1;
 	
