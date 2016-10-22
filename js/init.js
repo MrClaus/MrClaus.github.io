@@ -132,10 +132,28 @@ function initObject() {
 	scene.add( cube ); // Добавляем куб на сцену
 	
 	// Загружаем модель
-	console.log('1');
-	objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
-	console.log('10');	
-	console.log('11');
+	var texModel = imgResLoad( getTexUrl );
+	console.log('2');
+	model = new THREE.OBJLoader();
+	console.log('3');
+	model.load( getObjUrl, function ( object ) {
+		console.log('4');
+		object.traverse( function ( child ) {
+			console.log('5');
+			if ( child instanceof THREE.Mesh ) {
+				child.material.map = texModel;
+				console.log('6');
+			}
+			console.log('7');
+		} );
+		object.position.y = - 95;
+		console.log('8');		
+		scene.add( object );
+	},
+	function ( xhr ) {},
+	function ( xhr ) {}
+	);
+	console.log('9');
 	
 	// Создается источник освещения
 	var directionalLight = new THREE.DirectionalLight( 0xffeedd );
