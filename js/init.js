@@ -65,7 +65,7 @@ function objResLoad( getObjUrl, getTexUrl ) {
 	function ( xhr ) {console.log('8.1');}
 	);
 	console.log('9');
-	return object;
+	//return object;
 }
 
 
