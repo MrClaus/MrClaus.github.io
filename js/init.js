@@ -51,22 +51,20 @@ function objResLoad( getObjUrl, getTexUrl ) {
 		console.log('4');
 		object.traverse( function ( child ) {
 			console.log('5');
-			//if ( child instanceof THREE.Mesh ) {
-			//	child.material.map = texModel;
-			//	console.log('6');
-			//}
+			if ( child instanceof THREE.Mesh ) {
+				child.material.map = texModel;
+				console.log('6');
+			}
 			console.log('7');
 		} );
 		object.position.y = - 95;
-		console.log('8');
-		return object;
-		//scene.add( object );
+		console.log('8');		
+		scene.add( object );
 	},
 	function ( xhr ) {},
-	function ( xhr ) {console.log('8.1');}
+	function ( xhr ) {}
 	);
-	console.log('9');
-	return THREE.Mesh( object, texModel );
+	console.log('9');	
 }
 
 
@@ -135,9 +133,8 @@ function initObject() {
 	
 	// Загружаем модель
 	console.log('1');
-	model = objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
-	console.log('10');
-	scene.add( model );
+	objResLoad( 'js/male02.obj', 'js/tmale.jpg' );
+	console.log('10');	
 	console.log('11');
 	
 	// Создается источник освещения
