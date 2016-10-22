@@ -90,7 +90,7 @@
 				container.appendChild( renderer.domElement );
 				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				//
-				object.position.y = - 195;
+				
 				window.addEventListener( 'resize', onWindowResize, false );
 			}
 			function onWindowResize() {
@@ -110,6 +110,7 @@
 				render();
 			}
 			function render() {
+				object.position.y = - 195;
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
