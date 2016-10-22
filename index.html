@@ -83,7 +83,7 @@
 				render();
 			}
 			function render() {
-				if (obj.status) obj.position.y = - 195;
+				if (obj.status) obj.obj.position.y = - 195;
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
@@ -121,9 +121,9 @@
 					} );
 					//object.position.y = - 95;
 					this.status = true;
-					this = object;
-					this.position.y = - 95;
-					scene.add( this );
+					this.obj = object;
+					this.obj.position.y = - 95;
+					scene.add( this.obj );
 				}, onProgress, onError );
 			}
 		</script>
