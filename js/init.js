@@ -147,8 +147,9 @@ function initObject() {
 			console.log('7');
 		} );
 		object.position.y = - 95;
-		console.log('8');		
-		scene.add( object );
+		console.log('8');
+		model = object;
+		scene.add( model );
 	},
 	function ( xhr ) {},
 	function ( xhr ) {}
