@@ -132,11 +132,11 @@ function initObject() {
 	scene.add( cube ); // Добавляем куб на сцену
 	
 	// Загружаем модель
-	var texModel = imgResLoad( getTexUrl );
+	var texModel = imgResLoad( 'js/tmale.jpg' );
 	console.log('2');
 	model = new THREE.OBJLoader();
 	console.log('3');
-	model.load( getObjUrl, function ( object ) {
+	model.load( 'js/male02.obj', function ( object ) {
 		console.log('4');
 		object.traverse( function ( child ) {
 			console.log('5');
