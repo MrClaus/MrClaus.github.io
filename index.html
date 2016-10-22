@@ -35,7 +35,8 @@
 
 		<script>
 			var container;
-			var camera, scene, renderer;
+			var camera, scene, renderer, obj;
+			var trtr = false;
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
@@ -81,6 +82,8 @@
 						}
 					} );
 					object.position.y = - 95;
+					trtr = true;
+					obj = object;
 					scene.add( object );
 				}, onProgress, onError );
 				//
@@ -110,7 +113,7 @@
 				render();
 			}
 			function render() {
-				object.position.y = - 195;
+				if (trtr) obj.position.y = - 195;
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
