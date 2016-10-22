@@ -185,7 +185,7 @@ function startLoopApp() {
 	console.log('12');
 	cube.rotation.x += 0.1;
 	cube.rotation.y += 0.1;
-	model.position.y += -0.1;
+	object.position.y += -0.1;
 	
 	// Процесс рендера сцены и её отображения	
 	renderer.render( scene, camera );
