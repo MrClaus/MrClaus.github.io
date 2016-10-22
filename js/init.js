@@ -44,8 +44,8 @@ var objResErr = false;
 function objResLoad( getObjUrl, getTexUrl ) {	
 	var texModel = imgResLoad( getTexUrl );
 	
-	var obj = new THREE.OBJLoader();
-	obj.load( getObjUrl, function ( object ) {
+	var object = new THREE.OBJLoader();
+	object.load( getObjUrl, function ( object ) {
 		object.traverse( function ( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				child.material.map = texModel;
@@ -57,7 +57,7 @@ function objResLoad( getObjUrl, getTexUrl ) {
 	function ( xhr ) {},
 	function ( xhr ) {}
 	);
-	return obj;
+	return object;
 }
 
 
