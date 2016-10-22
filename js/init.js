@@ -51,22 +51,22 @@ function objResLoad( getObjUrl, getTexUrl ) {
 		console.log('4');
 		object.traverse( function ( child ) {
 			console.log('5');
-			if ( child instanceof THREE.Mesh ) {
-				child.material.map = texModel;
-				console.log('6');
-			}
+			//if ( child instanceof THREE.Mesh ) {
+			//	child.material.map = texModel;
+			//	console.log('6');
+			//}
 			console.log('7');
 		} );
 		object.position.y = - 95;
 		console.log('8');
-		return object;
+		//return object;
 		//scene.add( object );
 	},
 	function ( xhr ) {},
 	function ( xhr ) {console.log('8.1');}
 	);
 	console.log('9');
-	preLoadingApp();
+	return THREE.Mesh( object, texModel );
 }
 
 
