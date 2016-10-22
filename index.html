@@ -36,7 +36,6 @@
 		<script>
 			var container;
 			var camera, scene, renderer, obj;
-			var trtr = false;
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
@@ -54,38 +53,9 @@
 				var directionalLight = new THREE.DirectionalLight( 0xffeedd );
 				directionalLight.position.set( 0, 0, 1 );
 				scene.add( directionalLight );
-				// texture
-				var manager = new THREE.LoadingManager();
-				manager.onProgress = function ( item, loaded, total ) {
-					console.log( item, loaded, total );
-				};
-				var texture = new THREE.Texture();
-				var onProgress = function ( xhr ) {
-					if ( xhr.lengthComputable ) {
-						var percentComplete = xhr.loaded / xhr.total * 100;
-						console.log( Math.round(percentComplete, 2) + '% downloaded' );
-					}
-				};
-				var onError = function ( xhr ) {
-				};
-				var loader = new THREE.ImageLoader( manager );
-				loader.load( 'jsI/UV_Grid_Sm.jpg', function ( image ) {
-					texture.image = image;
-					texture.needsUpdate = true;
-				} );
-				// model
-				var loader = new THREE.OBJLoader( manager );
-				loader.load( 'jsI/male02.obj', function ( object ) {
-					object.traverse( function ( child ) {
-						if ( child instanceof THREE.Mesh ) {
-							child.material.map = texture;
-						}
-					} );
-					object.position.y = - 95;
-					trtr = true;
-					obj = object;
-					scene.add( object );
-				}, onProgress, onError );
+				
+				obj = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
+				
 				//
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -113,11 +83,48 @@
 				render();
 			}
 			function render() {
-				if (trtr) obj.position.y = - 195;
+				if (obj.status) obj.position.y = - 195;
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
+			}
+			// new object
+			objResLoad( objURL, texURL ) {
+				this.status = false;
+				// texture
+				var manager = new THREE.LoadingManager();
+				manager.onProgress = function ( item, loaded, total ) {
+					console.log( item, loaded, total );
+				};
+				var texture = new THREE.Texture();
+				var onProgress = function ( xhr ) {
+					if ( xhr.lengthComputable ) {
+						var percentComplete = xhr.loaded / xhr.total * 100;
+						console.log( Math.round(percentComplete, 2) + '% downloaded' );
+					}
+				};
+				var onError = function ( xhr ) {
+				};
+				var loader = new THREE.ImageLoader( manager );
+				loader.load( texURL, function ( image ) {
+					texture.image = image;
+					texture.needsUpdate = true;
+				} );
+				// model
+				var loader = new THREE.OBJLoader( manager );
+				loader.load( objURL, function ( object ) {
+					object.traverse( function ( child ) {
+						if ( child instanceof THREE.Mesh ) {
+							child.material.map = texture;
+						}
+					} );
+					//object.position.y = - 95;
+					this.status = true;
+					this = object;
+					this.position.y = - 95;
+					scene.add( this );
+				}, onProgress, onError );
 			}
 		</script>
 
