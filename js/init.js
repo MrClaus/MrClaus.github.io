@@ -59,7 +59,7 @@ function objResLoad( getObjUrl, getTexUrl ) {
 		} );
 		object.position.y = - 95;
 		console.log('8');
-		//return object;
+		return object;
 		//scene.add( object );
 	},
 	function ( xhr ) {},
