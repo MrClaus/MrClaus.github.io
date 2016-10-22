@@ -34,7 +34,7 @@
 		<script src="jsI/OBJLoader.js"></script>
 
 		<script>
-			var container;
+			var container, status;
 			var camera, scene, renderer, objt;
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
@@ -54,7 +54,7 @@
 				directionalLight.position.set( 0, 0, 1 );
 				scene.add( directionalLight );
 				
-				objt = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
+				objResLoad( objt, 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
 				
 				//
 				renderer = new THREE.WebGLRenderer();
@@ -83,15 +83,15 @@
 				render();
 			}
 			function render() {
-				if (objt.status) console.log(objt.obj.position.y);
+				if (status) objt.position.y = -195;
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
 			}
 			// new object
-			function objResLoad( objURL, texURL ) {
-				this.status = false;
+			function objResLoad( obj, objURL, texURL ) {
+				status = false;
 				// texture
 				var manager = new THREE.LoadingManager();
 				manager.onProgress = function ( item, loaded, total ) {
@@ -120,10 +120,10 @@
 						}
 					} );
 					//object.position.y = - 95;
-					this.status = true;
-					this.obj = object;
-					this.obj.position.y = - 95;
-					scene.add( this.obj );
+					status = true;
+					obj = object;
+					obj.position.y = - 95;
+					scene.add( obj );
 				}, onProgress, onError );
 			}
 		</script>
