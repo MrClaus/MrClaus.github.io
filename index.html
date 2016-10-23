@@ -100,9 +100,8 @@
 			function objResLoad( objURL, texURL ) {
 				// texture лоад
 				this.objURL = objURL;
-				this.texURL = texURL;
+				this.texURL = texURL;				
 				
-				this.status = false;
 				
 				var manager = new THREE.LoadingManager();
 				manager.onProgress = function ( item, loaded, total ) {
@@ -132,8 +131,7 @@
 						}
 					} );						
 					object.position.y = - 95;					
-					scene.add( object );
-					this.status = true;					
+					scene.add( object );					
 				}, onProgress, onError );
 				
 			}
