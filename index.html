@@ -86,10 +86,10 @@
 				render();
 			}
 			function render() {
-				if (model.status) {
-					console.log('true load model');
-					model.obj.position.y = - 195;					
-				}
+				//if (model.status) {
+				//	console.log('true load model');
+				model.obj.position.y = - 195;					
+				//}
 				
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
@@ -102,7 +102,7 @@
 				this.objURL = objURL;
 				this.texURL = texURL;
 				
-				this.status;
+				this.status = false;
 				
 				var manager = new THREE.LoadingManager();
 				manager.onProgress = function ( item, loaded, total ) {
