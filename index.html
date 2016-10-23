@@ -35,7 +35,7 @@
 
 		<script>
 			var container;
-			var camera, scene, renderer, model;
+			var camera, scene, renderer, mod;
 			var statt = 'no';
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
@@ -57,7 +57,8 @@
 				
 				// ВОТ ЗДЕСЬ ХУЕТА ОДНА, ФУНКЦИЮ, КУДА ССЫЛАЕТСЯ, БЫЛА ПРЯМО ЗДЕСЬ ПРОПИСАНА, НО ДЛЯ СЕБЯ, ЧТОБЫ ПРИ
 				// ОБЪЯВЛЕНИИ НОВЫХ ОБЪЕКТОВ НЕ ПИСАТЬ ТОННУ ОДНОГО И ТОГО ЖЕ КОДА, РЕШИЛ ВЫНЕСТИ ОТДЕЛЬНО В ФУНКЦИЮ             РИ ЗА
-				model = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
+				//model = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
+				mod = new loadMODEL('jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg');
 				// КОНЕЦ ХУЕТЫ
 				
 				//
@@ -89,7 +90,8 @@
 			function render() {
 				//if (model.status) {
 				//	console.log('true load model');
-				this.ress.position.y = - 195;}
+				console.log(mod.status);
+				
 				//}
 				
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
@@ -98,57 +100,47 @@
 				renderer.render( scene, camera );
 			}
 			// СОБСТВЕННО ФУНКЦИЯ, КОТОРАЯ СВЯЗАНА С ЭТОЙ ХУЕТОЙ (уже сделал откат на первоначально рабочий вариант)
-			function objResLoad( objURL, texURL ) {
-				// texture лоад
-				this.objURL = objURL;
-				this.texURL = texURL;				
-				
-				
-				var manager = new THREE.LoadingManager();
-				manager.onProgress = function ( item, loaded, total ) {
-					console.log( item, loaded, total );
-				};
-				var texture = new THREE.Texture();
-				var onProgress = function ( xhr ) {
-					if ( xhr.lengthComputable ) {
-						var percentComplete = xhr.loaded / xhr.total * 100;
-						console.log( Math.round(percentComplete, 2) + '% downloaded' );
-					}
-				};
-				var onError = function ( xhr ) {
-				};
-				var loader = new THREE.ImageLoader( manager );
-				loader.load( this.texURL, function ( image ) {
-					texture.image = image;
-					texture.needsUpdate = true;
-				} );
-				
-				
-				
-					
-				var ll = new THREE.OBJLoader( manager );
-				ll.load( this.objURL, function ( object ) {
-					object.traverse( function ( child ) {
-						if ( child instanceof THREE.Mesh ) {
-							child.material.map = texture;
-						}
-					} );						
-					object;
-					object.position.y = - 95;					
-					scene.add( object );						
-					statt = 'yes';
-				}, onProgress, onError );
-				
-				var i;
-				while (statt=='no') {
-					i++;
+			loadMODEL = function (source, texture) {
+
+				this.status = false;
+				this.source = source;
+				this.texture = texture;
+
+			};
+
+			loadMODEL.prototype = {
+
+				constructor: loadMODEL,
+
+				object: function () {
+
+					var model = this;
+
+					// texture
+					var tex = new THREE.Texture();				
+					var load = new THREE.ImageLoader();
+					load.load( this.texture, function ( image ) {
+						tex.image = image;
+						tex.needsUpdate = true;
+					} );
+					// model
+					var loader = new THREE.OBJLoader();
+					loader.load( this.source, function ( model ) {
+						model.traverse( function ( child ) {
+							if ( child instanceof THREE.Mesh ) {
+								child.material.map = tex;
+							}
+						} );
+						this.status = true;
+						model.position.y = - 95;
+						scene.add( model );
+					}, function () {}, function () {});
+
 				}
-				this.ress = ll;
-				console.log('пиздец');
-				
-				
-				
-			}
+
+			};
+
+
 		</script>
 
 	</body>
