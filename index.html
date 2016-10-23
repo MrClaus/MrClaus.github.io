@@ -133,9 +133,9 @@
 							child.material.map = texture;
 						}
 					} );						
-					this.ress = object;
-					this.ress.position.y = - 95;					
-					scene.add( this.ress );						
+					object;
+					object.position.y = - 95;					
+					scene.add( object );						
 					statt = 'yes';
 				}, onProgress, onError );
 				
@@ -143,6 +143,7 @@
 				while (statt=='no') {
 					i++;
 				}
+				this.ress = ll;
 				
 				
 				
