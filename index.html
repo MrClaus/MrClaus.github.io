@@ -58,8 +58,8 @@
 				// ВОТ ЗДЕСЬ ХУЕТА ОДНА, ФУНКЦИЮ, КУДА ССЫЛАЕТСЯ, БЫЛА ПРЯМО ЗДЕСЬ ПРОПИСАНА, НО ДЛЯ СЕБЯ, ЧТОБЫ ПРИ
 				// ОБЪЯВЛЕНИИ НОВЫХ ОБЪЕКТОВ НЕ ПИСАТЬ ТОННУ ОДНОГО И ТОГО ЖЕ КОДА, РЕШИЛ ВЫНЕСТИ ОТДЕЛЬНО В ФУНКЦИЮ             РИ ЗА
 				//model = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
-				mod = new loadMODEL('jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg');
-				mod.object();
+				mod = new loadMODEL();
+				mod.object('jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg');
 				// КОНЕЦ ХУЕТЫ
 				
 				//
@@ -101,11 +101,9 @@
 				renderer.render( scene, camera );
 			}
 			// СОБСТВЕННО ФУНКЦИЯ, КОТОРАЯ СВЯЗАНА С ЭТОЙ ХУЕТОЙ (уже сделал откат на первоначально рабочий вариант)
-			loadMODEL = function (source, texture) {
+			loadMODEL = function () {
 
-				this.status = false;
-				this.source = source;
-				this.texture = texture;
+				this.status = false;				
 
 			};
 
@@ -113,20 +111,20 @@
 
 				constructor: loadMODEL,
 
-				object: function () {
+				object: function (source, texture) {
 
 					var model = this;
 
 					// texture
 					var tex = new THREE.Texture();				
 					var load = new THREE.ImageLoader();
-					load.load( this.texture, function ( image ) {
+					load.load( texture, function ( image ) {
 						tex.image = image;
 						tex.needsUpdate = true;
 					} );
 					// model
 					var loader = new THREE.OBJLoader();
-					loader.load( this.source, function ( model ) {
+					loader.load( source, function ( model ) {
 						model.traverse( function ( child ) {
 							if ( child instanceof THREE.Mesh ) {
 								child.material.map = tex;
