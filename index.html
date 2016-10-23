@@ -86,7 +86,11 @@
 				render();
 			}
 			function render() {
-				if (model.status) {model.obj.position.y = - 195;}
+				if (model.status) {
+					console.log('true load model');
+					model.obj.position.y = - 195;					
+				}
+				
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
