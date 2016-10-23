@@ -36,7 +36,7 @@
 		<script>
 			var container;
 			var camera, scene, renderer, model;
-			var statt = false;
+			var statt = 'no';
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
@@ -89,7 +89,7 @@
 			function render() {
 				//if (model.status) {
 				//	console.log('true load model');
-				if (statt) model.obj.position.y = - 195;
+				if (statt=='yes') {model.obj.position.y = - 195;}
 				//}
 				
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
@@ -134,7 +134,7 @@
 					object.position.y = - 95;					
 					scene.add( object );
 					this.obj = object;
-					statt = true;
+					statt = 'yes';
 				}, onProgress, onError );
 				
 			}
