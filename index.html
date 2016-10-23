@@ -35,7 +35,7 @@
 
 		<script>
 			var container;
-			var camera, scene, renderer;
+			var camera, scene, renderer, model;
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
@@ -56,36 +56,7 @@
 				
 				// ВОТ ЗДЕСЬ ХУЕТА ОДНА, ФУНКЦИЮ, КУДА ССЫЛАЕТСЯ, БЫЛА ПРЯМО ЗДЕСЬ ПРОПИСАНА, НО ДЛЯ СЕБЯ, ЧТОБЫ ПРИ
 				// ОБЪЯВЛЕНИИ НОВЫХ ОБЪЕКТОВ НЕ ПИСАТЬ ТОННУ ОДНОГО И ТОГО ЖЕ КОДА, РЕШИЛ ВЫНЕСТИ ОТДЕЛЬНО В ФУНКЦИЮ             РИ ЗА
-				// texture лоад
-				var manager = new THREE.LoadingManager();
-				manager.onProgress = function ( item, loaded, total ) {
-					console.log( item, loaded, total );
-				};
-				var texture = new THREE.Texture();
-				var onProgress = function ( xhr ) {
-					if ( xhr.lengthComputable ) {
-						var percentComplete = xhr.loaded / xhr.total * 100;
-						console.log( Math.round(percentComplete, 2) + '% downloaded' );
-					}
-				};
-				var onError = function ( xhr ) {
-				};
-				var loader = new THREE.ImageLoader( manager );
-				loader.load( 'jsI/UV_Grid_Sm.jpg', function ( image ) {
-					texture.image = image;
-					texture.needsUpdate = true;
-				} );
-				// model лоад
-				var loader = new THREE.OBJLoader( manager );
-				loader.load( 'jsI/male02.obj', function ( object ) {
-					object.traverse( function ( child ) {
-						if ( child instanceof THREE.Mesh ) {
-							child.material.map = texture;
-						}
-					} );
-					object.position.y = - 95;					
-					scene.add( object );
-				}, onProgress, onError );
+				model = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
 				// КОНЕЦ ХУЕТЫ
 				
 				//
@@ -115,14 +86,54 @@
 				render();
 			}
 			function render() {
-				
+				if (model.status) {model.obj.position.y = - 195;}
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
 				renderer.render( scene, camera );
 			}
 			// СОБСТВЕННО ФУНКЦИЯ, КОТОРАЯ СВЯЗАНА С ЭТОЙ ХУЕТОЙ (уже сделал откат на первоначально рабочий вариант)
-			function objResLoad( obj, objURL, texURL ) {
+			function objResLoad( objURL, texURL ) {
+				// texture лоад
+				this.objURL = objURL;
+				this.texURL = texURL;
+				
+				this.status = false;
+				
+				var manager = new THREE.LoadingManager();
+				manager.onProgress = function ( item, loaded, total ) {
+					console.log( item, loaded, total );
+				};
+				var texture = new THREE.Texture();
+				var onProgress = function ( xhr ) {
+					if ( xhr.lengthComputable ) {
+						var percentComplete = xhr.loaded / xhr.total * 100;
+						console.log( Math.round(percentComplete, 2) + '% downloaded' );
+					}
+				};
+				var onError = function ( xhr ) {
+				};
+				var loader = new THREE.ImageLoader( manager );
+				loader.load( this.texURL, function ( image ) {
+					texture.image = image;
+					texture.needsUpdate = true;
+				} );
+				
+				
+				this.obj = new THREE.OBJLoader( manager );
+				this.obj.load( this.objURL, function ( object ) {
+					object.traverse( function ( child ) {
+						if ( child instanceof THREE.Mesh ) {
+							child.material.map = texture;
+						}
+					} );						
+					object.position.y = - 95;					
+					scene.add( object );
+					return {
+						this.obj : object,
+						this.status : true
+					}
+				}, onProgress, onError );
 				
 			}
 		</script>
