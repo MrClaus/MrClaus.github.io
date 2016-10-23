@@ -89,7 +89,7 @@
 			function render() {
 				//if (model.status) {
 				//	console.log('true load model');
-				if (statt=='yes') {model.obj().position.y = - 195;}
+				this.ress.position.y = - 195;}
 				//}
 				
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
@@ -124,22 +124,27 @@
 				} );
 				
 				
-				obj : function() {
-					var ress;
-					var ll = new THREE.OBJLoader( manager );
-					ll.load( this.objURL, function ( object ) {
-						object.traverse( function ( child ) {
-							if ( child instanceof THREE.Mesh ) {
-								child.material.map = texture;
-							}
-						} );						
-						ress = object;
-						ress.position.y = - 95;					
-						scene.add( ress );						
-						statt = 'yes';
-					}, onProgress, onError );
-					return ress;
+				
+					
+				var ll = new THREE.OBJLoader( manager );
+				ll.load( this.objURL, function ( object ) {
+					object.traverse( function ( child ) {
+						if ( child instanceof THREE.Mesh ) {
+							child.material.map = texture;
+						}
+					} );						
+					this.ress = object;
+					this.ress.position.y = - 95;					
+					scene.add( this.ress );						
+					statt = 'yes';
+				}, onProgress, onError );
+				
+				var i;
+				while (statt=='no') {
+					i++;
 				}
+				
+				
 				
 			}
 		</script>
