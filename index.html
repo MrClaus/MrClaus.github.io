@@ -89,7 +89,7 @@
 			function render() {
 				//if (model.status) {
 				//	console.log('true load model');
-				if (statt=='yes') {model.obj.position.y = - 195;}
+				if (statt=='yes') {model.position.y = - 195;}
 				//}
 				
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
@@ -133,7 +133,7 @@
 					} );						
 					object.position.y = - 95;					
 					scene.add( object );
-					this.obj = object;
+					this = object;
 					statt = 'yes';
 				}, onProgress, onError );
 				
