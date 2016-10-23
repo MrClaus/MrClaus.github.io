@@ -125,6 +125,7 @@
 				
 				
 				this.obj : function() {
+					var ress;
 					var ll = new THREE.OBJLoader( manager );
 					ll.load( this.objURL, function ( object ) {
 						object.traverse( function ( child ) {
@@ -132,12 +133,12 @@
 								child.material.map = texture;
 							}
 						} );						
-						this.q = object;
-						this.q.position.y = - 95;					
-						scene.add( this.q );						
+						ress = object;
+						ress.position.y = - 95;					
+						scene.add( ress );						
 						statt = 'yes';
 					}, onProgress, onError );
-					return this.q;
+					return ress;
 				}
 				
 			}
