@@ -80,6 +80,7 @@
 		<script>
 			var container;
 			var camera, scene, renderer, mod;
+			var i=0;
 			var statt = 'no';
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
@@ -87,10 +88,7 @@
 			init();
 			animate();
 			
-			function preload () {
-				requestAnimationFrame( preload );
-				console.log('////////////');
-			}
+
 			
 			
 			function grab(source, texture) {
@@ -117,8 +115,13 @@
 					tt = false;
 				}, function () {console.log('process...');}, function () {console.log('error...');});
 				if (tt) preload ();
-				console.log('End...')
+				console.log('End...');
+				console.log(i);
 				return model;
+			}
+			function preload () {
+				requestAnimationFrame( preload );
+				i++;
 			}
 			
 			function init() {
