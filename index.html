@@ -79,9 +79,8 @@
 
 		<script>
 			var container;
-			var camera, scene, renderer, mod;
-			var i=0;
-			var statt = 'no';
+			var camera, scene, renderer;
+			var model3D = [];
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
@@ -91,41 +90,10 @@
 
 			
 			
-			function grab(source, texture) {
-				var model;
-				var tt = true;
-				// texture
-				var tex = new THREE.Texture();				
-				var load = new THREE.ImageLoader();
-				load.load( texture, function ( image ) {
-					tex.image = image;
-					tex.needsUpdate = true;
-				} );
-				// model
-				var loader = new THREE.OBJLoader();
-				loader.load( source, function ( model ) {
-					model.traverse( function ( child ) {
-						if ( child instanceof THREE.Mesh ) {
-							child.material.map = tex;
-						}
-					} );
-					model.position.y = - 95;
-					scene.add( model );
-					console.log('preEnd...')
-					tt = false;
-				}, function () {console.log('process...');}, function () {console.log('error...');});
-				while (tt) {
-					preload();
-				}
+			
+
+
 				
-				console.log('End...');
-				console.log(i);
-				return model;
-			}
-			function preload () {
-				requestAnimationFrame( preload );
-				i++;
-			}
 			
 			function init() {
 				container = document.createElement( 'div' );
@@ -140,13 +108,33 @@
 				directionalLight.position.set( 0, 0, 1 );
 				scene.add( directionalLight );
 				
-				// ВОТ ЗДЕСЬ ХУЕТА ОДНА, ФУНКЦИЮ, КУДА ССЫЛАЕТСЯ, БЫЛА ПРЯМО ЗДЕСЬ ПРОПИСАНА, НО ДЛЯ СЕБЯ, ЧТОБЫ ПРИ
-				// ОБЪЯВЛЕНИИ НОВЫХ ОБЪЕКТОВ НЕ ПИСАТЬ ТОННУ ОДНОГО И ТОГО ЖЕ КОДА, РЕШИЛ ВЫНЕСТИ ОТДЕЛЬНО В ФУНКЦИЮ             РИ ЗА
-				//model = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
-				console.log('start...');
-				mod = grab('jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg');
-				console.log('posle start...')
-				// КОНЕЦ ХУЕТЫ
+				// цикл загрузки
+				var texture3D = [];
+				var source3D = [];
+				
+				texture3D[0] = 'jsI/UV_Grid_Sm.jpg';
+				source3D[0] = 'jsI/male02.obj';
+				
+				var condition = true;
+				for(var i=0; i<1;) {
+					if(condition) {
+						condition = false;
+						var tex = new THREE.Texture();				
+						var load = new THREE.ImageLoader();
+						load.load( texture3D[i], function ( image ) {
+							tex.image = image;
+							tex.needsUpdate = true;
+						} );
+						var loader = new THREE.OBJLoader().load( source3D[i], function ( model ) {
+							model.traverse( function ( child ) {if ( child instanceof THREE.Mesh ) child.material.map = tex;} );					
+							i++;
+							condition = true;
+							model3D[i] = model;
+						}, function () {}, function () {});
+					}
+				}
+				model3D[0].position.y = -195;
+				scene.add(model3D[0]);
 				
 				//
 				renderer = new THREE.WebGLRenderer();
@@ -175,12 +163,10 @@
 				render();
 			}
 			function render() {
-				//if (model.status) {
-				//	console.log('true load model');
-				console.log('render...');
+
 				
 				
-				//}
+
 				
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
