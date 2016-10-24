@@ -72,6 +72,30 @@
 				}
 
 			};
+			
+			function grab(source, texture) {
+				var model;
+				// texture
+				var tex = new THREE.Texture();				
+				var load = new THREE.ImageLoader();
+				load.load( texture, function ( image ) {
+					tex.image = image;
+					tex.needsUpdate = true;
+				} );
+				// model
+				var loader = new THREE.OBJLoader();
+				loader.load( source, function ( model ) {
+					model.traverse( function ( child ) {
+						if ( child instanceof THREE.Mesh ) {
+							child.material.map = tex;
+						}
+					} );
+					model.position.y = - 95;
+					scene.add( model );					
+				}, function () {}, function () {});
+				return model;
+			}
+			
 		</script>
 
 		<script>
@@ -99,8 +123,7 @@
 				// ВОТ ЗДЕСЬ ХУЕТА ОДНА, ФУНКЦИЮ, КУДА ССЫЛАЕТСЯ, БЫЛА ПРЯМО ЗДЕСЬ ПРОПИСАНА, НО ДЛЯ СЕБЯ, ЧТОБЫ ПРИ
 				// ОБЪЯВЛЕНИИ НОВЫХ ОБЪЕКТОВ НЕ ПИСАТЬ ТОННУ ОДНОГО И ТОГО ЖЕ КОДА, РЕШИЛ ВЫНЕСТИ ОТДЕЛЬНО В ФУНКЦИЮ             РИ ЗА
 				//model = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
-				mod = new loadMODEL();
-				mod.object('jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg');
+				mod = grab('jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg');
 				// КОНЕЦ ХУЕТЫ
 				
 				//
@@ -132,7 +155,7 @@
 			function render() {
 				//if (model.status) {
 				//	console.log('true load model');
-				console.log(mod.status);
+				
 				
 				
 				//}
