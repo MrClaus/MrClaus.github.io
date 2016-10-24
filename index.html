@@ -158,7 +158,7 @@
 						tex.image = image;
 						tex.needsUpdate = true;
 					} );
-					var loader = new THREE.OBJLoader().load( sourcerr3D[i], function ( model ) {
+					var loader = new THREE.OBJLoader().load( sourcerr3D[i], function ( model,i ) {
 						model.traverse( function ( child ) {if ( child instanceof THREE.Mesh ) child.material.map = tex;} );					
 						count++;
 						console.log('loaded ', sourcerr3D[i]);
@@ -169,6 +169,7 @@
 				if (count==3) {
 					modelrr3D[0].position.y = -195;
 					scene.add(modelrr3D[0]);
+					console.log('animate');
 					animate();
 				}
 			
