@@ -73,6 +73,20 @@
 
 			};
 			
+
+			
+		</script>
+
+		<script>
+			var container;
+			var camera, scene, renderer, mod;
+			var statt = 'no';
+			var mouseX = 0, mouseY = 0;
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+			init();
+			animate();
+			
 			function grab(source, texture) {
 				var model;
 				// texture
@@ -96,17 +110,6 @@
 				return model;
 			}
 			
-		</script>
-
-		<script>
-			var container;
-			var camera, scene, renderer, mod;
-			var statt = 'no';
-			var mouseX = 0, mouseY = 0;
-			var windowHalfX = window.innerWidth / 2;
-			var windowHalfY = window.innerHeight / 2;
-			init();
-			animate();
 			function init() {
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
