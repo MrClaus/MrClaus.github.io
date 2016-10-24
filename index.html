@@ -87,8 +87,15 @@
 			init();
 			animate();
 			
+			function preload () {
+				requestAnimationFrame( preload );
+				console.log('////////////');
+			}
+			
+			
 			function grab(source, texture) {
 				var model;
+				var tt = true;
 				// texture
 				var tex = new THREE.Texture();				
 				var load = new THREE.ImageLoader();
@@ -107,8 +114,9 @@
 					model.position.y = - 95;
 					scene.add( model );
 					console.log('preEnd...')
-					return model;
+					tt = false;
 				}, function () {console.log('process...');}, function () {console.log('error...');});
+				if (tt) preload ();
 				console.log('End...')
 				return model;
 			}
