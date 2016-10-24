@@ -81,6 +81,11 @@
 			var container;
 			var camera, scene, renderer;
 			var modelrr3D = [];
+			var texturerr3D = [];
+			var sourcerr3D = [];
+			
+			
+			
 			var mouseX = 0, mouseY = 0;
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
@@ -135,10 +140,13 @@
 			function loadd(
 			
 				// цикл загрузки
-				var texturerr3D = ['jsI/UV_Grid_Sm.jpg', 'jsI/UV_Grid_Sm.jpg', 'jsI/UV_Grid_Sm.jpg'];
-				var sourcerr3D = ['jsI/male02.obj', 'jsI/WaltHead.obj', 'jsI/female02.obj'];
-				
-
+				texturerr3D[0] = 'jsI/UV_Grid_Sm.jpg';
+				texturerr3D[1] = 'jsI/UV_Grid_Sm.jpg';
+				texturerr3D[2] = 'jsI/UV_Grid_Sm.jpg';
+				 
+				sourcerr3D[0] = 'jsI/male02.obj';
+				sourcerr3D[1] = 'jsI/WaltHead.obj';
+				sourcerr3D[2] = 'jsI/female02.obj';
 				
 				var count = 0;
 				for(var i=0; i<3;i++) {
