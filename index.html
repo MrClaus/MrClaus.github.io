@@ -106,8 +106,10 @@
 					} );
 					model.position.y = - 95;
 					scene.add( model );
+					console.log('preEnd...')
 					return model;
-				}, function () {return model;}, function () {return model;});
+				}, function () {console.log('process...');}, function () {console.log('error...');});
+				console.log('End...')
 				return model;
 			}
 			
@@ -127,7 +129,9 @@
 				// ВОТ ЗДЕСЬ ХУЕТА ОДНА, ФУНКЦИЮ, КУДА ССЫЛАЕТСЯ, БЫЛА ПРЯМО ЗДЕСЬ ПРОПИСАНА, НО ДЛЯ СЕБЯ, ЧТОБЫ ПРИ
 				// ОБЪЯВЛЕНИИ НОВЫХ ОБЪЕКТОВ НЕ ПИСАТЬ ТОННУ ОДНОГО И ТОГО ЖЕ КОДА, РЕШИЛ ВЫНЕСТИ ОТДЕЛЬНО В ФУНКЦИЮ             РИ ЗА
 				//model = new objResLoad( 'jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg' );
+				console.log('start...');
 				mod = grab('jsI/male02.obj', 'jsI/UV_Grid_Sm.jpg');
+				console.log('posle start...')
 				// КОНЕЦ ХУЕТЫ
 				
 				//
@@ -159,7 +163,7 @@
 			function render() {
 				//if (model.status) {
 				//	console.log('true load model');
-				
+				console.log('render...');
 				
 				
 				//}
