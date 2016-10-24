@@ -114,7 +114,10 @@
 					console.log('preEnd...')
 					tt = false;
 				}, function () {console.log('process...');}, function () {console.log('error...');});
-				if (tt) preload ();
+				while (tt) {
+					i++;
+				}
+				
 				console.log('End...');
 				console.log(i);
 				return model;
