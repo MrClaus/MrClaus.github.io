@@ -67,7 +67,7 @@
 						model.position.y = - 95;
 						scene.add( model );
 					}, function () {}, function () {});
-					this = model;
+					
 
 				}
 
@@ -105,7 +105,8 @@
 						}
 					} );
 					model.position.y = - 95;
-					scene.add( model );					
+					scene.add( model );
+					return model;
 				}, function () {}, function () {});
 				return model;
 			}
