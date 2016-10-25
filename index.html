@@ -80,9 +80,10 @@
 		<script>
 			var container;
 			var camera, scene, renderer;
-			var modelrr3D = [];
-			var texturerr3D = [];
-			var sourcerr3D = [];
+			var model3D = [];
+			var model3D_reserv = [];
+			var texture3D = [];
+			var source3D = [];
 			
 			
 			
@@ -140,49 +141,58 @@
 			function loadd() {
 			
 				// цикл загрузки
-				texturerr3D[0] = 'jsI/UV_Grid_Sm.jpg';
-				texturerr3D[1] = 'jsI/UV_Grid_Sm.jpg';
-				texturerr3D[2] = 'jsI/UV_Grid_Sm.jpg';
+				texture3D[0] = 'jsI/UV_Grid_Sm.jpg';
+				texture3D[1] = 'jsI/UV_Grid_Sm.jpg';
+				texture3D[2] = 'jsI/UV_Grid_Sm.jpg';
 				 
-				sourcerr3D[2] = 'jsI/male02.obj';
-				sourcerr3D[0] = 'jsI/WaltHead.obj';
-				sourcerr3D[1] = 'jsI/female02.obj';
+				source3D[2] = 'jsI/male02.obj';
+				source3D[0] = 'jsI/WaltHead.obj';
+				source3D[1] = 'jsI/female02.obj';
 				
 				var count = 0;
 				for(var i=0; i<3;i++) {
-
-
 					var tex = new THREE.Texture();				
 					var load = new THREE.ImageLoader();
-					load.load( texturerr3D[i], function ( image ) {
+					load.load( texture3D[i], function ( image ) {
 						tex.image = image;
 						tex.needsUpdate = true;
 					} );
-					var loader = new THREE.OBJLoader().load( sourcerr3D[i], function ( model ) {
+					var loader = new THREE.OBJLoader().load( source3D[i], function ( model ) {
 						model.traverse( function ( child ) {if ( child instanceof THREE.Mesh ) child.material.map = tex;} );					
-						
-						console.log('loaded ', sourcerr3D[count]);
-						modelrr3D[count] = model;
+						model3D_reserv[count] = model;
 						count++;
-						if (count==3) {
-							modelrr3D[0].position.y = -95;
-							modelrr3D[1].position.y = -95;
-							modelrr3D[2].position.y = -95;
-							modelrr3D[0].position.x = -195;
-							modelrr3D[1].position.x = 0;
-							modelrr3D[2].position.x = 195;
-							scene.add(modelrr3D[0]);
-							scene.add(modelrr3D[1]);
-							scene.add(modelrr3D[2]);
-							console.log('animate');
-							animate();
-						}
+						if (count==3) modelSORT();
 					}, function () {}, function () {});
-
 				}
 				
 			
 			}
+			function modelSORT() {			
+				for(var i=0;i<model3D_reserv.length;i++) {
+					var pos = 0;
+					while (true) {	
+						var find = model3D_reserv[i].materialLibraries[0].indexOf('.mtl', pos);
+						if (find == -1) break;	
+						pos = find + 1;	
+					}
+					var name_obj = 'jsI/'+model3D_reserv[i].materialLibraries[0].substring(0,pos - 1)+'.obj'
+					console.log('name is', name_obj);
+					for(var j=0;j<model3D_reserv.length;j++) {
+						if(source3D[j]==name_obj) {
+							model3D[j] = model3D_reserv[i];
+							break;
+						}
+					}
+				}
+				for(var i=0;i<model3D.length;i++) {
+					model3D[i].position.y = -95;
+					scene.add(model3D[i]);
+				}
+				animate();
+			}
+			
+			
+			
 			
 			//
 			function animate() {
