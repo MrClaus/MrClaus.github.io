@@ -159,37 +159,33 @@
 					} );
 					var loader = new THREE.OBJLoader().load( source3D[i], function ( model ) {
 						model.traverse( function ( child ) {if ( child instanceof THREE.Mesh ) child.material.map = tex;} );					
-						model3D_reserv[count] = model;
+						var pos = 0;
+						while (true) {	
+							var find = model.materialLibraries[0].indexOf('.mtl', pos);
+							if (find == -1) break;	
+							pos = find + 1;	
+						}
+						var name_obj = 'jsI/'+model.materialLibraries[0].substring(0,pos - 1)+'.obj'
+						for(var j=0;j<source3D.length;j++) {
+							if(source3D[j]==name_obj) {
+								model3D[j] = model;
+								break;
+							}
+						}
 						count++;
-						if (count==3) modelSORT();
+						if (count==3) {
+							for(var i=0;i<model3D.length;i++) {
+								model3D[i].position.y = -95;
+								scene.add(model3D[i]);
+							}
+							animate();
+						}
 					}, function () {}, function () {});
 				}
 				
 			
 			}
-			function modelSORT() {			
-				for(var i=0;i<model3D_reserv.length;i++) {
-					var pos = 0;
-					while (true) {	
-						var find = model3D_reserv[i].materialLibraries[0].indexOf('.mtl', pos);
-						if (find == -1) break;	
-						pos = find + 1;	
-					}
-					var name_obj = 'jsI/'+model3D_reserv[i].materialLibraries[0].substring(0,pos - 1)+'.obj'
-					console.log('name is', name_obj);
-					for(var j=0;j<model3D_reserv.length;j++) {
-						if(source3D[j]==name_obj) {
-							model3D[j] = model3D_reserv[i];
-							break;
-						}
-					}
-				}
-				for(var i=0;i<model3D.length;i++) {
-					model3D[i].position.y = -95;
-					scene.add(model3D[i]);
-				}
-				animate();
-			}
+
 			
 			
 			
