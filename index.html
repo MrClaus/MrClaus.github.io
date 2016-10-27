@@ -79,6 +79,8 @@
 
 		<script>
 			var container;
+			var canvas;
+			var ctx;
 			var camera, scene, renderer;
 			var model3D = [];
 			var model3D_reserv = [];
@@ -107,6 +109,16 @@
 			function init() {
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
+				
+				
+				// Create the canvas
+				canvas = document.createElement('canvas');
+				ctx = canvas.getContext('2d');
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				document.body.appendChild(canvas);
+				
+				
 				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
 				camera.position.z = 250;
 				// scene
@@ -196,7 +208,7 @@
 			
 			//
 			function animate() {
-				drawImage(bg,0,0,1024,1024,0,0,256,256);
+				ctx.drawImage(bg,0,0,1024,1024,0,0,256,256);
 				requestAnimationFrame( animate );
 				render();
 			}
