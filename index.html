@@ -84,6 +84,9 @@
 			var model3D_reserv = [];
 			var texture3D = [];
 			var source3D = [];
+			// Загрузка ресурсов - картинок
+			var bg = new Image();
+			bg.src = "UV_Grid_Sm.jpg";
 			
 			
 			
@@ -193,6 +196,7 @@
 			
 			//
 			function animate() {
+				drawImage(bg,0,0,1024,1024,0,0,256,256);
 				requestAnimationFrame( animate );
 				render();
 			}
