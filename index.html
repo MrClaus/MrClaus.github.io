@@ -33,6 +33,7 @@
 		<script src="jsI/three.js"></script>
 		<script src="jsI/OBJLoader.js"></script>
 		<script src="jsI/AnaglyphEffect.js"></script>
+		<script src="jsI/VREffect.js"></script>
 		<script>
 			// СОБСТВЕННО ФУНКЦИЯ, КОТОРАЯ СВЯЗАНА С ЭТОЙ ХУЕТОЙ (уже сделал откат на первоначально рабочий вариант)
 			loadMODEL = function () {
@@ -134,7 +135,7 @@
 				container.appendChild( renderer.domElement );
 				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				//
-				effect = new THREE.AnaglyphEffect( renderer );
+				effect = new THREE.VREffect( renderer );
 				effect.setSize( window.innerWidth, window.innerHeight );
 				
 				window.addEventListener( 'resize', onWindowResize, false );
