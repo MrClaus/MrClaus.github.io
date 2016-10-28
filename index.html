@@ -79,16 +79,15 @@
 
 		<script>
 			var container;
-			var canvas;
-			var ctx;
+			var effect;
+			
 			var camera, scene, renderer;
 			var model3D = [];
 			var model3D_reserv = [];
 			var texture3D = [];
 			var source3D = [];
 			// Загрузка ресурсов - картинок
-			var bg = new Image();
-			bg.src = "jsI/UV_Grid_Sm.jpg";
+			
 			
 			
 			
@@ -112,12 +111,7 @@
 				
 				
 				// Create the canvas
-				canvas = document.createElement('canvas');
-				ctx = canvas.getContext('2d');
-				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
-				document.body.appendChild(canvas);
-				container.appendChild( canvas );
+				
 				
 				
 				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
@@ -139,6 +133,8 @@
 				container.appendChild( renderer.domElement );
 				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				//
+				effect = new THREE.AnaglyphEffect( renderer );
+				effect.setSize( window.innerWidth, window.innerHeight );
 				
 				window.addEventListener( 'resize', onWindowResize, false );
 			}
@@ -147,6 +143,7 @@
 				windowHalfY = window.innerHeight / 2;
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
+				effect.setSize( window.innerWidth, window.innerHeight );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 			}
 			function onDocumentMouseMove( event ) {
@@ -209,7 +206,7 @@
 			
 			//
 			function animate() {
-				ctx.drawImage(bg,0,0,1024,1024,0,0,256,256);
+				
 				requestAnimationFrame( animate );
 				render();
 			}
@@ -222,7 +219,8 @@
 				camera.position.x += ( mouseX - camera.position.x ) * .05;
 				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
-				renderer.render( scene, camera );
+				//renderer.render( scene, camera );
+				effect.render( scene, camera );
 			}
 
 
