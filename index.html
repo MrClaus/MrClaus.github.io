@@ -64,20 +64,42 @@
 
 			var container, stats;
 			var camera, scene, renderer;
-			var clock = new THREE.Clock();	
+			var clock = new THREE.Clock();
 			
+			
+			// to new
+			var bloomPass;
+			var params;
+			var hdrEffectComposer;
+			var cameraCube, sceneCube;
+			var directionalLight;
 
 
 			init();
 			animate();
 
 			function init() {
+				
+				// to new
+				params = {
+					bloomAmount: 1.0,
+					sunLight: 4.0,
+					enabled: true,
+					avgLuminance: 0.7,
+					middleGrey: 0.04,
+					maxLuminance: 16,
+					adaptionRate: 2.0,
+				};
 
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 				// camera
-				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 15000 );
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 100000 );
 				camera.position.z = 250;
+				
+				// to new
+				cameraCube = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
+				
 				controls = new THREE.FlyControls( camera );
 				controls.movementSpeed = 2500;
 				controls.domElement = container;
@@ -88,6 +110,10 @@
 				scene = new THREE.Scene();
 				scene.fog = new THREE.Fog( 0x000000, 3500, 15000 );
 				scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
+				
+				// to new
+				sceneCube = new THREE.Scene();
+				
 				// world
 				var s = 250;
 				var cube = new THREE.BoxGeometry( s, s, s );
@@ -136,15 +162,155 @@
 					lensFlare.position.copy( light.position );
 					scene.add( lensFlare );
 				}
+				
+				
+				// to new							
+				var atmoShader = {
+					side: THREE.BackSide,
+					// blending: THREE.AdditiveBlending,
+					transparent: true,
+					lights: true,
+					uniforms: THREE.UniformsUtils.merge( [
+						THREE.UniformsLib[ "common" ],
+						THREE.UniformsLib[ "lights" ]
+					] ),
+					vertexShader: [
+						"varying vec3 vViewPosition;",
+						"varying vec3 vNormal;",
+						"void main() {",
+							THREE.ShaderChunk[ "beginnormal_vertex" ],
+							THREE.ShaderChunk[ "defaultnormal_vertex" ],
+							"	vNormal = normalize( transformedNormal );",
+							"vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );",
+							"vViewPosition = -mvPosition.xyz;",
+							"gl_Position = projectionMatrix * mvPosition;",
+						"}"
+					].join("\n"),
+					fragmentShader: [
+						THREE.ShaderChunk[ "common" ],
+						THREE.ShaderChunk[ "bsdfs" ],
+						THREE.ShaderChunk[ "lights_pars" ],
+						THREE.ShaderChunk[ "lights_phong_pars_fragment" ],
+						"void main() {",
+							"vec3 normal = normalize( -vNormal );",
+							"vec3 viewPosition = normalize( vViewPosition );",
+							"#if NUM_DIR_LIGHTS > 0",
+								"vec3 dirDiffuse = vec3( 0.0 );",
+								"for( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {",
+									"vec4 lDirection = viewMatrix * vec4( directionalLights[i].direction, 0.0 );",
+									"vec3 dirVector = normalize( lDirection.xyz );",
+									"float dotProduct = dot( viewPosition, dirVector );",
+									"dotProduct = 1.0 * max( dotProduct, 0.0 ) + (1.0 - max( -dot( normal, dirVector ), 0.0 ));",
+									"dotProduct *= dotProduct;",
+									"dirDiffuse += max( 0.5 * dotProduct, 0.0 ) * directionalLights[i].color;",
+								"}",
+							"#endif",
+							//Fade out atmosphere at edge
+							"float viewDot = abs(dot( normal, viewPosition ));",
+							"viewDot = clamp( pow( viewDot + 0.6, 10.0 ), 0.0, 1.0);",
+							"vec3 colour = vec3( 0.05, 0.09, 0.13 ) * dirDiffuse;",
+							"gl_FragColor = vec4( colour, viewDot );",
+						"}"
+					].join("\n"),
+				};
+				var earthAtmoMat = new THREE.ShaderMaterial( atmoShader );
+				var earthMat = new THREE.MeshPhongMaterial( {
+					color: 0xffffff,
+					shininess: 200
+				} );				
+				var earthDiffuse = textureLoader.load( 'js/earth_atmos_4096.jpg', function( tex ) {
+					earthMat.map = tex;
+					earthMat.needsUpdate = true;
+				} );
+				var earthSpecular = textureLoader.load( 'js/earth_specular_2048.jpg', function( tex ) {
+					earthMat.specularMap = tex;
+					earthMat.needsUpdate = true;
+				} );
+				var earthLightsMat = new THREE.MeshBasicMaterial( {
+					color: 0xffffff,
+					blending: THREE.AdditiveBlending,
+					transparent: true,
+					depthTest: false
+				} );
+				var earthLights = textureLoader.load( 'js/earth_lights_2048.png', function( tex ) {
+					earthLightsMat.map = tex;
+					earthLightsMat.needsUpdate = true;
+				} );
+				var earthCloudsMat = new THREE.MeshLambertMaterial( {
+					color: 0xffffff,
+					blending: THREE.NormalBlending,
+					transparent: true,
+					depthTest: false
+				} );
+				var earthClouds = textureLoader.load( 'js/earth_clouds_2048.png', function( tex ) {
+					earthCloudsMat.map = tex;
+					earthCloudsMat.needsUpdate = true;
+				} );
+				var earthGeo = new THREE.SphereGeometry( 100, 24, 24 );
+				var sphereMesh = new THREE.Mesh( earthGeo, earthMat );
+				//scene.add( sphereMesh );
+				var sphereLightsMesh = new THREE.Mesh( earthGeo, earthLightsMat );
+				//scene.add( sphereLightsMesh );
+				var sphereCloudsMesh = new THREE.Mesh( earthGeo, earthCloudsMat );
+				//scene.add( sphereCloudsMesh );
+				var sphereAtmoMesh = new THREE.Mesh( earthGeo, earthAtmoMat );
+				sphereAtmoMesh.scale.set( 1.05, 1.05, 1.05 );
+				//scene.add( sphereAtmoMesh );
+				var r = "js/";
+				var urls = [ r + "dark-s_px.jpg", r + "dark-s_px.jpg",
+							 r + "dark-s_px.jpg", r + "dark-s_px.jpg",
+							 r + "dark-s_px.jpg", r + "dark-s_px.jpg" ];
+				var textureCube = new THREE.CubeTextureLoader().load( urls );
+				textureCube.format = THREE.RGBFormat;
+				var skyboxShader = THREE.ShaderLib[ "cube" ];
+				skyboxShader.uniforms[ "tCube" ].value = textureCube;
+				var skyboxMaterial = new THREE.ShaderMaterial( {
+					fragmentShader: skyboxShader.fragmentShader,
+					vertexShader: skyboxShader.vertexShader,
+					uniforms: skyboxShader.uniforms,
+					depthWrite: false,
+					side: THREE.BackSide
+				} ),
+				mesh = new THREE.Mesh( new THREE.BoxGeometry( 100, 100, 100 ), skyboxMaterial );
+				sceneCube.add( mesh );
+				
+				
 				// renderer
 				renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 				renderer.setClearColor( scene.fog.color );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				container.appendChild( renderer.domElement );
-				//
+				
+				// to new
+				renderer.setFaceCulling( THREE.CullFaceNone );
+				renderer.autoClear = false;
+				
 				renderer.gammaInput = true;
-				renderer.gammaOutput = true;
+				renderer.gammaOutput = true;				
+				container.appendChild( renderer.domElement );
+				
+				
+				// to new
+				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
+				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
+					parameters.type = THREE.FloatType;
+				}
+				var hdrRenderTarget = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, parameters );
+				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
+				var scenePass = new THREE.RenderPass( scene, camera, undefined, undefined, undefined );
+				var skyboxPass = new THREE.RenderPass( sceneCube, cameraCube );
+				scenePass.clear = false;
+				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
+				bloomPass = new THREE.BloomPass();
+				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
+				gammaCorrectionPass.renderToScreen = true;
+				hdrEffectComposer.addPass( skyboxPass );
+				hdrEffectComposer.addPass( scenePass );
+				hdrEffectComposer.addPass( hdrToneMappingPass );
+				hdrEffectComposer.addPass( bloomPass );
+				hdrEffectComposer.addPass( gammaCorrectionPass );
+				
+
 				// stats
 				stats = new Stats();
 				container.appendChild( stats.dom );
@@ -157,6 +323,10 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
+				
+				// to new
+				cameraCube.aspect = window.innerWidth / window.innerHeight;
+				cameraCube.updateProjectionMatrix();
 			}
 			
 			function lensFlareUpdateCallback( object ) {
@@ -177,6 +347,16 @@
 			function animate() {
 
 				requestAnimationFrame( animate );
+				
+				
+				// to new
+				bloomPass.copyUniforms[ "opacity" ].value = params.bloomAmount;
+				hdrToneMappingPass.enabled = params.enabled;
+				hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
+				hdrToneMappingPass.setMiddleGrey( params.middleGrey );
+				hdrToneMappingPass.setAverageLuminance( params.avgLuminance );
+				
+				
 				render();
 				stats.update();
 
