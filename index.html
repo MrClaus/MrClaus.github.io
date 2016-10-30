@@ -248,14 +248,14 @@
 				} );
 				var earthGeo = new THREE.SphereGeometry( 100, 24, 24 );
 				var sphereMesh = new THREE.Mesh( earthGeo, earthMat );
-				//scene.add( sphereMesh );
+				scene.add( sphereMesh );
 				var sphereLightsMesh = new THREE.Mesh( earthGeo, earthLightsMat );
-				//scene.add( sphereLightsMesh );
+				scene.add( sphereLightsMesh );
 				var sphereCloudsMesh = new THREE.Mesh( earthGeo, earthCloudsMat );
-				//scene.add( sphereCloudsMesh );
+				scene.add( sphereCloudsMesh );
 				var sphereAtmoMesh = new THREE.Mesh( earthGeo, earthAtmoMat );
 				sphereAtmoMesh.scale.set( 1.05, 1.05, 1.05 );
-				//scene.add( sphereAtmoMesh );
+				scene.add( sphereAtmoMesh );
 				var r = "js/";
 				var urls = [ r + "dark-s_px.jpg", r + "dark-s_px.jpg",
 							 r + "dark-s_px.jpg", r + "dark-s_px.jpg",
