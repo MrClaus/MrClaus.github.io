@@ -305,10 +305,6 @@
 				hdrEffectComposer.addPass( bloomPass );
 				hdrEffectComposer.addPass( gammaCorrectionPass );
 
-				var gammaPass = new THREE.ShaderPass( THREE.GammaShader );
-				gammaPass.renderToScreen = true;
-				hdrEffectComposer.addPass( gammaPass );
-
 
 				var gui = new dat.GUI();
 
@@ -349,11 +345,8 @@
 			function animate() {
 
 				requestAnimationFrame( animate );
-				if ( bloomPass ) {
-					bloomPass.copyUniforms[ "opacity" ].value = params.bloomAmount;
-				}
-
-
+				
+				bloomPass.copyUniforms[ "opacity" ].value = params.bloomAmount;
 				hdrToneMappingPass.enabled = params.enabled;
 				hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
 				hdrToneMappingPass.setMiddleGrey( params.middleGrey );
