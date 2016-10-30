@@ -74,11 +74,6 @@
 
 			var orbitControls;
 
-			var windowHalfX = window.innerWidth / 2;
-			var windowHalfY = window.innerHeight / 2;
-
-			var windowThirdX = window.innerWidth / 3;
-			var windowThirdY = window.innerHeight / 3;
 
 			init();
 			animate();
@@ -102,11 +97,11 @@
 
 				// CAMERAS
 
-				camera = new THREE.PerspectiveCamera( 70, windowThirdX / window.innerHeight, 0.1, 100000 );
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 100000 );
 				camera.position.x = 700;
 				camera.position.y = 400;
 				camera.position.z = 800;
-				cameraCube = new THREE.PerspectiveCamera( 70, windowThirdX / window.innerHeight, 1, 100000 );
+				cameraCube = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
 
 				orbitControls = new THREE.OrbitControls( camera, container );
 				orbitControls.autoRotate = true;
@@ -286,15 +281,13 @@
 
 				container.appendChild( renderer.domElement );
 
-				// var width = window.innerWidth || 1;
-				var height = window.innerHeight || 1;
-
+				
 				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
 
 				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
 					parameters.type = THREE.FloatType;
 				}
-				var hdrRenderTarget = new THREE.WebGLRenderTarget( windowThirdX, height, parameters );
+				var hdrRenderTarget = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, parameters );
 				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
 
 				var scenePass = new THREE.RenderPass( scene, camera, undefined, undefined, undefined );
@@ -343,15 +336,10 @@
 
 			function onWindowResize() {
 
-				windowHalfX = window.innerWidth / 2;
-				windowHalfY = window.innerHeight / 2;
-				windowThirdX = window.innerWidth / 3;
-				windowThirdY = window.innerHeight / 3;
-
-				camera.aspect = windowThirdX / window.innerHeight;
+				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
 
-				cameraCube.aspect = windowThirdX / window.innerHeight;
+				cameraCube.aspect = window.innerWidth / window.innerHeight;
 				cameraCube.updateProjectionMatrix();
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
@@ -387,7 +375,7 @@
 				camera.lookAt( scene.position );
 				cameraCube.rotation.copy( camera.rotation );
 
-				renderer.setViewport( windowThirdX, 0, windowThirdX, window.innerHeight );
+				renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
 				hdrEffectComposer.render( 0.017 );
 
 			}
