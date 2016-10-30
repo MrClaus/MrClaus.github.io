@@ -354,15 +354,15 @@
 				var height = window.innerHeight || 1;
 
 				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
-				var regularRenderTarget = new THREE.WebGLRenderTarget( windowThirdX, height, parameters );
-				ldrEffectComposer = new THREE.EffectComposer( renderer, regularRenderTarget );
+				//-var regularRenderTarget = new THREE.WebGLRenderTarget( windowThirdX, height, parameters );
+				//-ldrEffectComposer = new THREE.EffectComposer( renderer, regularRenderTarget );
 
 				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
 					parameters.type = THREE.FloatType;
 				}
 				var hdrRenderTarget = new THREE.WebGLRenderTarget( windowThirdX, height, parameters );
-				dynamicHdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
-				dynamicHdrEffectComposer.setSize( window.innerWidth, window.innerHeight );
+				//-dynamicHdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
+				//-dynamicHdrEffectComposer.setSize( window.innerWidth, window.innerHeight );
 				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
 
 				var debugPass = new THREE.RenderPass( debugScene, cameraBG );
@@ -371,7 +371,7 @@
 				var skyboxPass = new THREE.RenderPass( sceneCube, cameraCube );
 				scenePass.clear = false;
 
-				adaptToneMappingPass = new THREE.AdaptiveToneMappingPass( true, 256 );
+				//-adaptToneMappingPass = new THREE.AdaptiveToneMappingPass( true, 256 );
 				//-adaptToneMappingPass.needsSwap = true;
 				//-ldrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
