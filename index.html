@@ -306,6 +306,11 @@
 				var textureFlare2 = textureLoader.load( "js/lensflare2.png" );
 				var textureFlare3 = textureLoader.load( "js/lensflare3.png" );
 				
+				var light = new THREE.PointLight( 0xffffff, 1.5, 2000 );
+				light.color.setHSL( 0.995, 0.5, 0,999 );
+				light.position.set( 5000, 0, -1000 );
+				scene.add( light );
+				
 				var flareColor = new THREE.Color( 0xffffff );
 				flareColor.setHSL( 0.995, 0.5, 0,999 );
 				var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
