@@ -371,7 +371,7 @@
 				var skyboxPass = new THREE.RenderPass( sceneCube, cameraCube );
 				scenePass.clear = false;
 
-				//-adaptToneMappingPass = new THREE.AdaptiveToneMappingPass( true, 256 );
+				adaptToneMappingPass = new THREE.AdaptiveToneMappingPass( true, 256 );
 				//-adaptToneMappingPass.needsSwap = true;
 				//-ldrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
