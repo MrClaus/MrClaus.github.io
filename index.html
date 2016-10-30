@@ -372,19 +372,19 @@
 				scenePass.clear = false;
 
 				adaptToneMappingPass = new THREE.AdaptiveToneMappingPass( true, 256 );
-				adaptToneMappingPass.needsSwap = true;
-				ldrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
+				//-adaptToneMappingPass.needsSwap = true;
+				//-ldrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				bloomPass = new THREE.BloomPass();
 				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
 				gammaCorrectionPass.renderToScreen = true;
 
-				dynamicHdrEffectComposer.addPass( skyboxPass );
-				dynamicHdrEffectComposer.addPass( scenePass );
-				dynamicHdrEffectComposer.addPass( adaptToneMappingPass );
+				//-dynamicHdrEffectComposer.addPass( skyboxPass );
+				//-dynamicHdrEffectComposer.addPass( scenePass );
+				//-dynamicHdrEffectComposer.addPass( adaptToneMappingPass );
 				// dynamicHdrEffectComposer.addPass( debugPass );
-				dynamicHdrEffectComposer.addPass( bloomPass );
-				dynamicHdrEffectComposer.addPass( gammaCorrectionPass );
+				//-dynamicHdrEffectComposer.addPass( bloomPass );
+				//-dynamicHdrEffectComposer.addPass( gammaCorrectionPass );
 
 				hdrEffectComposer.addPass( skyboxPass );
 				hdrEffectComposer.addPass( scenePass );
@@ -392,11 +392,11 @@
 				hdrEffectComposer.addPass( bloomPass );
 				hdrEffectComposer.addPass( gammaCorrectionPass );
 
-				ldrEffectComposer.addPass( skyboxPass );
-				ldrEffectComposer.addPass( scenePass );
-				ldrEffectComposer.addPass( ldrToneMappingPass );
-				ldrEffectComposer.addPass( bloomPass );
-				ldrEffectComposer.addPass( gammaCorrectionPass );
+				//-ldrEffectComposer.addPass( skyboxPass );
+				//-ldrEffectComposer.addPass( scenePass );
+				//-ldrEffectComposer.addPass( ldrToneMappingPass );
+				//-ldrEffectComposer.addPass( bloomPass );
+				//-ldrEffectComposer.addPass( gammaCorrectionPass );
 
 				// var gammaPass = new THREE.ShaderPass( GammaShader );
 				// gammaPass.renderToScreen = true;
