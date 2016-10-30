@@ -452,13 +452,13 @@
 				}
 
 				if ( adaptToneMappingPass ) {
-					adaptToneMappingPass.setAdaptionRate( params.adaptionRate );
-					adaptiveLuminanceMat.uniforms.map.value = adaptToneMappingPass.luminanceRT;
-					currentLuminanceMat.uniforms.map.value = adaptToneMappingPass.currentLuminanceRT;
+					//-adaptToneMappingPass.setAdaptionRate( params.adaptionRate );
+					//-adaptiveLuminanceMat.uniforms.map.value = adaptToneMappingPass.luminanceRT;
+					//-currentLuminanceMat.uniforms.map.value = adaptToneMappingPass.currentLuminanceRT;
 
-					adaptToneMappingPass.enabled = params.enabled;
-					adaptToneMappingPass.setMaxLuminance( params.maxLuminance );
-					adaptToneMappingPass.setMiddleGrey( params.middleGrey );
+					//-adaptToneMappingPass.enabled = params.enabled;
+					//-adaptToneMappingPass.setMaxLuminance( params.maxLuminance );
+					//-adaptToneMappingPass.setMiddleGrey( params.middleGrey );
 
 					hdrToneMappingPass.enabled = params.enabled;
 					hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
@@ -467,12 +467,12 @@
 						hdrToneMappingPass.setAverageLuminance( params.avgLuminance );
 					}
 
-					ldrToneMappingPass.enabled = params.enabled;
-					ldrToneMappingPass.setMaxLuminance( params.maxLuminance );
-					ldrToneMappingPass.setMiddleGrey( params.middleGrey );
-					if ( ldrToneMappingPass.setAverageLuminance ) {
-						ldrToneMappingPass.setAverageLuminance( params.avgLuminance );
-					}
+					//-ldrToneMappingPass.enabled = params.enabled;
+					//-ldrToneMappingPass.setMaxLuminance( params.maxLuminance );
+					//-ldrToneMappingPass.setMiddleGrey( params.middleGrey );
+					//-if ( ldrToneMappingPass.setAverageLuminance ) {
+					//-	ldrToneMappingPass.setAverageLuminance( params.avgLuminance );
+					//-}
 				}
 
 				directionalLight.intensity = params.sunLight;
@@ -488,14 +488,14 @@
 				camera.lookAt( scene.position );
 				cameraCube.rotation.copy( camera.rotation );
 
-				//renderer.setViewport( 0, 0, windowThirdX, window.innerHeight );
-				//ldrEffectComposer.render( 0.017 );
+				//-renderer.setViewport( 0, 0, windowThirdX, window.innerHeight );
+				//-ldrEffectComposer.render( 0.017 );
 
 				renderer.setViewport( windowThirdX, 0, windowThirdX, window.innerHeight );
 				hdrEffectComposer.render( 0.017 );
 
-				//renderer.setViewport( windowThirdX * 2, 0, windowThirdX, window.innerHeight );
-				//dynamicHdrEffectComposer.render( 0.017 );
+				//-renderer.setViewport( windowThirdX * 2, 0, windowThirdX, window.innerHeight );
+				//-dynamicHdrEffectComposer.render( 0.017 );
 
 			}
 
