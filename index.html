@@ -305,7 +305,7 @@
 				hdrEffectComposer.addPass( bloomPass );
 				hdrEffectComposer.addPass( gammaCorrectionPass );
 
-				var gammaPass = new THREE.ShaderPass( GammaShader );
+				var gammaPass = new THREE.ShaderPass( THREE.GammaShader );
 				gammaPass.renderToScreen = true;
 				hdrEffectComposer.addPass( gammaPass );
 
