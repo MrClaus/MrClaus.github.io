@@ -355,6 +355,7 @@
 				hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
 				hdrToneMappingPass.setMiddleGrey( params.middleGrey );
 				hdrToneMappingPass.setAverageLuminance( params.avgLuminance );
+				dirLight.intensity = params.sunLight;
 				
 				
 				render();
