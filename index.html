@@ -254,66 +254,66 @@
 				sphereAtmoMesh.scale.set( 1.05, 1.05, 1.05 );
 				scene.add( sphereAtmoMesh );
 
-				var vBGShader = [
+				//-var vBGShader = [
 					// "attribute vec2 uv;",
-					"varying vec2 vUv;",
-					"void main() {",
-						"vUv = uv;",
-						"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-					"}"
+				//-	"varying vec2 vUv;",
+				//-	"void main() {",
+				//-		"vUv = uv;",
+				//-		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+				//-	"}"
 
-				].join("\n");
+				//-].join("\n");
 
-				var pBGShader = [
+				//-var pBGShader = [
 
-					"uniform sampler2D map;",
-					"varying vec2 vUv;",
+				//-	"uniform sampler2D map;",
+				//-	"varying vec2 vUv;",
 
-					"void main() {",
+				//-	"void main() {",
 
-						"vec2 sampleUV = vUv;",
-						"vec4 colour = texture2D( map, sampleUV, 0.0 );",
+				//-		"vec2 sampleUV = vUv;",
+				//-		"vec4 colour = texture2D( map, sampleUV, 0.0 );",
 
-						"gl_FragColor = vec4( colour.xyz, 1.0 );",
+				//-		"gl_FragColor = vec4( colour.xyz, 1.0 );",
 
-					"}"
+				//-	"}"
 
-				].join("\n");
+				//-].join("\n");
 
 				// Skybox
-				adaptiveLuminanceMat = new THREE.ShaderMaterial( {
-					uniforms: {
-						map: { value: null }
-					},
-					vertexShader: vBGShader,
-					fragmentShader: pBGShader,
-					depthTest: false,
+				//-adaptiveLuminanceMat = new THREE.ShaderMaterial( {
+				//-	uniforms: {
+				//-		map: { value: null }
+				//-	},
+				//-	vertexShader: vBGShader,
+				//-	fragmentShader: pBGShader,
+				//-	depthTest: false,
 					// color: 0xffffff
-					blending: THREE.NoBlending
-				} );
+				//-	blending: THREE.NoBlending
+				//-} );
 
-				currentLuminanceMat = new THREE.ShaderMaterial( {
-					uniforms: {
-						map: { value: null }
-					},
-					vertexShader: vBGShader,
-					fragmentShader: pBGShader,
-					depthTest: false,
+				//-currentLuminanceMat = new THREE.ShaderMaterial( {
+				//-	uniforms: {
+				//-		map: { value: null }
+				//-	},
+				//-	vertexShader: vBGShader,
+				//-	fragmentShader: pBGShader,
+				//-	depthTest: false,
 					// color: 0xffffff
 					// blending: THREE.NoBlending
-				} );
+				//-} );
 
-				var quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), currentLuminanceMat );
-				quadBG.position.z = -500;
-				quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.05;
-				quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
-				debugScene.add( quadBG );
+				//-var quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), currentLuminanceMat );
+				//-quadBG.position.z = -500;
+				//-quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.05;
+				//-quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
+				//-debugScene.add( quadBG );
 
-				quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), adaptiveLuminanceMat );
-				quadBG.position.z = -500;
-				quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.15;
-				quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
-				debugScene.add( quadBG );
+				//-quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), adaptiveLuminanceMat );
+				//-quadBG.position.z = -500;
+				//-quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.15;
+				//-quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
+				//-debugScene.add( quadBG );
 
 				var r = "js/";
 				var urls = [ r + "dark-s_px.jpg", r + "dark-s_nx.jpg",
