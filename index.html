@@ -366,7 +366,11 @@
 
 				var delta = clock.getDelta();
 				controls.update( delta );
-				renderer.render( scene, camera );
+				//renderer.render( scene, camera );
+				
+				// to new
+				renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
+				hdrEffectComposer.render( 0.017 );
 
 			}
 
