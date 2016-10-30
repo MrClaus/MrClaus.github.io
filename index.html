@@ -103,9 +103,15 @@
 				camera.position.z = 250;
 				cameraCube = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
 
-				orbitControls = new THREE.OrbitControls( camera, container );
-				orbitControls.autoRotate = true;
-				orbitControls.autoRotateSpeed = 1;
+				//-orbitControls = new THREE.OrbitControls( camera, container );
+				//-orbitControls.autoRotate = true;
+				//-orbitControls.autoRotateSpeed = 1;
+				controls = new THREE.FlyControls( camera );
+				controls.movementSpeed = 2500;
+				controls.domElement = container;
+				controls.rollSpeed = Math.PI / 6;
+				controls.autoForward = false;
+				controls.dragToLook = false;
 
 				// SCENE
 
@@ -395,9 +401,9 @@
 				//-}
 
 
-				directionalLight.intensity = params.sunLight;
+				//-directionalLight.intensity = params.sunLight;
 
-				orbitControls.update();
+				//-orbitControls.update();
 
 				render();
 
@@ -405,8 +411,11 @@
 
 			function render() {
 
-				camera.lookAt( scene.position );
-				cameraCube.rotation.copy( camera.rotation );
+				//-camera.lookAt( scene.position );
+				//-cameraCube.rotation.copy( camera.rotation );
+				
+				var delta = clock.getDelta();
+				controls.update( delta );
 
 				renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
 				hdrEffectComposer.render( 0.017 );
