@@ -108,9 +108,6 @@
 				camera.position.z = 800;
 				cameraCube = new THREE.PerspectiveCamera( 70, windowThirdX / window.innerHeight, 1, 100000 );
 
-				//-cameraBG = new THREE.OrthographicCamera( -windowHalfX, windowHalfX, windowHalfY, -windowHalfY, -10000, 10000 );
-				//-cameraBG.position.z = 100;
-
 				orbitControls = new THREE.OrbitControls( camera, container );
 				orbitControls.autoRotate = true;
 				orbitControls.autoRotateSpeed = 1;
@@ -119,7 +116,6 @@
 
 				scene = new THREE.Scene();
 				sceneCube = new THREE.Scene();
-				//-debugScene = new THREE.Scene();
 
 				// LIGHTS
 
@@ -254,66 +250,6 @@
 				sphereAtmoMesh.scale.set( 1.05, 1.05, 1.05 );
 				scene.add( sphereAtmoMesh );
 
-				//-var vBGShader = [
-					// "attribute vec2 uv;",
-				//-	"varying vec2 vUv;",
-				//-	"void main() {",
-				//-		"vUv = uv;",
-				//-		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-				//-	"}"
-
-				//-].join("\n");
-
-				//-var pBGShader = [
-
-				//-	"uniform sampler2D map;",
-				//-	"varying vec2 vUv;",
-
-				//-	"void main() {",
-
-				//-		"vec2 sampleUV = vUv;",
-				//-		"vec4 colour = texture2D( map, sampleUV, 0.0 );",
-
-				//-		"gl_FragColor = vec4( colour.xyz, 1.0 );",
-
-				//-	"}"
-
-				//-].join("\n");
-
-				// Skybox
-				//-adaptiveLuminanceMat = new THREE.ShaderMaterial( {
-				//-	uniforms: {
-				//-		map: { value: null }
-				//-	},
-				//-	vertexShader: vBGShader,
-				//-	fragmentShader: pBGShader,
-				//-	depthTest: false,
-					// color: 0xffffff
-				//-	blending: THREE.NoBlending
-				//-} );
-
-				//-currentLuminanceMat = new THREE.ShaderMaterial( {
-				//-	uniforms: {
-				//-		map: { value: null }
-				//-	},
-				//-	vertexShader: vBGShader,
-				//-	fragmentShader: pBGShader,
-				//-	depthTest: false,
-					// color: 0xffffff
-					// blending: THREE.NoBlending
-				//-} );
-
-				//-var quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), currentLuminanceMat );
-				//-quadBG.position.z = -500;
-				//-quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.05;
-				//-quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
-				//-debugScene.add( quadBG );
-
-				//-quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), adaptiveLuminanceMat );
-				//-quadBG.position.z = -500;
-				//-quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.15;
-				//-quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
-				//-debugScene.add( quadBG );
 
 				var r = "js/";
 				var urls = [ r + "dark-s_px.jpg", r + "dark-s_nx.jpg",
@@ -354,49 +290,28 @@
 				var height = window.innerHeight || 1;
 
 				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
-				//-var regularRenderTarget = new THREE.WebGLRenderTarget( windowThirdX, height, parameters );
-				//-ldrEffectComposer = new THREE.EffectComposer( renderer, regularRenderTarget );
 
 				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
 					parameters.type = THREE.FloatType;
 				}
 				var hdrRenderTarget = new THREE.WebGLRenderTarget( windowThirdX, height, parameters );
-				//-dynamicHdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
-				//-dynamicHdrEffectComposer.setSize( window.innerWidth, window.innerHeight );
 				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
 
-				//-var debugPass = new THREE.RenderPass( debugScene, cameraBG );
-				//-debugPass.clear = false;
 				var scenePass = new THREE.RenderPass( scene, camera, undefined, undefined, undefined );
 				var skyboxPass = new THREE.RenderPass( sceneCube, cameraCube );
 				scenePass.clear = false;
 
-				adaptToneMappingPass = new THREE.AdaptiveToneMappingPass( true, 256 );
-				//-adaptToneMappingPass.needsSwap = true;
-				//-ldrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
+				//-adaptToneMappingPass = new THREE.AdaptiveToneMappingPass( true, 256 );
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				bloomPass = new THREE.BloomPass();
 				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
 				gammaCorrectionPass.renderToScreen = true;
-
-				//-dynamicHdrEffectComposer.addPass( skyboxPass );
-				//-dynamicHdrEffectComposer.addPass( scenePass );
-				//-dynamicHdrEffectComposer.addPass( adaptToneMappingPass );
-				// dynamicHdrEffectComposer.addPass( debugPass );
-				//-dynamicHdrEffectComposer.addPass( bloomPass );
-				//-dynamicHdrEffectComposer.addPass( gammaCorrectionPass );
 
 				hdrEffectComposer.addPass( skyboxPass );
 				hdrEffectComposer.addPass( scenePass );
 				hdrEffectComposer.addPass( hdrToneMappingPass );
 				hdrEffectComposer.addPass( bloomPass );
 				hdrEffectComposer.addPass( gammaCorrectionPass );
-
-				//-ldrEffectComposer.addPass( skyboxPass );
-				//-ldrEffectComposer.addPass( scenePass );
-				//-ldrEffectComposer.addPass( ldrToneMappingPass );
-				//-ldrEffectComposer.addPass( bloomPass );
-				//-ldrEffectComposer.addPass( gammaCorrectionPass );
 
 				// var gammaPass = new THREE.ShaderPass( GammaShader );
 				// gammaPass.renderToScreen = true;
@@ -451,29 +366,14 @@
 					bloomPass.copyUniforms[ "opacity" ].value = params.bloomAmount;
 				}
 
-				if ( adaptToneMappingPass ) {
-					//-adaptToneMappingPass.setAdaptionRate( params.adaptionRate );
-					//-adaptiveLuminanceMat.uniforms.map.value = adaptToneMappingPass.luminanceRT;
-					//-currentLuminanceMat.uniforms.map.value = adaptToneMappingPass.currentLuminanceRT;
 
-					//-adaptToneMappingPass.enabled = params.enabled;
-					//-adaptToneMappingPass.setMaxLuminance( params.maxLuminance );
-					//-adaptToneMappingPass.setMiddleGrey( params.middleGrey );
-
-					hdrToneMappingPass.enabled = params.enabled;
-					hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
-					hdrToneMappingPass.setMiddleGrey( params.middleGrey );
-					if ( hdrToneMappingPass.setAverageLuminance ) {
-						hdrToneMappingPass.setAverageLuminance( params.avgLuminance );
-					}
-
-					//-ldrToneMappingPass.enabled = params.enabled;
-					//-ldrToneMappingPass.setMaxLuminance( params.maxLuminance );
-					//-ldrToneMappingPass.setMiddleGrey( params.middleGrey );
-					//-if ( ldrToneMappingPass.setAverageLuminance ) {
-					//-	ldrToneMappingPass.setAverageLuminance( params.avgLuminance );
-					//-}
+				hdrToneMappingPass.enabled = params.enabled;
+				hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
+				hdrToneMappingPass.setMiddleGrey( params.middleGrey );
+				if ( hdrToneMappingPass.setAverageLuminance ) {
+					hdrToneMappingPass.setAverageLuminance( params.avgLuminance );
 				}
+
 
 				directionalLight.intensity = params.sunLight;
 
@@ -488,14 +388,8 @@
 				camera.lookAt( scene.position );
 				cameraCube.rotation.copy( camera.rotation );
 
-				//-renderer.setViewport( 0, 0, windowThirdX, window.innerHeight );
-				//-ldrEffectComposer.render( 0.017 );
-
 				renderer.setViewport( windowThirdX, 0, windowThirdX, window.innerHeight );
 				hdrEffectComposer.render( 0.017 );
-
-				//-renderer.setViewport( windowThirdX * 2, 0, windowThirdX, window.innerHeight );
-				//-dynamicHdrEffectComposer.render( 0.017 );
 
 			}
 
