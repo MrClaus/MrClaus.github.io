@@ -108,8 +108,8 @@
 				camera.position.z = 800;
 				cameraCube = new THREE.PerspectiveCamera( 70, windowThirdX / window.innerHeight, 1, 100000 );
 
-				cameraBG = new THREE.OrthographicCamera( -windowHalfX, windowHalfX, windowHalfY, -windowHalfY, -10000, 10000 );
-				cameraBG.position.z = 100;
+				//-cameraBG = new THREE.OrthographicCamera( -windowHalfX, windowHalfX, windowHalfY, -windowHalfY, -10000, 10000 );
+				//-cameraBG.position.z = 100;
 
 				orbitControls = new THREE.OrbitControls( camera, container );
 				orbitControls.autoRotate = true;
@@ -119,7 +119,7 @@
 
 				scene = new THREE.Scene();
 				sceneCube = new THREE.Scene();
-				debugScene = new THREE.Scene();
+				//-debugScene = new THREE.Scene();
 
 				// LIGHTS
 
