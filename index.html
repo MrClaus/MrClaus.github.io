@@ -281,39 +281,39 @@
 				].join("\n");
 
 				// Skybox
-				//-adaptiveLuminanceMat = new THREE.ShaderMaterial( {
-				//-	uniforms: {
-				//-		map: { value: null }
-				//-	},
-				//-	vertexShader: vBGShader,
-				//-	fragmentShader: pBGShader,
-				//-	depthTest: false,
-				//-	// color: 0xffffff
-				//-	blending: THREE.NoBlending
-				//-} );
+				adaptiveLuminanceMat = new THREE.ShaderMaterial( {
+					uniforms: {
+						map: { value: null }
+					},
+					vertexShader: vBGShader,
+					fragmentShader: pBGShader,
+					depthTest: false,
+					// color: 0xffffff
+					blending: THREE.NoBlending
+				} );
 
-				//-currentLuminanceMat = new THREE.ShaderMaterial( {
-				//-	uniforms: {
-				//-		map: { value: null }
-				//-	},
-				//-	vertexShader: vBGShader,
-				//-	fragmentShader: pBGShader,
-				//-	depthTest: false,
-				//-	// color: 0xffffff
-				//-	// blending: THREE.NoBlending
-				//-} );
+				currentLuminanceMat = new THREE.ShaderMaterial( {
+					uniforms: {
+						map: { value: null }
+					},
+					vertexShader: vBGShader,
+					fragmentShader: pBGShader,
+					depthTest: false,
+					// color: 0xffffff
+					// blending: THREE.NoBlending
+				} );
 
-				//-var quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), currentLuminanceMat );
-				//-quadBG.position.z = -500;
-				//-quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.05;
-				//-quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
-				//-debugScene.add( quadBG );
+				var quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), currentLuminanceMat );
+				quadBG.position.z = -500;
+				quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.05;
+				quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
+				debugScene.add( quadBG );
 
-				//-quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), adaptiveLuminanceMat );
-				//-quadBG.position.z = -500;
-				//-quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.15;
-				//-quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
-				//-debugScene.add( quadBG );
+				quadBG = new THREE.Mesh( new THREE.PlaneBufferGeometry( 0.1, 0.1 ), adaptiveLuminanceMat );
+				quadBG.position.z = -500;
+				quadBG.position.x = -window.innerWidth * 0.5 + window.innerWidth * 0.15;
+				quadBG.scale.set( window.innerWidth, window.innerHeight, 1 );
+				debugScene.add( quadBG );
 
 				var r = "js/";
 				var urls = [ r + "dark-s_px.jpg", r + "dark-s_nx.jpg",
