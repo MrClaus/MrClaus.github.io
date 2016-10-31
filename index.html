@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<title>three.js webgl - adaptive tone-mapping</title>
@@ -60,6 +61,11 @@
 			var cameraCube, sceneCube;
 			var directionalLight;
 
+			var textureLoader;
+			var textureFlare0;
+			var textureFlare2;
+			var textureFlare3;
+			var dirLight;
 
 			init();
 			animate();
@@ -99,7 +105,7 @@
 				
 				
 				// lights
-				var dirLight = new THREE.DirectionalLight( 0xffffff, params.sunLight );
+				dirLight = new THREE.DirectionalLight( 0xffffff, params.sunLight );
 				dirLight.position.set( 2, 0, -1000 ).normalize();
 				scene.add( dirLight );
 				dirLight.color.setHSL( 0.618, 0.45, 1.0 );
@@ -109,10 +115,23 @@
 				//scene.add( directionalLight );
 				
 				// lens flares
-				var textureLoader = new THREE.TextureLoader();
-				var textureFlare0 = textureLoader.load( "js/lensflare0.png" );
-				var textureFlare2 = textureLoader.load( "js/lensflare2.png" );
-				var textureFlare3 = textureLoader.load( "js/lensflare3.png" );
+				var count = 0;
+				textureLoader = new THREE.TextureLoader();
+				textureFlare0 = textureLoader.load( "js/lensflare0.png", function () {
+					count++;
+					if (count==3) go_to();
+				} );
+				textureFlare2 = textureLoader.load( "js/lensflare2.png", function () {
+					count++;
+					if (count==3) go_to();
+				} );
+				textureFlare3 = textureLoader.load( "js/lensflare3.png", function () {
+					count++;
+					if (count==3) go_to();
+				} );
+			}
+				
+			function go_to() {
 				
 				var flareColor = new THREE.Color( 0xffffff );
 				flareColor.setHSL( 0.618, 0.45, 1.0 );
