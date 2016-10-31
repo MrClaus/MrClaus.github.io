@@ -373,12 +373,12 @@
 
 			function render() {
 				
-				
-				cameraCube.rotation.copy( camera.rotation );
-				
-				
-				
 				cameraB.lookAt( scene.position );
+				cameraCube.rotation.copy( cameraB.rotation );
+				
+				
+				
+				
 				renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
 				hdrEffectComposer.render( 0.017 );
 				//rendererB.setViewport( 0, 0, window.innerWidth, window.innerHeight );
