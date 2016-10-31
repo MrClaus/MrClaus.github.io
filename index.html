@@ -315,6 +315,23 @@
 				hdrEffectComposer.addPass( bloomPass );
 				hdrEffectComposer.addPass( gammaCorrectionPass );
 				
+				
+				// to new
+				var gui = new dat.GUI();
+				// dynamicHdrGui.add( params, 'projection', { 'From cam to mesh': 'camera', 'Normal to mesh': 'normal' } );
+				var sceneGui = gui.addFolder( 'Scenes' );
+				var toneMappingGui = gui.addFolder( 'ToneMapping' );
+				var staticToneMappingGui = gui.addFolder( 'StaticOnly' );
+				var adaptiveToneMappingGui = gui.addFolder( 'AdaptiveOnly' );
+				sceneGui.add( params, 'bloomAmount', 0.0, 10.0 );
+				sceneGui.add( params, 'sunLight', 0.1, 12.0 );
+				toneMappingGui.add( params, 'enabled' );
+				toneMappingGui.add( params, 'middleGrey', 0, 12 );
+				toneMappingGui.add( params, 'maxLuminance', 1, 30 );
+				staticToneMappingGui.add( params, 'avgLuminance', 0.001, 2.0 );
+				adaptiveToneMappingGui.add( params, 'adaptionRate', 0.0, 10.0 );
+				gui.open();
+				
 
 				// stats
 				stats = new Stats();
