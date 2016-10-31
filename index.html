@@ -307,13 +307,13 @@
 				scenePass.clear = false;
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				bloomPass = new THREE.BloomPass();
-				//var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
-				//gammaCorrectionPass.renderToScreen = true;
+				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
+				gammaCorrectionPass.renderToScreen = true;
 				hdrEffectComposer.addPass( skyboxPass );
 				hdrEffectComposer.addPass( scenePass );
 				hdrEffectComposer.addPass( hdrToneMappingPass );
 				hdrEffectComposer.addPass( bloomPass );
-				//hdrEffectComposer.addPass( gammaCorrectionPass );
+				hdrEffectComposer.addPass( gammaCorrectionPass );
 				
 				
 				// to new
@@ -389,7 +389,7 @@
 
 				var delta = clock.getDelta();
 				controls.update( delta );
-				//renderer.render( scene, camera );
+				renderer.render( scene, camera );
 				
 				// to new
 				renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
