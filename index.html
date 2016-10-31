@@ -279,7 +279,7 @@
 				}
 				var hdrRenderTarget = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, parameters );
 				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
-				var scenePass = new THREE.RenderPass( scene, cameraB, undefined, undefined, undefined );
+				var scenePass = new THREE.RenderPass( sceneB, cameraB, undefined, undefined, undefined );
 				//var skyboxPass = new THREE.RenderPass( sceneB, cameraB );
 				scenePass.clear = false;
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
