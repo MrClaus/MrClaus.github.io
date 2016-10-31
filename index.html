@@ -273,7 +273,7 @@
 					fragmentShader: skyboxShader.fragmentShader,
 					vertexShader: skyboxShader.vertexShader,
 					uniforms: skyboxShader.uniforms,
-					depthWrite: false,
+					depthWrite: true,
 					side: THREE.BackSide
 				} ),
 				mesh = new THREE.Mesh( new THREE.BoxGeometry( 100, 100, 100 ), skyboxMaterial );
