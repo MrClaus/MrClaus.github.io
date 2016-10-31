@@ -340,13 +340,14 @@
 				staticToneMappingGui.add( params, 'avgLuminance', 0.001, 2.0 );
 				adaptiveToneMappingGui.add( params, 'adaptionRate', 0.0, 10.0 );
 				gui.open();
-				
+				console.log(-29);
 
 				// stats
 				stats = new Stats();
 				container.appendChild( stats.dom );
 				// events
 				window.addEventListener( 'resize', onWindowResize, false );
+				console.log(-30);
 				animate();
 
 			}
@@ -379,7 +380,7 @@
 			function animate() {
 
 				requestAnimationFrame( animate );
-				
+				console.log(-31);
 				
 				// to new
 				bloomPass.copyUniforms[ "opacity" ].value = params.bloomAmount;
@@ -388,7 +389,7 @@
 				hdrToneMappingPass.setMiddleGrey( params.middleGrey );
 				hdrToneMappingPass.setAverageLuminance( params.avgLuminance );				
 				orbitControls.update();
-				
+				console.log(-32);
 				render();
 				stats.update();
 
