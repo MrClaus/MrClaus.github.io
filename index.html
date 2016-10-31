@@ -63,8 +63,7 @@
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			var container, stats;
-			var camera, scene, renderer;
-			var clock = new THREE.Clock();
+			var camera, scene, renderer;			
 			
 			
 			// to new
@@ -103,37 +102,15 @@
 				orbitControls.autoRotate = true;
 				orbitControls.autoRotateSpeed = 1;
 				
-				//-controls = new THREE.FlyControls( camera );
-				//-controls.movementSpeed = 2500;
-				//-controls.domElement = container;
-				//-controls.rollSpeed = Math.PI / 6;
-				//-controls.autoForward = false;
-				//-controls.dragToLook = false;
+				
 				
 				// scene
-				scene = new THREE.Scene();
-				//-scene.fog = new THREE.Fog( 0x000000, 3500, 15000 );
-				//-scene.fog.color.setHSL( 0.51, 0.4, 0.01 );
+				scene = new THREE.Scene();				
 				
 				// to new
 				sceneCube = new THREE.Scene();
 				
-				// world
-				var s = 250;
-				var cube = new THREE.BoxGeometry( s, s, s );
-				var material = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 50 } );
-				for ( var i = 0; i < 3000; i ++ ) {
-					var mesh = new THREE.Mesh( cube, material );
-					mesh.position.x = 8000 * ( 2.0 * Math.random() - 1.0 );
-					mesh.position.y = 8000 * ( 2.0 * Math.random() - 1.0 );
-					mesh.position.z = 8000 * ( 2.0 * Math.random() - 1.0 );
-					mesh.rotation.x = Math.random() * Math.PI;
-					mesh.rotation.y = Math.random() * Math.PI;
-					mesh.rotation.z = Math.random() * Math.PI;
-					mesh.matrixAutoUpdate = false;
-					mesh.updateMatrix();
-					scene.add( mesh );
-				}
+				
 				// lights
 				var dirLight = new THREE.DirectionalLight( 0xffffff, params.sunLight );
 				dirLight.position.set( 0, -1, 0 ).normalize();
@@ -286,7 +263,6 @@
 				
 				// renderer
 				renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-				//-renderer.setClearColor( scene.fog.color );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				
@@ -380,8 +356,7 @@
 				hdrToneMappingPass.enabled = params.enabled;
 				hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
 				hdrToneMappingPass.setMiddleGrey( params.middleGrey );
-				hdrToneMappingPass.setAverageLuminance( params.avgLuminance );
-				//dirLight.intensity = params.sunLight;
+				hdrToneMappingPass.setAverageLuminance( params.avgLuminance );				
 				orbitControls.update();
 				
 				render();
@@ -395,12 +370,10 @@
 				camera.lookAt( scene.position );
 				cameraCube.rotation.copy( camera.rotation );
 				
-				var delta = clock.getDelta();
-				//-controls.update( delta );
+				
 				renderer.render( scene, camera );
 				
 				// to new
-				//renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
 				hdrEffectComposer.render( 0.017 );
 				
 
