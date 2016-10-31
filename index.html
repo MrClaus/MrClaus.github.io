@@ -139,18 +139,31 @@
 			function go_to() {
 				console.log(count);
 				var flareColor = new THREE.Color( 0xffffff );
+				console.log(-1);
 				flareColor.setHSL( 0.618, 0.45, 1.0 );
+				console.log(-2);
 				var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
+				console.log(-3);
 				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+				console.log(-4);
 				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+				console.log(-5);
 				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+				console.log(-6);
 				lensFlare.add( textureFlare3, 60, 0.6, THREE.AdditiveBlending );
+				console.log(-7);
 				lensFlare.add( textureFlare3, 70, 0.7, THREE.AdditiveBlending );
+				console.log(-8);
 				lensFlare.add( textureFlare3, 120, 0.9, THREE.AdditiveBlending );
+				console.log(-9);
 				lensFlare.add( textureFlare3, 70, 1.0, THREE.AdditiveBlending );
+				console.log(-10);
 				lensFlare.customUpdateCallback = lensFlareUpdateCallback;
+				console.log(-11);
 				lensFlare.position.set( 2, 0, -1000 );
+				console.log(-12);
 				scene.add( lensFlare );
+				console.log(-13);
 				
 				
 				
