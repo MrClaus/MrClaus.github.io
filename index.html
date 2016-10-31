@@ -95,6 +95,104 @@
 				document.body.appendChild( container );
 				
 				
+				scene = new THREE.Scene();
+				dirLight = new THREE.DirectionalLight( 0xffffff, params.sunLight );
+				dirLight.position.set( 2, 0, -1000 ).normalize();
+				scene.add( dirLight );
+				dirLight.color.setHSL( 0.618, 0.45, 1.0 );
+				var atmoShader = {
+					side: THREE.BackSide,
+					// blending: THREE.AdditiveBlending,
+					transparent: true,
+					lights: true,
+					uniforms: THREE.UniformsUtils.merge( [
+						THREE.UniformsLib[ "common" ],
+						THREE.UniformsLib[ "lights" ]
+					] ),
+					vertexShader: [
+						"varying vec3 vViewPosition;",
+						"varying vec3 vNormal;",
+						"void main() {",
+							THREE.ShaderChunk[ "beginnormal_vertex" ],
+							THREE.ShaderChunk[ "defaultnormal_vertex" ],
+							"	vNormal = normalize( transformedNormal );",
+							"vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );",
+							"vViewPosition = -mvPosition.xyz;",
+							"gl_Position = projectionMatrix * mvPosition;",
+						"}"
+					].join("\n"),
+					fragmentShader: [
+						THREE.ShaderChunk[ "common" ],
+						THREE.ShaderChunk[ "bsdfs" ],
+						THREE.ShaderChunk[ "lights_pars" ],
+						THREE.ShaderChunk[ "lights_phong_pars_fragment" ],
+						"void main() {",
+							"vec3 normal = normalize( -vNormal );",
+							"vec3 viewPosition = normalize( vViewPosition );",
+							"#if NUM_DIR_LIGHTS > 0",
+								"vec3 dirDiffuse = vec3( 0.0 );",
+								"for( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {",
+									"vec4 lDirection = viewMatrix * vec4( directionalLights[i].direction, 0.0 );",
+									"vec3 dirVector = normalize( lDirection.xyz );",
+									"float dotProduct = dot( viewPosition, dirVector );",
+									"dotProduct = 1.0 * max( dotProduct, 0.0 ) + (1.0 - max( -dot( normal, dirVector ), 0.0 ));",
+									"dotProduct *= dotProduct;",
+									"dirDiffuse += max( 0.5 * dotProduct, 0.0 ) * directionalLights[i].color;",
+								"}",
+							"#endif",
+							//Fade out atmosphere at edge
+							"float viewDot = abs(dot( normal, viewPosition ));",
+							"viewDot = clamp( pow( viewDot + 0.6, 10.0 ), 0.0, 1.0);",
+							"vec3 colour = vec3( 0.05, 0.09, 0.13 ) * dirDiffuse;",
+							"gl_FragColor = vec4( colour, viewDot );",
+						"}"
+					].join("\n"),
+				};
+				var earthAtmoMat = new THREE.ShaderMaterial( atmoShader );
+				var earthMat = new THREE.MeshPhongMaterial( {
+					color: 0xffffff,
+					shininess: 200
+				} );
+				var earthDiffuse = textureLoader.load( 'js/earth_atmos_4096.jpg', function( tex ) {
+					earthMat.map = tex;
+					earthMat.needsUpdate = true;
+				} );
+				var earthSpecular = textureLoader.load( 'js/earth_specular_2048.jpg', function( tex ) {
+					earthMat.specularMap = tex;
+					earthMat.needsUpdate = true;
+				} );
+				var earthLightsMat = new THREE.MeshBasicMaterial( {
+					color: 0xffffff,
+					blending: THREE.AdditiveBlending,
+					transparent: true,
+					depthTest: false
+				} );
+				var earthLights = textureLoader.load( 'js/earth_lights_2048.png', function( tex ) {
+					earthLightsMat.map = tex;
+					earthLightsMat.needsUpdate = true;
+				} );
+				var earthCloudsMat = new THREE.MeshLambertMaterial( {
+					color: 0xffffff,
+					blending: THREE.NormalBlending,
+					transparent: true,
+					depthTest: false
+				} );
+				var earthClouds = textureLoader.load( 'js/earth_clouds_2048.png', function( tex ) {
+					earthCloudsMat.map = tex;
+					earthCloudsMat.needsUpdate = true;
+				} );
+				var earthGeo = new THREE.SphereGeometry( 100, 24, 24 );
+				var sphereMesh = new THREE.Mesh( earthGeo, earthMat );
+				scene.add( sphereMesh );
+				var sphereLightsMesh = new THREE.Mesh( earthGeo, earthLightsMat );
+				scene.add( sphereLightsMesh );
+				var sphereCloudsMesh = new THREE.Mesh( earthGeo, earthCloudsMat );
+				scene.add( sphereCloudsMesh );
+				var sphereAtmoMesh = new THREE.Mesh( earthGeo, earthAtmoMat );
+				sphereAtmoMesh.scale.set( 1.05, 1.05, 1.05 );
+				scene.add( sphereAtmoMesh );
+				
+				
 				//-----------------------------
 				cameraB = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 100000 );
 				cameraB.position.z = 250;
@@ -181,6 +279,16 @@
 				}
 				var hdrRenderTarget = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, parameters );
 				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
+				var scenePass = new THREE.RenderPass( scene, cameraB, undefined, undefined, undefined );				
+				scenePass.clear = false;
+				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
+				bloomPass = new THREE.BloomPass();
+				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
+				gammaCorrectionPass.renderToScreen = true;
+				hdrEffectComposer.addPass( scenePass );
+				hdrEffectComposer.addPass( hdrToneMappingPass );
+				hdrEffectComposer.addPass( bloomPass );
+				hdrEffectComposer.addPass( gammaCorrectionPass );
 				
 				
 				
