@@ -435,7 +435,7 @@
 				
 				//-------------------
 				cameraB.lookAt( sceneB.position );
-				rendererB.render( sceneB, cameraB );
+				
 				
 				
 				//renderer.render( scene, camera );
@@ -443,6 +443,7 @@
 				
 				// to new
 				hdrEffectComposer.render( 0.017 );
+				rendererB.render( sceneB, cameraB );
 				console.log('///---13');
 				
 
