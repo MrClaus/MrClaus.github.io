@@ -274,15 +274,15 @@
 				
 				
 				//------------------------------------------
-				var dubleS = new THREE.SphereGeometry( 97, 24, 24 );				
-				var dubleM = new THREE.MeshPhongMaterial( {
-					color: 0xffffff,
-					specular: 0xffffff,
-					shininess: 50
-				} );
-				var dubleMesh = new THREE.Mesh( dubleS, dubleM );
-				dubleMesh.scale.set( 1.05, 1.05, 1.05 );
-				sceneB.add( dubleMesh );
+				//var dubleS = new THREE.SphereGeometry( 97, 24, 24 );				
+				//var dubleM = new THREE.MeshPhongMaterial( {
+				//	color: 0xffffff,
+				//	specular: 0xffffff,
+				//	shininess: 50
+				//} );
+				//var dubleMesh = new THREE.Mesh( dubleS, dubleM );
+				//dubleMesh.scale.set( 1.05, 1.05, 1.05 );
+				//sceneB.add( dubleMesh );
 				
 				
 				var r = "js/";
@@ -409,9 +409,8 @@
 
 			function animate() {
 
-				console.log('///---1');
+				
 				requestAnimationFrame( animate );
-				console.log('///---2');
 				
 				// to new
 				bloomPass.copyUniforms[ "opacity" ].value = params.bloomAmount;
@@ -425,12 +424,10 @@
 
 				render();
 				stats.update();
-				console.log('///---14');
 
 			}
 
 			function render() {
-				console.log('///---9');
 				// to new
 				camera.lookAt( scene.position );
 				cameraCube.rotation.copy( camera.rotation );
@@ -442,13 +439,11 @@
 				
 				
 				//renderer.render( scene, camera );
-				console.log('///---12');
 				
 				// to new
 				//hdrEffectComposer.render( 0.017 );
 				rendererB.setViewport( 0, 0, window.innerWidth, window.innerHeight );
 				rendererB.render( sceneB, cameraB );
-				console.log('///---13');
 				
 
 			}
