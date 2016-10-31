@@ -278,9 +278,10 @@
 				var dubleM = new THREE.MeshPhongMaterial( {
 					color: 0xffffff,
 					specular: 0xffffff,
-					shininess: 200
+					shininess: 50
 				} );
 				var dubleMesh = new THREE.Mesh( dubleS, dubleM );
+				dubleMesh.scale.set( 1.05, 1.05, 1.05 );
 				sceneB.add( dubleMesh );
 				
 				
@@ -320,9 +321,11 @@
 				rendererB = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 				rendererB.setPixelRatio( window.devicePixelRatio );
 				rendererB.setSize( window.innerWidth, window.innerHeight );
-				container.appendChild( rendererB.domElement );
+				rendererB.autoClear = false;
 				rendererB.gammaInput = true;
 				rendererB.gammaOutput = true;
+				container.appendChild( rendererB.domElement );
+
 				
 				
 				// to new
