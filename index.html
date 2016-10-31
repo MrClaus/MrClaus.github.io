@@ -84,7 +84,7 @@
 				params = {
 					bloomAmount: 1.0,
 					sunLight: 4.0,
-					enabled: false,
+					enabled: true,
 					avgLuminance: 0.7,
 					middleGrey: 0.04,
 					maxLuminance: 16,
@@ -308,7 +308,7 @@
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				bloomPass = new THREE.BloomPass();
 				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
-				gammaCorrectionPass.renderToScreen = true;
+				gammaCorrectionPass.renderToScreen = false;
 				hdrEffectComposer.addPass( skyboxPass );
 				hdrEffectComposer.addPass( scenePass );
 				hdrEffectComposer.addPass( hdrToneMappingPass );
