@@ -291,21 +291,24 @@
 				renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
+				console.log(-24);
 				
 				// to new
 				renderer.setFaceCulling( THREE.CullFaceNone );
 				renderer.autoClear = false;
+				console.log(-25);
 				
 				renderer.gammaInput = true;
 				renderer.gammaOutput = true;				
 				container.appendChild( renderer.domElement );
-				
+				console.log(-26);
 				
 				// to new
 				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
 				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
 					parameters.type = THREE.FloatType;
 				}
+				console.log(-27);
 				var hdrRenderTarget = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, parameters );
 				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
 				var scenePass = new THREE.RenderPass( scene, camera, undefined, undefined, undefined );
@@ -320,7 +323,7 @@
 				hdrEffectComposer.addPass( hdrToneMappingPass );
 				hdrEffectComposer.addPass( bloomPass );
 				hdrEffectComposer.addPass( gammaCorrectionPass );
-				
+				console.log(-28);
 				
 				// to new
 				var gui = new dat.GUI();
