@@ -56,7 +56,6 @@
 			
 			// to new
 			var bloomPass;
-			var params;
 			var hdrEffectComposer;
 			var cameraCube, sceneCube;
 			var directionalLight;
@@ -66,22 +65,25 @@
 			var textureFlare2;
 			var textureFlare3;
 			var dirLight;
+			var count = 0;
+			
+			// to new
+			var params = {
+				bloomAmount: 1.0,
+				sunLight: 4.0,
+				enabled: true,
+				avgLuminance: 0.7,
+				middleGrey: 0.04,
+				maxLuminance: 16,
+				adaptionRate: 2.0,
+			};
 
 			init();
 			animate();
 
 			function init() {
 				
-				// to new
-				params = {
-					bloomAmount: 1.0,
-					sunLight: 4.0,
-					enabled: true,
-					avgLuminance: 0.7,
-					middleGrey: 0.04,
-					maxLuminance: 16,
-					adaptionRate: 2.0,
-				};
+
 
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
@@ -115,7 +117,7 @@
 				//scene.add( directionalLight );
 				
 				// lens flares
-				var count = 0;
+				
 				textureLoader = new THREE.TextureLoader();
 				textureFlare0 = textureLoader.load( "js/lensflare0.png", function () {
 					count++;
@@ -132,7 +134,7 @@
 			}
 				
 			function go_to() {
-				
+				console.log(count);
 				var flareColor = new THREE.Color( 0xffffff );
 				flareColor.setHSL( 0.618, 0.45, 1.0 );
 				var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
