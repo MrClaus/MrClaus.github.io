@@ -273,7 +273,7 @@
 					fragmentShader: skyboxShader.fragmentShader,
 					vertexShader: skyboxShader.vertexShader,
 					uniforms: skyboxShader.uniforms,
-					depthWrite: true,
+					depthWrite: false,
 					side: THREE.BackSide
 				} ),
 				mesh = new THREE.Mesh( new THREE.BoxGeometry( 100, 100, 100 ), skyboxMaterial );
@@ -307,8 +307,8 @@
 				scenePass.clear = false;
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				bloomPass = new THREE.BloomPass();
-				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
-				gammaCorrectionPass.renderToScreen = true;
+				//var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
+				//gammaCorrectionPass.renderToScreen = true;
 				hdrEffectComposer.addPass( skyboxPass );
 				hdrEffectComposer.addPass( scenePass );
 				hdrEffectComposer.addPass( hdrToneMappingPass );
