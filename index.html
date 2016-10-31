@@ -119,16 +119,19 @@
 				// lens flares
 				
 				textureLoader = new THREE.TextureLoader();
-				textureFlare0 = textureLoader.load( "js/lensflare0.png", function () {
+				var tex0 = textureLoader.load( "js/lensflare0.png", function ( tex ) {
 					count++;
+					textureFlare0 = tex;
 					if (count==3) go_to();
 				} );
-				textureFlare2 = textureLoader.load( "js/lensflare2.png", function () {
+				var tex2 = textureLoader.load( "js/lensflare2.png", function ( tex ) {
 					count++;
+					textureFlare2 = tex;
 					if (count==3) go_to();
 				} );
-				textureFlare3 = textureLoader.load( "js/lensflare3.png", function () {
+				var tex3 = textureLoader.load( "js/lensflare3.png", function ( tex ) {
 					count++;
+					textureFlare3 = tex;
 					if (count==3) go_to();
 				} );
 			}
