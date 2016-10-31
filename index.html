@@ -93,6 +93,7 @@
 
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
+				textureLoader = new THREE.TextureLoader();
 				
 				
 				scene = new THREE.Scene();
@@ -205,7 +206,6 @@
 				sceneB.add( dirLightB );
 				dirLightB.color.setHSL( 0.618, 0.45, 1.0 );				
 				// lens flares				
-				textureLoader = new THREE.TextureLoader();
 				var tex0 = textureLoader.load( "js/lensflare0.png", function ( tex ) {
 					count++;
 					textureFlare0 = tex;
