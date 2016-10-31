@@ -288,7 +288,7 @@
 				
 				// to new
 				renderer.setFaceCulling( THREE.CullFaceNone );
-				renderer.autoClear = true;
+				renderer.autoClear = false;
 				
 				renderer.gammaInput = true;
 				renderer.gammaOutput = true;				
@@ -296,7 +296,7 @@
 				
 				
 				// to new
-				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: true };
+				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
 				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
 					parameters.type = THREE.FloatType;
 				}
