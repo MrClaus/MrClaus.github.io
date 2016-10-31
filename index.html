@@ -101,29 +101,12 @@
 				orbitControlsB = new THREE.OrbitControls( cameraB, container );
 				orbitControlsB.autoRotate = true;
 				orbitControlsB.autoRotateSpeed = 1;
-				
-				
-				
-				
-				
-				
-				//-------------------------------
 				sceneB = new THREE.Scene();
-				
-				
-				
-				//-------------------------------------
 				dirLightB = new THREE.DirectionalLight( 0xffffff, params.sunLight );
 				dirLightB.position.set( 2, 0, -1000 ).normalize();
 				sceneB.add( dirLightB );
-				dirLightB.color.setHSL( 0.618, 0.45, 1.0 );
-				
-				//directionalLight = new THREE.DirectionalLight( 0xffffff, params.sunLight );				
-				//directionalLight.position.set( 2, 0, 10 ).normalize();
-				//scene.add( directionalLight );
-				
-				// lens flares
-				
+				dirLightB.color.setHSL( 0.618, 0.45, 1.0 );				
+				// lens flares				
 				textureLoader = new THREE.TextureLoader();
 				var tex0 = textureLoader.load( "js/lensflare0.png", function ( tex ) {
 					count++;
@@ -140,10 +123,11 @@
 					textureFlare3 = tex;
 					if (count==3) go_to();
 				} );
+				//-------------------------------
 			}
 				
 			function go_to() {
-				console.log(count);
+				
 				var flareColor = new THREE.Color( 0xffffff );
 				flareColor.setHSL( 0.618, 0.45, 1.0 );
 				var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
@@ -156,12 +140,7 @@
 				lensFlare.add( textureFlare3, 70, 1.0, THREE.AdditiveBlending );
 				lensFlare.customUpdateCallback = lensFlareUpdateCallback;
 				lensFlare.position.set( 2, 0, -1000 );
-				sceneB.add( lensFlare );
-				
-				
-				
-				
-				
+				sceneB.add( lensFlare );				
 				//------------------------------------------
 				//var dubleS = new THREE.SphereGeometry( 97, 24, 24 );				
 				//var dubleM = new THREE.MeshPhongMaterial( {
@@ -171,11 +150,7 @@
 				//} );
 				//var dubleMesh = new THREE.Mesh( dubleS, dubleM );
 				//dubleMesh.scale.set( 1.05, 1.05, 1.05 );
-				//sceneB.add( dubleMesh );
-				
-				
-				
-				
+				//sceneB.add( dubleMesh );				
 				//---------------------------------------
 				rendererB = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 				rendererB.setPixelRatio( window.devicePixelRatio );
@@ -184,13 +159,25 @@
 				rendererB.gammaInput = true;
 				rendererB.gammaOutput = true;
 				container.appendChild( rendererB.domElement );
-
-				
-				
-
 				// stats
 				stats = new Stats();
 				container.appendChild( stats.dom );
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				// events
 				window.addEventListener( 'resize', onWindowResize, false );
 				console.log(-30);
@@ -199,12 +186,13 @@
 			}
 
 			function onWindowResize( event ) {
-				
-				
-				//-------------------------
 				rendererB.setSize( window.innerWidth, window.innerHeight );
 				cameraB.aspect = window.innerWidth / window.innerHeight;
 				cameraB.updateProjectionMatrix();
+				
+				
+				
+				
 			}
 			
 			function lensFlareUpdateCallback( object ) {
@@ -222,37 +210,29 @@
 				object.lensFlares[ 3 ].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad( 45 );
 			}
 
-			function animate() {
-
-				
-				requestAnimationFrame( animate );
-				
-				
-				
+			function animate() {				
+				requestAnimationFrame( animate );				
 				orbitControlsB.update();
+				
+				
+				
+				
+				
+				
 
 				render();
 				stats.update();
-
 			}
 
 			function render() {
 				
-				
-				
-				//-------------------
-				cameraB.lookAt( sceneB.position );
-				
-				
-				
-				//renderer.render( scene, camera );
-				
-				// to new
 				//hdrEffectComposer.render( 0.017 );
+				
+				
+				
+				cameraB.lookAt( sceneB.position );
 				rendererB.setViewport( 0, 0, window.innerWidth, window.innerHeight );
 				rendererB.render( sceneB, cameraB );
-				
-
 			}
 
 		</script>
