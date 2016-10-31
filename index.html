@@ -84,7 +84,7 @@
 				params = {
 					bloomAmount: 1.0,
 					sunLight: 4.0,
-					enabled: false,
+					enabled: true,
 					avgLuminance: 0.7,
 					middleGrey: 0.04,
 					maxLuminance: 16,
@@ -296,7 +296,7 @@
 				
 				
 				// to new
-				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
+				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: true };
 				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
 					parameters.type = THREE.FloatType;
 				}
@@ -308,7 +308,7 @@
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				bloomPass = new THREE.BloomPass();
 				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
-				gammaCorrectionPass.renderToScreen = false;
+				gammaCorrectionPass.renderToScreen = true;
 				hdrEffectComposer.addPass( skyboxPass );
 				hdrEffectComposer.addPass( scenePass );
 				hdrEffectComposer.addPass( hdrToneMappingPass );
