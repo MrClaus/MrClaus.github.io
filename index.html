@@ -304,7 +304,7 @@
 				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
 				var scenePass = new THREE.RenderPass( scene, camera, undefined, undefined, undefined );
 				var skyboxPass = new THREE.RenderPass( sceneCube, cameraCube );
-				scenePass.clear = false;
+				scenePass.clear = true;
 				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
 				bloomPass = new THREE.BloomPass();
 				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
