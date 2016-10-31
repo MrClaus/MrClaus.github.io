@@ -216,39 +216,47 @@
 						"}"
 					].join("\n"),
 				};
+				console.log(-14);
 				var earthAtmoMat = new THREE.ShaderMaterial( atmoShader );
 				var earthMat = new THREE.MeshPhongMaterial( {
 					color: 0xffffff,
 					shininess: 200
-				} );				
+				} );
+				console.log(-15);
 				var earthDiffuse = textureLoader.load( 'js/earth_atmos_4096.jpg', function( tex ) {
 					earthMat.map = tex;
 					earthMat.needsUpdate = true;
 				} );
+				console.log(-16);
 				var earthSpecular = textureLoader.load( 'js/earth_specular_2048.jpg', function( tex ) {
 					earthMat.specularMap = tex;
 					earthMat.needsUpdate = true;
 				} );
+				console.log(-17);
 				var earthLightsMat = new THREE.MeshBasicMaterial( {
 					color: 0xffffff,
 					blending: THREE.AdditiveBlending,
 					transparent: true,
 					depthTest: false
 				} );
+				console.log(-18);
 				var earthLights = textureLoader.load( 'js/earth_lights_2048.png', function( tex ) {
 					earthLightsMat.map = tex;
 					earthLightsMat.needsUpdate = true;
 				} );
+				console.log(-19);
 				var earthCloudsMat = new THREE.MeshLambertMaterial( {
 					color: 0xffffff,
 					blending: THREE.NormalBlending,
 					transparent: true,
 					depthTest: false
 				} );
+				console.log(-20);
 				var earthClouds = textureLoader.load( 'js/earth_clouds_2048.png', function( tex ) {
 					earthCloudsMat.map = tex;
 					earthCloudsMat.needsUpdate = true;
 				} );
+				console.log(-21);
 				var earthGeo = new THREE.SphereGeometry( 100, 24, 24 );
 				var sphereMesh = new THREE.Mesh( earthGeo, earthMat );
 				scene.add( sphereMesh );
@@ -259,6 +267,7 @@
 				var sphereAtmoMesh = new THREE.Mesh( earthGeo, earthAtmoMat );
 				sphereAtmoMesh.scale.set( 1.05, 1.05, 1.05 );
 				scene.add( sphereAtmoMesh );
+				console.log(-22);
 				var r = "js/";
 				var urls = [ r + "dark-s_px.jpg", r + "dark-s_px.jpg",
 							 r + "dark-s_px.jpg", r + "dark-s_px.jpg",
@@ -276,7 +285,7 @@
 				} ),
 				mesh = new THREE.Mesh( new THREE.BoxGeometry( 100, 100, 100 ), skyboxMaterial );
 				sceneCube.add( mesh );
-				
+				console.log(-23);
 				
 				// renderer
 				renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
