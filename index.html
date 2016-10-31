@@ -113,7 +113,7 @@
 				
 				// lights
 				var dirLight = new THREE.DirectionalLight( 0xffffff, params.sunLight );
-				dirLight.position.set( 0, 0, -1000 ).normalize();
+				dirLight.position.set( 2, 0, -1000 ).normalize();
 				scene.add( dirLight );
 				dirLight.color.setHSL( 0.1, 0.7, 0.5 );
 				
@@ -138,7 +138,7 @@
 				lensFlare.add( textureFlare3, 120, 0.9, THREE.AdditiveBlending );
 				lensFlare.add( textureFlare3, 70, 1.0, THREE.AdditiveBlending );
 				lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-				lensFlare.position.copy( dirLight.position );
+				lensFlare.position.set( 2, 0, -1000 );
 				scene.add( lensFlare );
 				
 				
