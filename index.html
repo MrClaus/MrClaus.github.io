@@ -167,9 +167,20 @@
 				
 				
 				
-				
-				
-				
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setFaceCulling( THREE.CullFaceNone );
+				renderer.autoClear = false;
+				renderer.gammaInput = true;
+				renderer.gammaOutput = false;
+				container.appendChild( renderer.domElement );
+				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
+				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
+					parameters.type = THREE.FloatType;
+				}
+				var hdrRenderTarget = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, parameters );
+				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
 				
 				
 				
@@ -192,6 +203,7 @@
 				
 				
 				
+				renderer.setSize( window.innerWidth, window.innerHeight );
 				
 			}
 			
@@ -226,7 +238,7 @@
 
 			function render() {
 				
-				//hdrEffectComposer.render( 0.017 );
+				hdrEffectComposer.render( 0.017 );
 				
 				
 				
