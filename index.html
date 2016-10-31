@@ -336,7 +336,11 @@
 				
 				
 				
-				
+				bloomPass.copyUniforms[ "opacity" ].value = params.bloomAmount;
+				hdrToneMappingPass.enabled = params.enabled;
+				hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
+				hdrToneMappingPass.setMiddleGrey( params.middleGrey );
+				hdrToneMappingPass.setAverageLuminance( params.avgLuminance );
 				
 				
 
@@ -351,9 +355,10 @@
 				
 				
 				cameraB.lookAt( sceneB.position );
+				hdrEffectComposer.render( 0.017 );
 				//rendererB.setViewport( 0, 0, window.innerWidth, window.innerHeight );
 				rendererB.render( sceneB, cameraB );
-				hdrEffectComposer.render( 0.017 );
+				
 			}
 
 		</script>
