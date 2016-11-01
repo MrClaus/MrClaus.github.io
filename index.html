@@ -60,8 +60,7 @@
 			var controls;
 			
 
-			resIntro();
-			renderIntro();
+			resIntro();			
 			
 			function resIntro() {
 				var count = 0;
@@ -149,6 +148,8 @@
 				controls = new THREE.OrbitControls( camera );
 				controls.autoRotate = true;
 				controls.autoRotateSpeed = 1;
+				
+				renderIntro();
 			}
 				
 
