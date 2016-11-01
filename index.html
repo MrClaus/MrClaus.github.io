@@ -55,7 +55,7 @@
 
 			var width = window.innerWidth,
 				height = window.innerHeight,
-				radius   = 0.5,
+				radius   = 300,
 				segments = 32,
 				rotation = 6,
 				stats;
@@ -81,9 +81,10 @@
 				container.appendChild(render3D.domElement);
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
-				var light = new THREE.DirectionalLight(0xffffff, 1);
+				var light = new THREE.DirectionalLight(0xffffff, 4);
 				light.position.set(0,0,-5000);
-				light.shadowCameraVisible = true;
+				light.color.setHSL( 0.618, 0.45, 1.0 );	
+				//light.shadowCameraVisible = true;
 				scene.add(light);
 				
 				// Создаем землю -----------------------------------------------------------------------
