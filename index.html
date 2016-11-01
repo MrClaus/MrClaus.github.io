@@ -65,7 +65,7 @@
 				i_earth = loadIMG("js/earth.jpg");				
 				i_bump = loadIMG("js/bump.jpg");				
 				i_specular = loadIMG("js/specular.jpg");				
-				textureFlare0 = loadIMG("js/lensflare0.png");
+				textureFlare0 = loadIMG("js/fla1.png");
 				textureFlare2 = loadIMG("js/lensflare2.png");
 				textureFlare3 = loadIMG("js/lensflare3.png");
 				
@@ -102,12 +102,12 @@
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
 				var light = new THREE.DirectionalLight(0xffffff, 1);
-				light.position.set(0, 0, -1000);
+				light.position.set(0, 0, -5000);
 				light.color.setHSL( 0.618, 0.45, 1.0 );
 				scene.add(light);
 				
 				// Создаём блики камеры
-				addFlare( 0.618, 0.45, 1.0, 0, 0, -1000 );
+				addFlare( 0.618, 0.45, 1.0, 0, 0, -5000 );
 				function addFlare( h, s, l, x, y, z ) {
 					var flareColor = new THREE.Color( 0xffffff );
 					flareColor.setHSL( h, s, l );
