@@ -209,7 +209,10 @@
 				//scene.add( skyIntro );
 				var materials = [];
 				for ( var i = 0; i < 6; i ++ ) {
-					materials.push( new THREE.MeshLambertMaterial( { map: skyMat[ i ] } ) );
+					materials.push( new THREE.MeshBasicMaterial( {
+						map: skyMat[ i ],
+						color: 0xffffff
+					} ) );
 				}
 				skyIntro = new THREE.Mesh( new THREE.CubeGeometry( 11000, 11000, 11000, 7, 7, 7 ), new THREE.MeshFaceMaterial( materials ) );
 				skyIntro.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, - 1 ) );
