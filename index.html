@@ -18,7 +18,6 @@
 			a { color:skyblue; text-decoration:none }
 			canvas { pointer-events:none; z-index:0; position:relative; }
 			.label { background-color: black; position: absolute; z-index: 100; padding: 5px }
-
 		</style>
 	</head>
 
@@ -45,62 +44,54 @@
 		<script src="js/OrbitControls.js"></script>
 		<script src="js/FlyControls.js"></script>
 		<script src="js/stats.min.js"></script>
+		
+		<script src="js/Projector.js"></script>
+		<script src="js/LensFlares.js"></script>
 
 		<script>
-
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-			var container, stats;
-			var camera, scene, renderer;
-			
-			var cameraB, sceneB, rendererB;
-			var dirLightB;
-			var orbitControlsB;
-			
-			
-			// to new
-			var bloomPass;
-			var hdrEffectComposer;
-			var cameraCube, sceneCube;
-			var directionalLight;
+			var width = window.innerWidth,
+				height = window.innerHeight,
+				radius   = 0.5,
+				segments = 32,
+				rotation = 6,
+				stats;
 
-			var textureLoader;
-			var textureFlare0;
-			var textureFlare2;
-			var textureFlare3;
-			var dirLight;
-			var count = 0;
-			
-			var orbitControls;
-			
-			// to new
-			var params = {
-				bloomAmount: 1.0,
-				sunLight: 4.0,
-				enabled: true,
-				avgLuminance: 0.7,
-				middleGrey: 0.04,
-				maxLuminance: 16,
-				adaptionRate: 2.0,
-			};
-
-			init(); 
-			
-
+			init();
+				
 			function init() {
 				
-
-
+				// СОЗДАЕМ КОНТЕЙНЕР
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
-				textureLoader = new THREE.TextureLoader();
 				
-				cameraCube = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
-				scene = new THREE.Scene();
-				dirLight = new THREE.DirectionalLight( 0xffffff, params.sunLight );
-				dirLight.position.set( 2, 0, -1000 ).normalize();
-				scene.add( dirLight );
-				dirLight.color.setHSL( 0.618, 0.45, 1.0 );
+				// СОЗДАЕМ СЦЕНУ И КАМЕРУ
+				var scene = new THREE.Scene();
+				var camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
+				camera.position.z = 6300;
+				
+				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
+				render3D = new THREE.WebGLRenderer({antialias: true, alpha: true });
+				render3D.setSize(width, height);
+				render3D.domElement.style.position = "relative";
+				render3D.setClearColor( 0x000000 );
+				container.appendChild(render3D.domElement);
+				
+				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
+				var light = new THREE.DirectionalLight(0xffffff, 1);
+				light.position.set(130,-57,100);
+				light.shadowCameraVisible = true;
+				scene.add(light);
+				
+				// Создаем землю -----------------------------------------------------------------------
+				// Объявляем 3д объект - Земля
+				var containerEarth = new THREE.Object3D();
+				containerEarth.rotateZ(-23.4 * Math.PI/180);
+				containerEarth.position.z = 0;
+				scene.add(containerEarth);
+				
+				// ШЕЙДЕР
 				var atmoShader = {
 					side: THREE.BackSide,
 					// blending: THREE.AdditiveBlending,
@@ -149,244 +140,127 @@
 						"}"
 					].join("\n"),
 				};
-				var earthAtmoMat = new THREE.ShaderMaterial( atmoShader );
-				var earthMat = new THREE.MeshPhongMaterial( {
+
+				
+				var atmoPosition = 0;
+				
+				// ОБЪЕКТ - АТМОСФЕРА
+				var geometry = new THREE.SphereGeometry(radius, 32, 32, 1, 3, atmoPosition, 3);
+				var material = new THREE.ShaderMaterial( atmoShader );
+				var mesh = new THREE.Mesh(geometry, material );
+				mesh.scale.multiplyScalar(1.01);
+				containerEarth.add( mesh );
+				
+				var geometry = new THREE.SphereGeometry(radius, 32, 32, 1, 3, atmoPosition, 3);
+				var material = new THREE.MeshPhongMaterial( {
 					color: 0xffffff,
 					shininess: 200
-				} );
-				var earthDiffuse = textureLoader.load( 'js/earth_atmos_4096.jpg', function( tex ) {
-					earthMat.map = tex;
-					earthMat.needsUpdate = true;
-				} );
-				var earthSpecular = textureLoader.load( 'js/earth_specular_2048.jpg', function( tex ) {
-					earthMat.specularMap = tex;
-					earthMat.needsUpdate = true;
-				} );
-				var earthLightsMat = new THREE.MeshBasicMaterial( {
+				} );				
+				var mesh = new THREE.Mesh(geometry, material );
+				mesh.scale.multiplyScalar(1.01);
+				containerEarth.add( mesh );
+												
+				var geometry = new THREE.SphereGeometry(radius, 32, 32, 1, 3, atmoPosition, 3);
+				var material = new THREE.MeshBasicMaterial( {
 					color: 0xffffff,
 					blending: THREE.AdditiveBlending,
 					transparent: true,
 					depthTest: false
-				} );
-				var earthLights = textureLoader.load( 'js/earth_lights_2048.png', function( tex ) {
-					earthLightsMat.map = tex;
-					earthLightsMat.needsUpdate = true;
-				} );
-				var earthCloudsMat = new THREE.MeshLambertMaterial( {
-					color: 0xffffff,
-					blending: THREE.NormalBlending,
-					transparent: true,
-					depthTest: false
-				} );
-				var earthClouds = textureLoader.load( 'js/earth_clouds_2048.png', function( tex ) {
-					earthCloudsMat.map = tex;
-					earthCloudsMat.needsUpdate = true;
-				} );
-				var earthGeo = new THREE.SphereGeometry( 100, 24, 24 );
-				var sphereMesh = new THREE.Mesh( earthGeo, earthMat );
-				scene.add( sphereMesh );
-				var sphereLightsMesh = new THREE.Mesh( earthGeo, earthLightsMat );
-				scene.add( sphereLightsMesh );
-				var sphereCloudsMesh = new THREE.Mesh( earthGeo, earthCloudsMat );
-				scene.add( sphereCloudsMesh );
-				var sphereAtmoMesh = new THREE.Mesh( earthGeo, earthAtmoMat );
-				sphereAtmoMesh.scale.set( 1.05, 1.05, 1.05 );
-				scene.add( sphereAtmoMesh );
-				//******************
-				sceneCube = new THREE.Scene();
-				var r = "js/";
-				var urls = [ r + "dark-s_px.jpg", r + "dark-s_px.jpg",
-							 r + "dark-s_px.jpg", r + "dark-s_px.jpg",
-							 r + "dark-s_px.jpg", r + "dark-s_px.jpg" ];
-				var textureCube = new THREE.CubeTextureLoader().load( urls );
-				textureCube.format = THREE.RGBFormat;
-				var skyboxShader = THREE.ShaderLib[ "cube" ];
-				skyboxShader.uniforms[ "tCube" ].value = textureCube;
-				var skyboxMaterial = new THREE.ShaderMaterial( {
-					fragmentShader: skyboxShader.fragmentShader,
-					vertexShader: skyboxShader.vertexShader,
-					uniforms: skyboxShader.uniforms,
-					depthWrite: false,
-					side: THREE.BackSide
-				} ),
-				mesh = new THREE.Mesh( new THREE.BoxGeometry( 100, 100, 100 ), skyboxMaterial );
-				sceneCube.add( mesh );
+				} );	
+				var mesh = new THREE.Mesh(geometry, material );
+				mesh.scale.multiplyScalar(1.01);
+				containerEarth.add( mesh );
 				
-				
-				//-----------------------------
-				cameraB = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.1, 100000 );
-				cameraB.position.z = 250;
-				orbitControlsB = new THREE.OrbitControls( cameraB, container );
-				orbitControlsB.autoRotate = true;
-				orbitControlsB.autoRotateSpeed = 1;
-				sceneB = new THREE.Scene();
-				dirLightB = new THREE.DirectionalLight( 0xffffff, params.sunLight );
-				dirLightB.position.set( 2, 0, -1000 ).normalize();
-				sceneB.add( dirLightB );
-				dirLightB.color.setHSL( 0.618, 0.45, 1.0 );				
-				// lens flares				
-				var tex0 = textureLoader.load( "js/lensflare0.png", function ( tex ) {
-					count++;
-					textureFlare0 = tex;
-					if (count==3) go_to();
-				} );
-				var tex2 = textureLoader.load( "js/lensflare2.png", function ( tex ) {
-					count++;
-					textureFlare2 = tex;
-					if (count==3) go_to();
-				} );
-				var tex3 = textureLoader.load( "js/lensflare3.png", function ( tex ) {
-					count++;
-					textureFlare3 = tex;
-					if (count==3) go_to();
-				} );
-				//-------------------------------
-			}
-				
-			function go_to() {
-				
-				var flareColor = new THREE.Color( 0xffffff );
-				flareColor.setHSL( 0.618, 0.45, 1.0 );
-				var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
-				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 60, 0.6, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 70, 0.7, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 120, 0.9, THREE.AdditiveBlending );
-				lensFlare.add( textureFlare3, 70, 1.0, THREE.AdditiveBlending );
-				lensFlare.customUpdateCallback = lensFlareUpdateCallback;
-				lensFlare.position.set( 2, 0, -1000 );
-				sceneB.add( lensFlare );				
-				//------------------------------------------
-				//var dubleS = new THREE.SphereGeometry( 97, 24, 24 );				
-				//var dubleM = new THREE.MeshPhongMaterial( {
-				//	color: 0xffffff,
-				//	specular: 0xffffff,
-				//	shininess: 50
-				//} );
-				//var dubleMesh = new THREE.Mesh( dubleS, dubleM );
-				//dubleMesh.scale.set( 1.05, 1.05, 1.05 );
-				//sceneB.add( dubleMesh );				
-				//---------------------------------------
-				rendererB = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-				rendererB.setPixelRatio( window.devicePixelRatio );
-				rendererB.setSize( window.innerWidth, window.innerHeight );
-				rendererB.autoClear = false;
-				rendererB.gammaInput = true;
-				rendererB.gammaOutput = true;
-				container.appendChild( rendererB.domElement );
-				// stats
-				stats = new Stats();
-				container.appendChild( stats.dom );
-				
-				
-				
-				
-				
-				renderer = new THREE.WebGLRenderer();
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.setFaceCulling( THREE.CullFaceNone );
-				renderer.autoClear = false;
-				renderer.gammaInput = true;
-				renderer.gammaOutput = false;
-				container.appendChild( renderer.domElement );
-				var parameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat, stencilBuffer: false };
-				if ( renderer.extensions.get('OES_texture_half_float_linear') ) {
-					parameters.type = THREE.FloatType;
+				var sphere = createSphere(radius, segments);
+				function createSphere(radius, segments) {
+					return new THREE.Mesh(
+						new THREE.SphereGeometry(radius, segments, segments),
+						new THREE.MeshPhongMaterial({
+							map:         THREE.ImageUtils.loadTexture('js/earth.jpg'),
+							bumpMap:     THREE.ImageUtils.loadTexture('js/bump.jpg'),
+							bumpScale:   0.001,
+							specularMap: THREE.ImageUtils.loadTexture('js/specular.jpg'),
+							specular:    new THREE.Color('#343434'),				
+						})
+					);
 				}
-				var hdrRenderTarget = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, parameters );
-				hdrEffectComposer = new THREE.EffectComposer( renderer, hdrRenderTarget );
-				var scenePass = new THREE.RenderPass( scene, cameraB, undefined, undefined, undefined );
-				var skyboxPass = new THREE.RenderPass( sceneCube, cameraCube );
-				scenePass.clear = false;
-				hdrToneMappingPass = new THREE.AdaptiveToneMappingPass( false, 256 );
-				bloomPass = new THREE.BloomPass();
-				var gammaCorrectionPass = new THREE.ShaderPass( THREE.GammaCorrectionShader );
-				gammaCorrectionPass.renderToScreen = true;
-				hdrEffectComposer.addPass( skyboxPass );
-				hdrEffectComposer.addPass( scenePass );
-				hdrEffectComposer.addPass( hdrToneMappingPass );
-				hdrEffectComposer.addPass( bloomPass );
-				hdrEffectComposer.addPass( gammaCorrectionPass );
+				sphere.rotation.y = rotation; 
+				scene.add(sphere);
 				
-				
-				
-				
-				
-				
-				
-				
-				// events
-				window.addEventListener( 'resize', onWindowResize, false );
-				console.log(-30);
-				animate();
-
-			}
-
-			function onWindowResize( event ) {
-				rendererB.setSize( window.innerWidth, window.innerHeight );
-				cameraB.aspect = window.innerWidth / window.innerHeight;
-				cameraB.updateProjectionMatrix();
-				
-				
-				
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				cameraCube.aspect = window.innerWidth / window.innerHeight;
-				cameraCube.updateProjectionMatrix();
-				
-			}
-			
-			function lensFlareUpdateCallback( object ) {
-				var f, fl = object.lensFlares.length;
-				var flare;
-				var vecX = -object.positionScreen.x * 2;
-				var vecY = -object.positionScreen.y * 2;
-				for( f = 0; f < fl; f++ ) {
-					flare = object.lensFlares[ f ];
-					flare.x = object.positionScreen.x + vecX * flare.distance;
-					flare.y = object.positionScreen.y + vecY * flare.distance;
-					flare.rotation = 0;
+				var clouds = createClouds(radius, segments);
+				function createClouds(radius, segments) {
+					return new THREE.Mesh(
+						new THREE.SphereGeometry(radius + 0.003, segments, segments),			
+						new THREE.MeshPhongMaterial({
+							map:         THREE.ImageUtils.loadTexture('js/clouds.png'),
+							transparent: true
+						})
+					);		
 				}
-				object.lensFlares[ 2 ].y += 0.025;
-				object.lensFlares[ 3 ].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad( 45 );
-			}
-
-			function animate() {				
-				requestAnimationFrame( animate );				
-				orbitControlsB.update();
+				clouds.rotation.y = rotation;
+				scene.add(clouds);
+				// СОЗДАНИЕ ЗЕМЛИ ОКОНЧЕНО -------------------------------------------------------------
 				
 				
-				
-				bloomPass.copyUniforms[ "opacity" ].value = params.bloomAmount;
-				hdrToneMappingPass.enabled = params.enabled;
-				hdrToneMappingPass.setMaxLuminance( params.maxLuminance );
-				hdrToneMappingPass.setMiddleGrey( params.middleGrey );
-				hdrToneMappingPass.setAverageLuminance( params.avgLuminance );
+				// ДОБАВЛЯЕМ УПРАВЛЕНИЕ КАМЕРОЙ
+				controls = new THREE.OrbitControls( camera );
+				controls.autoRotate = true;
+				controls.autoRotateSpeed = 1;
 				
 				
-
+				// ДОБАВЛЯЕМ БЛИКИ
+				var textureLoader = new THREE.TextureLoader();
+				var textureFlare0 = textureLoader.load(	"js/flare1.jpg" );
+				var textureFlare2 = textureLoader.load( "js/flare2.jpg" );
+				var textureFlare3 = textureLoader.load( "js/flare3.jpg" );
+				addFlare(0, 0, -5000);
+				function addFlare(x, y, z) {
+					var flareColor = new THREE.Color( 0xffffff );
+					flareColor.setHSL( 0.618, 0.45, 1.0 );
+					var lensFlare = new THREE.LensFlare( textureFlare0, 700, 0.0, THREE.AdditiveBlending, flareColor );
+					lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+					lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+					lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+					lensFlare.add( textureFlare3, 60, 0.6, THREE.AdditiveBlending );
+					lensFlare.add( textureFlare3, 70, 0.7, THREE.AdditiveBlending );
+					lensFlare.add( textureFlare3, 120, 0.9, THREE.AdditiveBlending );
+					lensFlare.add( textureFlare3, 70, 1.0, THREE.AdditiveBlending );
+					lensFlare.customUpdateCallback = lensFlareUpdateCallback;
+					lensFlare.position.set( x, y, z );
+				}
+				function lensFlareUpdateCallback( object ) {
+					var f, fl = object.lensFlares.length;
+					var flare;
+					var vecX = -object.positionScreen.x * 2;
+					var vecY = -object.positionScreen.y * 2;
+					for( f = 0; f < fl; f++ ) {
+						flare = object.lensFlares[ f ];
+						flare.x = object.positionScreen.x + vecX * flare.distance;
+						flare.y = object.positionScreen.y + vecY * flare.distance;
+						flare.rotation = 0;
+					}
+					object.lensFlares[ 2 ].y += 0.025;
+					object.lensFlares[ 3 ].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad( 45 );
+				}
+				
+				
+				var rotY = 0.0003;
+				var rotY2 = 0.0005;
+				
 				render();
-				stats.update();
+				
+				// РЕНДРИМ
+				function render() {
+					requestAnimationFrame(render);
+					controls.update();
+					// stats.update();
+					sphere.rotation.y += rotY;
+					clouds.rotation.y += rotY2;
+					// clouds.rotation.z += 0.0005;	
+					render3D.render(scene, camera);
+				}
 			}
-
-			function render() {
-				
-				cameraB.lookAt( scene.position );
-				cameraCube.rotation.copy( cameraB.rotation );
-				
-				
-				
-				
-				renderer.setViewport( 0, 0, window.innerWidth, window.innerHeight );
-				hdrEffectComposer.render( 0.017 );
-				//rendererB.setViewport( 0, 0, window.innerWidth, window.innerHeight );
-				//rendererB.render( sceneB, cameraB );
-				
-			}
-
 		</script>
 
 	</body>
-</html>
+</html>		
