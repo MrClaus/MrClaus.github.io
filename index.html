@@ -57,33 +57,29 @@
 			
 
 			resIntro();
+			renderIntro();
 			
 			function resIntro() {
 				var count = 0;
-				i_clouds = loadIMG("js/earth_clouds_2048.png");
-				console.log('/1 count is ', count);
-				i_earth = loadIMG("js/earth.jpg");
-				console.log('/2 count is ', count);
-				i_bump = loadIMG("js/bump.jpg");
-				console.log('/3 count is ', count);
-				i_specular = loadIMG("js/specular.jpg");
-				console.log('/4 count is ', count);
+				var count_res = 4;
 				
+				i_clouds = loadIMG("js/earth_clouds_2048.png");				
+				i_earth = loadIMG("js/earth.jpg");				
+				i_bump = loadIMG("js/bump.jpg");				
+				i_specular = loadIMG("js/specular.jpg");								
 				
-				function loadIMG(url) {
-					console.log('start ', url);
+				function loadIMG(url) {					
 					return new THREE.TextureLoader().load(
 						url,
 						function() {
-							console.log('loaded ' + url);
 							count++;
-							if(count==4) Intro();
+							if(count==count_res) initIntro();
 						}
 					);						
 				}
 			}
 				
-			function Intro() {
+			function initIntro() {
 				
 				// СОЗДАЕМ КОНТЕЙНЕР
 				container = document.createElement( 'div' );
@@ -150,21 +146,18 @@
 				controls = new THREE.OrbitControls( camera );
 				controls.autoRotate = true;
 				controls.autoRotateSpeed = 1;
+			}
 				
-				// Прочие данные
-				var rotY = 0.0003;
-				var rotY2 = 0.0005;
-				
+
+			function renderIntro() {				
 				window.addEventListener( 'resize', onWindowResize, false );
 				render();
-				
-				// РЕНДРИМ
 				function render() {
 					requestAnimationFrame(render);
 					controls.update();
 					// stats.update();
-					sphere.rotation.y += rotY;
-					clouds.rotation.y += rotY2;
+					sphere.rotation.y += 0.0003;
+					clouds.rotation.y += 0.0005;
 					clouds.rotation.z += 0.0005;	
 					render3D.render(scene, camera);
 				}
