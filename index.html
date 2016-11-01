@@ -64,20 +64,13 @@
 				camera.position.z = 6300;
 				
 				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
-				//render3D = new THREE.WebGLRenderer({antialias: true, alpha: true });
-				//render3D.setSize(width, height);
-				//render3D.domElement.style.position = "relative";
-				//render3D.setClearColor( 0x000000 );
-				//
 				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 				render3D.setPixelRatio( window.devicePixelRatio );
-				render3D.setSize( window.innerWidth, window.innerHeight );
-				//render3D.domElement.style.position = "relative";
+				render3D.setSize( window.innerWidth, window.innerHeight );				
 				render3D.autoClear = false;
 				render3D.gammaInput = true;
 				render3D.gammaOutput = true;
 				container.appendChild(render3D.domElement);
-				
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
 				var light = new THREE.DirectionalLight(0xffffff, 1);
@@ -86,9 +79,7 @@
 				scene.add(light);
 				
 				// Создаем землю -----------------------------------------------------------------------
-				// Объявляем 3д объект - Земля
-				
-				
+				// Создем сферу Земли				
 				var textureLoader = new THREE.TextureLoader();
 				var sphere = createSphere(radius, segments);
 				function createSphere(radius, segments) {
@@ -105,20 +96,11 @@
 				}
 				sphere.rotation.y = rotation; 
 				scene.add(sphere);
-				
+				// Создем сферу облков
 				var clouds = createClouds(radius, segments);
-				//function createClouds(radius, segments) {
-				//	return new THREE.Mesh(
-				//		new THREE.SphereGeometry(radius , segments, segments),			
-				//		new THREE.MeshPhongMaterial({
-				//			map:         textureLoader.load("js/clouds.png" ),
-				//			//transparent: true
-				//		})
-				//	);		
-				//}
 				function createClouds(radius, segments) {
 					return new THREE.Mesh(
-						new THREE.SphereGeometry(radius , segments, segments),			
+						new THREE.SphereGeometry(radius + 2, segments, segments),			
 						new THREE.MeshLambertMaterial({
 							map: textureLoader.load("js/earth_clouds_2048.png" ),
 							color: 0xffffff,
@@ -131,21 +113,18 @@
 				}
 				clouds.rotation.y = rotation;
 				scene.add(clouds);
-				// СОЗДАНИЕ ЗЕМЛИ ОКОНЧЕНО -------------------------------------------------------------
-				
-				
+				// Создание Земли окончено -------------------------------------------------------------
+								
 				// ДОБАВЛЯЕМ УПРАВЛЕНИЕ КАМЕРОЙ
 				controls = new THREE.OrbitControls( camera );
 				controls.autoRotate = true;
 				controls.autoRotateSpeed = 1;
 				
-				
-				
-				
-				
+				// Прочие данные
 				var rotY = 0.0003;
 				var rotY2 = 0.0005;
 				
+				window.addEventListener( 'resize', onWindowResize, false );
 				render();
 				
 				// РЕНДРИМ
@@ -155,8 +134,13 @@
 					// stats.update();
 					sphere.rotation.y += rotY;
 					clouds.rotation.y += rotY2;
-					// clouds.rotation.z += 0.0005;	
+					clouds.rotation.z += 0.0005;	
 					render3D.render(scene, camera);
+				}
+				function onWindowResize() {					
+					camera.aspect = window.innerWidth / window.innerHeight;
+					camera.updateProjectionMatrix();
+					render3D.setSize( window.innerWidth, window.innerHeight );
 				}
 			}
 		</script>
