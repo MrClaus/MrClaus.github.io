@@ -194,7 +194,7 @@
 				var clouds = createClouds(radius, segments);
 				function createClouds(radius, segments) {
 					return new THREE.Mesh(
-						new THREE.SphereGeometry(radius + 0.003, segments, segments),			
+						new THREE.SphereGeometry(radius + 10, segments, segments),			
 						new THREE.MeshPhongMaterial({
 							map:         textureLoader.load("js/clouds.png" ),
 							transparent: true
