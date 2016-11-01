@@ -211,17 +211,17 @@
 				for ( var i = 0; i < 6; i ++ ) {
 					materials.push( new THREE.MeshBasicMaterial( {
 						map: skyMat[ i ],
-						color: 0x303030
+						color: 0x404040
 					} ) );
 				}
 				skyIntro = new THREE.Mesh( new THREE.CubeGeometry( 11000, 11000, 11000, 7, 7, 7 ), new THREE.MeshFaceMaterial( materials ) );
 				skyIntro.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, - 1 ) );
 				scene.add( skyIntro );
-				for ( var i = 0, l = skyIntro.geometry.vertices.length; i < l; i ++ ) {
-					var vertex = skyIntro.geometry.vertices[ i ];
-					vertex.normalize();
-					vertex.multiplyScalar( 11000 );
-				}
+				//for ( var i = 0, l = skyIntro.geometry.vertices.length; i < l; i ++ ) {
+				//	var vertex = skyIntro.geometry.vertices[ i ];
+				//	vertex.normalize();
+				//	vertex.multiplyScalar( 11000 );
+				//}
 				
 								
 				// ДОБАВЛЯЕМ УПРАВЛЕНИЕ КАМЕРОЙ
