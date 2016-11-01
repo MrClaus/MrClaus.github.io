@@ -55,6 +55,10 @@
 			    i_bump,
 			    i_specular;
 			
+			var container, scene, camera, render3D;
+			var sphere, clouds;
+			var controls;
+			
 
 			resIntro();
 			renderIntro();
@@ -86,8 +90,8 @@
 				document.body.appendChild( container );
 				
 				// СОЗДАЕМ СЦЕНУ И КАМЕРУ
-				var scene = new THREE.Scene();
-				var camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
+				scene = new THREE.Scene();
+				camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 				camera.position.z = 6300;
 				
 				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
@@ -107,8 +111,7 @@
 				
 				// Создаем землю -----------------------------------------------------------------------
 				// Создем сферу Земли				
-				var textureLoader = new THREE.TextureLoader();
-				var sphere = createSphere(radius, segments);
+				sphere = createSphere(radius, segments);
 				function createSphere(radius, segments) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius, segments, segments),
@@ -124,7 +127,7 @@
 				sphere.rotation.y = rotation; 
 				scene.add(sphere);
 				// Создем сферу облков
-				var clouds = createClouds(radius, segments);
+				clouds = createClouds(radius, segments);
 				function createClouds(radius, segments) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius + 2, segments, segments),			
