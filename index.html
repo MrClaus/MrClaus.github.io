@@ -106,18 +106,18 @@
 				sphere.rotation.y = rotation; 
 				scene.add(sphere);
 				
-				//var clouds = createClouds(radius, segments);
-				//function createClouds(radius, segments) {
-				//	return new THREE.Mesh(
-				//		new THREE.SphereGeometry(radius + 3, segments, segments),			
-				//		new THREE.MeshPhongMaterial({
-				//			map:         textureLoader.load("js/clouds.png" ),
-				//			transparent: true
-				//		})
-				//	);		
-				//}
-				//clouds.rotation.y = rotation;
-				//scene.add(clouds);
+				var clouds = createClouds(radius, segments);
+				function createClouds(radius, segments) {
+					return new THREE.Mesh(
+						new THREE.SphereGeometry(radius , segments, segments),			
+						new THREE.MeshPhongMaterial({
+							map:         textureLoader.load("js/clouds.png" ),
+							transparent: true
+						})
+					);		
+				}
+				clouds.rotation.y = rotation;
+				scene.add(clouds);
 				// СОЗДАНИЕ ЗЕМЛИ ОКОНЧЕНО -------------------------------------------------------------
 				
 				
@@ -141,7 +141,7 @@
 					controls.update();
 					// stats.update();
 					sphere.rotation.y += rotY;
-					//clouds.rotation.y += rotY2;
+					clouds.rotation.y += rotY2;
 					// clouds.rotation.z += 0.0005;	
 					render3D.render(scene, camera);
 				}
