@@ -148,20 +148,20 @@
 				var atmoPosition = 0;
 				
 				// ОБЪЕКТ - АТМОСФЕРА
-				//var geometry = new THREE.SphereGeometry(radius, 32, 32, 1, 3, atmoPosition, 3);
-				//var material = new THREE.ShaderMaterial( atmoShader );
-				//var mesh = new THREE.Mesh(geometry, material );
-				//mesh.scale.multiplyScalar(1.01);
-				//containerEarth.add( mesh );
+				var geometry = new THREE.SphereGeometry(radius, 32, 32, 1, 3, atmoPosition, 3);
+				var material = new THREE.ShaderMaterial( atmoShader );
+				var mesh = new THREE.Mesh(geometry, material );
+				mesh.scale.multiplyScalar(1.01);
+				containerEarth.add( mesh );
 				
-				//var geometry = new THREE.SphereGeometry(radius, 32, 32, 1, 3, atmoPosition, 3);
-				//var material = new THREE.MeshPhongMaterial( {
-				//	color: 0xffffff,
-				//	shininess: 200
-				//} );				
-				//var mesh = new THREE.Mesh(geometry, material );
-				//mesh.scale.multiplyScalar(1.01);
-				//containerEarth.add( mesh );
+				var geometry = new THREE.SphereGeometry(radius, 32, 32, 1, 3, atmoPosition, 3);
+				var material = new THREE.MeshPhongMaterial( {
+					color: 0xffffff,
+					shininess: 200
+				} );				
+				var mesh = new THREE.Mesh(geometry, material );
+				mesh.scale.multiplyScalar(1.01);
+				containerEarth.add( mesh );
 												
 				//var geometry = new THREE.SphereGeometry(radius, 32, 32, 1, 3, atmoPosition, 3);
 				//var material = new THREE.MeshBasicMaterial( {
