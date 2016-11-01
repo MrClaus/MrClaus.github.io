@@ -64,12 +64,14 @@
 			var container, scene, camera, render3D;
 			var sphere, clouds;
 			var controls;
+			var wild = true;
 			
 			//new
 			var composer, glitchPass;
 			function updateOptions() {
-				var wildGlitch = document.getElementById('wildGlitch');
-				glitchPass.goWild=wildGlitch.checked;
+				//var wildGlitch = document.getElementById('wildGlitch');
+				//glitchPass.goWild=wildGlitch.checked;
+				glitchPass.goWild=wild;
 			}
 			
 
