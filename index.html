@@ -120,13 +120,12 @@
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius , segments, segments),			
 						new THREE.MeshLambertMaterial({
+							map: textureLoader.load("js/earth_clouds_2048.png" ),
 							color: 0xffffff,
 							blending: THREE.NormalBlending,
 							transparent: true,
-							depthTest: false,
-							map:         textureLoader.load("js/clouds.png" ),
+							depthTest: false,							
 							needsUpdate: true
-							//transparent: true
 						})
 					);		
 				}
