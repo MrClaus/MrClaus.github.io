@@ -49,10 +49,42 @@
 				segments = 64,
 				rotation = 6,
 				stats;
+			
+			var i_clouds,
+			    i_earth,
+			    i_bump,
+			    i_specular;
+			
 
-			init();
+			resIntro();
+			
+			function resIntro() {
+				var count = 0;
+				i_clouds = loadIMG("js/earth_clouds_2048.png");
+				console.log('/1 count is ', count);
+				i_earth = loadIMG("js/earth.jpg");
+				console.log('/2 count is ', count);
+				i_bump = loadIMG("js/bump.jpg");
+				console.log('/3 count is ', count);
+				i_specular = loadIMG("js/specular.jpg");
+				console.log('/4 count is ', count);
 				
-			function init() {
+				
+				function loadIMG(url) {
+					console.log('start ', url);
+					return new THREE.TextureLoader().load(
+						url,
+						function() {
+							console.log('loaded ' + url);
+							count++;
+						},
+						function() {console.log('... ' + url);},
+						function() {console.log('error ' + url);},
+					);						
+				}
+			}
+				
+			function Intro() {
 				
 				// СОЗДАЕМ КОНТЕЙНЕР
 				container = document.createElement( 'div' );
@@ -86,10 +118,10 @@
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius, segments, segments),
 						new THREE.MeshPhongMaterial({
-							map:         textureLoader.load("js/earth.jpg" ),
-							bumpMap:     textureLoader.load("js/bump.jpg" ),
+							map:         i_earth,
+							bumpMap:     i_bump,
 							bumpScale:   10,
-							specularMap: textureLoader.load("js/specular.jpg" ),
+							specularMap: i_specular,
 							specular:    new THREE.Color('#343434'),				
 						})
 					);
@@ -102,7 +134,7 @@
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius + 2, segments, segments),			
 						new THREE.MeshLambertMaterial({
-							map: textureLoader.load("js/earth_clouds_2048.png" ),
+							map: i_clouds,
 							color: 0xffffff,
 							blending: THREE.NormalBlending,
 							transparent: true,
