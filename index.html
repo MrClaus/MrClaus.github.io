@@ -107,11 +107,25 @@
 				scene.add(sphere);
 				
 				var clouds = createClouds(radius, segments);
+				//function createClouds(radius, segments) {
+				//	return new THREE.Mesh(
+				//		new THREE.SphereGeometry(radius , segments, segments),			
+				//		new THREE.MeshPhongMaterial({
+				//			map:         textureLoader.load("js/clouds.png" ),
+				//			//transparent: true
+				//		})
+				//	);		
+				//}
 				function createClouds(radius, segments) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius , segments, segments),			
-						new THREE.MeshPhongMaterial({
+						new THREE.THREE.MeshLambertMaterial({
+							color: 0xffffff,
+							blending: THREE.NormalBlending,
+							transparent: true,
+							depthTest: false,
 							map:         textureLoader.load("js/clouds.png" ),
+							needsUpdate: true
 							//transparent: true
 						})
 					);		
