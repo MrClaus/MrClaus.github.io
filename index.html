@@ -39,9 +39,7 @@
 		<script src="js/ShaderPass.js"></script>
 		<script src="js/GlitchPass.js"></script>
 		
-		<div>
-			<label for="dotScreen">Glitch me wild:</label><input id="wildGlitch" type="checkbox" onchange="updateOptions()"/><br />
-		</div>
+
 
 		<script>
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
@@ -64,7 +62,7 @@
 			var container, scene, camera, render3D;
 			var sphere, clouds;
 			var controls;
-			var wild = true;
+			var wild = false;
 			
 			var skyMat = [];
 			var skyIntro;
@@ -72,8 +70,6 @@
 			//new
 			var composer, glitchPass;
 			function updateOptions() {
-				//var wildGlitch = document.getElementById('wildGlitch');
-				//glitchPass.goWild=wildGlitch.checked;
 				glitchPass.goWild=wild;
 			}
 			
