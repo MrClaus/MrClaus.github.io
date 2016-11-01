@@ -77,9 +77,8 @@
 						function() {
 							console.log('loaded ' + url);
 							count++;
-						},
-						function() {console.log('... ' + url);},
-						function() {console.log('error ' + url);}
+							if(count==4) Intro();
+						}
 					);						
 				}
 			}
