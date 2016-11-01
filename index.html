@@ -28,7 +28,16 @@
 		<script src="js/Detector.js"></script>
 		<script src="js/dat.gui.min.js"></script>		
 		<script src="js/OrbitControls.js"></script>		
-		<script src="js/stats.min.js"></script>
+		<script src="js/stats.min.js"></script>		
+		
+
+		<script src="js/shaders/CopyShader.js"></script>
+		<script src="js/shaders/DigitalGlitch.js"></script>
+		<script src="js/postprocessing/EffectComposer.js"></script>
+		<script src="js/postprocessing/RenderPass.js"></script>
+		<script src="js/postprocessing/MaskPass.js"></script>
+		<script src="js/postprocessing/ShaderPass.js"></script>
+		<script src="js/postprocessing/GlitchPass.js"></script>
 		
 		
 
@@ -53,6 +62,13 @@
 			var container, scene, camera, render3D;
 			var sphere, clouds;
 			var controls;
+			
+			//new
+			var composer, glitchPass;
+			function updateOptions() {
+				var wildGlitch = document.getElementById('wildGlitch');
+				glitchPass.goWild=wildGlitch.checked;
+			}
 			
 
 			resIntro();			
@@ -183,8 +199,20 @@
 			}
 				
 
-			function renderIntro() {				
+			function renderIntro() {
+				
+				// postprocessing
+				composer = new THREE.EffectComposer( render3D );
+				composer.addPass( new THREE.RenderPass( scene, camera ) );
+				glitchPass = new THREE.GlitchPass();
+				glitchPass.renderToScreen = true;
+				composer.addPass( glitchPass );
+				
 				window.addEventListener( 'resize', onWindowResize, false );
+				
+				//new
+				updateOptions();
+				
 				render();
 				function render() {
 					requestAnimationFrame(render);
@@ -193,12 +221,19 @@
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0005;
 					clouds.rotation.z += 0.0005;	
-					render3D.render(scene, camera);
+					//render3D.render(scene, camera);
+					
+					//new
+					var time = Date.now();
+					composer.render();
 				}
 				function onWindowResize() {					
 					camera.aspect = window.innerWidth / window.innerHeight;
 					camera.updateProjectionMatrix();
 					render3D.setSize( window.innerWidth, window.innerHeight );
+					
+					//new
+					composer.setSize( window.innerWidth, window.innerHeight );
 				}
 			}
 		</script>
