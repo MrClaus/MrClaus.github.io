@@ -64,11 +64,20 @@
 				camera.position.z = 6300;
 				
 				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
-				render3D = new THREE.WebGLRenderer({antialias: true, alpha: true });
-				render3D.setSize(width, height);
+				//render3D = new THREE.WebGLRenderer({antialias: true, alpha: true });
+				//render3D.setSize(width, height);
+				//render3D.domElement.style.position = "relative";
+				//render3D.setClearColor( 0x000000 );
+				//
+				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+				render3D.setPixelRatio( window.devicePixelRatio );
+				render3D.setSize( window.innerWidth, window.innerHeight );
 				render3D.domElement.style.position = "relative";
-				render3D.setClearColor( 0x000000 );
+				render3D.autoClear = false;
+				render3D.gammaInput = true;
+				render3D.gammaOutput = true;
 				container.appendChild(render3D.domElement);
+				
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
 				var light = new THREE.DirectionalLight(0xffffff, 1);
