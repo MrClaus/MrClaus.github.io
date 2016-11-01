@@ -214,8 +214,7 @@
 				
 				window.addEventListener( 'resize', onWindowResize, false );
 				
-				//new
-				updateOptions();
+				
 				
 				render();
 				function render() {
@@ -226,6 +225,9 @@
 					clouds.rotation.y += 0.0005;
 					clouds.rotation.z += 0.0005;	
 					//render3D.render(scene, camera);
+					
+					//new
+					updateOptions();
 					
 					//new
 					//var time = Date.now();
