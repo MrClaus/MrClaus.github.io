@@ -66,6 +66,9 @@
 			var controls;
 			var wild = true;
 			
+			var skyMat = [];
+			var skyIntro;
+			
 			//new
 			var composer, glitchPass;
 			function updateOptions() {
@@ -79,7 +82,7 @@
 			
 			function resIntro() {
 				var count = 0;
-				var count_res = 7;
+				var count_res = 13;
 				
 				i_clouds = loadIMG("js/earth_clouds_2048.png");				
 				i_earth = loadIMG("js/earth.jpg");				
@@ -88,6 +91,12 @@
 				textureFlare0 = loadIMG("js/flare72.png");
 				textureFlare2 = loadIMG("js/lensflare2.png");
 				textureFlare3 = loadIMG("js/lensflare3.png");
+				skyMat[0] = loadIMG("js/px.jpg");
+				skyMat[1] = loadIMG("js/nx.jpg");
+				skyMat[2] = loadIMG("js/py.jpg");
+				skyMat[3] = loadIMG("js/ny.jpg");
+				skyMat[4] = loadIMG("js/pz.jpg");
+				skyMat[5] = loadIMG("js/nz.jpg");
 				
 				function loadIMG(url) {					
 					return new THREE.TextureLoader().load(
@@ -193,6 +202,13 @@
 				clouds.rotation.y = rotation;
 				scene.add(clouds);
 				// Создание Земли окончено -------------------------------------------------------------
+				
+				
+				// Создаем скайбокс
+				skyIntro = new THREE.Mesh( new THREE.BoxGeometry( 3000, 3000, 3000, 7, 7, 7 ), new THREE.MultiMaterial( skyMat ) );
+				skyIntro.scale.x = - 1;
+				scene.add( skyIntro );
+				
 								
 				// ДОБАВЛЯЕМ УПРАВЛЕНИЕ КАМЕРОЙ
 				controls = new THREE.OrbitControls( camera );
