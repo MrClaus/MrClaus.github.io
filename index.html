@@ -131,6 +131,9 @@
 				light.color.setHSL( 0.618, 0.45, 1.0 );
 				scene.add(light);
 				
+				var ambient = new THREE.AmbientLight( 0x808080 );
+				scene.add( ambient );
+				
 				// Создаём блики камеры
 				addFlare( 0.618, 0.45, 1.0, 0, 0, -5000 );
 				function addFlare( h, s, l, x, y, z ) {
