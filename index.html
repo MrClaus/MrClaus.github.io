@@ -80,7 +80,7 @@
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
 				var light = new THREE.DirectionalLight(0xffffff, 1);
-				light.position.set(130,-57,100);
+				light.position.set(0,0,-5000);
 				light.shadowCameraVisible = true;
 				scene.add(light);
 				
@@ -171,15 +171,16 @@
 				mesh.scale.multiplyScalar(1.01);
 				containerEarth.add( mesh );
 				
+				var textureLoader = new THREE.TextureLoader();
 				var sphere = createSphere(radius, segments);
 				function createSphere(radius, segments) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius, segments, segments),
 						new THREE.MeshPhongMaterial({
-							map:         THREE.ImageUtils.loadTexture('js/earth.jpg'),
-							bumpMap:     THREE.ImageUtils.loadTexture('js/bump.jpg'),
+							map:         textureLoader.load("js/earth.jpg" ),
+							bumpMap:     textureLoader.load("js/bump.jpg" ),
 							bumpScale:   0.001,
-							specularMap: THREE.ImageUtils.loadTexture('js/specular.jpg'),
+							specularMap: textureLoader.load("js/specular.jpg" ),
 							specular:    new THREE.Color('#343434'),				
 						})
 					);
@@ -192,7 +193,7 @@
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius + 0.003, segments, segments),			
 						new THREE.MeshPhongMaterial({
-							map:         THREE.ImageUtils.loadTexture('js/clouds.png'),
+							map:         textureLoader.load("js/clouds.png" ),
 							transparent: true
 						})
 					);		
@@ -209,7 +210,7 @@
 				
 				
 				// ДОБАВЛЯЕМ БЛИКИ
-				var textureLoader = new THREE.TextureLoader();
+				
 				var textureFlare0 = textureLoader.load(	"js/lensflare0.png" );
 				var textureFlare2 = textureLoader.load( "js/lensflare2.png" );
 				var textureFlare3 = textureLoader.load( "js/lensflare3.png" );
