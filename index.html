@@ -111,10 +111,12 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 				
+				
 				// СОЗДАЕМ СЦЕНУ И КАМЕРУ
 				scene = new THREE.Scene();
 				camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 				camera.position.z = 6300;
+				
 				
 				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
 				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -125,14 +127,15 @@
 				render3D.gammaOutput = true;
 				container.appendChild(render3D.domElement);
 				
+				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
 				var light = new THREE.DirectionalLight(0xffffff, 1);
 				light.position.set(0, 0, -5000);
 				light.color.setHSL( 0.618, 0.45, 1.0 );
-				scene.add(light);
+				scene.add(light);				
+				var ambient = new THREE.AmbientLight( 0x303030 );
+				scene.add( ambient );
 				
-				//var ambient = new THREE.AmbientLight( 0x808080 );
-				//scene.add( ambient );
 				
 				// Создаём блики камеры
 				addFlare( 0.618, 0.45, 1.0, 0, 0, -5000 );
@@ -165,6 +168,7 @@
 					object.lensFlares[ 2 ].y += 0.025;
 					object.lensFlares[ 3 ].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad( 45 );
 				}
+				
 				
 				// Создаем землю -----------------------------------------------------------------------
 				// Создем сферу Земли				
@@ -204,9 +208,7 @@
 				
 				
 				// Создаем скайбокс
-				//skyIntro = new THREE.Mesh( new THREE.BoxGeometry( 11000, 11000, 11000, 7, 7, 7 ), new THREE.MultiMaterial( skyMat ) );
-				//skyIntro.scale.x = - 1;
-				//scene.add( skyIntro ); 
+				// Создаем материал скайбокса, куда пушим 6 оттедельных картинок его сторон
 				var materials = [];
 				for ( var i = 0; i < 6; i ++ ) {
 					materials.push( new THREE.MeshBasicMaterial( {
@@ -214,14 +216,17 @@
 						color: 0x404040
 					} ) );
 				}
+				// создаем сам куб-скайбокс
 				skyIntro = new THREE.Mesh( new THREE.CubeGeometry( 11000, 11000, 11000, 7, 7, 7 ), new THREE.MeshFaceMaterial( materials ) );
 				skyIntro.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, - 1 ) );
+				// превращаем куб-скайбокс в сферу-скайбокс с указанными размерами
+				for ( var i = 0, l = skyIntro.geometry.vertices.length; i < l; i ++ ) {
+					var vertex = skyIntro.geometry.vertices[ i ];
+					vertex.normalize();
+					vertex.multiplyScalar( 11000 );
+				}
+				// Добавляем скайбокс на сцену
 				scene.add( skyIntro );
-				//for ( var i = 0, l = skyIntro.geometry.vertices.length; i < l; i ++ ) {
-				//	var vertex = skyIntro.geometry.vertices[ i ];
-				//	vertex.normalize();
-				//	vertex.multiplyScalar( 11000 );
-				//}
 				
 								
 				// ДОБАВЛЯЕМ УПРАВЛЕНИЕ КАМЕРОЙ
@@ -229,28 +234,32 @@
 				controls.autoRotate = true;
 				controls.autoRotateSpeed = 1;
 				
+				
 				renderIntro();
 			}
 				
 
 			function renderIntro() {
 				
-				// postprocessing
+				// Создаем композёр (для добавления различных эффектов)
 				composer = new THREE.EffectComposer( render3D );
 				composer.addPass( new THREE.RenderPass( scene, camera ) );
+				
+				
+				// Добавляем эффект постпроцессинга - электронных помех - в композер
 				glitchPass = new THREE.GlitchPass();
 				glitchPass.renderToScreen = true;
 				composer.addPass( glitchPass );
 				
+				
 				window.addEventListener( 'resize', onWindowResize, false );
 				
-				
-				
+								
 				render();
 				function render() {
 					requestAnimationFrame(render);
 					controls.update();
-					// stats.update();
+					stats.update();
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0005;
 					clouds.rotation.z += 0.0005;	
