@@ -89,12 +89,12 @@
 				textureFlare0 = loadIMG("js/flare72.png");
 				textureFlare2 = loadIMG("js/lensflare2.png");
 				textureFlare3 = loadIMG("js/lensflare3.png");
-				skyMat[0] = loadIMG("js/px.jpg");
-				skyMat[1] = loadIMG("js/nx.jpg");
-				skyMat[2] = loadIMG("js/py.jpg");
-				skyMat[3] = loadIMG("js/ny.jpg");
-				skyMat[4] = loadIMG("js/pz.jpg");
-				skyMat[5] = loadIMG("js/nz.jpg");
+				skyMat[0] = loadIMG("js/star.jpg");
+				skyMat[1] = loadIMG("js/star.jpg");
+				skyMat[2] = loadIMG("js/star.jpg");
+				skyMat[3] = loadIMG("js/star.jpg");
+				skyMat[4] = loadIMG("js/star.jpg");
+				skyMat[5] = loadIMG("js/star.jpg");
 				
 				function loadIMG(url) {					
 					return new THREE.TextureLoader().load(
@@ -214,8 +214,8 @@
 				var materials = [];
 				for ( var i = 0; i < 6; i ++ ) {
 					materials.push( new THREE.MeshBasicMaterial( {
-						map: skyMat[ i ],
-						color: 0x404040
+						map: skyMat[ i ]
+						//color: 0x404040
 					} ) );
 				}
 				// создаем сам куб-скайбокс
