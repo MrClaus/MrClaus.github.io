@@ -67,6 +67,8 @@
 			var skyMat = [];
 			var skyIntro;
 			
+			var stats;
+			
 			//new
 			var composer, glitchPass;
 			function updateOptions() {
@@ -250,6 +252,10 @@
 				glitchPass = new THREE.GlitchPass();
 				glitchPass.renderToScreen = true;
 				composer.addPass( glitchPass );
+				
+				
+				stats = new Stats();
+				container.appendChild( stats.domElement );
 				
 				
 				window.addEventListener( 'resize', onWindowResize, false );
