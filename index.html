@@ -267,11 +267,12 @@
 				
 				var effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, false );
 				effectFilm.renderToScreen = true;
+				composer.addPass( effectFilm );
 				// Добавляем эффект постпроцессинга - электронных помех - в композер
 				glitchPass = new THREE.GlitchPass();
 				glitchPass.renderToScreen = true;
 				composer.addPass( glitchPass );
-				composer.addPass( effectFilm );
+				
 				
 				
 				stats = new Stats();
