@@ -41,6 +41,7 @@
 		
 		<script src="js/FilmShader.js"></script>
 		<script src="js/FilmPass.js"></script>
+		<script src="js/VignetteShader.js"></script>
 		
 
 
@@ -265,13 +266,20 @@
 				composer = new THREE.EffectComposer( render3D );
 				composer.addPass( new THREE.RenderPass( scene, camera ) );
 				
-				var effectFilm = new THREE.FilmPass();
-				effectFilm.renderToScreen = true;
-				composer.addPass( effectFilm );
+				//var effectFilm = new THREE.FilmPass();
+				//effectFilm.renderToScreen = true;
+				//composer.addPass( effectFilm );
 				// Добавляем эффект постпроцессинга - электронных помех - в композер
 				glitchPass = new THREE.GlitchPass();
 				glitchPass.renderToScreen = true;
 				composer.addPass( glitchPass );
+				
+				var shaderVignette = THREE.VignetteShader;
+				var effectVignette = new THREE.ShaderPass( shaderVignette );
+				effectVignette.uniforms[ "offset" ].value = 0.95;
+				effectVignette.uniforms[ "darkness" ].value = 1.6;
+				effectVignette.renderToScreen = true;
+				composer.addPass( effectVignette );
 				
 				
 				
