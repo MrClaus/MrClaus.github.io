@@ -69,6 +69,9 @@
 			
 			var stats;
 			
+			var luna;
+			var moon, m_bump, m_specular;
+			
 			//new
 			var composer, glitchPass;
 			function updateOptions() {
@@ -85,7 +88,10 @@
 				i_clouds = loadIMG("js/earth_clouds_2048.png");				
 				i_earth = loadIMG("js/earth.jpg");				
 				i_bump = loadIMG("js/bump.jpg");				
-				i_specular = loadIMG("js/specular.jpg");				
+				i_specular = loadIMG("js/specular.jpg");
+				moon = loadIMG("js/moon_map.jpg");
+				m_bump = loadIMG("js/moon_bump.jpg");
+				m_specular = loadIMG("js/moon_specular.jpg");
 				textureFlare0 = loadIMG("js/flare72.png");
 				textureFlare2 = loadIMG("js/lensflare2.png");
 				textureFlare3 = loadIMG("js/lensflare3.png");
@@ -117,7 +123,7 @@
 				// СОЗДАЕМ СЦЕНУ И КАМЕРУ
 				scene = new THREE.Scene();
 				camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
-				camera.position.z = 6300;
+				camera.position.z = 40000;
 				
 				
 				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
@@ -132,7 +138,7 @@
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
 				var light = new THREE.DirectionalLight(0xffffff, 1);
-				light.position.set(0, 0, -5000);
+				light.position.set(0, 0, -50000);
 				light.color.setHSL( 0.618, 0.45, 1.0 );
 				scene.add(light);				
 				var ambient = new THREE.AmbientLight( 0x202020 );
@@ -174,15 +180,15 @@
 				
 				// Создаем землю -----------------------------------------------------------------------
 				// Создем сферу Земли				
-				sphere = createSphere(radius, segments);
-				function createSphere(radius, segments) {
+				sphere = createSphere(radius, segments, i_earth, i_bump, i_specular);
+				function createSphere(radius, segments, map, bump, specular) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius, segments, segments),
 						new THREE.MeshPhongMaterial({
-							map:         i_earth,
-							bumpMap:     i_bump,
+							map:         map,
+							bumpMap:     bump,
 							bumpScale:   100,
-							specularMap: i_specular,
+							specularMap: specular,
 							specular:    new THREE.Color('#343434'),				
 						})
 					);
@@ -209,6 +215,11 @@
 				// Создание Земли окончено -------------------------------------------------------------
 				
 				
+				// Создаем луну
+				luna = createSphere(163, segments, moon, m_bump, m_specular);
+				luna.position.set(0, 0, -35564);
+				
+				
 				// Создаем скайбокс
 				// Создаем материал скайбокса, куда пушим 6 оттедельных картинок его сторон
 				var materials = [];
@@ -225,7 +236,7 @@
 				for ( var i = 0, l = skyIntro.geometry.vertices.length; i < l; i ++ ) {
 					var vertex = skyIntro.geometry.vertices[ i ];
 					vertex.normalize();
-					vertex.multiplyScalar( 11000 );
+					vertex.multiplyScalar( 111000 );
 				}
 				// Добавляем скайбокс на сцену
 				scene.add( skyIntro );
