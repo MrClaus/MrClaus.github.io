@@ -42,6 +42,7 @@
 		<script src="js/FilmShader.js"></script>
 		<script src="js/FilmPass.js"></script>
 		<script src="js/VignetteShader.js"></script>
+		<script src="js/TexturePass.js"></script>
 		
 
 
@@ -77,6 +78,9 @@
 			var moon, m_bump, m_specular;
 			
 			var flare;
+			
+			var composerScene;
+			var renderScene;
 			
 			//new
 			var composer, glitchPass;
@@ -262,17 +266,31 @@
 
 			function renderIntro() {
 				
-				// Создаем композёр (для добавления различных эффектов)
-				composer = new THREE.EffectComposer( render3D );
-				composer.addPass( new THREE.RenderPass( scene, camera ) );
+				var rtParameters = {
+					minFilter: THREE.LinearFilter,
+					magFilter: THREE.LinearFilter,
+					format: THREE.RGBFormat,
+					stencilBuffer: true
+				};
+				composerScene = new THREE.EffectComposer( render3D, new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, rtParameters ) );
+				composerScene.addPass( new THREE.RenderPass( scene, camera ) );
+				renderScene = new THREE.TexturePass( composerScene.renderTarget2.texture );
 				
-				//var effectFilm = new THREE.FilmPass();
-				//effectFilm.renderToScreen = true;
-				//composer.addPass( effectFilm );
+				
+				// Создаем композёр (для добавления различных эффектов)
+				composer = new THREE.EffectComposer( render3D, new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, rtParameters )  );
+				//composer.addPass( new THREE.RenderPass( scene, camera ) );
+				composer.addPass(renderScene);
+				
+				
+				
+				var effectFilm = new THREE.FilmPass();
+				effectFilm.renderToScreen = true;
+				composer.addPass( effectFilm );
 				// Добавляем эффект постпроцессинга - электронных помех - в композер
-				glitchPass = new THREE.GlitchPass();
-				glitchPass.renderToScreen = true;
-				composer.addPass( glitchPass );
+				//glitchPass = new THREE.GlitchPass();
+				//glitchPass.renderToScreen = true;
+				//composer.addPass( glitchPass );
 				
 				var shaderVignette = THREE.VignetteShader;
 				var effectVignette = new THREE.ShaderPass( shaderVignette );
@@ -280,6 +298,8 @@
 				effectVignette.uniforms[ "darkness" ].value = 1.6;
 				effectVignette.renderToScreen = true;
 				composer.addPass( effectVignette );
+				
+				renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2.texture;
 				
 				
 				
@@ -305,6 +325,7 @@
 					
 					//new
 					//var time = Date.now();
+					composerScene.render( 0.01 );
 					composer.render(0.01);
 				}
 				function onWindowResize() {					
@@ -312,8 +333,10 @@
 					camera.updateProjectionMatrix();
 					render3D.setSize( window.innerWidth, window.innerHeight );
 					
+					composerScene.setSize( window.innerWidth, window.innerHeight );
 					//new
 					composer.setSize( window.innerWidth, window.innerHeight );
+					renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2.texture;
 				}
 			}
 		</script>
