@@ -81,6 +81,8 @@
 			
 			var composerScene;
 			var renderScene;
+			var effectFilm;
+			var effectVignette;
 			
 			//new
 			var composer, glitchPass;
@@ -284,7 +286,7 @@
 				
 				
 				
-				var effectFilm = new THREE.FilmPass();
+				effectFilm = new THREE.FilmPass();
 				effectFilm.renderToScreen = true;
 				composer.addPass( effectFilm );
 				// Добавляем эффект постпроцессинга - электронных помех - в композер
@@ -293,7 +295,7 @@
 				//composer.addPass( glitchPass );
 				
 				var shaderVignette = THREE.VignetteShader;
-				var effectVignette = new THREE.ShaderPass( shaderVignette );
+				effectVignette = new THREE.ShaderPass( shaderVignette );
 				effectVignette.uniforms[ "offset" ].value = 0.95;
 				effectVignette.uniforms[ "darkness" ].value = 1.6;
 				effectVignette.renderToScreen = true;
