@@ -123,7 +123,7 @@
 				// СОЗДАЕМ СЦЕНУ И КАМЕРУ
 				scene = new THREE.Scene();
 				camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
-				camera.position.z = 40000;
+				camera.position.z = 10000;
 				
 				
 				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
@@ -138,7 +138,7 @@
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
 				var light = new THREE.DirectionalLight(0xffffff, 1);
-				light.position.set(0, 0, -50000);
+				light.position.set(0, 0, -30000);
 				light.color.setHSL( 0.618, 0.45, 1.0 );
 				scene.add(light);				
 				var ambient = new THREE.AmbientLight( 0x202020 );
@@ -146,7 +146,7 @@
 				
 				
 				// Создаём блики камеры
-				addFlare( 0.618, 0.45, 1.0, 0, 0, -50000 );
+				addFlare( 0.618, 0.45, 1.0, 0, 0, -30000 );
 				function addFlare( h, s, l, x, y, z ) {
 					var flareColor = new THREE.Color( 0xffffff );
 					flareColor.setHSL( h, s, l );
@@ -180,14 +180,14 @@
 				
 				// Создаем землю -----------------------------------------------------------------------
 				// Создем сферу Земли				
-				sphere = createSphere(radius, segments, i_earth, i_bump, i_specular);
-				function createSphere(radius, segments, map, bump, specular) {
+				sphere = createSphere(radius, segments, i_earth, i_bump, i_specular, 100);
+				function createSphere(radius, segments, map, bump, specular, b) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius, segments, segments),
 						new THREE.MeshPhongMaterial({
 							map:         map,
 							bumpMap:     bump,
-							bumpScale:   100,
+							bumpScale:   b,
 							specularMap: specular,
 							specular:    new THREE.Color('#343434'),				
 						})
@@ -216,8 +216,8 @@
 				
 				
 				// Создаем луну
-				luna = createSphere(163, segments, moon, m_bump, m_specular);
-				luna.position.set(0, 0, -35564);
+				luna = createSphere(163, segments, moon, m_bump, m_specular, 23);
+				luna.position.set(0, 0, -5000);
 				scene.add(luna);
 				
 				
@@ -237,7 +237,7 @@
 				for ( var i = 0, l = skyIntro.geometry.vertices.length; i < l; i ++ ) {
 					var vertex = skyIntro.geometry.vertices[ i ];
 					vertex.normalize();
-					vertex.multiplyScalar( 111000 );
+					vertex.multiplyScalar( 62000 );
 				}
 				// Добавляем скайбокс на сцену
 				scene.add( skyIntro );
