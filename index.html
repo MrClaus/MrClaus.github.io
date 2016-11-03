@@ -286,20 +286,22 @@
 				
 				
 				
-				effectFilm = new THREE.FilmPass();
-				effectFilm.renderToScreen = true;
-				composer.addPass( effectFilm );
+				
 				// Добавляем эффект постпроцессинга - электронных помех - в композер
 				//glitchPass = new THREE.GlitchPass();
 				//glitchPass.renderToScreen = true;
 				//composer.addPass( glitchPass );
 				
-				//var shaderVignette = THREE.VignetteShader;
-				//effectVignette = new THREE.ShaderPass( shaderVignette );
-				//effectVignette.uniforms[ "offset" ].value = 0.95;
-				//effectVignette.uniforms[ "darkness" ].value = 1.6;
-				//effectVignette.renderToScreen = true;
-				//composer.addPass( effectVignette );
+				var shaderVignette = THREE.VignetteShader;
+				effectVignette = new THREE.ShaderPass( shaderVignette );
+				effectVignette.uniforms[ "offset" ].value = 0.95;
+				effectVignette.uniforms[ "darkness" ].value = 1.6;
+				effectVignette.renderToScreen = true;
+				composer.addPass( effectVignette );
+				
+				effectFilm = new THREE.FilmPass();
+				effectFilm.renderToScreen = true;
+				composer.addPass( effectFilm );
 				
 				renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2.texture;
 				
