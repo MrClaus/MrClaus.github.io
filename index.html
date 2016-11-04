@@ -135,14 +135,12 @@
 				camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 				camera.position.z = 10000;
 				//
-				scene2 = new THREE.Scene();
-				camera2 = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
-				camera2.position.z = 10000;
+				
 				
 				
 				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
-				//render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-				render3D = new THREE.WebGLRenderer( { antialias: false } );
+				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+				//render3D = new THREE.WebGLRenderer( { antialias: false } );
 				render3D.setPixelRatio( window.devicePixelRatio );
 				render3D.setSize( window.innerWidth, window.innerHeight );				
 				render3D.autoClear = false;
@@ -150,13 +148,7 @@
 				render3D.gammaOutput = true;
 				container.appendChild(render3D.domElement);
 				//
-				render3D2 = new THREE.WebGLRenderer( { antialias: true, alpha: true } );				
-				render3D2.setPixelRatio( window.devicePixelRatio );
-				render3D2.setSize( window.innerWidth, window.innerHeight );				
-				render3D2.autoClear = false;
-				render3D2.gammaInput = true;
-				render3D2.gammaOutput = true;
-				container.appendChild(render3D2.domElement);
+				
 				
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
@@ -164,7 +156,7 @@
 				light.position.set(0, 0, -30000);
 				light.color.setHSL( 0.618, 0.45, 1.0 );
 				scene.add(light);
-				scene2.add(light);
+				
 				//var ambient = new THREE.AmbientLight( 0x202020 );
 				//scene.add( ambient );
 				
@@ -329,7 +321,7 @@
 				function render() {
 					requestAnimationFrame(render);
 					controls.update();
-					camera2.position.copy(camera);
+					
 					stats.update();
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
