@@ -86,9 +86,7 @@
 			
 			//new
 			var composer, glitchPass;
-			function updateOptions() {
-				glitchPass.goWild=wild;
-			}
+
 			
 
 			resIntro();			
@@ -289,18 +287,19 @@
 				
 				
 				// Добавляем эффект постпроцессинга - электронных помех - в композер
-				glitchPass = new THREE.GlitchPass();
-				glitchPass.renderToScreen = true;
-				composer.addPass( glitchPass );
+				
 				
 				var shaderVignette = THREE.VignetteShader;
 				effectVignette = new THREE.ShaderPass( shaderVignette );
 				effectVignette.uniforms[ "offset" ].value = 0.95;
 				effectVignette.uniforms[ "darkness" ].value = 1.6;
 				effectVignette.renderToScreen = true;
-				//composer.addPass( effectVignette );
+				composer.addPass( effectVignette );
 				
-				
+				glitchPass = new THREE.GlitchPass();
+				glitchPass.renderToScreen = true;
+				glitchPass.goWild=wild;
+				composer.addPass( glitchPass );
 				
 				renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2.texture;
 				
@@ -324,7 +323,7 @@
 					//render3D.render(scene, camera);
 					
 					//new
-					updateOptions();
+					
 					
 					//new
 					//var time = Date.now();
