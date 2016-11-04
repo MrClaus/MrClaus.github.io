@@ -163,7 +163,8 @@
 				var light = new THREE.DirectionalLight(0xffffff, 1);
 				light.position.set(0, 0, -30000);
 				light.color.setHSL( 0.618, 0.45, 1.0 );
-				scene.add(light);				
+				scene.add(light);
+				scene2.add(light);
 				//var ambient = new THREE.AmbientLight( 0x202020 );
 				//scene.add( ambient );
 				
@@ -340,9 +341,10 @@
 					
 					//new
 					//var time = Date.now();
+					render3D2.render(scene2, camera);
 					composerScene.render(0,01);
 					composer.render(0.01);
-					render3D2.render(scene2, camera2);
+					
 				}
 				function onWindowResize() {					
 					camera.aspect = window.innerWidth / window.innerHeight;
