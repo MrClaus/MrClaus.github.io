@@ -171,7 +171,7 @@
 				
 				// Создаём блики камеры
 				flare = addFlare( 0.618, 0.45, 1.0, 0, 0, -30000 );
-				scene2.add( flare );
+				scene.add( flare );
 				function addFlare( h, s, l, x, y, z ) {
 					var flareColor = new THREE.Color( 0xffffff );
 					flareColor.setHSL( h, s, l );
@@ -283,7 +283,7 @@
 				var rtParameters = {
 					minFilter: THREE.LinearFilter,
 					magFilter: THREE.LinearFilter,
-					format: THREE.RGBFormat,
+					format: THREE.RGBAFormat,
 					stencilBuffer: true
 				};
 				composerScene = new THREE.EffectComposer( render3D, new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, rtParameters ) );
@@ -343,7 +343,7 @@
 					//var time = Date.now();
 					
 					composerScene.render(0,01);
-					render3D2.render(scene2, camera2);
+					//render3D2.render(scene2, camera2);
 					composer.render(0.01);
 					
 				}
