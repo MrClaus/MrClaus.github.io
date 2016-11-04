@@ -139,7 +139,8 @@
 				
 				
 				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
-				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+				//render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+				render3D = new THREE.WebGLRenderer( { antialias: false } );
 				render3D.setPixelRatio( window.devicePixelRatio );
 				render3D.setSize( window.innerWidth, window.innerHeight );				
 				render3D.autoClear = false;
@@ -299,7 +300,7 @@
 				effectVignette.renderToScreen = true;
 				composer.addPass( effectVignette );
 				
-				effectFilm = new THREE.FilmPass();
+				effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, false );
 				effectFilm.renderToScreen = true;
 				composer.addPass( effectFilm );
 				
