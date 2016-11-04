@@ -149,6 +149,14 @@
 				render3D.gammaInput = true;
 				render3D.gammaOutput = true;
 				container.appendChild(render3D.domElement);
+				//
+				render3D2 = new THREE.WebGLRenderer( { antialias: true, alpha: true } );				
+				render3D2.setPixelRatio( window.devicePixelRatio );
+				render3D2.setSize( window.innerWidth, window.innerHeight );				
+				render3D2.autoClear = false;
+				render3D2.gammaInput = true;
+				render3D2.gammaOutput = true;
+				container.appendChild(render3D2.domElement);
 				
 				
 				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
@@ -320,6 +328,7 @@
 				function render() {
 					requestAnimationFrame(render);
 					controls.update();
+					camera2.position.copy(camera);
 					stats.update();
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
@@ -333,6 +342,7 @@
 					//var time = Date.now();
 					composerScene.render(0,01);
 					composer.render(0.01);
+					render3D2.render(scene2, camera2);
 				}
 				function onWindowResize() {					
 					camera.aspect = window.innerWidth / window.innerHeight;
