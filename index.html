@@ -120,9 +120,9 @@
 				camera.position.z = 4180;
 				
 				// добавляем управление камерой
-				//controls = new THREE.OrbitControls( camera );
-				//controls.autoRotate = true;
-				//controls.autoRotateSpeed = 1;
+				controls = new THREE.OrbitControls( camera );
+				controls.autoRotate = true;
+				controls.autoRotateSpeed = 0;
 								
 				// создаем рендерный движок и задаем ему параметры
 				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -345,11 +345,11 @@
 				}
 				
 				function animate() {
-					//controls.update();
+					controls.update();
 					
 					stats.update();
-					camera.position.x += ( mouseX - camera.position.x ) * 2;
-					camera.lookAt( scene.position );
+					//camera.position.x += ( mouseX - camera.position.x ) * 2;
+					controls.autoRotateSpeed = mouseX*0.1;
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
 					skyBox.rotation.z += 0.0003;
