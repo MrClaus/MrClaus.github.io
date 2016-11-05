@@ -123,47 +123,85 @@
 				}
 			}
 				
-			function initIntro() {
+			function initScene() {
 				
-				// СОЗДАЕМ КОНТЕЙНЕР
+				// *** Основной код ***
+				
+				// создаём исполняемый элемент контейнер и добавляем его в html документ
 				container = document.createElement( 'div' );
-				document.body.appendChild( container );
+				document.body.appendChild( container );				
 				
-				
-				// СОЗДАЕМ СЦЕНУ И КАМЕРУ
+				// создаём сцену
 				scene = new THREE.Scene();
+				
+				// создаём камеру
 				camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 				camera.position.z = 10000;
-				//
 				
-				
-				
-				// СОЗДАЕМ РЕНДЕРНЫЙ ДВИЖОК И ДОБАВЛЯЕМ ЕГО В КОНТЕЙНЕР
+				// добавляем управление камерой
+				controls = new THREE.OrbitControls( camera );
+				controls.autoRotate = true;
+				controls.autoRotateSpeed = 1;
+								
+				// создаем рендерный движок и задаем ему параметры
 				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-				//render3D = new THREE.WebGLRenderer( { antialias: false } );
 				render3D.setPixelRatio( window.devicePixelRatio );
 				render3D.setSize( window.innerWidth, window.innerHeight );				
 				render3D.autoClear = false;
 				render3D.gammaInput = true;
 				render3D.gammaOutput = true;
 				container.appendChild(render3D.domElement);
-				//
+								
+				initObject(); // инициализация объектов сцены
+				initEffect(); // добавление эффектов рендера при отображении
+				renderIntro(); // рендер сцены
 				
+				// *** Конец основного кода ***
+								
+			}
+			
+			function initObject() {
 				
+				// *** Основной код ***
 				
-				// СОЗДАЕМ ИСТОЧНИК ОСВЕЩЕНИЯ
+				// создаем источник освещения DirectionalLight
 				var light = new THREE.DirectionalLight(0xffffff, 1);
 				light.position.set(0, 0, -30000);
 				light.color.setHSL( 0.618, 0.45, 1.0 );
 				scene.add(light);
 				
+				// создаем источник освещения AmbientLight
 				//var ambient = new THREE.AmbientLight( 0x202020 );
-				//scene.add( ambient );
+				//scene.add( ambient );				
 				
-				
-				// Создаём блики камеры
+				// создаём блики камеры
 				flare = addFlare( 0.618, 0.45, 1.0, 0, 0, -30000 );
 				scene.add( flare );
+				
+				// создем сферу Земли				
+				sphere = createSphere(radius, segments, i_earth, i_bump, i_specular, 100);
+				sphere.rotation.y = rotation; 
+				scene.add(sphere);
+				
+				// создем сферу облков
+				clouds = createClouds(radius, segments, i_clouds);
+				clouds.rotation.y = rotation;
+				scene.add(clouds);
+				
+				// создаем луну
+				luna = createSphere(500, segments, moon, m_bump, m_specular, 10);
+				luna.position.set(1618, 1000, -2000);
+				scene.add(luna);
+				
+				// создаём скайбокс
+				skyBox = addSkyBox(62000, 7, 'sphere', , px, nx, py, ny, pz, nz);
+				scene.add(skyBox);
+				
+				// *** Конец основного кода ***
+				
+				
+				// *** Неосновной код, содержащий используемые функции в данной процедуре ***
+				
 				function addFlare( h, s, l, x, y, z ) {
 					var flareColor = new THREE.Color( 0xffffff );
 					flareColor.setHSL( h, s, l );
@@ -179,6 +217,7 @@
 					lensFlare.position.set( x, y, z );
 					return lensFlare;					
 				}
+				
 				function lensFlareUpdateCallback( object ) {
 					var f, fl = object.lensFlares.length;
 					var flare;
@@ -193,11 +232,7 @@
 					object.lensFlares[ 2 ].y += 0.025;
 					object.lensFlares[ 3 ].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad( 45 );
 				}
-				
-				
-				// Создаем землю -----------------------------------------------------------------------
-				// Создем сферу Земли				
-				sphere = createSphere(radius, segments, i_earth, i_bump, i_specular, 100);
+								
 				function createSphere(radius, segments, map, bump, specular, b) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius, segments, segments),
@@ -210,15 +245,12 @@
 						})
 					);
 				}
-				sphere.rotation.y = rotation; 
-				scene.add(sphere);
-				// Создем сферу облков
-				clouds = createClouds(radius, segments);
-				function createClouds(radius, segments) {
+				
+				function createClouds(radius, segments, map) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius + 2, segments, segments),			
 						new THREE.MeshLambertMaterial({
-							map: i_clouds,
+							map: map,
 							color: 0xffffff,
 							blending: THREE.NormalBlending,
 							transparent: true,
@@ -227,46 +259,33 @@
 						})
 					);		
 				}
-				clouds.rotation.y = rotation;
-				scene.add(clouds);
-				// Создание Земли окончено -------------------------------------------------------------
 				
-				
-				// Создаем луну
-				luna = createSphere(500, segments, moon, m_bump, m_specular, 10);
-				luna.position.set(1618, 1000, -2000);
-				scene.add(luna);
-				
-				
-				// Создаем скайбокс
-				// Создаем материал скайбокса, куда пушим 6 оттедельных картинок его сторон
-				var materials = [];
-				for ( var i = 0; i < 6; i ++ ) {
-					materials.push( new THREE.MeshBasicMaterial( {
-						map: skyMat[ i ]
-						//color: 0x404040
-					} ) );
+				function addSkyBox(zoom, segment, type, colory, px, nx, py, ny, pz, nz) {
+					var skyMat = [px, nx, py, ny, pz, nz];
+					var materials = [];
+					if (colory==null) colory=0xffffff;
+					for ( var i = 0; i < 6; i ++ ) {
+						materials.push( new THREE.MeshBasicMaterial( {
+							map: skyMat[ i ],
+							color: colory
+						} ) );
+					}				
+					var skyBox = new THREE.Mesh( new THREE.CubeGeometry( zoom, zoom, zoom, segment, segment, segment ), new THREE.MeshFaceMaterial( materials ) );
+					skyBox.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, - 1 ) );
+					if (type=='cube') return skyBox;
+					if (type=='sphere') {
+						for ( var i = 0, l = skyBox.geometry.vertices.length; i < l; i ++ ) {
+							var vertex = skyBox.geometry.vertices[ i ];
+							vertex.normalize();
+							vertex.multiplyScalar( zoom );
+						}
+						return skyBox;
+					}
+					return null;				
 				}
-				// создаем сам куб-скайбокс
-				skyIntro = new THREE.Mesh( new THREE.CubeGeometry( 11000, 11000, 11000, 7, 7, 7 ), new THREE.MeshFaceMaterial( materials ) );
-				skyIntro.applyMatrix( new THREE.Matrix4().makeScale( 1, 1, - 1 ) );
-				// превращаем куб-скайбокс в сферу-скайбокс с указанными размерами
-				for ( var i = 0, l = skyIntro.geometry.vertices.length; i < l; i ++ ) {
-					var vertex = skyIntro.geometry.vertices[ i ];
-					vertex.normalize();
-					vertex.multiplyScalar( 62000 );
-				}
-				// Добавляем скайбокс на сцену
-				scene.add( skyIntro );
 				
-								
-				// ДОБАВЛЯЕМ УПРАВЛЕНИЕ КАМЕРОЙ
-				controls = new THREE.OrbitControls( camera );
-				controls.autoRotate = true;
-				controls.autoRotateSpeed = 1;
+				// *** Конец неосновного кода ***
 				
-				
-				renderIntro();
 			}
 				
 
