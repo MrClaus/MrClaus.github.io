@@ -159,7 +159,7 @@
 				scene.add( flare );
 				
 				// создем сферу Земли				
-				sphere = createSphere(600, 64, i_earth, i_bump, i_specular, 100);
+				sphere = createSphere(600, 64, i_earth, i_bump, i_specular, 100, '#343434');
 				sphere.rotation.y = 6; 
 				scene.add(sphere);
 				
@@ -169,7 +169,7 @@
 				scene.add(clouds);
 				
 				// создаем луну
-				luna = createSphere(500, 64, moon, m_bump, m_specular, 10);
+				luna = createSphere(500, 64, moon, m_bump, m_specular, 10, '#ffffff');
 				luna.position.set(1618, 1000, -2000);
 				scene.add(luna);
 				
@@ -217,7 +217,7 @@
 					object.lensFlares[ 3 ].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad( 45 );
 				}
 								
-				function createSphere(radius, segments, map, bump, specular, b) {
+				function createSphere(radius, segments, map, bump, specular, b, colory) {
 					return new THREE.Mesh(
 						new THREE.SphereGeometry(radius, segments, segments),
 						new THREE.MeshPhongMaterial({
@@ -225,7 +225,7 @@
 							bumpMap:     bump,
 							bumpScale:   b,
 							specularMap: specular,
-							specular:    new THREE.Color('#343434'),				
+							specular:    new THREE.Color(colory),				
 						})
 					);
 				}
