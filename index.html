@@ -312,9 +312,9 @@
 				glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
 				
 				// добавляем созданные эффекты в композёр, начиная с рендринга сцены
-				composer.addPass( new THREE.RenderPass( scene, camera ) );
+				composer.addPass( new THREE.RenderPass( scene, camera ) );				
+				composer.addPass( effectFilm );	
 				composer.addPass( effectBloom );
-				composer.addPass( effectFilm );				
 				composer.addPass( effectVignette );				
 				composer.addPass( glitchPass );
 				
