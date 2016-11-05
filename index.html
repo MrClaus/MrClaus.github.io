@@ -343,7 +343,8 @@
 				}
 				
 				function animate() {
-					controls.update();					
+					//controls.update();
+					camera.lookAt( scene.position );
 					stats.update();
 					camera.position.x += ( mouseX - camera.position.x ) * .05;
 					sphere.rotation.y += 0.0003;
