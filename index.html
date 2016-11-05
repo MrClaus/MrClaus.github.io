@@ -172,8 +172,8 @@
 				scene.add(clouds);
 				
 				// создаем луну
-				luna = createSphere(500, 64, moon, m_bump, m_specular, 10, '#000000');
-				luna.position.set(1618, 1000, -2000);
+				luna = createSphere(250, 64, moon, m_bump, m_specular, 10, '#000000');
+				luna.position.set(0, 500, 3400);
 				scene.add(luna);
 				
 				// создаём скайбокс
@@ -348,7 +348,7 @@
 					//controls.update();
 					
 					stats.update();
-					camera.position.x += ( mouseX - camera.position.x ) * .05;
+					camera.position.x += ( mouseX - camera.position.x ) * .5;
 					camera.lookAt( scene.position );
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
