@@ -115,12 +115,12 @@
 				
 				// создаём камеру
 				camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
-				camera.position.z = 10000;
+				camera.position.z = 4180;
 				
 				// добавляем управление камерой
-				controls = new THREE.OrbitControls( camera );
-				controls.autoRotate = true;
-				controls.autoRotateSpeed = 1;
+				//controls = new THREE.OrbitControls( camera );
+				//controls.autoRotate = true;
+				//controls.autoRotateSpeed = 1;
 								
 				// создаем рендерный движок и задаем ему параметры
 				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
