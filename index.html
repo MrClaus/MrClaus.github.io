@@ -63,6 +63,8 @@
 			var stats;
 			
 			var composer, effectFilm, effectVignette, glitchPass, effectFilm;
+			
+			var mouseX, mouseY;
 
 			
 
@@ -323,6 +325,9 @@
 				// слушатель события - изменения размера экрана отображения
 				window.addEventListener( 'resize', onWindowResize, false );
 				
+				// слушатель события - движение мыши
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				
 				// вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код				
 				render();
 				
@@ -340,6 +345,7 @@
 				function animate() {
 					controls.update();					
 					stats.update();
+					camera.position.x += ( mouseX - camera.position.x ) * .05;
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
 					skyBox.rotation.z += 0.0003;
@@ -347,12 +353,17 @@
 				}
 				
 				function onWindowResize() {
-					var width = window.innerWidth;
-					var height = window.innerHeight;
+					width = window.innerWidth;
+					height = window.innerHeight;
 					camera.aspect = width / height;
 					camera.updateProjectionMatrix();
 					render3D.setSize( width, height );
 					composer.setSize( width, height );					
+				}
+				
+				function onDocumentMouseMove( event ) {
+					mouseX = ( event.clientX - width / 2 ) / 2;
+					mouseY = ( event.clientY - height / 2 ) / 2;
 				}
 				
 				// *** Конец неосновного кода ***
