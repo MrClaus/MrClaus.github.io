@@ -38,6 +38,7 @@
 		<script src="js/MaskPass.js"></script>
 		<script src="js/ShaderPass.js"></script>
 		<script src="js/GlitchPass.js"></script>
+		<script src="js/BloomPass.js"></script>
 		
 		<script src="js/FilmShader.js"></script>
 		<script src="js/FilmPass.js"></script>
@@ -300,6 +301,10 @@
 				effectFilm = new THREE.FilmPass( 0.35, 0.5, 2048, false );
 				effectFilm.renderToScreen = false;
 				
+				// создаём эффект для композёра Bloom
+				var effectBloom = new THREE.BloomPass( 0.5 );
+				effectBloom.renderToScreen = false;
+				
 				// создаём эффект для композёра Glitch
 				glitchPass = new THREE.GlitchPass();
 				glitchPass.goWild = false;
@@ -308,6 +313,7 @@
 				// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 				composer.addPass( new THREE.RenderPass( scene, camera ) );
 				composer.addPass( effectFilm );
+				composer.addPass( effectBloom );
 				composer.addPass( effectVignette );				
 				composer.addPass( glitchPass );
 				
