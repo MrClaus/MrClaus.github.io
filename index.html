@@ -116,7 +116,7 @@
 				// создаём камеру
 				camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 				camera.position.x = 0;
-				camera.position.y = 500;
+				camera.position.y = 800;
 				camera.position.z = 4180;
 				
 				// добавляем управление камерой
@@ -348,7 +348,7 @@
 					//controls.update();
 					
 					stats.update();
-					camera.position.x += ( mouseX - camera.position.x ) * .5;
+					camera.position.x += ( mouseX - camera.position.x ) * 2;
 					camera.lookAt( scene.position );
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
