@@ -298,7 +298,7 @@
 				
 				// создаём эффект для композёра Glitch
 				glitchPass = new THREE.GlitchPass();
-				glitchPass.goWild=wild;
+				glitchPass.goWild = false;
 				glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
 				
 				// добавляем созданные эффекты в композёр, начиная с рендринга сцены
