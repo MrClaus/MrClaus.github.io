@@ -322,12 +322,12 @@
 				
 				// *** Основной код ***
 				
-				// слушатель события - изменения размера экрана отображения
-				window.addEventListener( 'resize', onWindowResize, false );
-				
 				// слушатель события - движение мыши
 				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				
+				// слушатель события - изменения размера экрана отображения
+				window.addEventListener( 'resize', onWindowResize, false );
+					
 				// вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код				
 				render();
 				
