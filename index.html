@@ -151,8 +151,8 @@
 				scene.add(light);
 				
 				// создаем источник освещения AmbientLight
-				//var ambient = new THREE.AmbientLight( 0x202020 );
-				//scene.add( ambient );				
+				var ambient = new THREE.AmbientLight( 0x202020 );
+				scene.add( ambient );				
 				
 				// создаём блики камеры
 				flare = addFlare( 0.618, 0.45, 1.0, 0, 0, -30000 );
