@@ -323,7 +323,7 @@
 				// *** Основной код ***
 				
 				// слушатель события - движение мыши
-				//document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				
 				// слушатель события - изменения размера экрана отображения
 				window.addEventListener( 'resize', onWindowResize, false );
@@ -344,9 +344,10 @@
 				
 				function animate() {
 					//controls.update();
-					camera.lookAt( scene.position );
+					
 					stats.update();
-					//camera.position.x += ( mouseX - camera.position.x ) * .05;
+					camera.position.x += ( mouseX - camera.position.x ) * .05;
+					camera.lookAt( scene.position );
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
 					skyBox.rotation.z += 0.0003;
