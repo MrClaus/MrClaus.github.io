@@ -69,8 +69,9 @@
 			var controls;
 			var wild = false;
 			
-			var skyMat = [];
+			//var skyMat = [];
 			var skyIntro;
+			var mapSky;
 			
 			var stats;
 			
@@ -93,7 +94,7 @@
 			
 			function resIntro() {
 				var count = 0;
-				var count_res = 13;
+				var count_res = 11;
 				
 				i_clouds = loadIMG("js/earth_clouds_2048.png");				
 				i_earth = loadIMG("js/earth.jpg");				
@@ -105,12 +106,8 @@
 				textureFlare0 = loadIMG("js/flare72.png");
 				textureFlare2 = loadIMG("js/lensflare2.png");
 				textureFlare3 = loadIMG("js/lensflare3.png");
-				skyMat[0] = loadIMG("js/fon-star2.jpg");
-				skyMat[1] = loadIMG("js/fon-star2.jpg");
-				skyMat[2] = loadIMG("js/fon-star2.jpg");
-				skyMat[3] = loadIMG("js/fon-star2.jpg");
-				skyMat[4] = loadIMG("js/fon-star2.jpg");
-				skyMat[5] = loadIMG("js/fon-star2.jpg");
+				mapSky = loadIMG("js/fon-star2.jpg");
+				
 				
 				function loadIMG(url) {					
 					return new THREE.TextureLoader().load(
@@ -194,8 +191,12 @@
 				scene.add(luna);
 				
 				// создаём скайбокс
-				skyBox = addSkyBox(62000, 7, 'sphere', , px, nx, py, ny, pz, nz);
+				skyBox = addSkyBox(62000, 7, 'sphere', , mapSky, mapSky, mapSky, mapSky, mapSky, mapSky);
 				scene.add(skyBox);
+				
+				// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
+				stats = new Stats();
+				container.appendChild( stats.domElement );
 				
 				// *** Конец основного кода ***
 				
@@ -287,31 +288,20 @@
 				// *** Конец неосновного кода ***
 				
 			}
-				
-
-			function renderIntro() {
-				
+			
+			
+			function initEffect() {
+			
 				var rtParameters = {
 					minFilter: THREE.LinearFilter,
 					magFilter: THREE.LinearFilter,
 					format: THREE.RGBAFormat,
 					stencilBuffer: true
 				};
-				composerScene = new THREE.EffectComposer( render3D, new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, rtParameters ) );
-				composerScene.addPass( new THREE.RenderPass( scene, camera ) );
-				renderScene = new THREE.TexturePass( composerScene.renderTarget2.texture );
-				
 				
 				// Создаем композёр (для добавления различных эффектов)
 				composer = new THREE.EffectComposer( render3D, new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, rtParameters )  );
-				//composer.addPass( new THREE.RenderPass( scene, camera ) );
-				composer.addPass(renderScene);
-				
-				
-				
-				
-				// Добавляем эффект постпроцессинга - электронных помех - в композер
-				
+				composer.addPass( new THREE.RenderPass( scene, camera ) );
 				
 				var shaderVignette = THREE.VignetteShader;
 				effectVignette = new THREE.ShaderPass( shaderVignette );
@@ -325,13 +315,10 @@
 				glitchPass.goWild=wild;
 				composer.addPass( glitchPass );
 				
-				renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2.texture;
+			}
 				
-				
-				
-				stats = new Stats();
-				container.appendChild( stats.domElement );
-				
+
+			function renderIntro() {
 				
 				window.addEventListener( 'resize', onWindowResize, false );
 				
@@ -353,7 +340,7 @@
 					//new
 					//var time = Date.now();
 					
-					composerScene.render(0,01);
+					
 					//render3D2.render(scene2, camera2);
 					composer.render(0.01);
 					
@@ -363,10 +350,8 @@
 					camera.updateProjectionMatrix();
 					render3D.setSize( window.innerWidth, window.innerHeight );
 					
-					composerScene.setSize( window.innerWidth, window.innerHeight );
 					//new
-					composer.setSize( window.innerWidth, window.innerHeight );
-					renderScene.uniforms[ "tDiffuse" ].value = composerScene.renderTarget2.texture;
+					composer.setSize( window.innerWidth, window.innerHeight );					
 				}
 			}
 		</script>
