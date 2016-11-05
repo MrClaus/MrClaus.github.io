@@ -48,49 +48,28 @@
 
 		<script>
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-
-			var width = window.innerWidth,
-				height = window.innerHeight,
-				radius   = 600,
-				segments = 64,
-				rotation = 6,
-				stats;
-			
-			var i_clouds,
-			    i_earth,
-			    i_bump,
-			    i_specular,
-			    textureFlare0,
-			    textureFlare2,
-			    textureFlare3;
 			
 			var container, scene, camera, render3D;
-			var sphere, clouds;
+			var width = window.innerWidth;
+			var height = window.innerHeight;			
 			var controls;
-			var wild = false;
 			
-			//var skyMat = [];
-			var skyIntro;
-			var mapSky;
+			var flare, textureFlare0, textureFlare2, textureFlare3;
+			var sphere, i_earth, i_bump, i_specular;
+			var clouds, i_clouds;
+			var luna, moon, m_bump, m_specular;
+			
+			var skyBox, mapSky;
 			
 			var stats;
 			
-			var luna;
-			var moon, m_bump, m_specular;
-			
-			var flare;
-			
-			var composerScene; 
-			var renderScene;
-			var effectFilm;
-			var effectVignette;
-			
-			//new
-			var composer, glitchPass;
+			var composer, effectFilm, effectVignette, glitchPass;
 
 			
 
-			resIntro();			
+			resIntro();	
+			
+			
 			
 			function resIntro() {
 				var count = 0;
@@ -119,7 +98,9 @@
 					);						
 				}
 			}
-				
+			
+			
+			
 			function initScene() {
 				
 				// *** Основной код ***
@@ -157,6 +138,8 @@
 								
 			}
 			
+			
+			
 			function initObject() {
 				
 				// *** Основной код ***
@@ -176,17 +159,17 @@
 				scene.add( flare );
 				
 				// создем сферу Земли				
-				sphere = createSphere(radius, segments, i_earth, i_bump, i_specular, 100);
-				sphere.rotation.y = rotation; 
+				sphere = createSphere(600, 64, i_earth, i_bump, i_specular, 100);
+				sphere.rotation.y = 6; 
 				scene.add(sphere);
 				
 				// создем сферу облков
-				clouds = createClouds(radius, segments, i_clouds);
-				clouds.rotation.y = rotation;
+				clouds = createClouds(600, 64, i_clouds);
+				clouds.rotation.y = 6;
 				scene.add(clouds);
 				
 				// создаем луну
-				luna = createSphere(500, segments, moon, m_bump, m_specular, 10);
+				luna = createSphere(500, 64, moon, m_bump, m_specular, 10);
 				luna.position.set(1618, 1000, -2000);
 				scene.add(luna);
 				
@@ -290,8 +273,12 @@
 			}
 			
 			
+			
 			function initEffect() {
 			
+				// *** Основной код ***
+				
+				// задаём параметры EffectComposer-а
 				var rtParameters = {
 					minFilter: THREE.LinearFilter,
 					magFilter: THREE.LinearFilter,
@@ -299,60 +286,69 @@
 					stencilBuffer: true
 				};
 				
-				// Создаем композёр (для добавления различных эффектов)
+				// создаем композёр (для добавления различных эффектов)
 				composer = new THREE.EffectComposer( render3D, new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, rtParameters )  );
-				composer.addPass( new THREE.RenderPass( scene, camera ) );
-				
+								
+				// создаём эффект для композёра Vignette
 				var shaderVignette = THREE.VignetteShader;
 				effectVignette = new THREE.ShaderPass( shaderVignette );
 				effectVignette.uniforms[ "offset" ].value = 0.95;
 				effectVignette.uniforms[ "darkness" ].value = 1.6;
-				//effectVignette.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
-				composer.addPass( effectVignette );
+				effectVignette.renderToScreen = false;
 				
+				// создаём эффект для композёра Glitch
 				glitchPass = new THREE.GlitchPass();
-				glitchPass.renderToScreen = true;
 				glitchPass.goWild=wild;
+				glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
+				
+				// добавляем созданные эффекты в композёр, начиная с рендринга сцены
+				composer.addPass( new THREE.RenderPass( scene, camera ) );				
+				composer.addPass( effectVignette );				
 				composer.addPass( glitchPass );
 				
-			}
+				// *** Конец основного кода ***
 				
-
+			}
+			
+			
+			
 			function renderIntro() {
 				
+				// *** Основной код ***
+				
+				// слушатель события - изменения размера экрана отображения
 				window.addEventListener( 'resize', onWindowResize, false );
 				
-								
+				// вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код				
 				render();
+				
+				// *** Конец основного кода ***
+				
+				
+				// *** Неосновной код, содержащий используемые функции в данной процедуре ***
+				
 				function render() {
 					requestAnimationFrame(render);
-					controls.update();
-					
+					animate(); // код сцены, который исполняется во время рендринга
+					composer.render(0.01);					
+				}
+				
+				function animate() {
+					controls.update();					
 					stats.update();
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
-					//clouds.rotation.z += 0.0006;	
-					//render3D.render(scene, camera);
-					
-					//new
-					
-					
-					//new
-					//var time = Date.now();
-					
-					
-					//render3D2.render(scene2, camera2);
-					composer.render(0.01);
-					
 				}
+				
 				function onWindowResize() {					
 					camera.aspect = window.innerWidth / window.innerHeight;
 					camera.updateProjectionMatrix();
 					render3D.setSize( window.innerWidth, window.innerHeight );
-					
-					//new
 					composer.setSize( window.innerWidth, window.innerHeight );					
 				}
+				
+				// *** Конец неосновного кода ***
+				
 			}
 		</script>
 
