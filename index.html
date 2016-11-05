@@ -63,7 +63,7 @@
 			
 			var stats;
 			
-			var composer, effectFilm, effectVignette, glitchPass;
+			var composer, effectFilm, effectVignette, glitchPass, effectFilm;
 
 			
 
@@ -296,13 +296,18 @@
 				effectVignette.uniforms[ "darkness" ].value = 1.6;
 				effectVignette.renderToScreen = false;
 				
+				// создаём эффект для композёра Film
+				effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, false );
+				effectFilm.renderToScreen = false;
+				
 				// создаём эффект для композёра Glitch
 				glitchPass = new THREE.GlitchPass();
 				glitchPass.goWild = false;
 				glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
 				
 				// добавляем созданные эффекты в композёр, начиная с рендринга сцены
-				composer.addPass( new THREE.RenderPass( scene, camera ) );				
+				composer.addPass( new THREE.RenderPass( scene, camera ) );
+				composer.addPass( effectFilm );
 				composer.addPass( effectVignette );				
 				composer.addPass( glitchPass );
 				
@@ -338,6 +343,7 @@
 					stats.update();
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
+					skyBox.rotation.z += 0.0006;
 				}
 				
 				function onWindowResize() {
