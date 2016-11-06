@@ -85,7 +85,7 @@
 				m_specular = loadIMG("js/moon_specular.jpg");
 				textureFlare0 = loadIMG("js/flare72.png");
 				textureFlare2 = loadIMG("js/lensflare2.png");
-				textureFlare3 = loadIMG("js/lensflare3.png");
+				textureFlare3 = loadIMG("js/flare-rad.png");
 				mapSky = loadIMG("js/fon-star2.jpg");
 				
 				
@@ -123,6 +123,7 @@
 				controls = new THREE.OrbitControls( camera );
 				controls.autoRotate = true;
 				controls.autoRotateSpeed = 0;
+				
 								
 				// создаем рендерный движок и задаем ему параметры
 				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
