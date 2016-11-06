@@ -198,9 +198,9 @@
 				function addFlare( h, s, l, x, y, z ) {
 					var flareColor = new THREE.Color( 0xffffff );
 					flareColor.setHSL( h, s, l );
-					var lensFlare = new THREE.LensFlare( textureFlare0, 256, 0.01, THREE.AdditiveBlending, flareColor );
-					lensFlare.add( textureFlare1, 512, 0.0, THREE.AdditiveBlending );
-					lensFlare.add( textureFlare2, 512, 0.0, THREE.AdditiveBlending );
+					var lensFlare = new THREE.LensFlare( textureFlare0, 512, 0.01, THREE.AdditiveBlending, flareColor );
+					lensFlare.add( textureFlare4, 512, 0.0, THREE.AdditiveBlending );
+					lensFlare.add( textureFlare4, 512, 0.0, THREE.AdditiveBlending );
 					lensFlare.add( textureFlare3, 2048, 0.0, THREE.AdditiveBlending );
 					lensFlare.add( textureFlare4, 196, 0.356, THREE.AdditiveBlending );
 					lensFlare.add( textureFlare5, 128, 0.62, THREE.AdditiveBlending );
