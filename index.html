@@ -64,7 +64,7 @@
 			
 			var composer, effectFilm, effectVignette, glitchPass, effectFilm;
 			
-			var mouseX = 0, mouseY = 0;
+			var mouseX = 0, mouseY = 0, mouseRad = 999;
 
 			
 
@@ -132,7 +132,7 @@
 				controls.minPolarAngle=1.322675;
 				controls.maxPolarAngle=1.322675;
 				controls.maxDistance=4256;
-				controls.maxDistance=3600;
+				controls.minDistance=3600;
 								
 				// создаем рендерный движок и задаем ему параметры
 				render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -359,7 +359,11 @@
 					
 					stats.update();
 					//camera.position.x += ( mouseX - camera.position.x ) * 2;
-					controls.autoRotateSpeed = mouseX*0.1;
+					//controls.autoRotateSpeed = mouseX*0.1;
+					if (mouseRad<122) {						
+						controls.maxDistance = 3600 + 656*(mouseRad/122);
+						controls.minDistance = controls.maxDistance;
+					}
 					sphere.rotation.y += 0.0003;
 					clouds.rotation.y += 0.0006;
 					skyBox.rotation.z += 0.0003;
@@ -378,6 +382,7 @@
 				function onDocumentMouseMove( event ) {
 					mouseX = ( event.clientX - width / 2 ) / 2;
 					mouseY = ( event.clientY - height / 2 ) / 2;
+					mouseRad = Math.sqrt(Math.pow(mouseX,2) + Math.pow(mouseY,2));
 				}
 				
 				// *** Конец неосновного кода ***
