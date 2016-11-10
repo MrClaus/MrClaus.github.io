@@ -37,7 +37,7 @@ function initApplication() {
 	}, function() {
 		console.log('Error inited VK application');		
 	}, '5.58'); */
-	start();
+	start(); 
 }
 
 
