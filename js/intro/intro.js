@@ -1,9 +1,9 @@
-// Çàïóñêàåò ñêðèïò òîëüêî ïîñëå ïîëíîé çàãðóçêè ñòðàíèöû (êîäà)
+// Запускает скрипт только после полной загрузки страницы (кода)
 window.onload = initApplication;
 
 
 
-// Äîáàâëÿåì ïîääåæêó ïëàâíîãî îáíîâëåíèÿ ýêðàíà (requestAnimationFrame) â ðàçíûõ áðàóçåðàõ 
+// Добавляем поддежку плавного обновления экрана (requestAnimationFrame) в разных браузерах 
 var requestAF = window.requestAnimationFrame ||
 				window.webkitRequestAnimationFrame ||
 				window.mozRequestAnimationFrame ||
@@ -12,7 +12,7 @@ var requestAF = window.requestAnimationFrame ||
 
 
 
-// Èíèöèàëèçèðóåì ïðî÷èå ãëîáàëüíûå ïåðåìåííûå
+// Инициализируем прочие глобальные переменные
 var container, scene, camera, render3D;
 var width = window.innerWidth;
 var height = window.innerHeight;			
@@ -28,7 +28,7 @@ var mouseX = 0, mouseY = 0, mouseRad = 999;
 
 	
 	
-// Ñòàðòîâàÿ ôóíêöèÿ, êîòîðàÿ èíèöèàëèçèðóåò òåêóùåå iFrame ïðèëîæåíèå äëÿ VK
+// Стартовая функция, которая инициализирует текущее iFrame приложение для VK
 function initApplication() {
 	/*
 	VK.init(function() {
@@ -42,7 +42,7 @@ function initApplication() {
 
 
 
-// Ïðåäñòàðòîâàÿ ïðîâåðêà íà ïîääåðæêó WebGL òåêóùèì áðàóçåðîì
+// Предстартовая проверка на поддержку WebGL текущим браузером
 function start() {
 	if (!Detector.webgl) Detector.addGetWebGLMessage();
 	resLoad();	
@@ -50,10 +50,10 @@ function start() {
 
 
 
-// ×òîáû èñêëþ÷èòü àñèíõðîííîå âûïîëíåíèå êîäà ñ ïàðàëëåëüíîé çàãðóçêîé, ñíà÷àëà îæèäàåì çàãðóçêó âñåõ ðåñóðñîâ, à ïîñëå - ïåðåõîäèì äàëüøå
+// Чтобы исключить асинхронное выполнение кода с параллельной загрузкой, сначала ожидаем загрузку всех ресурсов, а после - переходим дальше
 function resLoad() {
 	
-	// *** Îñíîâíîé êîä ***
+	// *** Основной код ***
 	
 	var count = 0;
 	var count_res = 13;
@@ -72,10 +72,10 @@ function resLoad() {
 	texFlare7 = loadIMG("res/flare/flare7.png");
 	mapSky = loadIMG("res/intro/skybox.jpg");
 	
-	// *** Êîíåö îñíîâíîãî êîäà ***
+	// *** Конец основного кода ***
 	
 	
-	// *** Íåîñíîâíîé êîä, ñîäåðæàùèé èñïîëüçóåìûå ôóíêöèè â äàííîé ïðîöåäóðå ***	
+	// *** Неосновной код, содержащий используемые функции в данной процедуре ***	
 	
 	function loadIMG(url) {					
 		return new THREE.TextureLoader().load(
@@ -88,31 +88,31 @@ function resLoad() {
 		);						
 	}
 	
-	// *** Êîíåö íåîñíîâíîãî êîäà ***
+	// *** Конец неосновного кода ***
 	
 }
 
 
 
-// Èíèöèàëèçàöèÿ ñöåíû çàñòàâêè
+// Инициализация сцены заставки
 function initScene() {
 	
-	// *** Îñíîâíîé êîä ***
+	// *** Основной код ***
 	
-	// ñîçäà¸ì èñïîëíÿåìûé ýëåìåíò êîíòåéíåð è äîáàâëÿåì åãî â html äîêóìåíò
+	// создаём исполняемый элемент контейнер и добавляем его в html документ
 	container = document.createElement('div');
 	document.body.appendChild(container);				
 	
-	// ñîçäà¸ì ñöåíó
+	// создаём сцену
 	scene = new THREE.Scene();
 	
-	// ñîçäà¸ì êàìåðó
+	// создаём камеру
 	camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 	camera.position.x = 0;
 	camera.position.y = 800;
 	camera.position.z = 4180;				
 	
-	// äîáàâëÿåì óïðàâëåíèå êàìåðîé
+	// добавляем управление камерой
 	controls = new THREE.OrbitControls(camera);
 	controls.enabled = false;
 	controls.autoRotate = true;
@@ -122,7 +122,7 @@ function initScene() {
 	controls.maxDistance=4256;
 	controls.minDistance=3600;
 					
-	// ñîçäàåì ðåíäåðíûé äâèæîê è çàäàåì åìó ïàðàìåòðû
+	// создаем рендерный движок и задаем ему параметры
 	render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 	render3D.setPixelRatio(window.devicePixelRatio);
 	render3D.setSize(width, height);				
@@ -131,62 +131,62 @@ function initScene() {
 	render3D.gammaOutput = true;
 	container.appendChild(render3D.domElement);
 					
-	initObject(); // èíèöèàëèçàöèÿ îáúåêòîâ ñöåíû
-	initEffect(); // äîáàâëåíèå ýôôåêòîâ ðåíäåðà ïðè îòîáðàæåíèè
-	renderIntro(); // ðåíäåð ñöåíû
+	initObject(); // инициализация объектов сцены
+	initEffect(); // добавление эффектов рендера при отображении
+	renderIntro(); // рендер сцены
 	
-	// *** Êîíåö îñíîâíîãî êîäà ***
+	// *** Конец основного кода ***
 					
 }
 
 
 
-// Èíèöèàëèçàöèÿ îáúåêòîâ ñöåíû
+// Инициализация объектов сцены
 function initObject() {
 	
-	// *** Îñíîâíîé êîä ***
+	// *** Основной код ***
 	
-	// ñîçäàåì èñòî÷íèê îñâåùåíèÿ DirectionalLight
+	// создаем источник освещения DirectionalLight
 	var light = new THREE.DirectionalLight(0xffffff, 1);
 	light.position.set(0, 0, -30000);
 	light.color.setHSL(0.618, 0.45, 1.0);
 	scene.add(light);
 	
-	// ñîçäàåì èñòî÷íèê îñâåùåíèÿ AmbientLight
+	// создаем источник освещения AmbientLight
 	var ambient = new THREE.AmbientLight(0x101010);
 	scene.add(ambient);				
 	
-	// ñîçäà¸ì áëèêè êàìåðû
+	// создаём блики камеры
 	flare = addFlare(0.618, 0.45, 1.0, 0, 0, -30000);
 	scene.add(flare);
 	
-	// ñîçäåì ñôåðó Çåìëè				
+	// создем сферу Земли				
 	sphere = createSphere(600, 64, i_earth, i_bump, i_specular, 100, '#343434');
 	sphere.rotation.y = 6; 
 	scene.add(sphere);
 	
-	// ñîçäåì ñôåðó îáëêîâ
+	// создем сферу облков
 	clouds = createClouds(600, 64, i_clouds);
 	clouds.rotation.y = 6;
 	scene.add(clouds);
 	
-	// ñîçäàåì ëóíó
+	// создаем Луну
 	luna = createSphere(250, 64, moon, m_bump, m_specular, 10, '#000000');
 	luna.position.set(0, 500, 3400);
 	scene.add(luna);
 	
-	// ñîçäà¸ì ñêàéáîêñ
+	// создаём скайбокс
 	skyBox = addSkyBox(62000, 7, 'sphere', null, mapSky, mapSky, mapSky, mapSky, mapSky, mapSky);
 	scene.add(skyBox);
 	
-	// äîáàâëÿåì â êîíòåéíåð ïàðàìåòðû îòîáðàæåíèÿ ñòàòèñòèêè (ôïñ, ìèëëèñåêóíäû íà êàäð è ...)
+	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
 	stats = new Stats();
 	container.appendChild(stats.domElement);
 	
-	// *** Êîíåö îñíîâíîãî êîäà ***
+	// *** Конец основного кода ***
 	
 	
-	// *** Íåîñíîâíîé êîä, ñîäåðæàùèé èñïîëüçóåìûå ôóíêöèè â äàííîé ïðîöåäóðå ***
+	// *** Неосновной код, содержащий используемые функции в данной процедуре ***
 	
 	function addFlare(h, s, l, x, y, z) {
 		var flareColor = new THREE.Color(0xffffff);
@@ -270,18 +270,18 @@ function initObject() {
 		return null;				
 	}
 	
-	// *** Êîíåö íåîñíîâíîãî êîäà ***
+	// *** Конец неосновного кода ***
 	
 }
 
 
 
-// Èíèöèàëèçàöèè èñïîëüçóåìûõ ýôôåêòîâ ïîñòïðîöåññèíãà (ïîñëå ðåíäåðà)
+// Инициализации используемых эффектов постпроцессинга (после рендера)
 function initEffect() {
 
-	// *** Îñíîâíîé êîä ***
+	// *** Основной код ***
 	
-	// çàäà¸ì ïàðàìåòðû EffectComposer-à
+	// задаём параметры EffectComposer-а
 	var rtParameters = {
 		minFilter: THREE.LinearFilter,
 		magFilter: THREE.LinearFilter,
@@ -289,57 +289,57 @@ function initEffect() {
 		stencilBuffer: true
 	};
 	
-	// ñîçäàåì êîìïîç¸ð (äëÿ äîáàâëåíèÿ ðàçëè÷íûõ ýôôåêòîâ)
+	// создаем композёр (для добавления различных эффектов)
 	composer = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
 					
-	// ñîçäà¸ì ýôôåêò äëÿ êîìïîç¸ðà Vignette
+	// создаём эффект для композёра Vignette
 	var shaderVignette = THREE.VignetteShader;
 	effectVignette = new THREE.ShaderPass(shaderVignette);
 	effectVignette.uniforms["offset"].value = 0.95;
 	effectVignette.uniforms["darkness"].value = 1.6;
 	effectVignette.renderToScreen = false;
 	
-	// ñîçäà¸ì ýôôåêò äëÿ êîìïîç¸ðà Film
+	// создаём эффект для композёра Film
 	effectFilm = new THREE.FilmPass(0.35, 0.75, 2048, false);
 	effectFilm.renderToScreen = false;				
 					
-	// ñîçäà¸ì ýôôåêò äëÿ êîìïîç¸ðà Glitch
+	// создаём эффект для композёра Glitch
 	glitchPass = new THREE.GlitchPass();
 	glitchPass.goWild = false;
-	glitchPass.renderToScreen = true; // èñòèíà çàäàåòñÿ ïîñëåäíåìó îòðèñîâûâàåìó ýôôåêòó, êîòîðûé ðåíäðèò âñå ïðåäûäóùèå
+	glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
 	
-	// äîáàâëÿåì ñîçäàííûå ýôôåêòû â êîìïîç¸ð, íà÷èíàÿ ñ ðåíäðèíãà ñöåíû
+	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));				
 	composer.addPass(effectFilm);	
 	composer.addPass(effectVignette);				
 	composer.addPass(glitchPass);
 	
-	// *** Êîíåö îñíîâíîãî êîäà ***
+	// *** Конец основного кода ***
 	
 }
 
 
 
-// Ôóíêöèÿ îòîáðàæåíèå ñöåíû íà âüþïîðò
+// Функция отображение сцены на вьюпорт
 function renderIntro() {
 	
-	// *** Îñíîâíîé êîä ***
+	// *** Основной код ***
 	
-	// ñëóøàòåëè ñîáûòèÿ
-	document.addEventListener('mousemove', onDocumentMouseMove, false); // - äâèæåíèå ìûøè
-	window.addEventListener('resize', onWindowResize, false); // - èçìåíåíèÿ ðàçìåðà ýêðàíà îòîáðàæåíèÿ
+	// слушатели события
+	document.addEventListener('mousemove', onDocumentMouseMove, false); // - движение мыши
+	window.addEventListener('resize', onWindowResize, false); // - изменения размера экрана отображения
 		
-	// âûçûâàåò ôóíêöèþ - ðåíäåð - êîòîðàÿ çàïóñêàåò ðåíäåð ñöåíû è èñïîëíÿåò å¸ êîä				
+	// вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код				
 	render();
 	
-	// *** Êîíåö îñíîâíîãî êîäà ***
+	// *** Конец основного кода ***
 	
 	
-	// *** Íåîñíîâíîé êîä, ñîäåðæàùèé èñïîëüçóåìûå ôóíêöèè â äàííîé ïðîöåäóðå ***
+	// *** Неосновной код, содержащий используемые функции в данной процедуре ***
 	
 	function render() {
 		requestAF(render);
-		animate(); // êîä ñöåíû, êîòîðûé èñïîëíÿåòñÿ âî âðåìÿ ðåíäðèíãà
+		animate(); // код сцены, который исполняется во время рендринга
 		composer.render(0.01);					
 	}
 	
@@ -371,6 +371,6 @@ function renderIntro() {
 		mouseRad = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
 	}
 	
-	// *** Êîíåö íåîñíîâíîãî êîäà ***
+	// *** Конец неосновного кода ***
 	
 }
