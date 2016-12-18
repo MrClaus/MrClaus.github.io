@@ -168,14 +168,8 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаем рендерный движок и задаем ему параметры
-	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true }); 
-	document.body.appendChild(render2D.view); // добавляем исполняемый элемент контейнер (вьюпорт движка) в html документ
+	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true });
 	
-	// располагаем добавленный DOM элемент (как слой) относительно позиции html документа
-	render2D.view.style.position = 'absolute';  
-	render2D.view.style.top = 0 + 'px';  
-	render2D.view.style.left = 0 + 'px';  
-
 	// создаем сцену
 	scene2D = new PIXI.Container();
 	
@@ -368,10 +362,14 @@ function initEffect3D() {
 	glitchPass.goWild = false;
 	glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
 	
+	var texture_UI = new THREE.Texture( render2D.view );
+        texture_UI.needsUpdate = true;
+	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));				
 	composer.addPass(effectFilm);	
-	composer.addPass(effectVignette);				
+	composer.addPass(effectVignette);
+	composer.addPass(texture_UI); //-------------------
 	composer.addPass(glitchPass);
 	
 	// *** Конец основного кода ***
@@ -401,7 +399,7 @@ function renderIntro() {
 		requestAF(render);
 		animate(); // код сцены, который исполняется во время рендринга
 		composer.render(0.01);
-		render2D.render(scene2D); // поверх 3д слоя рендрит 2д слой
+		//render2D.render(scene2D); // поверх 3д слоя рендрит 2д слой
 	}
 	
 	function animate() {
