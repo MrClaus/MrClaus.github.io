@@ -102,9 +102,7 @@ function resLoad() {
 // Инициализация сцены заставки
 function initScene() {	
 	
-	// *** Основной код ***
-	
-	
+	// *** Основной код ***	
 	
 	initScene3D(); // инициализация 3д сцены
 	initObject3D(); // инициализация объектов сцены
@@ -171,10 +169,12 @@ function initScene2D() {
 	
 	// создаем рендерный движок и задаем ему параметры
 	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true }); 
-	document.body.appendChild(render2D.view); // добавляем исполняемый элемент контейнер (вьюпорт движка) в html документ	
+	document.body.appendChild(render2D.view); // добавляем исполняемый элемент контейнер (вьюпорт движка) в html документ
+	
+	// располагаем добавленный DOM элемент (как слой) относительно позиции html документа
 	render2D.view.style.position = 'absolute';  
-	render2D.view.style.top = 100 + 'px';  
-	render2D.view.style.left = 110 + 'px';  
+	render2D.view.style.top = 0 + 'px';  
+	render2D.view.style.left = 0 + 'px';  
 
 	// создаем сцену
 	scene2D = new PIXI.Container();
@@ -422,8 +422,8 @@ function renderIntro() {
 		height = window.innerHeight;
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
-		//render3D.setSize(width, height); 
-		//composer.setSize(width, height); 					
+		render3D.setSize(width, height); 
+		composer.setSize(width, height); 					
 	}
 	
 	function onDocumentMouseMove( event ) {
