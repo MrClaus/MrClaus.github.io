@@ -362,14 +362,28 @@ function initEffect3D() {
 	glitchPass.goWild = false;
 	glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
 	
+	
+	
+	var scene_N = new THREE.Scene();
+	var camera_N = new THREE.PerspectiveCamera( 75, width / height, 0.1, 10000 );
+        camera_N.position.set( 0, 0, 10);
+        camera_N.updateProjectionMatrix();
+	
 	var texture_UI = new THREE.Texture( render2D.view );
         texture_UI.needsUpdate = true;
+	var material_UI = new THREE.MeshBasicMaterial( {map: texture_UI, side:THREE.DoubleSide } );
+        material_UI.transparent = true;
+        var mesh_UI = new THREE.Mesh( new THREE.PlaneGeometry(width, height), material_UI );
+        mesh_UI.position.set(0,0,0);
+        scene_N.add( mesh_UI );
+	
+	
 	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));				
 	composer.addPass(effectFilm);	
 	composer.addPass(effectVignette);
-	composer.addPass(new THREE.RenderPass(texture_UI)); //-------------------
+	composer.addPass(new THREE.RenderPass(scene_N, camera_N)); //-------------------
 	composer.addPass(glitchPass);
 	
 	// *** Конец основного кода ***
