@@ -26,7 +26,7 @@ var stats;
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
 var mouseX = 0, mouseY = 0, mouseRad = 999;
 
-var bgi, render2D, scene2D; // для pixi
+var bgi, render2D, scene2D; // для pixi 
 
 	
 	
