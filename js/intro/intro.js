@@ -48,7 +48,7 @@ function initApplication() {
 function start() {
 	if (!Detector.webgl) Detector.addGetWebGLMessage();
 	resLoad();	
-}
+} 
 
 
 
