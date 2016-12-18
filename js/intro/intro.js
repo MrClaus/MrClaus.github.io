@@ -26,7 +26,7 @@ var stats;
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
 var mouseX = 0, mouseY = 0, mouseRad = 999;
 
-var bgi, render2D, scene2D;
+var bgi, render2D, scene2D; // для pixi
 
 	
 	
@@ -168,7 +168,10 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаем рендерный движок и задаем ему параметры
-	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true });
+	render2D = PIXI.WebGLRenderer(width, height, { transparent: true });
+	render2D.view.style.position = 'absolute';
+	render2D.view.style.top = 0 + 'px';
+	render2D.view.style.left = 0 + 'px';
 	document.body.appendChild(render2D.view); // добавляем исполняемый элемент контейнер (вьюпорт движка) в html документ
 
 	// создаем сцену
