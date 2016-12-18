@@ -169,7 +169,7 @@ function initScene2D() {
 	
 	// создаем рендерный движок и задаем ему параметры
 	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true }); 
-	container.appendChild(render2D.view.domElement);
+	container.appendChild(render2D.domElement);
 
 	// создаем сцену
 	scene2D = new PIXI.Container();
