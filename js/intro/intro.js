@@ -26,7 +26,7 @@ var stats;
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
 var mouseX = 0, mouseY = 0, mouseRad = 999;
 
-var bgi, render2D, scene2D, scene_N, camera_N, render3D2; // для pixi
+var bgi, render2D, scene2D; // для pixi
 
 	
 	
@@ -48,7 +48,7 @@ function initApplication() {
 function start() {
 	if (!Detector.webgl) Detector.addGetWebGLMessage();
 	resLoad();	
-} 
+}
 
 
 
@@ -103,14 +103,14 @@ function resLoad() {
 function initScene() {	
 	
 	// *** Основной код ***	
-
-	initScene2D(); // инициализация 2д сцены	  
-	initObject2D(); // инициализация объектов сцены 
 	
 	initScene3D(); // инициализация 3д сцены
 	initObject3D(); // инициализация объектов сцены
 	initEffect3D(); // добавление эффектов рендера при отображении
-		
+	
+	initScene2D(); // инициализация 2д сцены	 
+	initObject2D(); // инициализация объектов сцены 
+	
 	renderIntro(); // рендер сцены
 	
 	// *** Конец неосновного кода ***
@@ -156,15 +156,6 @@ function initScene3D() {
 	render3D.gammaOutput = true;
 	container.appendChild(render3D.domElement);
 	
-	// создаем рендерный движок и задаем ему параметры
-	render3D2 = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
-	render3D2.setPixelRatio(window.devicePixelRatio);
-	render3D2.setSize(width, height);				
-	render3D2.autoClear = false;
-	render3D2.gammaInput = true;
-	render3D2.gammaOutput = true;
-	container.appendChild(render3D2.domElement);
-	
 	// *** Конец основного кода ***
 					
 }
@@ -177,8 +168,9 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаем рендерный движок и задаем ему параметры
-	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true });
-	
+	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true }); 
+	container.appendChild(render2D.view.domElement);
+
 	// создаем сцену
 	scene2D = new PIXI.Container();
 	
@@ -371,28 +363,10 @@ function initEffect3D() {
 	glitchPass.goWild = false;
 	glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
 	
-	
-	
-	scene_N = new THREE.Scene();
-	camera_N = new THREE.PerspectiveCamera( 75, width / height, 0.1, 10000 );
-        camera_N.position.set( 0, 0, 10);
-        camera_N.updateProjectionMatrix();
-	
-	var texture_UI = new THREE.Texture( render2D.view );
-        texture_UI.needsUpdate = true;
-	var material_UI = new THREE.MeshBasicMaterial( {map: texture_UI, side:THREE.DoubleSide } );
-        material_UI.transparent = true;
-        var mesh_UI = new THREE.Mesh( new THREE.PlaneGeometry(width, height), material_UI );
-        mesh_UI.position.set(0,0,0);
-        scene_N.add( mesh_UI );
-	
-	
-	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));				
 	composer.addPass(effectFilm);	
-	composer.addPass(effectVignette);
-	//composer.addPass(new THREE.RenderPass(scene_N, camera_N)); //-------------------
+	composer.addPass(effectVignette);				
 	composer.addPass(glitchPass);
 	
 	// *** Конец основного кода ***
@@ -422,8 +396,7 @@ function renderIntro() {
 		requestAF(render);
 		animate(); // код сцены, который исполняется во время рендринга
 		composer.render(0.01);
-		render3D2.render(scene_N, camera_N);
-		//render2D.render(scene2D); // поверх 3д слоя рендрит 2д слой
+		render2D.render(scene2D); // поверх 3д слоя рендрит 2д слой
 	}
 	
 	function animate() {
