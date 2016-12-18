@@ -168,7 +168,7 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаем рендерный движок и задаем ему параметры
-	render2D = PIXI.CanvasRenderer(width, height, { transparent: true }); 
+	render2D = PIXI.CanvasRenderer(width, height); 
 	document.body.appendChild(render2D.view); // добавляем исполняемый элемент контейнер (вьюпорт движка) в html документ
 	
 	// располагаем добавленный DOM элемент (как слой) относительно позиции html документа
