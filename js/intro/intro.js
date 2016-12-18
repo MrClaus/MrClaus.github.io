@@ -420,8 +420,8 @@ function renderIntro() {
 		height = window.innerHeight;
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
-		//render3D.setSize(width, height);
-		//composer.setSize(width, height);					
+		//render3D.setSize(width, height); 
+		//composer.setSize(width, height); 					
 	}
 	
 	function onDocumentMouseMove( event ) {
