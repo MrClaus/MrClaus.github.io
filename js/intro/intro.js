@@ -369,7 +369,7 @@ function initEffect3D() {
 	composer.addPass(new THREE.RenderPass(scene, camera));				
 	composer.addPass(effectFilm);	
 	composer.addPass(effectVignette);
-	composer.addPass(texture_UI); //-------------------
+	composer.addPass(new THREE.RenderPass(texture_UI)); //-------------------
 	composer.addPass(glitchPass);
 	
 	// *** Конец основного кода ***
