@@ -170,9 +170,9 @@ function initScene2D() {
 	// создаем рендерный движок и задаем ему параметры
 	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true }); 
 	document.body.appendChild(render2D.view); // добавляем исполняемый элемент контейнер (вьюпорт движка) в html документ	
-	render2D.style.position = 'absolute'; 
-	render2D.style.top = 0 + 'px'; 
-	render2D.style.left = 0 + 'px'; 
+	render2D.view.style.position = 'absolute'; 
+	render2D.view.style.top = 0 + 'px'; 
+	render2D.view.style.left = 0 + 'px'; 
 
 	// создаем сцену
 	scene2D = new PIXI.Container();
