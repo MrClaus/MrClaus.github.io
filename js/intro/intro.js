@@ -168,7 +168,7 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаем рендерный движок и задаем ему параметры
-	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true });
+	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true }); 
 	render2D.view.style.position = 'absolute';
 	render2D.view.style.top = 0 + 'px';
 	render2D.view.style.left = 0 + 'px';
