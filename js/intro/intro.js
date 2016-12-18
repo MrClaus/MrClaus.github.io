@@ -1,5 +1,5 @@
 // Запускает скрипт только после полной загрузки страницы (кода)
-window.onload = initApplication;
+window.onload = initApplication; 
 
 
 
