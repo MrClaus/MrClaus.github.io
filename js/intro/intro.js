@@ -26,7 +26,7 @@ var stats;
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
 var mouseX = 0, mouseY = 0, mouseRad = 999;
 
-var bgi, render2D, scene2D; // для pixi
+var bgi, render2D, scene2D, scene_N, camera_N, render3D2; // для pixi
 
 	
 	
@@ -155,6 +155,15 @@ function initScene3D() {
 	render3D.gammaInput = true;
 	render3D.gammaOutput = true;
 	container.appendChild(render3D.domElement);
+	
+	// создаем рендерный движок и задаем ему параметры
+	render3D2 = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+	render3D2.setPixelRatio(window.devicePixelRatio);
+	render3D2.setSize(width, height);				
+	render3D2.autoClear = false;
+	render3D2.gammaInput = true;
+	render3D2.gammaOutput = true;
+	container.appendChild(render3D2.domElement);
 	
 	// *** Конец основного кода ***
 					
@@ -364,8 +373,8 @@ function initEffect3D() {
 	
 	
 	
-	var scene_N = new THREE.Scene();
-	var camera_N = new THREE.PerspectiveCamera( 75, width / height, 0.1, 10000 );
+	scene_N = new THREE.Scene();
+	camera_N = new THREE.PerspectiveCamera( 75, width / height, 0.1, 10000 );
         camera_N.position.set( 0, 0, 10);
         camera_N.updateProjectionMatrix();
 	
@@ -383,7 +392,7 @@ function initEffect3D() {
 	composer.addPass(new THREE.RenderPass(scene, camera));				
 	composer.addPass(effectFilm);	
 	composer.addPass(effectVignette);
-	composer.addPass(new THREE.RenderPass(scene_N, camera_N)); //-------------------
+	//composer.addPass(new THREE.RenderPass(scene_N, camera_N)); //-------------------
 	composer.addPass(glitchPass);
 	
 	// *** Конец основного кода ***
@@ -413,6 +422,7 @@ function renderIntro() {
 		requestAF(render);
 		animate(); // код сцены, который исполняется во время рендринга
 		composer.render(0.01);
+		render3D2.render(scene_N, camera_N);
 		//render2D.render(scene2D); // поверх 3д слоя рендрит 2д слой
 	}
 	
