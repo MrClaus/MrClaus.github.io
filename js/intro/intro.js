@@ -24,7 +24,9 @@ var luna, moon, m_bump, m_specular;
 var skyBox, mapSky;	
 var stats;			
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
-var mouseX = 0, mouseY = 0, mouseRad = 999;			
+var mouseX = 0, mouseY = 0, mouseRad = 999;
+
+var bgi, render2D, scene2D;
 
 	
 	
@@ -57,6 +59,9 @@ function resLoad() {
 	
 	var count = 0;
 	var count_res = 13;
+	
+	// Проба для pixi
+	bgi = PIXI.Sprite.fromImage('res/intro/bgi.png');
 	
 	i_clouds = loadIMG("res/intro/earth_clouds.png");				
 	i_earth = loadIMG("res/intro/earth_map.jpg");				
@@ -95,7 +100,27 @@ function resLoad() {
 
 
 // Инициализация сцены заставки
-function initScene() {
+function initScene() {	
+	
+	// *** Основной код ***
+	
+	initScene2D(); // инициализация 2д сцены	
+	initObject2D(); // инициализация объектов сцены
+	
+	initScene3D(); // инициализация 3д сцены
+	initObject3D(); // инициализация объектов сцены
+	initEffect3D(); // добавление эффектов рендера при отображении
+	
+	renderIntro(); // рендер сцены
+	
+	// *** Конец неосновного кода ***
+	
+}
+
+
+
+// Инициализация 3D сцены заставки на three
+function initScene3D() {
 	
 	// *** Основной код ***
 	
@@ -130,10 +155,6 @@ function initScene() {
 	render3D.gammaInput = true;
 	render3D.gammaOutput = true;
 	container.appendChild(render3D.domElement);
-					
-	initObject(); // инициализация объектов сцены
-	initEffect(); // добавление эффектов рендера при отображении
-	renderIntro(); // рендер сцены
 	
 	// *** Конец основного кода ***
 					
@@ -141,8 +162,42 @@ function initScene() {
 
 
 
+// Инициализация 2D сцены заставки на pixi
+function initScene2D() {
+	
+	// *** Основной код ***
+	
+	// создаем рендерный движок и задаем ему параметры
+	render2D = PIXI.autoDetectRenderer(width, height, { transparent: true });
+	document.body.appendChild(render2D.view); // добавляем исполняемый элемент контейнер (вьюпорт движка) в html документ
+
+	// создаем сцену
+	scene2D = new PIXI.Container();
+	
+	// *** Конец основного кода ***
+	
+}
+
+
+
+// Инициализация объектов 2Д-сцены на pixi
+function initObject2D() {
+	
+	// *** Основной код ***
+	
+	// задаем параметры спрайту и добавляем его на сцену
+	bgi.position.x = 0;
+	bgi.position.y = 0;
+	scene2D.addChild(bgi);
+	
+	// *** Конец основного кода ***
+	
+}
+
+
+
 // Инициализация объектов сцены
-function initObject() {
+function initObject3D() {
 	
 	// *** Основной код ***
 	
@@ -277,7 +332,7 @@ function initObject() {
 
 
 // Инициализации используемых эффектов постпроцессинга (после рендера)
-function initEffect() {
+function initEffect3D() {
 
 	// *** Основной код ***
 	
@@ -340,7 +395,8 @@ function renderIntro() {
 	function render() {
 		requestAF(render);
 		animate(); // код сцены, который исполняется во время рендринга
-		composer.render(0.01);					
+		composer.render(0.01);
+		render2D.render(scene2D); // поверх 3д слоя рендрит 2д слой
 	}
 	
 	function animate() {
