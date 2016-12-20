@@ -24,7 +24,7 @@ var luna, moon, m_bump, m_specular;
 var skyBox, mapSky;	
 var stats;			
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
-var mouseX = 0, mouseY = 0, mouseRad = 999, mouseClick = false;
+var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = 0;
 
 var bgi, render2D, scene2D; // для pixi
 
@@ -412,7 +412,7 @@ function renderIntro() {
 			controls.maxDistance = 3600 + 656 * (mouseRad / 122);
 			controls.minDistance = controls.maxDistance;
 		}
-		if (mouseClick) console.log('clicked');		
+		if (mouseSt != 0) console.log(mouseSt);		
 		sphere.rotation.y += 0.0003;
 		clouds.rotation.y += 0.0006;
 		skyBox.rotation.z += 0.0003;
@@ -435,8 +435,8 @@ function renderIntro() {
 	}
 	
 	function onDocumentMouseClick( event ) {
-		mouseClick = false;
-		if (event.which == 1) mouseClick = true;
+		if (mouseSt == 1) mouseSt = -1;
+		else mouseSt = 1;
 	}
 	
 	// *** Конец неосновного кода ***
