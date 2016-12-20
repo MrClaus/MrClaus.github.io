@@ -30,7 +30,7 @@ var bgi, render2D, scene2D; // для pixi
 
 	
 	
-// Стартовая функция, которая инициализирует текущее iFrame приложение для VK
+// Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
 function initApplication() {
 	/*
 	VK.init(function() {
