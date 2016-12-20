@@ -399,8 +399,7 @@ function renderIntro() {
 	// *** Неосновной код, содержащий используемые функции в данной процедуре ***
 	
 	function render() {
-		requestAF(render);
-		mouseClick = false;
+		requestAF(render);		
 		animate(); // код сцены, который исполняется во время рендринга
 		composer.render(0.01);
 		render2D.render(scene2D); // поверх 3д слоя рендрит 2д слой
@@ -436,7 +435,8 @@ function renderIntro() {
 	}
 	
 	function onDocumentMouseClick( event ) {
-		mouseClick = true;
+		mouseClick = false;
+		if (event.which == 1) mouseClick = true;
 	}
 	
 	// *** Конец неосновного кода ***
