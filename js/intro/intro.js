@@ -409,22 +409,20 @@ function renderIntro() {
 		controls.update();		
 		stats.update();
 		
+		
 		if (process != 0 && process != 1600) {			
 			process = process + mouseSt * (7);
 			if (mouseSt == 1 && process >= 1600) process = 1600;
 			if (mouseSt == -1 && process <= 1) process = 0;
 			controls.maxDistance = 4256 - process;
 			controls.minDistance = controls.maxDistance;	
-			//console.log(mouseSt + ' ' + process);
-		}
-		
-
-		
+		}		
 		//if (mouseRad < 122) {						
 		//	controls.maxDistance = 3600 + 656 * (mouseRad / 122);
 		//	controls.minDistance = controls.maxDistance;
 		//}
-		//if (mouseSt != 0) console.log(mouseSt);		
+		
+				
 		sphere.rotation.y += 0.0003;
 		clouds.rotation.y += 0.0006;
 		skyBox.rotation.z += 0.0003;
@@ -447,15 +445,10 @@ function renderIntro() {
 	}
 	
 	function onDocumentMouseClick( event ) {		
-		if (mouseSt == 1) {
-			mouseSt = -1;
-			if (process == 1600) process = 1599;
-		}
-		else {
-			mouseSt = 1;
-			if (process == 0) process = 1;
-		}
-		console.log('NEW >>> ' + mouseSt + ' ' + process);
+		if (mouseSt == 1) mouseSt = -1;
+		else mouseSt = 1;
+		if (process == 1600) process = 1599;
+		if (process == 0) process = 1;		
 	}
 	
 	// *** Конец неосновного кода ***
