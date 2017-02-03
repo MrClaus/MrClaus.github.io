@@ -410,11 +410,12 @@ function renderIntro() {
 		stats.update();
 		
 		if (process != 0 && process != 800) {			
-			process = process + mouseSt * (0.005);
+			process = process + mouseSt * (0.5);
 			if (mouseSt == 1 && process >= 800) process = 800;
 			if (mouseSt == -1 && process <= 1) process = 0;
 			controls.maxDistance = 3600 + process;
-			controls.minDistance = controls.maxDistance;					
+			controls.minDistance = controls.maxDistance;	
+			console.log(mouseSt + ' ' + process);
 		}
 		
 
@@ -454,6 +455,7 @@ function renderIntro() {
 			mouseSt = 1;
 			if (process == 0) process = 1;
 		}
+		console.log('NEW >>> ' + mouseSt + ' ' + process);
 	}
 	
 	// *** Конец неосновного кода ***
