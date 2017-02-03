@@ -24,7 +24,7 @@ var luna, moon, m_bump, m_specular;
 var skyBox, mapSky;	
 var stats;			
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
-var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = 0, process = 0;
+var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
 var bgi, render2D, scene2D; // для pixi
 
