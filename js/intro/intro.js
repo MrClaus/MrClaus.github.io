@@ -409,11 +409,11 @@ function renderIntro() {
 		controls.update();		
 		stats.update();
 		
-		if (process != 0 && process != 800) {			
-			process = process + mouseSt * (0.5);
-			if (mouseSt == 1 && process >= 800) process = 800;
+		if (process != 0 && process != 1600) {			
+			process = process + mouseSt * (1);
+			if (mouseSt == 1 && process >= 1600) process = 1600;
 			if (mouseSt == -1 && process <= 1) process = 0;
-			controls.maxDistance = 3600 + process;
+			controls.maxDistance = 4256 + process;
 			controls.minDistance = controls.maxDistance;	
 			console.log(mouseSt + ' ' + process);
 		}
@@ -449,7 +449,7 @@ function renderIntro() {
 	function onDocumentMouseClick( event ) {		
 		if (mouseSt == 1) {
 			mouseSt = -1;
-			if (process == 800) process = 799;
+			if (process == 1600) process = 1599;
 		}
 		else {
 			mouseSt = 1;
