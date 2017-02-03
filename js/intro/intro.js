@@ -410,7 +410,7 @@ function renderIntro() {
 		stats.update();
 		
 		if (process != 0 && process != 800) {			
-			process = process + mouseSt * (0.5);
+			process = process + mouseSt * (0.005);
 			if (mouseSt == 1 && process >= 800) process = 800;
 			if (mouseSt == -1 && process <= 1) process = 0;
 			controls.maxDistance = 3600 + process;
