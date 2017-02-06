@@ -27,7 +27,7 @@ var composer, effectFilm, effectVignette, glitchPass, effectFilm;
 var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
 var bgi, render2D, scene2D; // для pixi
-var button, textureButtonOneA, textureButtonOneB, textureButtonOffA, textureButtonOffB, buttState = true;
+var button, textureButtonOneA, textureButtonOneB, textureButtonOffA, textureButtonOffB, buttState = 1;
 
 	
 	
@@ -475,40 +475,40 @@ function renderIntro() {
 	
 	function onButtonDown() {
 		this.isdown = true;
-		if (buttState) buttState = false;
-		else buttState = true;
-    		this.alpha = 1;
+		if (buttState == 1) buttState = 0;
+		else buttState = 1;
+		this.alpha = 1;
 		console.log(buttState);
 	}
 
 	function onButtonUp() {
 		this.isdown = false;
-    		if (this.isOver) {
-        		this.texture = textureButtonOffB;
-			if (buttState) this.texture = textureButtonOneB;
-    		}
-    		else {
-        		this.texture = textureButtonOffA;
-			if (buttState) this.texture = textureButtonOneA;
-    		}
+		if (this.isOver) {
+			this.texture = textureButtonOffB;
+			if (buttState == 1) this.texture = textureButtonOneB;
+		}
+		else {
+			this.texture = textureButtonOffA;
+			if (buttState == 1) this.texture = textureButtonOneA;
+		}
 	}
 
 	function onButtonOver() {
-    		this.isOver = true;
-    		if (this.isdown) {
-        		return;
-    		}
+		this.isOver = true;
+		if (this.isdown) {
+			return;
+		}
 		this.texture = textureButtonOffB;
-		if (buttState) this.texture = textureButtonOneB;
+		if (buttState == 1) this.texture = textureButtonOneB;
 	}
 
 	function onButtonOut() {
 		this.isOver = false;
-	    	if (this.isdown) {
+		if (this.isdown) {
 			return;
-	    	}
-	    	this.texture = textureButtonOffA;
-		if (buttState) this.texture = textureButtonOneA;
+		}
+		this.texture = textureButtonOffA;
+		if (buttState == 1) this.texture = textureButtonOneA;
 	}
 	
 	// *** Конец неосновного кода ***
