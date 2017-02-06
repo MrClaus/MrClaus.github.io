@@ -27,6 +27,7 @@ var composer, effectFilm, effectVignette, glitchPass, effectFilm;
 var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
 var bgi, render2D, scene2D; // для pixi
+var button, textureButtonOneA, textureButtonOneB, textureButtonOffA, textureButtonOffB, buttState = true;
 
 	
 	
@@ -62,6 +63,10 @@ function resLoad() {
 	
 	// Проба для pixi
 	bgi = PIXI.Sprite.fromImage('res/intro/bgi.png');
+	textureButtonOneA = PIXI.Texture.fromImage('res/intro/button_one.png');
+	textureButtonOneB = PIXI.Texture.fromImage('res/intro/button_one1.png');
+	textureButtonOffA = PIXI.Texture.fromImage('res/intro/button_off.png');
+	textureButtonOffB = PIXI.Texture.fromImage('res/intro/button_off1.png');
 	
 	i_clouds = loadIMG("res/intro/earth_clouds.png");				
 	i_earth = loadIMG("res/intro/earth_map.jpg");				
@@ -190,10 +195,22 @@ function initObject2D() {
 	
 	// *** Основной код ***
 	
-	// задаем параметры спрайту и добавляем его на сцену
+	// задаем параметры фоновому спрайту и добавляем его на сцену
 	bgi.position.x = 0;
 	bgi.position.y = 0;
 	scene2D.addChild(bgi);
+	
+	// элемент кнопка
+	button = new PIXI.Sprite(textureButtonOneA);
+    	button.buttonMode = true;
+    	button.anchor.set(0.5);
+    	button.x = 200;
+    	button.y = 200;
+    	// make the button interactive...
+    	button.interactive = true;
+    	button.buttonMode = true;
+    	// add it to the stage    	
+	scene2D.addChild(button);
 	
 	// *** Конец основного кода ***
 	
@@ -389,6 +406,11 @@ function renderIntro() {
 	document.addEventListener('mousemove', onDocumentMouseMove, false); // - движение мыши
 	document.addEventListener('click', onDocumentMouseClick, false); // - клик мыши
 	window.addEventListener('resize', onWindowResize, false); // - изменения размера экрана отображения
+	button.on('pointerdown', onButtonDown)
+        button.on('pointerup', onButtonUp)
+        button.on('pointerupoutside', onButtonUp)
+        button.on('pointerover', onButtonOver)
+        button.on('pointerout', onButtonOut);
 		
 	// вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код				
 	render();
@@ -449,6 +471,43 @@ function renderIntro() {
 		else mouseSt = 1;
 		if (process == 1600) process = 1599;
 		if (process == 0) process = 1;		
+	}
+	
+	function onButtonDown() {
+		this.isdown = true;
+		if (buttState) buttState = false;
+		else buttState = true;
+    		this.alpha = 1;
+	}
+
+	function onButtonUp() {
+		this.isdown = false;
+    		if (this.isOver) {
+        		this.texture = textureButtonOffB;
+			if (buttState) this.texture = textureButtonOneB;
+    		}
+    		else {
+        		this.texture = textureButtonOffA;
+			if (buttState) this.texture = textureButtonOneA;
+    		}
+	}
+
+	function onButtonOver() {
+    		this.isOver = true;
+    		if (this.isdown) {
+        		return;
+    		}
+		this.texture = textureButtonOffB;
+		if (buttState) this.texture = textureButtonOneB;
+	}
+
+	function onButtonOut() {
+		this.isOver = false;
+	    	if (this.isdown) {
+			return;
+	    	}
+	    	this.texture = textureButtonOffA;
+		if (buttState) this.texture = textureButtonOneA;
 	}
 	
 	// *** Конец неосновного кода ***
