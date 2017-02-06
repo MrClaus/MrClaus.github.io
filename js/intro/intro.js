@@ -406,10 +406,10 @@ function renderIntro() {
 	document.addEventListener('mousemove', onDocumentMouseMove, false); // - движение мыши
 	document.addEventListener('click', onDocumentMouseClick, false); // - клик мыши
 	window.addEventListener('resize', onWindowResize, false); // - изменения размера экрана отображения
-	button.on('pointerdown', onButtonDown)
-        button.on('pointerup', onButtonUp)
-        button.on('pointerupoutside', onButtonUp)
-        button.on('pointerover', onButtonOver)
+	button.on('pointerdown', onButtonDown);
+        button.on('pointerup', onButtonUp);
+        button.on('pointerupoutside', onButtonUp);
+        button.on('pointerover', onButtonOver);
         button.on('pointerout', onButtonOut);
 		
 	// вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код				
