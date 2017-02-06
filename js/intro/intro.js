@@ -478,6 +478,7 @@ function renderIntro() {
 		if (buttState) buttState = false;
 		else buttState = true;
     		this.alpha = 1;
+		console.log(buttState);
 	}
 
 	function onButtonUp() {
