@@ -406,11 +406,7 @@ function renderIntro() {
 	document.addEventListener('mousemove', onDocumentMouseMove, false); // - движение мыши
 	document.addEventListener('click', onDocumentMouseClick, false); // - клик мыши
 	window.addEventListener('resize', onWindowResize, false); // - изменения размера экрана отображения
-	button.on('pointerdown', onButtonDown);
-        button.on('pointerup', onButtonUp);
-        button.on('pointerupoutside', onButtonUp);
-        button.on('pointerover', onButtonOver);
-        button.on('pointerout', onButtonOut);
+
 		
 	// вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код				
 	render();
@@ -438,7 +434,12 @@ function renderIntro() {
 			if (mouseSt == -1 && process <= 1) process = 0;
 			controls.maxDistance = 4256 - process;
 			controls.minDistance = controls.maxDistance;	
-		}		
+		}
+		button.on('pointerdown', onButtonDown);
+		button.on('pointerup', onButtonUp);
+		button.on('pointerupoutside', onButtonUp);
+		button.on('pointerover', onButtonOver);
+		button.on('pointerout', onButtonOut);
 		//if (mouseRad < 122) {						
 		//	controls.maxDistance = 3600 + 656 * (mouseRad / 122);
 		//	controls.minDistance = controls.maxDistance;
