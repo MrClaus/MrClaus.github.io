@@ -209,6 +209,13 @@ function initObject2D() {
     	// make the button interactive...
     	button.interactive = true;
     	button.buttonMode = true;
+	
+	button.on('pointerdown', onButtonDown);
+	button.on('pointerup', onButtonUp);
+	button.on('pointerupoutside', onButtonUp);
+	button.on('pointerover', onButtonOver);
+	button.on('pointerout', onButtonOut);
+	
     	// add it to the stage    	
 	scene2D.addChild(button);
 	
@@ -434,12 +441,7 @@ function renderIntro() {
 			if (mouseSt == -1 && process <= 1) process = 0;
 			controls.maxDistance = 4256 - process;
 			controls.minDistance = controls.maxDistance;	
-		}
-		button.on('pointerdown', onButtonDown);
-		button.on('pointerup', onButtonUp);
-		button.on('pointerupoutside', onButtonUp);
-		button.on('pointerover', onButtonOver);
-		button.on('pointerout', onButtonOut);
+		}		
 		//if (mouseRad < 122) {						
 		//	controls.maxDistance = 3600 + 656 * (mouseRad / 122);
 		//	controls.minDistance = controls.maxDistance;
