@@ -432,7 +432,7 @@ function renderIntro() {
 		controls.update();		
 		stats.update();
 		
-		button.on('pointerdown', console.log('down'));
+		button.on('pointerdown', onButtonDown);
 		button.on('pointerup', onButtonUp);
 		button.on('pointerupoutside', onButtonUp);
 		button.on('pointerover', onButtonOver);
@@ -478,7 +478,7 @@ function renderIntro() {
 		if (process == 1600) process = 1599;
 		if (process == 0) process = 1;
 		
-		button.on('pointerdown', console.log('down'));
+		button.on('pointerdown', onButtonDown);
 		button.on('pointerup', onButtonUp);
 		button.on('pointerupoutside', onButtonUp);
 		button.on('pointerover', onButtonOver);
