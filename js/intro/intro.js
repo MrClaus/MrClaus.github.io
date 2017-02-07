@@ -432,6 +432,11 @@ function renderIntro() {
 		controls.update();		
 		stats.update();
 		
+		button.on('pointerdown', onButtonDown);
+		button.on('pointerup', onButtonUp);
+		button.on('pointerupoutside', onButtonUp);
+		button.on('pointerover', onButtonOver);
+		button.on('pointerout', onButtonOut);
 		
 		if (process != 0 && process != 1600) {			
 			process = process + mouseSt * (7);
