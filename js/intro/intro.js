@@ -28,7 +28,7 @@ var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
 var bgi, render2D, scene2D; // для pixi
 var button, textureButtonOneA, textureButtonOneB, textureButtonOffA, textureButtonOffB, buttState = 1;
-
+var px, nx, py, ny, pz, nz;
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -59,28 +59,25 @@ function resLoad() {
 	// *** Основной код ***
 	
 	var count = 0;
-	var count_res = 13;
+	var count_res = 12;
 	
-	// Проба для pixi
-	bgi = PIXI.Sprite.fromImage('res/intro/bgi.png');
-	textureButtonOneA = PIXI.Texture.fromImage('res/intro/button_one.png');
-	textureButtonOneB = PIXI.Texture.fromImage('res/intro/button_one1.png');
-	textureButtonOffA = PIXI.Texture.fromImage('res/intro/button_off.png');
-	textureButtonOffB = PIXI.Texture.fromImage('res/intro/button_off1.png');
 	
-	i_clouds = loadIMG("res/intro/earth_clouds.png");				
-	i_earth = loadIMG("res/intro/earth_map.jpg");				
-	i_bump = loadIMG("res/intro/earth_bump.jpg");				
-	i_specular = loadIMG("res/intro/earth_specular.jpg");
-	moon = loadIMG("res/intro/moon_map.jpg");
-	m_bump = loadIMG("res/intro/moon_bump.jpg");
-	m_specular = loadIMG("res/intro/moon_specular.jpg");	
+	
+	nx = loadIMG("res/intro/simple_room_nx.png");				
+	ny = loadIMG("res/intro/simple_room_ny.png");				
+	nz = loadIMG("res/intro/simple_room_nz.png");				
+	px = loadIMG("res/intro/simple_room_px.png");
+	py = loadIMG("res/intro/simple_room_py.png");
+	pz = loadIMG("res/intro/simple_room_pz.png");
+	room = loadIMG("res/intro/simple_room_sphere.png");
+	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
 	texFlare3 = loadIMG("res/flare/flare3.png");
 	texFlare6 = loadIMG("res/flare/flare6.png");
 	texFlare7 = loadIMG("res/flare/flare7.png");
-	mapSky = loadIMG("res/intro/skybox.jpg");
+	
+	
 	
 	// *** Конец основного кода ***
 	
@@ -113,8 +110,8 @@ function initScene() {
 	initObject3D(); // инициализация объектов сцены
 	initEffect3D(); // добавление эффектов рендера при отображении
 	
-	initScene2D(); // инициализация 2д сцены	 
-	initObject2D(); // инициализация объектов сцены 
+	//initScene2D(); // инициализация 2д сцены	 
+	//initObject2D(); // инициализация объектов сцены 
 	
 	renderIntro(); // рендер сцены
 	
@@ -139,18 +136,18 @@ function initScene3D() {
 	// создаём камеру
 	camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 	camera.position.x = 0;
-	camera.position.y = 800;
-	camera.position.z = 4180;				
+	camera.position.y = 0;
+	camera.position.z = 0;				
 	
 	// добавляем управление камерой
 	controls = new THREE.OrbitControls(camera);
 	controls.enabled = false;
 	controls.autoRotate = true;
 	controls.autoRotateSpeed = 1;
-	controls.minPolarAngle=1.322675;
+	controls.minPolarAngle=0;
 	controls.maxPolarAngle=1.322675;
-	controls.maxDistance=4256;
-	controls.minDistance=3600;
+	controls.maxDistance=1000;
+	controls.minDistance=0;
 					
 	// создаем рендерный движок и задаем ему параметры
 	render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -165,61 +162,6 @@ function initScene3D() {
 					
 }
 
-
-
-// Инициализация 2D сцены заставки на pixi
-function initScene2D() {
-	
-	// *** Основной код ***
-	
-	// создаем рендерный движок и задаем ему параметры
-	render2D = new PIXI.WebGLRenderer(width, height, { transparent: true });    
-	document.body.appendChild(render2D.view); // добавляем исполняемый элемент контейнер (вьюпорт движка) в html документ
-	
-	// располагаем добавленный DOM элемент (как слой) относительно позиции html документа
-	render2D.view.style.position = 'absolute';  
-	render2D.view.style.top = 0 + 'px';  
-	render2D.view.style.left = 0 + 'px';  
-
-	// создаем сцену
-	scene2D = new PIXI.Container();
-	
-	// *** Конец основного кода ***
-	
-}
-
-
-
-// Инициализация объектов 2Д-сцены на pixi
-function initObject2D() {
-	
-	// *** Основной код ***
-	
-	// задаем параметры фоновому спрайту и добавляем его на сцену
-	bgi.position.x = 0;
-	bgi.position.y = 0;
-	scene2D.addChild(bgi);
-	
-	// элемент кнопка
-	button = new PIXI.Sprite(textureButtonOneA);
-    	button.buttonMode = true;
-    	button.anchor.set(0.5);
-    	button.x = 200;
-    	button.y = 200;
-    	// make the button interactive...
-    	button.interactive = true;
-    	button.buttonMode = true;
-	
-	
-	
-    	// add it to the stage    	
-	scene2D.addChild(button);
-	
-	
-	
-	// *** Конец основного кода ***
-	
-} 
 
 
 
@@ -241,7 +183,7 @@ function initObject3D() {
 	// создаём блики камеры
 	flare = addFlare(0.618, 0.45, 1.0, 0, 0, -30000);
 	scene.add(flare);
-	
+	/*
 	// создем сферу Земли				
 	sphere = createSphere(600, 64, i_earth, i_bump, i_specular, 100, '#343434');
 	sphere.rotation.y = 6; 
@@ -256,9 +198,9 @@ function initObject3D() {
 	luna = createSphere(250, 64, moon, m_bump, m_specular, 10, '#000000');
 	luna.position.set(0, 500, 3400);
 	scene.add(luna);
-	
+	*/
 	// создаём скайбокс
-	skyBox = addSkyBox(62000, 7, 'sphere', null, mapSky, mapSky, mapSky, mapSky, mapSky, mapSky);
+	skyBox = addSkyBox(62000, 7, 'sphere', null, px, nx, py, ny, pz, nz);
 	scene.add(skyBox);
 	
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
@@ -394,7 +336,7 @@ function initEffect3D() {
 	composer.addPass(new THREE.RenderPass(scene, camera));				
 	composer.addPass(effectFilm);	
 	composer.addPass(effectVignette);				
-	composer.addPass(glitchPass);
+	//composer.addPass(glitchPass);
 	
 	// *** Конец основного кода ***
 	
@@ -425,34 +367,34 @@ function renderIntro() {
 		requestAF(render);		
 		animate(); // код сцены, который исполняется во время рендринга
 		composer.render(0.01); // рендрид 3д слой
-		render2D.render(scene2D); // поверх 3д слоя рендрит 2д слой
+		
 	}
 	
 	function animate() {
 		controls.update();		
 		stats.update();
 		
-		button.on('pointerdown', onButtonDown);
+		/*button.on('pointerdown', onButtonDown);
 		button.on('pointerup', onButtonUp);
 		button.on('pointerupoutside', onButtonUp);
 		button.on('pointerover', onButtonOver);
-		button.on('pointerout', onButtonOut);
+		button.on('pointerout', onButtonOut);*/
 		
-		if (process != 0 && process != 1600) {			
+		/*if (process != 0 && process != 1600) {			
 			process = process + mouseSt * (7);
 			if (mouseSt == 1 && process >= 1600) process = 1600;
 			if (mouseSt == -1 && process <= 1) process = 0;
 			controls.maxDistance = 4256 - process;
 			controls.minDistance = controls.maxDistance;	
-		}		
+		}*/		
 		//if (mouseRad < 122) {						
 		//	controls.maxDistance = 3600 + 656 * (mouseRad / 122);
 		//	controls.minDistance = controls.maxDistance;
 		//}
 		
 				
-		sphere.rotation.y += 0.0003;
-		clouds.rotation.y += 0.0006;
+		//sphere.rotation.y += 0.0003;
+		//clouds.rotation.y += 0.0006;
 		skyBox.rotation.z += 0.0003;
 		skyBox.rotation.x += 0.0002;
 	}
