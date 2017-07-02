@@ -395,8 +395,8 @@ function renderIntro() {
 				
 		//sphere.rotation.y += 0.0003;
 		//clouds.rotation.y += 0.0006;
-		skyBox.rotation.z += 0.0003;
-		skyBox.rotation.x += 0.0002;
+		//skyBox.rotation.z += 0.0003;
+		skyBox.rotation.x += 0.0022;
 	}
 	
 	function onWindowResize() {
