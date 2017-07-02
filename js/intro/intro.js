@@ -200,7 +200,7 @@ function initObject3D() {
 	scene.add(luna);
 	*/
 	// создаём скайбокс
-	skyBox = addSkyBox(62000, 7, 'sphere', null, px, nx, py, ny, pz, nz);
+	skyBox = addSkyBox(2000, 7, 'sphere', null, px, nx, py, ny, pz, nz);
 	scene.add(skyBox);
 	
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
@@ -395,8 +395,8 @@ function renderIntro() {
 				
 		//sphere.rotation.y += 0.0003;
 		//clouds.rotation.y += 0.0006;
-		//skyBox.rotation.z += 0.0003;
-		skyBox.rotation.x += 0.0022;
+		skyBox.rotation.z += 0.003;
+		//skyBox.rotation.x += 0.0022;
 	}
 	
 	function onWindowResize() {
