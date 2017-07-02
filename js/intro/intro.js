@@ -200,7 +200,7 @@ function initObject3D() {
 	scene.add(luna);
 	*/
 	// создаём скайбокс
-	skyBox = addSkyBox(200, 7, 'sphere', null, px, nx, py, ny, pz, nz);
+	skyBox = addSkyBox(1, 7, 'sphere', null, px, nx, py, ny, pz, nz);
 	scene.add(skyBox);
 	
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
