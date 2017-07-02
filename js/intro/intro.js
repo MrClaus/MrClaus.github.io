@@ -63,12 +63,12 @@ function resLoad() {
 	
 	
 	
-	nx = loadIMG("res/intro/simple_room_nx.png");				
-	ny = loadIMG("res/intro/simple_room_ny.png");				
-	nz = loadIMG("res/intro/simple_room_nz.png");				
-	px = loadIMG("res/intro/simple_room_px.png");
-	py = loadIMG("res/intro/simple_room_py.png");
-	pz = loadIMG("res/intro/simple_room_pz.png");
+	nx = loadIMG("res/intro/room_nx.png");				
+	ny = loadIMG("res/intro/room_ny.png");				
+	nz = loadIMG("res/intro/room_nz.png");				
+	px = loadIMG("res/intro/room_px.png");
+	py = loadIMG("res/intro/room_py.png");
+	pz = loadIMG("res/intro/room_pz.png");
 	room = loadIMG("res/intro/simple_room_sphere.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
