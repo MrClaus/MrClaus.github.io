@@ -261,7 +261,7 @@ function initEffect3D() {
 	
 	// создаём эффект для композера Bloom
 	bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(width, height), 1.5, 0.4, 0.85);
-	//bloomPass.renderToScreen = false;
+	bloomPass.renderToScreen = false;
 	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));
