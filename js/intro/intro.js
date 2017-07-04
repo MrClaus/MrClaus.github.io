@@ -450,8 +450,8 @@ function renderIntro() {
 		if (e!=null) {
 			mouseX = e.clientX;
 			mouseY = e.clientY;
-			lon += 1.5 * (mouseX - width / 2)/(width / 2);
-			lat += 1.5 * (mouseY - height / 2)/(height / 2);
+			//lon += 1.5 * (mouseX - width / 2)/(width / 2);
+			//lat += 1.5 * (mouseY - height / 2)/(height / 2);
 			/*lon -= ( onPointerDownPointerX - mouseX ) * 0.1;
 			lat += ( onPointerDownPointerY - mouseY ) * 0.1;
 			onPointerDownPointerX = mouseX;
@@ -461,8 +461,8 @@ function renderIntro() {
 			console.log("LON", lon);
 			console.log("LAT", lat);
 		} else {
-			lon += 1.5 * (mouseX - width / 2)/(width / 2);
-			lat += 1.5 * (mouseY - height / 2)/(height / 2);
+			lon += 0.5 * (mouseX - width / 2)/(width / 2);
+			lat += 0.5 * (mouseY - height / 2)/(height / 2);
 		}		
 	}
 	
