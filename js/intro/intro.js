@@ -24,6 +24,8 @@ var stats, delta;
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
 var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
+var clock = new THREE.Clock();
+
 
 	
 	
