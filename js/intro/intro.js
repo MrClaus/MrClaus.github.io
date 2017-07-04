@@ -139,7 +139,7 @@ function initScene3D() {
 	render3D.autoClear = false;
 	render3D.gammaInput = true;
 	render3D.gammaOutput = true;
-	render3D.shadowMap.enabled = true;
+	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
 	container.appendChild(render3D.domElement);
 	
 	// *** Конец основного кода ***
@@ -265,8 +265,8 @@ function initEffect3D() {
 	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));
-	composer.addPass(bloomPass);
-	composer.addPass(effectFilm);	
+	composer.addPass(effectFilm);
+	composer.addPass(bloomPass);		
 	composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
 	
@@ -298,9 +298,10 @@ function renderIntro() {
 		requestAF(render);		
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
-		// bloom
+		// bloom шейдер
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
+		// итоговый рендер сцены
 		composer.render(delta); // рендрид 3д слой		
 	}
 	
