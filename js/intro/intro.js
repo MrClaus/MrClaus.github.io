@@ -363,15 +363,15 @@ function renderIntro() {
 	// *** Неосновной код, содержащий используемые функции в данной процедуре ***
 	
 	function render() {
+		delta = clock.getDelta();
 		requestAF(render);		
-		animate(); // код сцены, который исполняется во время рендринга
+		animate(delta); // код сцены, который исполняется во время рендринга
 		composer.render(delta); // рендрид 3д слой
 		
 	}
 	
-	function animate() {		
-		delta = clock.getDelta();
-		controls.movementSpeed = 0.33 * d;
+	function animate(delta) {		
+		//controls.movementSpeed = 0.33 * d;
 		controls.update(delta);		
 		stats.update();
 		
