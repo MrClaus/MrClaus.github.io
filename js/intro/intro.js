@@ -449,16 +449,14 @@ function renderIntro() {
 	function ControlsMove( e ) {
 		if (e!=null) {
 			mouseX = e.clientX;
-			mouseY = e.clientY;
-			onPointerDownLon = lon;
-			onPointerDownLat = lat;
-			lon = ( onPointerDownPointerX + mouseX ) * 0.1 - onPointerDownLon;
-			lat = ( onPointerDownPointerY - mouseY ) * 0.1 + onPointerDownLat;
+			mouseY = e.clientY;			
+			lon -= ( onPointerDownPointerX - mouseX ) * 0.1;
+			lat += ( onPointerDownPointerY - mouseY ) * 0.1;
 			onPointerDownPointerX = mouseX;
 			onPointerDownPointerY = mouseY;
 		} else {
-			lon+=0.1;
-			lat+=0.1;
+			//lon+=0.1;
+			//lat+=0.1;
 		}		
 	}
 	
