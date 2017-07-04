@@ -32,6 +32,7 @@ var isUserInteracting = false,
     			distance = 500,
 			target = new THREE.Vector3();
 var onMouseDownMouseX, onMouseDownMouseY, onMouseDownLon, onMouseDownLat;
+var onPointerDownPointerX = 0, onPointerDownPointerY = 0;
 
 
 	
@@ -435,6 +436,10 @@ function renderIntro() {
 		mouseY = (event.clientY - height / 2) / 2;
 		mouseRad = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
 		
+		if((onPointerDownPointerX==0)&(onPointerDownPointerY==0)) {
+			onPointerDownPointerX = event.clientX;
+			onPointerDownPointerY = event.clientY;
+		}
 		
 		onPointerDownLon = lon;
 		onPointerDownLat = lat;
