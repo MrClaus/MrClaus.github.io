@@ -139,7 +139,7 @@ function initScene3D() {
 	controls.minDistance=0;
 	*/
 	
-	controls = new THREE.FlyControls(camera, container);
+	controls = THREE.FlyControls(camera);
 	controls.movementSpeed = 1000;
 	controls.domElement = container;
 	controls.rollSpeed = Math.PI / 24;
