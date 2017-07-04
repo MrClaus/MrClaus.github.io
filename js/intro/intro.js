@@ -454,6 +454,8 @@ function renderIntro() {
 			lat += ( onPointerDownPointerY - mouseY ) * 0.1;
 			onPointerDownPointerX = mouseX;
 			onPointerDownPointerY = mouseY;
+			console.log("LON", lon);
+			console.log("LAT", lat);
 		} else {
 			//lon+=0.1;
 			//lat+=0.1;
