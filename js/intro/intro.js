@@ -73,7 +73,7 @@ function resLoad() {
 	px = loadIMG("res/intro/room_px.png");
 	py = loadIMG("res/intro/room_py.png");
 	pz = loadIMG("res/intro/room_pz.png");
-	room = loadIMG("res/intro/simple_room_sphere.png");
+	mapSky = loadIMG("tex.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
@@ -207,7 +207,8 @@ function initObject3D() {
 	scene.add(luna);
 	*/
 	// создаём скайбокс
-	skyBox = addSkyBox(300, 7, 'sphere', null, px, nx, py, ny, pz, nz);
+	//skyBox = addSkyBox(300, 7, 'sphere', null, px, nx, py, ny, pz, nz);
+	skyBox = createClouds(300, 64, mapSky);
 	scene.add(skyBox);
 	
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
