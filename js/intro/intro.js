@@ -449,16 +449,20 @@ function renderIntro() {
 	function ControlsMove( e ) {
 		if (e!=null) {
 			mouseX = e.clientX;
-			mouseY = e.clientY;			
-			lon -= ( onPointerDownPointerX - mouseX ) * 0.1;
+			mouseY = e.clientY;
+			lon += 1.5 * (mouseX - width / 2)/(width / 2);
+			lat += 1.5 * (mouseY - height / 2)/(height / 2);
+			/*lon -= ( onPointerDownPointerX - mouseX ) * 0.1;
 			lat += ( onPointerDownPointerY - mouseY ) * 0.1;
 			onPointerDownPointerX = mouseX;
-			onPointerDownPointerY = mouseY;
+			onPointerDownPointerY = mouseY;*/
+			
+			
 			console.log("LON", lon);
 			console.log("LAT", lat);
 		} else {
-			//lon+=0.1;
-			//lat+=0.1;
+			lon += 1.5 * (mouseX - width / 2)/(width / 2);
+			lat += 1.5 * (mouseY - height / 2)/(height / 2);
 		}		
 	}
 	
