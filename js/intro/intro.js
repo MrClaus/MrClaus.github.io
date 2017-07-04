@@ -18,17 +18,13 @@ var width = window.innerWidth;
 var height = window.innerHeight;			
 var controls;			
 var texFlare, texFlare1245, texFlare3, texFlare6, texFlare7;
-var sphere, i_earth, i_bump, i_specular;
-var clouds, i_clouds;
-var luna, moon, m_bump, m_specular;
-var skyBox, mapSky;	
+
+var skyBox, mapSky, px, nx, py, ny, pz, nz;	
 var stats;			
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
 var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
-var bgi, render2D, scene2D; // для pixi
-var button, textureButtonOneA, textureButtonOneB, textureButtonOffA, textureButtonOffB, buttState = 1;
-var px, nx, py, ny, pz, nz;
+
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -60,9 +56,7 @@ function resLoad() {
 	
 	var count = 0;
 	var count_res = 12;
-	
-	
-	
+		
 	nx = loadIMG("res/intro/room_nx.png");				
 	ny = loadIMG("res/intro/room_ny.png");				
 	nz = loadIMG("res/intro/room_nz.png");				
@@ -76,9 +70,7 @@ function resLoad() {
 	texFlare3 = loadIMG("res/flare/flare3.png");
 	texFlare6 = loadIMG("res/flare/flare6.png");
 	texFlare7 = loadIMG("res/flare/flare7.png");
-	
-	
-	
+		
 	// *** Конец основного кода ***
 	
 	
@@ -109,10 +101,6 @@ function initScene() {
 	initScene3D(); // инициализация 3д сцены
 	initObject3D(); // инициализация объектов сцены
 	initEffect3D(); // добавление эффектов рендера при отображении
-	
-	//initScene2D(); // инициализация 2д сцены	 
-	//initObject2D(); // инициализация объектов сцены 
-	
 	renderIntro(); // рендер сцены
 	
 	// *** Конец неосновного кода ***
@@ -141,8 +129,8 @@ function initScene3D() {
 	
 	// добавляем управление камерой
 	controls = new THREE.OrbitControls(camera);
-	controls.enabled = false;
-	controls.autoRotate = true;
+	controls.enabled = true;
+	controls.autoRotate = false;
 	controls.autoRotateSpeed = 1;
 	controls.minPolarAngle=0;
 	controls.maxPolarAngle=1.322675;
@@ -395,7 +383,7 @@ function renderIntro() {
 				
 		//sphere.rotation.y += 0.0003;
 		//clouds.rotation.y += 0.0006;
-		skyBox.rotation.y += 0.003;
+		//skyBox.rotation.y += 0.003;
 		//skyBox.rotation.x += 0.0022;
 	}
 	
