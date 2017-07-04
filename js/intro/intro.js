@@ -437,8 +437,8 @@ function renderIntro() {
 		mouseRad = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
 		
 		if((onPointerDownPointerX==0)&(onPointerDownPointerY==0)) {
-			onPointerDownPointerX = event.clientX;
-			onPointerDownPointerY = event.clientY;
+			onPointerDownPointerX = width / 2;
+			onPointerDownPointerY = height / 2;
 		}
 		
 		onPointerDownLon = lon;
