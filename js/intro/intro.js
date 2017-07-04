@@ -383,7 +383,7 @@ function renderIntro() {
 		target.y = 500 * Math.cos( phi );
 		target.z = 500 * Math.sin( phi ) * Math.sin( theta );
 		camera.position.copy( target ).negate();
-		camera.lookAt( target );
+		//camera.lookAt( target );
 				
 		
 		composer.render(delta); // рендрид 3д слой
