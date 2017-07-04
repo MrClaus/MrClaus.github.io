@@ -207,8 +207,8 @@ function initObject3D() {
 	scene.add(luna);
 	*/
 	// создаём скайбокс
-	//skyBox = addSkyBox(300, 7, 'sphere', null, px, nx, py, ny, pz, nz);
-	skyBox = createClouds(300, 64, mapSky);
+	//skyBox = addSkyBox(300, 64, 'sphere', null, px, nx, py, ny, pz, nz);
+	skyBox = createSky(300, 64, mapSky);
 	scene.add(skyBox);
 	
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
@@ -276,6 +276,16 @@ function initObject3D() {
 				needsUpdate: true
 			})
 		);		
+	}
+	
+	function createSky(radius, segments, map) {
+		var geometry = new THREE.SphereGeometry( radius, segments, segments );
+		geometry.scale( - 1, 1, 1 );
+		var material = new THREE.MeshBasicMaterial( {
+			map: map
+		} );
+		var skyBox = new THREE.Mesh( geometry, material );
+		return skyBox;
 	}
 	
 	function addSkyBox(zoom, segment, type, colory, px, nx, py, ny, pz, nz) {
