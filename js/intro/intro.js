@@ -271,7 +271,7 @@ function initObject3D() {
 				map: map,
 				color: 0xffffff,
 				blending: THREE.NormalBlending,
-				transparent: true,
+				transparent: false,
 				depthTest: false,							
 				needsUpdate: true
 			})
