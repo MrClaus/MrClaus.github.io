@@ -378,6 +378,7 @@ function renderIntro() {
 		
 		
 		/*if ( isUserInteracting === false ) {lon += 0.1;}*/
+		ControlsMove(null);
 		lat = Math.max( - 85, Math.min( 85, lat ) );
 		phi = THREE.Math.degToRad( 90 - lat );
 		theta = THREE.Math.degToRad( lon );
@@ -432,21 +433,30 @@ function renderIntro() {
 	}
 	
 	function onDocumentMouseMove( event ) {
-		mouseX = (event.clientX - width / 2) / 2;
-		mouseY = (event.clientY - height / 2) / 2;
-		mouseRad = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
+		//mouseX = (event.clientX - width / 2) / 2;
+		//mouseY = (event.clientY - height / 2) / 2;
+		//mouseRad = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
 		
 		if((onPointerDownPointerX==0)&(onPointerDownPointerY==0)) {
 			onPointerDownPointerX = width / 2;
 			onPointerDownPointerY = height / 2;
 		}
+		ControlsMove(event);
 		
+		
+	}
+	
+	function ControlsMove( e ) {
+		if (e!=null) {
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+		}
 		onPointerDownLon = lon;
 		onPointerDownLat = lat;
-		lon = ( onPointerDownPointerX - event.clientX ) * 0.1 + onPointerDownLon;
-		lat = ( onPointerDownPointerY - event.clientY ) * 0.1 + onPointerDownLat;
-		onPointerDownPointerX = event.clientX;
-		onPointerDownPointerY = event.clientY;
+		lon = ( onPointerDownPointerX - mouseX ) * 0.1 + onPointerDownLon;
+		lat = ( onPointerDownPointerY - mouseY ) * 0.1 + onPointerDownLat;
+		onPointerDownPointerX = mouseX;
+		onPointerDownPointerY = mouseY;
 	}
 	
 	function onDocumentMouseClick( event ) {		
