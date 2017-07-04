@@ -31,6 +31,7 @@ var isUserInteracting = false,
 			phi = 0, theta = 0,
     			distance = 500,
 			target = new THREE.Vector3();
+var onMouseDownMouseX, onMouseDownMouseY, onMouseDownLon, onMouseDownLat;
 
 
 	
@@ -433,6 +434,11 @@ function renderIntro() {
 		mouseX = (event.clientX - width / 2) / 2;
 		mouseY = (event.clientY - height / 2) / 2;
 		mouseRad = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
+		
+		onPointerDownPointerX = width / 2;
+		onPointerDownPointerY = height / 2;
+		onPointerDownLon = lon;
+		onPointerDownLat = lat;
 		lon = ( onPointerDownPointerX - event.clientX ) * 0.1 + onPointerDownLon;
 		lat = ( onPointerDownPointerY - event.clientY ) * 0.1 + onPointerDownLat;
 	}
