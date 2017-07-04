@@ -25,7 +25,7 @@ var composer, effectFilm, effectVignette, glitchPass, effectFilm;
 var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
 var clock = new THREE.Clock();
-var isUserInteracting = false,			
+var isUserInteracting = true,			
 			lon = 90, 
 			lat = 0, 
 			phi = 0, theta = 0,
