@@ -406,51 +406,7 @@ function renderIntro() {
 		if (mouseSt == 1) mouseSt = -1;
 		else mouseSt = 1;
 		if (process == 1600) process = 1599;
-		if (process == 0) process = 1;
-		
-		button.on('pointerdown', onButtonDown);
-		button.on('pointerup', onButtonUp);
-		button.on('pointerupoutside', onButtonUp);
-		button.on('pointerover', onButtonOver);
-		button.on('pointerout', onButtonOut);
-	}
-	
-	function onButtonDown() {
-		this.isdown = true;
-		if (buttState == 1) buttState = 0;
-		else buttState = 1;
-		this.alpha = 1;
-		console.log(buttState);
-	}
-
-	function onButtonUp() {
-		this.isdown = false;
-		if (this.isOver) {
-			this.texture = textureButtonOffB;
-			if (buttState == 1) this.texture = textureButtonOneB;
-		}
-		else {
-			this.texture = textureButtonOffA;
-			if (buttState == 1) this.texture = textureButtonOneA;
-		}
-	}
-
-	function onButtonOver() {
-		this.isOver = true;
-		if (this.isdown) {
-			return;
-		}
-		this.texture = textureButtonOffB;
-		if (buttState == 1) this.texture = textureButtonOneB;
-	}
-
-	function onButtonOut() {
-		this.isOver = false;
-		if (this.isdown) {
-			return;
-		}
-		this.texture = textureButtonOffA;
-		if (buttState == 1) this.texture = textureButtonOneA;
+		if (process == 0) process = 1;		
 	}
 	
 	// *** Конец неосновного кода ***
