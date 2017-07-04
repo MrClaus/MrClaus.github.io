@@ -29,6 +29,7 @@ var isUserInteracting = false,
 			lon = 90, 
 			lat = 0, 
 			phi = 0, theta = 0,
+    			distance = 500,
 			target = new THREE.Vector3();
 
 
@@ -356,6 +357,7 @@ function renderIntro() {
 	// слушатели события
 	document.addEventListener('mousemove', onDocumentMouseMove, false); // - движение мыши
 	document.addEventListener('click', onDocumentMouseClick, false); // - клик мыши
+	document.addEventListener( 'wheel', onDocumentMouseWheel, false ); // - колёсико мыши
 	window.addEventListener('resize', onWindowResize, false); // - изменения размера экрана отображения
 
 		
@@ -373,16 +375,14 @@ function renderIntro() {
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
 		
-		if ( isUserInteracting === false ) {
-			lon += 0.1;
-		}
+		/*if ( isUserInteracting === false ) {lon += 0.1;}*/
 		lat = Math.max( - 85, Math.min( 85, lat ) );
 		phi = THREE.Math.degToRad( 90 - lat );
 		theta = THREE.Math.degToRad( lon );
-		target.x = 500 * Math.sin( phi ) * Math.cos( theta );
-		target.y = 500 * Math.cos( phi );
-		target.z = 500 * Math.sin( phi ) * Math.sin( theta );
-		//camera.position.copy( target ).negate();
+		target.x = distance * Math.sin( phi ) * Math.cos( theta );
+		target.y = distance * Math.cos( phi );
+		target.z = distance * Math.sin( phi ) * Math.sin( theta );
+		camera.position.copy( target ).negate();
 		camera.lookAt( target );
 				
 		
@@ -433,6 +433,8 @@ function renderIntro() {
 		mouseX = (event.clientX - width / 2) / 2;
 		mouseY = (event.clientY - height / 2) / 2;
 		mouseRad = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
+		lon = ( onPointerDownPointerX - event.clientX ) * 0.1 + onPointerDownLon;
+		lat = ( onPointerDownPointerY - event.clientY ) * 0.1 + onPointerDownLat;
 	}
 	
 	function onDocumentMouseClick( event ) {		
@@ -440,6 +442,11 @@ function renderIntro() {
 		else mouseSt = 1;
 		if (process == 1600) process = 1599;
 		if (process == 0) process = 1;		
+	}
+	
+	
+	function onDocumentMouseWheel( event ) {
+		distance += event.deltaY * 0.05;
 	}
 	
 	// *** Конец неосновного кода ***
