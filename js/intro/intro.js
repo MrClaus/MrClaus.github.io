@@ -461,8 +461,8 @@ function renderIntro() {
 			console.log("LON", lon);
 			console.log("LAT", lat);
 		} else {
-			lon += 0.5 * (mouseX - width / 2)/(width / 2);
-			lat += 0.5 * (mouseY - height / 2)/(height / 2);
+			lon += 0.618 * (mouseX - width / 2)/(width / 2);
+			lat -= 0.618 * (mouseY - height / 2)/(height / 2);
 		}		
 	}
 	
