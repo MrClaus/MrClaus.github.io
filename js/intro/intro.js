@@ -25,7 +25,7 @@ var composer, effectFilm, effectVignette, glitchPass, effectFilm;
 var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
 var clock = new THREE.Clock();
-var isUserInteracting = true,			
+var isUserInteracting = false,			
 			lon = 90, 
 			lat = 0, 
 			phi = 0, theta = 0,
@@ -382,8 +382,8 @@ function renderIntro() {
 		target.x = 500 * Math.sin( phi ) * Math.cos( theta );
 		target.y = 500 * Math.cos( phi );
 		target.z = 500 * Math.sin( phi ) * Math.sin( theta );
-		camera.position.copy( target ).negate();
-		//camera.lookAt( target );
+		//camera.position.copy( target ).negate();
+		camera.lookAt( target );
 				
 		
 		composer.render(delta); // рендрид 3д слой
