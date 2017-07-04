@@ -21,11 +21,20 @@ var texFlare, texFlare1245, texFlare3, texFlare6, texFlare7;
 
 var skyBox, mapSky;	
 var stats, delta;			
-var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
+var composer, effectFilm, effectVignette, glitchPass, effectFilm, bloomPass;			
 var mouseX = 0, mouseY = 0;
 
 var clock = new THREE.Clock();
 var lon = 90, lat = 0, phi = 0, theta = 0, distance = 500;
+
+var paramsBloom = {
+	projection: 'normal',
+	background: false,
+	exposure: 1.0,
+	bloomStrength: 1.5,
+	bloomThreshold: 0.85,
+	bloomRadius: 0.4
+};
 
 	
 	
@@ -130,12 +139,12 @@ function initScene3D() {
 	render3D.autoClear = false;
 	render3D.gammaInput = true;
 	render3D.gammaOutput = true;
+	render3D.shadowMap.enabled = true;
 	container.appendChild(render3D.domElement);
 	
 	// *** Конец основного кода ***
 					
 }
-
 
 
 
@@ -250,8 +259,13 @@ function initEffect3D() {
 	glitchPass.goWild = false;
 	glitchPass.renderToScreen = true; // истина задается последнему отрисовываему эффекту, который рендрит все предыдущие
 	
+	// создаём эффект для композера Bloom
+	bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(width, height), 1.5, 0.4, 0.85);
+	//bloomPass.renderToScreen = false;
+	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
-	composer.addPass(new THREE.RenderPass(scene, camera));				
+	composer.addPass(new THREE.RenderPass(scene, camera));
+	composer.addPass(bloomPass);
 	composer.addPass(effectFilm);	
 	composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
@@ -283,6 +297,10 @@ function renderIntro() {
 		delta = clock.getDelta();
 		requestAF(render);		
 		animate(delta); // код сцены, который исполняется во время рендринга
+		
+		// bloom
+		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
+		
 		composer.render(delta); // рендрид 3д слой		
 	}
 	
