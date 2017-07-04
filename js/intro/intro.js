@@ -321,7 +321,7 @@ function initEffect3D() {
 	effectVignette = new THREE.ShaderPass(shaderVignette);
 	effectVignette.uniforms["offset"].value = 0.95;
 	effectVignette.uniforms["darkness"].value = 1.6;
-	effectVignette.renderToScreen = false;
+	effectVignette.renderToScreen = true;
 	
 	// создаём эффект для композёра Film
 	effectFilm = new THREE.FilmPass(0.35, 0.75, 2048, false);
