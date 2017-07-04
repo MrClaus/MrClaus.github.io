@@ -25,15 +25,7 @@ var composer, effectFilm, effectVignette, glitchPass, effectFilm;
 var mouseX = 0, mouseY = 0;
 
 var clock = new THREE.Clock();
-var isUserInteracting = false,			
-			lon = 90, 
-			lat = 0, 
-			phi = 0, theta = 0,
-    			distance = 500,
-			target = new THREE.Vector3();
-var onMouseDownMouseX, onMouseDownMouseY, onMouseDownLon, onMouseDownLat;
-var onPointerDownPointerX = 0, onPointerDownPointerY = 0;
-
+var lon = 90, lat = 0, phi = 0, theta = 0, distance = 500;
 
 	
 	
@@ -65,14 +57,8 @@ function resLoad() {
 	// *** Основной код ***
 	
 	var count = 0;
-	var count_res = 12;
-		
-	nx = loadIMG("res/intro/room_nx.png");				
-	ny = loadIMG("res/intro/room_ny.png");				
-	nz = loadIMG("res/intro/room_nz.png");				
-	px = loadIMG("res/intro/room_px.png");
-	py = loadIMG("res/intro/room_py.png");
-	pz = loadIMG("res/intro/room_pz.png");
+	var count_res = 6;
+	
 	mapSky = loadIMG("tex.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
@@ -135,26 +121,7 @@ function initScene3D() {
 	camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 	camera.position.x = 0;
 	camera.position.y = 0;
-	camera.position.z = 0;				
-	
-	// добавляем управление камерой
-	/*
-	controls = new THREE.OrbitControls(camera);
-	controls.enabled = true;
-	controls.autoRotate = false;
-	controls.autoRotateSpeed = 1;
-	controls.minPolarAngle=0;
-	controls.maxPolarAngle=1.322675;
-	controls.maxDistance=1000;
-	controls.minDistance=0;
-	*/
-	
-	controls = new THREE.FlyControls(camera);
-	controls.movementSpeed = 1000;
-	controls.domElement = container;
-	controls.rollSpeed = Math.PI / 24;
-	controls.autoForward = false;
-	controls.dragToLook = false;
+	camera.position.z = 0;
 					
 	// создаем рендерный движок и задаем ему параметры
 	render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -190,24 +157,8 @@ function initObject3D() {
 	// создаём блики камеры
 	flare = addFlare(0.618, 0.45, 1.0, 0, 0, -30000);
 	scene.add(flare);
-	/*
-	// создем сферу Земли				
-	sphere = createSphere(600, 64, i_earth, i_bump, i_specular, 100, '#343434');
-	sphere.rotation.y = 6; 
-	scene.add(sphere);
 	
-	// создем сферу облков
-	clouds = createClouds(600, 64, i_clouds);
-	clouds.rotation.y = 6;
-	scene.add(clouds);
-	
-	// создаем Луну
-	luna = createSphere(250, 64, moon, m_bump, m_specular, 10, '#000000');
-	luna.position.set(0, 500, 3400);
-	scene.add(luna);
-	*/
-	// создаём скайбокс
-	//skyBox = addSkyBox(300, 64, 'sphere', null, px, nx, py, ny, pz, nz);
+	// создаём скайбокс	
 	skyBox = createSky(300, 64, mapSky);
 	scene.add(skyBox);
 	
@@ -250,33 +201,6 @@ function initObject3D() {
 		object.lensFlares[2].y += 0.025;
 		object.lensFlares[3].rotation = object.positionScreen.x * 0.5 + THREE.Math.degToRad(45);
 	}
-					
-	function createSphere(radius, segments, map, bump, specular, b, colory) {
-		return new THREE.Mesh(
-			new THREE.SphereGeometry(radius, segments, segments),
-			new THREE.MeshPhongMaterial({
-				map: map,
-				bumpMap: bump,
-				bumpScale: b,
-				specularMap: specular,
-				specular: new THREE.Color(colory)				
-			})
-		);
-	}
-	
-	function createClouds(radius, segments, map) {
-		return new THREE.Mesh(
-			new THREE.SphereGeometry(radius + 2, segments, segments),			
-			new THREE.MeshLambertMaterial({
-				map: map,
-				color: 0xffffff,
-				blending: THREE.NormalBlending,
-				transparent: false,
-				depthTest: false,							
-				needsUpdate: true
-			})
-		);		
-	}
 	
 	function createSky(radius, segments, map) {
 		var geometry = new THREE.SphereGeometry( radius, segments, segments );
@@ -286,30 +210,6 @@ function initObject3D() {
 		} );
 		var skyBox = new THREE.Mesh( geometry, material );
 		return skyBox;
-	}
-	
-	function addSkyBox(zoom, segment, type, colory, px, nx, py, ny, pz, nz) {
-		var skyMat = [px, nx, py, ny, pz, nz];
-		var materials = [];
-		if (colory == null) colory = 0xffffff;
-		for (var i = 0; i < 6; i ++) {
-			materials.push( new THREE.MeshBasicMaterial( {
-				map: skyMat[i],
-				color: colory
-			} ) );
-		}				
-		var skyBox = new THREE.Mesh(new THREE.CubeGeometry(zoom, zoom, zoom, segment, segment, segment), new THREE.MeshFaceMaterial(materials));
-		skyBox.applyMatrix(new THREE.Matrix4().makeScale(1, 1, - 1));
-		if (type == 'cube') return skyBox;
-		if (type == 'sphere') {
-			for (var i = 0, l = skyBox.geometry.vertices.length; i < l; i ++) {
-				var vertex = skyBox.geometry.vertices[i];
-				vertex.normalize();
-				vertex.multiplyScalar(zoom);
-			}
-			return skyBox;
-		}
-		return null;				
 	}
 	
 	// *** Конец неосновного кода ***
@@ -368,14 +268,11 @@ function renderIntro() {
 	// *** Основной код ***
 	
 	// слушатели события
-	document.addEventListener('mousemove', onDocumentMouseMove, false); // - движение мыши
-	document.addEventListener('click', onDocumentMouseClick, false); // - клик мыши
+	document.addEventListener('mousemove', onDocumentMouseMove, false); // - движение мыши	
 	document.addEventListener( 'wheel', onDocumentMouseWheel, false ); // - колёсико мыши
-	window.addEventListener('resize', onWindowResize, false); // - изменения размера экрана отображения
-
-		
-	// вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код				
-	render();
+	window.addEventListener('resize', onWindowResize, false); // - изменения размера экрана отображения		
+				
+	render(); // вызывает функцию - рендер - которая запускает рендер сцены и исполняет её код
 	
 	// *** Конец основного кода ***
 	
@@ -386,52 +283,24 @@ function renderIntro() {
 		delta = clock.getDelta();
 		requestAF(render);		
 		animate(delta); // код сцены, который исполняется во время рендринга
-		
-		
-		/*if ( isUserInteracting === false ) {lon += 0.1;}*/
-		ControlsMove(null);
-		lat = Math.max( - 85, Math.min( 85, lat ) );
-		phi = THREE.Math.degToRad( 90 - lat );
-		theta = THREE.Math.degToRad( lon );
-		camera.position.x = distance * Math.sin( phi ) * Math.cos( theta );
-		camera.position.y = distance * Math.cos( phi );
-		camera.position.z = distance * Math.sin( phi ) * Math.sin( theta );
-		//camera.position.copy( target ).negate();
-		camera.lookAt( scene.position );
-				
-		
-		composer.render(delta); // рендрид 3д слой
-		
+		composer.render(delta); // рендрид 3д слой		
 	}
 	
-	function animate(delta) {		
-		//controls.movementSpeed = 0.33 * d;
-		controls.update(delta);		
+	function animate(delta) {
 		stats.update();
+		//controls.update(delta);
 		
-		/*button.on('pointerdown', onButtonDown);
-		button.on('pointerup', onButtonUp);
-		button.on('pointerupoutside', onButtonUp);
-		button.on('pointerover', onButtonOver);
-		button.on('pointerout', onButtonOut);*/
+		// ...
 		
-		/*if (process != 0 && process != 1600) {			
-			process = process + mouseSt * (7);
-			if (mouseSt == 1 && process >= 1600) process = 1600;
-			if (mouseSt == -1 && process <= 1) process = 0;
-			controls.maxDistance = 4256 - process;
-			controls.minDistance = controls.maxDistance;	
-		}*/		
-		//if (mouseRad < 122) {						
-		//	controls.maxDistance = 3600 + 656 * (mouseRad / 122);
-		//	controls.minDistance = controls.maxDistance;
-		//}
-		
-				
-		//sphere.rotation.y += 0.0003;
-		//clouds.rotation.y += 0.0006;
-		//skyBox.rotation.y += 0.003;
-		//skyBox.rotation.x += 0.0022;
+		// эффект камеры - рыбий глаз
+		ControlsMove(); // контроль поворота камеры - рыбий глаз
+		lat = Math.max(-85, Math.min(85, lat));
+		phi = THREE.Math.degToRad(90 - lat);
+		theta = THREE.Math.degToRad(lon);
+		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
+		camera.position.y = distance * Math.cos(phi);
+		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);		
+		camera.lookAt(scene.position);		
 	}
 	
 	function onWindowResize() {
@@ -443,50 +312,18 @@ function renderIntro() {
 		composer.setSize(width, height); 					
 	}
 	
-	function onDocumentMouseMove( event ) {
-		//mouseX = (event.clientX - width / 2) / 2;
-		//mouseY = (event.clientY - height / 2) / 2;
-		//mouseRad = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
-		
-		if((onPointerDownPointerX==0)&(onPointerDownPointerY==0)) {
-			onPointerDownPointerX = width / 2;
-			onPointerDownPointerY = height / 2;
-		}
-		ControlsMove(event);
-		
-		
+	function onDocumentMouseMove(event) {
+		mouseX = event.clientX;
+		mouseY = event.clientY;		
 	}
 	
-	function ControlsMove( e ) {
-		if (e!=null) {
-			mouseX = e.clientX;
-			mouseY = e.clientY;
-			//lon += 1.5 * (mouseX - width / 2)/(width / 2);
-			//lat += 1.5 * (mouseY - height / 2)/(height / 2);
-			/*lon -= ( onPointerDownPointerX - mouseX ) * 0.1;
-			lat += ( onPointerDownPointerY - mouseY ) * 0.1;
-			onPointerDownPointerX = mouseX;
-			onPointerDownPointerY = mouseY;*/
-			
-			
-			console.log("LON", lon);
-			console.log("LAT", lat);
-		} else {
-			lon += 0.618 * (mouseX - width / 2)/(width / 2);
-			lat += 0.618 * (mouseY - height / 2)/(height / 2);
-		}		
-	}
-	
-	function onDocumentMouseClick( event ) {		
-		if (mouseSt == 1) mouseSt = -1;
-		else mouseSt = 1;
-		if (process == 1600) process = 1599;
-		if (process == 0) process = 1;		
-	}
-	
-	
-	function onDocumentMouseWheel( event ) {
+	function onDocumentMouseWheel(event) {
 		distance += event.deltaY * 0.05;
+	}
+	
+	function ControlsMove() {
+		lon += 0.618 * (mouseX - width / 2)/(width / 2);
+		lat += 0.618 * (mouseY - height / 2)/(height / 2);
 	}
 	
 	// *** Конец неосновного кода ***
