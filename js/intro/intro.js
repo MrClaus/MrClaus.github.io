@@ -5,10 +5,10 @@ window.onload = initApplication;
 
 // Добавляем поддежку плавного обновления экрана (requestAnimationFrame) в разных браузерах 
 var requestAF = window.requestAnimationFrame ||
-				window.webkitRequestAnimationFrame ||
-				window.mozRequestAnimationFrame ||
-				window.oRequestAnimationFrame ||
-				window.msRequestAnimationFrame;
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame;
 
 
 
@@ -19,10 +19,10 @@ var height = window.innerHeight;
 var controls;			
 var texFlare, texFlare1245, texFlare3, texFlare6, texFlare7;
 
-var skyBox, mapSky, px, nx, py, ny, pz, nz;	
+var skyBox, mapSky;	
 var stats, delta;			
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
-var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
+var mouseX = 0, mouseY = 0;
 
 var clock = new THREE.Clock();
 var isUserInteracting = false,			
@@ -393,11 +393,11 @@ function renderIntro() {
 		lat = Math.max( - 85, Math.min( 85, lat ) );
 		phi = THREE.Math.degToRad( 90 - lat );
 		theta = THREE.Math.degToRad( lon );
-		target.x = distance * Math.sin( phi ) * Math.cos( theta );
-		target.y = distance * Math.cos( phi );
-		target.z = distance * Math.sin( phi ) * Math.sin( theta );
-		camera.position.copy( target ).negate();
-		camera.lookAt( target );
+		camera.position.x = distance * Math.sin( phi ) * Math.cos( theta );
+		camera.position.y = distance * Math.cos( phi );
+		camera.position.z = distance * Math.sin( phi ) * Math.sin( theta );
+		//camera.position.copy( target ).negate();
+		camera.lookAt( scene.position );
 				
 		
 		composer.render(delta); // рендрид 3д слой
