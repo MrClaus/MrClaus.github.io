@@ -20,7 +20,7 @@ var controls;
 var texFlare, texFlare1245, texFlare3, texFlare6, texFlare7;
 
 var skyBox, mapSky, px, nx, py, ny, pz, nz;	
-var stats;			
+var stats, delta;			
 var composer, effectFilm, effectVignette, glitchPass, effectFilm;			
 var mouseX = 0, mouseY = 0, mouseRad = 999, mouseSt = -1, process = 0;
 
@@ -128,6 +128,7 @@ function initScene3D() {
 	camera.position.z = 0;				
 	
 	// добавляем управление камерой
+	/*
 	controls = new THREE.OrbitControls(camera);
 	controls.enabled = true;
 	controls.autoRotate = false;
@@ -136,6 +137,14 @@ function initScene3D() {
 	controls.maxPolarAngle=1.322675;
 	controls.maxDistance=1000;
 	controls.minDistance=0;
+	*/
+	
+	controls = new THREE.FlyControls( camera );
+	controls.movementSpeed = 1000;
+	controls.domElement = container;
+	controls.rollSpeed = Math.PI / 24;
+	controls.autoForward = false;
+	controls.dragToLook = false;
 					
 	// создаем рендерный движок и задаем ему параметры
 	render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -354,12 +363,14 @@ function renderIntro() {
 	function render() {
 		requestAF(render);		
 		animate(); // код сцены, который исполняется во время рендринга
-		composer.render(0.01); // рендрид 3д слой
+		composer.render(delta); // рендрид 3д слой
 		
 	}
 	
-	function animate() {
-		controls.update();		
+	function animate() {		
+		delta = clock.getDelta();
+		controls.movementSpeed = 0.33 * d;
+		controls.update(delta);		
 		stats.update();
 		
 		/*button.on('pointerdown', onButtonDown);
