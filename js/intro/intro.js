@@ -14,6 +14,7 @@ var requestAF = window.requestAnimationFrame ||
 
 // Инициализируем прочие глобальные переменные
 var container, scene, camera, render3D;
+var particleSystem, options_particleSystem, spawn_particleSystem;
 var width = window.innerWidth;
 var height = window.innerHeight;			
 var controls;			
@@ -171,6 +172,31 @@ function initObject3D() {
 	skyBox = createSky(300, 64, mapSky);
 	scene.add(skyBox);
 	
+	// создаём систему частиц
+	particleSystem = new THREE.GPUParticleSystem( {
+		maxParticles: 250000
+	} );
+	scene.add( particleSystem );
+	// настойки общих и параметров движения системы частиц
+	options_particleSystem = {
+		position: new THREE.Vector3(),
+		positionRandomness: .3,
+		velocity: new THREE.Vector3(),
+		velocityRandomness: .5,
+		color: 0xaa88ff,
+		colorRandomness: .2,
+		turbulence: .5,
+		lifetime: 2,
+		size: 5,
+		sizeRandomness: 1
+	};
+	spawn_particleSystem = {
+		spawnRate: 15000,
+		horizontalSpeed: 1.5,
+		verticalSpeed: 1.33,
+		timeScale: 1
+	};	
+	
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
 	stats = new Stats();
 	container.appendChild(stats.domElement);
@@ -309,7 +335,19 @@ function renderIntro() {
 		stats.update();
 		//controls.update(delta);
 		
-		// ...
+		// анимируем движение системы частиц
+		var particlesDelta = delta * spawn_particleSystem.timeScale;
+		var tick += particlesDelta;
+		if ( tick < 0 ) tick = 0;
+		if ( particlesDelta > 0 ) {
+			options_particleSystem.position.x = Math.sin( tick * spawn_particleSystem.horizontalSpeed ) * 20;
+			options_particleSystem.position.y = Math.sin( tick * spawn_particleSystem.verticalSpeed ) * 10;
+			options_particleSystem.position.z = Math.sin( tick * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 5;
+			for ( var x = 0; x < spawn_particleSystem.spawnRate * particlesDelta; x++ ) {				
+				particleSystem.spawnParticle( options_particleSystem );
+			}
+		}
+		particleSystem.update( tick );
 		
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
