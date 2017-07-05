@@ -376,6 +376,7 @@ function renderIntro() {
 	
 	function onDocumentMouseWheel(event) {
 		distance += event.deltaY * 0.05;
+		console.log('X(',options_particleSystem.position.x,') Y(',options_particleSystem.position.y,') Z(',options_particleSystem.position.z,')');
 	}
 	
 	function ControlsMove() {
