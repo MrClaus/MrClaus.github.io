@@ -14,7 +14,8 @@ var requestAF = window.requestAnimationFrame ||
 
 // Инициализируем прочие глобальные переменные
 var container, scene, camera, render3D;
-var particleSystem, options_particleSystem, spawn_particleSystem, tick_particle;
+var particleSystem, options_particleSystem, spawn_particleSystem;
+var tick_particle = 0;
 var width = window.innerWidth;
 var height = window.innerHeight;			
 var controls;			
