@@ -14,7 +14,7 @@ var requestAF = window.requestAnimationFrame ||
 
 // Инициализируем прочие глобальные переменные
 var container, scene, camera, render3D;
-var particleSystem, options_particleSystem, spawn_particleSystem;
+var particleSystem, options_particleSystem, spawn_particleSystem, tick_particle;
 var width = window.innerWidth;
 var height = window.innerHeight;			
 var controls;			
@@ -337,17 +337,17 @@ function renderIntro() {
 		
 		// анимируем движение системы частиц
 		var particlesDelta = delta * spawn_particleSystem.timeScale;
-		var tick += particlesDelta;
-		if ( tick < 0 ) tick = 0;
+		tick_particle += particlesDelta;
+		if ( tick_particle < 0 ) tick_particle = 0;
 		if ( particlesDelta > 0 ) {
-			options_particleSystem.position.x = Math.sin( tick * spawn_particleSystem.horizontalSpeed ) * 20;
-			options_particleSystem.position.y = Math.sin( tick * spawn_particleSystem.verticalSpeed ) * 10;
-			options_particleSystem.position.z = Math.sin( tick * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 5;
+			options_particleSystem.position.x = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed ) * 20;
+			options_particleSystem.position.y = Math.sin( tick_particle * spawn_particleSystem.verticalSpeed ) * 10;
+			options_particleSystem.position.z = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 5;
 			for ( var x = 0; x < spawn_particleSystem.spawnRate * particlesDelta; x++ ) {				
 				particleSystem.spawnParticle( options_particleSystem );
 			}
 		}
-		particleSystem.update( tick );
+		particleSystem.update( tick_particle );
 		
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
