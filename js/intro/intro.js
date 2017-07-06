@@ -278,7 +278,10 @@ function initObject2D() {
 	// *** Основной код ***
 	
 	// создаём спрайт и добавляем его на сцену геймплэя
-	var material = new THREE.SpriteMaterial( { map: spriteRes } );
+	var material = new THREE.SpriteMaterial( {
+		map: spriteRes,
+		transparent: true
+	} );
 	var width = material.map.image.width;
 	var height = material.map.image.height;
 	sprite = new THREE.Sprite( material );
