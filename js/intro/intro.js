@@ -368,7 +368,8 @@ function renderIntro() {
 		// bloom шейдер
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
-		// итоговый рендер сцены		
+		// итоговый рендер сцены
+		render3D.clear();
 		composer.render(delta); // рендрид 3д слой
 		render3D.clearDepth();
 		render3D.render( sceneOrtho, cameraOrtho );
