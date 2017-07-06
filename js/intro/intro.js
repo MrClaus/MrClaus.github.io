@@ -38,6 +38,8 @@ var paramsBloom = {
 	bloomRadius: 0.4
 };
 
+var sprite;
+
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -68,9 +70,10 @@ function resLoad() {
 	// *** Основной код ***
 	
 	var count = 0;
-	var count_res = 6;
+	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
+	sprite = loadIMG("res/intro/testDevice.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
@@ -196,7 +199,16 @@ function initObject3D() {
 		horizontalSpeed: 1.5,
 		verticalSpeed: 1.33,
 		timeScale: 1
-	};	
+	};
+	
+	// создаём плоскость
+	var planeMap = new THREE.MeshLambertMaterial( {
+		map: sprite,
+		side: THREE.DoubleSide
+	} );
+	plane_Camera = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), planeMap );
+	plane_Camera.position.set( -400, 0, 0 );
+	scene.add( plane_Camera );
 	
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
 	stats = new Stats();
