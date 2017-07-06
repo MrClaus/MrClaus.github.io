@@ -440,8 +440,8 @@ function renderIntro() {
 		lon += 0.618 * (mouseX - width / 2)/(width / 2);
 		lat += 0.618 * (mouseY - height / 2)/(height / 2);
 		
-		camera.position.x+=lon;
-		camera.position.y+=lat;
+		camera.position.x+=lon*0.01;
+		camera.position.y+=lat*0.01;
 	}
 	
 	// *** Конец неосновного кода ***
