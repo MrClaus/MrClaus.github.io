@@ -400,13 +400,13 @@ function renderIntro() {
 				
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
-		lat = Math.max(-85, Math.min(85, lat));
+		/*lat = Math.max(-85, Math.min(85, lat));
 		phi = THREE.Math.degToRad(90 - lat);
 		theta = THREE.Math.degToRad(lon);
 		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
 		camera.position.y = distance * Math.cos(phi);
 		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);		
-		camera.lookAt(scene.position);		
+		camera.lookAt(scene.position);	*/	
 	}
 	
 	function onWindowResize() {
@@ -439,6 +439,9 @@ function renderIntro() {
 	function ControlsMove() {
 		lon += 0.618 * (mouseX - width / 2)/(width / 2);
 		lat += 0.618 * (mouseY - height / 2)/(height / 2);
+		
+		camera.position.x+=lon;
+		camera.position.y+=lat;
 	}
 	
 	// *** Конец неосновного кода ***
