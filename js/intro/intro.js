@@ -73,7 +73,7 @@ function resLoad() {
 	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
-	spriteRes = loadIMG("res/intro/testDevice2.png");
+	spriteRes = loadIMG("res/intro/testDevice.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
@@ -209,17 +209,7 @@ function initObject3D() {
 		verticalSpeed: 1.33,
 		timeScale: 1
 	};
-	
-	// создаём плоскость
-	var planeMap = new THREE.MeshLambertMaterial( {
-		map: sprite,
-		side: THREE.DoubleSide,
-		transparent: true
-	} );
-	plane_Camera = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), planeMap );
-	plane_Camera.position.set( 0, 0, 100 );
-	scene.add( plane_Camera );
-	
+			
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
 	stats = new Stats();
 	container.appendChild(stats.domElement);
@@ -280,8 +270,8 @@ function initObject2D() {
 	// создаём спрайт и добавляем его на сцену геймплэя
 	var material = new THREE.SpriteMaterial( {
 		map: spriteRes,
-		transparent: true,
-		blending: THREE.AdditiveBlending
+		transparent: true
+		//blending: THREE.AdditiveBlending
 	} );
 	var width = material.map.image.width;
 	var height = material.map.image.height;
