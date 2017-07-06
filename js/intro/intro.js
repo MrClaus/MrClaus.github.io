@@ -328,6 +328,8 @@ function initEffectRender() {
 	var renderPass = new THREE.RenderPass(scene, camera);
 	renderPass.clear = false;	
 	composerAlpha.addPass(renderPass);
+	composerAlpha.addPass(bloomPass);
+	composerAlpha.addPass(effectVignette);
 	var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
 	renderScene.opacity = 0.333;
 	
