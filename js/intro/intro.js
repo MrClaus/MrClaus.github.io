@@ -333,7 +333,7 @@ function initEffectRender() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));
 	composer.addPass(effectFilm);
-	composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
+	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 	composer.addPass(bloomPass);		
 	composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
@@ -372,8 +372,8 @@ function renderIntro() {
 		// итоговый рендер сцены
 		//render3D.clear();
 		composer.render(delta); // рендрид 3д слой
-		//render3D.clearDepth();
-		//render3D.render( sceneOrtho, cameraOrtho );
+		render3D.clearDepth();
+		render3D.render( sceneOrtho, cameraOrtho );
 	}
 	
 	function animate(delta) {
