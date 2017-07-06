@@ -73,7 +73,7 @@ function resLoad() {
 	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
-	sprite = loadIMG("res/intro/testDevice.png");
+	sprite = loadIMG("res/intro/testDevice2.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
