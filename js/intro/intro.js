@@ -326,10 +326,11 @@ function initEffectRender() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	// Пробуем добавить размазывающий эффект как ночью в гта3
 	var renderPass = new THREE.RenderPass(scene, camera);		
-	composer_alpha.addPass(renderPass);	
+	composer_alpha.addPass(renderPass);
+	composer_alpha.addPass(bloomPass);
 	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
 	var renderScene = new THREE.TexturePass(composer_alpha.readBuffer.texture);
-	renderScene.opacity = 0.5;
+	renderScene.opacity = 0.618;
 	
 	
 	//composer.addPass(new THREE.RenderPass(scene, camera));
