@@ -329,10 +329,10 @@ function initEffectRender() {
 	renderPass.clear = false;	
 	composerAlpha.addPass(renderPass);
 	var renderScene = new THREE.TexturePass(composerAlpha.readBuffer.texture);
-	renderScene.opacity = 0.2;
+	renderScene.opacity = 0.25;
 	composer.addPass(renderScene);
 	
-	composer.addPass(effectFilm);
+	//composer.addPass(effectFilm);
 	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 	composer.addPass(bloomPass);		
 	composer.addPass(effectVignette);				
