@@ -300,8 +300,8 @@ function initEffectRender() {
 	};
 	
 	// создаем композёр (для добавления различных эффектов)
-	composerAlpha = new THREE.EffectComposer(render3D);
-	composer = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
+	composerAlpha = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
+	composer = new THREE.EffectComposer(render3D);
 					
 	// создаём эффект для композёра Vignette
 	var shaderVignette = THREE.VignetteShader;
@@ -329,7 +329,7 @@ function initEffectRender() {
 	renderPass.clear = false;	
 	composerAlpha.addPass(renderPass);
 	var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
-	renderScene.opacity = 0.25;
+	renderScene.opacity = 0.5;
 	composer.addPass(renderScene);
 	
 	//composer.addPass(effectFilm);
