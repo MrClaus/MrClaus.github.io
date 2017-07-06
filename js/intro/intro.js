@@ -73,7 +73,7 @@ function resLoad() {
 	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
-	spriteRes = loadIMG("res/intro/testDevice.png");
+	spriteRes = loadIMG("res/intro/testDevice2.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
@@ -137,7 +137,7 @@ function initScene3D() {
 	render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 	render3D.setPixelRatio(window.devicePixelRatio);
 	render3D.setSize(width, height);				
-	render3D.autoClear = true;
+	render3D.autoClear = false;
 	render3D.gammaInput = true;
 	render3D.gammaOutput = true;
 	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
