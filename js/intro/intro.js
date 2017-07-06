@@ -283,6 +283,7 @@ function initObject2D() {
 	var height = material.map.image.height;
 	sprite = new THREE.Sprite( material );
 	sprite.scale.set( width, height, 1 );
+	sprite.position.set( 0, 0, 1 ); // center
 	sceneOrtho.add( sprite );
 	
 }
@@ -328,6 +329,7 @@ function initEffect3D() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));
 	composer.addPass(effectFilm);
+	composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 	composer.addPass(bloomPass);		
 	composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
@@ -384,11 +386,7 @@ function renderIntro() {
 			}
 		}
 		particleSystem.update( tick_particle );
-		
-		plane_Camera.position.x = camera.position.x;
-		plane_Camera.position.y = camera.position.y;
-		plane_Camera.position.z = camera.position.z;
-		
+				
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
 		lat = Math.max(-85, Math.min(85, lat));
@@ -405,6 +403,13 @@ function renderIntro() {
 		height = window.innerHeight;
 		camera.aspect = width / height;
 		camera.updateProjectionMatrix();
+		// 2д слой
+		cameraOrtho.left = - width / 2;
+		cameraOrtho.right = width / 2;
+		cameraOrtho.top = height / 2;
+		cameraOrtho.bottom = - height / 2;
+		cameraOrtho.updateProjectionMatrix();
+		// ***
 		render3D.setSize(width, height); 
 		composer.setSize(width, height); 					
 	}
