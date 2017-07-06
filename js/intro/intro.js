@@ -330,7 +330,8 @@ function initEffectRender() {
 	composerAlpha.addPass(renderPass);
 	composerAlpha.addPass(bloomPass);
 	//composerAlpha.addPass(effectFilm);
-	var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
+	//var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
+	var renderScene = new THREE.TexturePass(camera);
 	renderScene.opacity = 0.5;
 	
 	
@@ -372,13 +373,13 @@ function renderIntro() {
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
 		// bloom шейдер
-		composerAlpha.render(delta*5);
+		composerAlpha.render(delta);
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
 		// итоговый рендер сцены
 		//render3D.clear();
 		
-		composer.render(delta*5); // рендрид 3д слой
+		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
 		//render3D.render( sceneOrtho, cameraOrtho );
 	}
