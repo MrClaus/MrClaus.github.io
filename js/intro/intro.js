@@ -184,7 +184,7 @@ function initObject3D() {
 	scene.add(flare);
 	
 	// создаём скайбокс	
-	skyBox = createSky(300, 7, mapSky);
+	skyBox = createSky(300, 64, mapSky);
 	scene.add(skyBox);
 	
 	// создаём систему частиц
@@ -329,7 +329,7 @@ function initEffectRender() {
 	renderPass.clear = false;	
 	composerAlpha.addPass(renderPass);
 	var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
-	renderScene.opacity = 0.5;
+	renderScene.opacity = 0.2;
 	
 	
 	composer.addPass(new THREE.RenderPass(scene, camera));
