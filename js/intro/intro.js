@@ -335,7 +335,7 @@ function initEffectRender() {
 	renderScene.opacity = 0.5;
 	
 	
-	composer.addPass(new THREE.RenderPass(scene, camera));
+	//composer.addPass(new THREE.RenderPass(scene, camera));
 	composer.addPass(renderScene);
 	composer.addPass(bloomPass);
 	//composer.addPass(effectFilm);
