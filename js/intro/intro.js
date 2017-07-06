@@ -137,7 +137,7 @@ function initScene3D() {
 	render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 	render3D.setPixelRatio(window.devicePixelRatio);
 	render3D.setSize(width, height);				
-	render3D.autoClear = false;
+	render3D.autoClear = true;
 	render3D.gammaInput = true;
 	render3D.gammaOutput = true;
 	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
@@ -332,7 +332,7 @@ function initEffectRender() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));
 	composer.addPass(effectFilm);
-	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
+	composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 	composer.addPass(bloomPass);		
 	composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
@@ -372,7 +372,7 @@ function renderIntro() {
 		//render3D.clear();
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
-		render3D.render( sceneOrtho, cameraOrtho );
+		//render3D.render( sceneOrtho, cameraOrtho );
 	}
 	
 	function animate(delta) {
