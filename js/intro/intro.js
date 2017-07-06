@@ -340,7 +340,7 @@ function initEffectRender() {
 	//composer.addPass(effectFilm);
 	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 			
-	composer.addPass(effectVignette);				
+	//composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
 	
 	// *** Конец основного кода ***
@@ -372,8 +372,8 @@ function renderIntro() {
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
 		// bloom шейдер
-		composerAlpha.render(delta*10);
-		//render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
+		composerAlpha.render(delta*5);
+		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
 		// итоговый рендер сцены
 		//render3D.clear();
