@@ -23,7 +23,7 @@ var texFlare, texFlare1245, texFlare3, texFlare6, texFlare7;
 
 var skyBox, mapSky;	
 var stats, delta;			
-var composerAlpha, composer, effectFilm, effectVignette, glitchPass, effectFilm, bloomPass;			
+var composer_alpha, composer, effectFilm, effectVignette, glitchPass, effectFilm, bloomPass;			
 var mouseX = 0, mouseY = 0;
 
 var clock = new THREE.Clock();
@@ -142,7 +142,7 @@ function initScene3D() {
 	//render3D.autoClearStencil = true; //
 	render3D.gammaInput = true;
 	render3D.gammaOutput = true;
-	//render3D.shadowMap.enabled = true; // желателен для эффекта bloom
+	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
 	container.appendChild(render3D.domElement);
 					
 }
@@ -300,7 +300,7 @@ function initEffectRender() {
 	};
 	
 	// создаем композёр (для добавления различных эффектов)
-	composerAlpha = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
+	composer_alpha = new THREE.EffectComposer(render3D);
 	composer = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
 					
 	// создаём эффект для композёра Vignette
@@ -325,14 +325,11 @@ function initEffectRender() {
 	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	// Пробуем добавить размазывающий эффект как ночью в гта3
-	var renderPass = new THREE.RenderPass(scene, camera);
-	//renderPass.clear = false;	
-	composer.addPass(renderPass);
-	//composerAlpha.addPass(bloomPass);
-	//composerAlpha.addPass(effectFilm);
-	//var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
-	var renderScene = new THREE.TexturePass(composer.readBuffer.texture);
-	renderScene.opacity = 0.75;
+	var renderPass = new THREE.RenderPass(scene, camera);		
+	composer_alpha.addPass(renderPass);	
+	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
+	var renderScene = new THREE.TexturePass(composer_alpha.readBuffer.texture);
+	renderScene.opacity = 0.5;
 	
 	
 	//composer.addPass(new THREE.RenderPass(scene, camera));
@@ -378,7 +375,7 @@ function renderIntro() {
 		
 		// итоговый рендер сцены
 		//render3D.clear();
-		
+		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
 		//render3D.render( sceneOrtho, cameraOrtho );
