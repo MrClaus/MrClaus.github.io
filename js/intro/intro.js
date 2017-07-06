@@ -331,7 +331,7 @@ function initEffectRender() {
 	composerAlpha.addPass(bloomPass);
 	//composerAlpha.addPass(effectFilm);
 	//var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
-	var renderScene = new THREE.TexturePass(composerScene.readBuffer.texture);
+	var renderScene = new THREE.TexturePass(composerAlpha.readBuffer.texture);
 	renderScene.opacity = 0.5;
 	
 	
