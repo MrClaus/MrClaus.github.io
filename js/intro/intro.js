@@ -369,11 +369,12 @@ function renderIntro() {
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
 		// bloom шейдер
+		composerAlpha.render(delta);
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
 		// итоговый рендер сцены
 		//render3D.clear();
-		composerAlpha.render(delta);
+		
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
 		//render3D.render( sceneOrtho, cameraOrtho );
