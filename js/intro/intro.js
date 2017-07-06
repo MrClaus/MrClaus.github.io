@@ -300,7 +300,7 @@ function initEffectRender() {
 	};
 	
 	// создаем композёр (для добавления различных эффектов)
-	composerAlpha = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
+	composerAlpha = new THREE.EffectComposer(render3D);
 	composer = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
 					
 	// создаём эффект для композёра Vignette
