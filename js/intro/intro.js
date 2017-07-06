@@ -323,9 +323,16 @@ function initEffectRender() {
 	bloomPass.renderToScreen = false;
 	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
-	composer.addPass(new THREE.RenderPass(scene, camera));
+	// Пробуем добавить размазывающий эффект как ночью в гта3
+	var renderPass = new THREE.RenderPass(scene, camera);
+	renderPass.clear = false;	
+	composer.addPass(renderPass);
+	var renderScene = new THREE.TexturePass(composer.readBuffer.texture);
+	renderScene.opacity = 0.2;
+	composer.addPass(renderScene);
+	
 	composer.addPass(effectFilm);
-	composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
+	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 	composer.addPass(bloomPass);		
 	composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
