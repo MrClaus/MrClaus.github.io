@@ -184,7 +184,7 @@ function initObject3D() {
 	scene.add(flare);
 	
 	// создаём скайбокс	
-	skyBox = createSky(300, 64, mapSky);
+	skyBox = createSky(300, 7, mapSky);
 	scene.add(skyBox);
 	
 	// создаём систему частиц
