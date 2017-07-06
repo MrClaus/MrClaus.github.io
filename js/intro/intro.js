@@ -301,7 +301,7 @@ function initEffectRender() {
 	
 	// создаем композёр (для добавления различных эффектов)
 	composerAlpha = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
-	composer = new THREE.EffectComposer(render3D);
+	composer = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
 					
 	// создаём эффект для композёра Vignette
 	var shaderVignette = THREE.VignetteShader;
@@ -326,12 +326,14 @@ function initEffectRender() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	// Пробуем добавить размазывающий эффект как ночью в гта3
 	var renderPass = new THREE.RenderPass(scene, camera);
-	renderPass.clear = false;	
+	renderPass.clear = true;	
 	composerAlpha.addPass(renderPass);
 	var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
 	renderScene.opacity = 0.5;
-	composer.addPass(renderScene);
 	
+	
+	composer.addPass(new THREE.RenderPass(scene, camera));
+	composer.addPass(renderScene);
 	//composer.addPass(effectFilm);
 	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 	composer.addPass(bloomPass);		
