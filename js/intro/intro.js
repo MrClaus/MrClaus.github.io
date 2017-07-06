@@ -327,11 +327,11 @@ function initEffectRender() {
 	// Пробуем добавить размазывающий эффект как ночью в гта3
 	var renderPass = new THREE.RenderPass(scene, camera);
 	//renderPass.clear = false;	
-	composerAlpha.addPass(renderPass);
-	composerAlpha.addPass(bloomPass);
+	composer.addPass(renderPass);
+	//composerAlpha.addPass(bloomPass);
 	//composerAlpha.addPass(effectFilm);
 	//var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
-	var renderScene = new THREE.TexturePass(composerAlpha.readBuffer.texture);
+	var renderScene = new THREE.TexturePass(composer.readBuffer.texture);
 	renderScene.opacity = 0.2;
 	
 	
@@ -373,7 +373,7 @@ function renderIntro() {
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
 		// bloom шейдер
-		composerAlpha.render(delta);
+		//composerAlpha.render(delta);
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
 		// итоговый рендер сцены
