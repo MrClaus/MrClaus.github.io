@@ -38,7 +38,7 @@ var paramsBloom = {
 	bloomRadius: 0.4
 };
 
-var sprite, plane_Camera;
+var spriteRes, sprite, sceneOrtho, cameraOrtho;
 
 	
 	
@@ -73,15 +73,13 @@ function resLoad() {
 	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
-	sprite = loadIMG("res/intro/testDevice.png");
+	spriteRes = loadIMG("res/intro/testDevice.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
 	texFlare3 = loadIMG("res/flare/flare3.png");
 	texFlare6 = loadIMG("res/flare/flare6.png");
 	texFlare7 = loadIMG("res/flare/flare7.png");
-		
-	// *** Конец основного кода ***
 	
 	
 	// *** Неосновной код, содержащий используемые функции в данной процедуре ***	
@@ -97,8 +95,6 @@ function resLoad() {
 		);						
 	}
 	
-	// *** Конец неосновного кода ***
-	
 }
 
 
@@ -109,17 +105,17 @@ function initScene() {
 	// *** Основной код ***	
 	
 	initScene3D(); // инициализация 3д сцены
-	initObject3D(); // инициализация объектов сцены
-	initEffect3D(); // добавление эффектов рендера при отображении
+	initScene2D(); // инициализация 2д сцены - геймплэй	
+	initObject3D(); // инициализация объектов 3д сцены
+	initObject2D(); // инициализация объектов 2д сцены - геймплэй
+	initEffectRender(); // добавление эффектов рендера при отображении (2д и 3д)
 	renderIntro(); // рендер сцены
-	
-	// *** Конец неосновного кода ***
 	
 }
 
 
 
-// Инициализация 3D сцены заставки на three
+// Инициализация 3D сцены
 function initScene3D() {
 	
 	// *** Основной код ***
@@ -146,14 +142,27 @@ function initScene3D() {
 	render3D.gammaOutput = true;
 	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
 	container.appendChild(render3D.domElement);
-	
-	// *** Конец основного кода ***
 					
 }
 
 
 
-// Инициализация объектов сцены
+// инициализация 2д сцены - геймплэй
+function initScene2D() {
+	
+	// *** Основной код ***
+	
+	// создаём камеру для 2д спрайтовой сцены
+	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 1, 10 );
+	cameraOrtho.position.z = 10;
+	
+	// создаём сцену для 2д геймплэя
+	sceneOrtho = new THREE.Scene();
+}
+
+
+
+// Инициализация объектов 3д сцены
 function initObject3D() {
 	
 	// *** Основной код ***
@@ -215,8 +224,6 @@ function initObject3D() {
 	stats = new Stats();
 	container.appendChild(stats.domElement);
 	
-	// *** Конец основного кода ***
-	
 	
 	// *** Неосновной код, содержащий используемые функции в данной процедуре ***
 	
@@ -261,13 +268,28 @@ function initObject3D() {
 		return skyBox;
 	}
 	
-	// *** Конец неосновного кода ***
+}
+
+
+
+// инициализация объектов 2д сцены - геймплэй
+function initObject2D() {
+	
+	// *** Основной код ***
+	
+	// создаём спрайт и добавляем его на сцену геймплэя
+	var material = new THREE.SpriteMaterial( { map: spriteRes } );
+	var width = material.map.image.width;
+	var height = material.map.image.height;
+	sprite = new THREE.Sprite( material );
+	sprite.scale.set( width, height, 1 );
+	sceneOrtho.add( sprite );
 	
 }
 
 
 
-// Инициализации используемых эффектов постпроцессинга (после рендера)
+// Инициализации используемых эффектов постпроцессинга (после рендера) (2д и 3д)
 function initEffect3D() {
 
 	// *** Основной код ***
