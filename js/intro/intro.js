@@ -291,7 +291,7 @@ function initObject2D() {
 
 
 // Инициализации используемых эффектов постпроцессинга (после рендера) (2д и 3д)
-function initEffect3D() {
+function initEffectRender() {
 
 	// *** Основной код ***
 	
