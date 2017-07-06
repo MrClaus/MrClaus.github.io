@@ -137,7 +137,9 @@ function initScene3D() {
 	render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 	render3D.setPixelRatio(window.devicePixelRatio);
 	render3D.setSize(width, height);				
-	render3D.autoClear = false; //
+	render3D.autoClear = true; //
+	render3D.autoClearDepth = true; //
+	render3D.autoClearStencil = true; //
 	//render3D.gammaInput = true;
 	//render3D.gammaOutput = true;
 	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
@@ -293,8 +295,8 @@ function initEffectRender() {
 	var rtParameters = {
 		minFilter: THREE.LinearFilter,
 		magFilter: THREE.LinearFilter,
-		format: THREE.RGBAFormat
-		//stencilBuffer: true
+		format: THREE.RGBAFormat,
+		stencilBuffer: true
 	};
 	
 	// создаем композёр (для добавления различных эффектов)
