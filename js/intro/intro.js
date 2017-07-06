@@ -293,8 +293,8 @@ function initEffectRender() {
 	var rtParameters = {
 		minFilter: THREE.LinearFilter,
 		magFilter: THREE.LinearFilter,
-		format: THREE.RGBAFormat,
-		stencilBuffer: true
+		format: THREE.RGBAFormat
+		//stencilBuffer: true
 	};
 	
 	// создаем композёр (для добавления различных эффектов)
@@ -323,7 +323,7 @@ function initEffectRender() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	composer.addPass(new THREE.RenderPass(scene, camera));
 	composer.addPass(effectFilm);
-	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
+	composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 	composer.addPass(bloomPass);		
 	composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
