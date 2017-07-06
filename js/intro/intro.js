@@ -208,7 +208,7 @@ function initObject3D() {
 		transparent: true
 	} );
 	plane_Camera = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), planeMap );
-	plane_Camera.position.set( -400, 0, 0 );
+	plane_Camera.position.set( 0, 0, 100 );
 	scene.add( plane_Camera );
 	
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
@@ -362,6 +362,10 @@ function renderIntro() {
 			}
 		}
 		particleSystem.update( tick_particle );
+		
+		plane_Camera.position.x = camera.position.x;
+		plane_Camera.position.y = camera.position.y;
+		plane_Camera.position.z = camera.position.z;
 		
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
