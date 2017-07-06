@@ -23,7 +23,7 @@ var texFlare, texFlare1245, texFlare3, texFlare6, texFlare7;
 
 var skyBox, mapSky;	
 var stats, delta;			
-var composer, effectFilm, effectVignette, glitchPass, effectFilm, bloomPass;			
+var composerAlpha, composer, effectFilm, effectVignette, glitchPass, effectFilm, bloomPass;			
 var mouseX = 0, mouseY = 0;
 
 var clock = new THREE.Clock();
@@ -300,6 +300,7 @@ function initEffectRender() {
 	};
 	
 	// создаем композёр (для добавления различных эффектов)
+	composerAlpha = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
 	composer = new THREE.EffectComposer(render3D, new THREE.WebGLRenderTarget(width, height, rtParameters));
 					
 	// создаём эффект для композёра Vignette
@@ -326,8 +327,8 @@ function initEffectRender() {
 	// Пробуем добавить размазывающий эффект как ночью в гта3
 	var renderPass = new THREE.RenderPass(scene, camera);
 	renderPass.clear = false;	
-	composer.addPass(renderPass);
-	var renderScene = new THREE.TexturePass(composer.readBuffer.texture);
+	composerAlpha.addPass(renderPass);
+	var renderScene = new THREE.TexturePass(composerAlpha.readBuffer.texture);
 	renderScene.opacity = 0.2;
 	composer.addPass(renderScene);
 	
