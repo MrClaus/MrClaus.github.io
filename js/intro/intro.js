@@ -328,17 +328,18 @@ function initEffectRender() {
 	var renderPass = new THREE.RenderPass(scene, camera);
 	renderPass.clear = false;	
 	composerAlpha.addPass(renderPass);
-	composerAlpha.addPass(bloomPass);
-	composerAlpha.addPass(effectFilm);
+	//composerAlpha.addPass(bloomPass);
+	//composerAlpha.addPass(effectFilm);
 	var renderScene = new THREE.TexturePass(composerAlpha.renderTarget2.texture);
 	renderScene.opacity = 0.5;
 	
 	
 	//composer.addPass(new THREE.RenderPass(scene, camera));
 	composer.addPass(renderScene);
+	composer.addPass(bloomPass);
 	//composer.addPass(effectFilm);
 	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
-	composer.addPass(bloomPass);		
+			
 	composer.addPass(effectVignette);				
 	//composer.addPass(glitchPass);
 	
