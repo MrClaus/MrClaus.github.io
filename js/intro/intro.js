@@ -280,7 +280,8 @@ function initObject2D() {
 	// создаём спрайт и добавляем его на сцену геймплэя
 	var material = new THREE.SpriteMaterial( {
 		map: spriteRes,
-		transparent: true
+		transparent: true,
+		blending: THREE.AdditiveBlending
 	} );
 	var width = material.map.image.width;
 	var height = material.map.image.height;
