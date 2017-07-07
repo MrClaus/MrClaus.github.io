@@ -212,7 +212,8 @@ function initObject3D() {
 		fragmentShader: shader.fragmentShader
 	} );
 	material.uniforms[ "tCube" ].value = textureCube;
-	objectP = new THREE.Mesh( new THREE.SphereGeometry( 80, 32, 16 ), material );
+	//objectP = new THREE.Mesh( new THREE.SphereGeometry( 80, 32, 16 ), material );
+	objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
 	objectP.position.set( 0, 0, 0 );
 	scene.add( objectP );
 	
