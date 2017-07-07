@@ -330,7 +330,7 @@ function initEffectRender() {
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
 	
-	var effectA = new THREE.AnaglyphEffect(render3D, width, height);
+	var effectA = new THREE.AnaglyphEffect(render3D, width, height).render(scene, camera);
 	//effectA.setSize(width, height);
 	composer_alpha.addPass(effectA);
 	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
