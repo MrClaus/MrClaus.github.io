@@ -192,6 +192,29 @@ function initObject3D() {
 	// создаём скайбокс	
 	skyBox = createSky(300, 64, mapSky);
 	scene.add(skyBox);
+	// создаём кубическую текстуру скайбокса для шейдеров
+	var path = "res/";
+	var format = '.png';
+	var urls = [
+		path + 'ppx' + format, path + 'nnx' + format,
+		path + 'ppy' + format, path + 'nny' + format,
+		path + 'ppz' + format, path + 'nnz' + format
+	];
+	var textureCube = new THREE.CubeTextureLoader().load( urls );
+	textureCube.format = THREE.RGBFormat;
+	scene.background = textureCube;
+	
+	// 
+	var shader = THREE.FresnelShader;		
+	var material = new THREE.ShaderMaterial( {
+		uniforms: shader.uniforms,
+		vertexShader: shader.vertexShader,
+		fragmentShader: shader.fragmentShader
+	} );
+	material.uniforms[ "tCube" ].value = textureCube;
+	objectP = new THREE.Mesh( new THREE.SphereGeometry( 30, 32, 16 ), material );
+	objectP.position.set( -100, 0, 0 );
+	scene.add( objectP );
 	
 	// создаём систему частиц
 	particleSystem = new THREE.GPUParticleSystem( {
@@ -220,14 +243,8 @@ function initObject3D() {
 	
 	
 	
-	var shader = THREE.FresnelShader;
-	//uniforms = THREE.UniformsUtils.clone( shader.uniforms );	
-	var material = new THREE.ShaderMaterial( {
-		uniforms: shader.uniforms,
-		vertexShader: shader.vertexShader,
-		fragmentShader: shader.fragmentShader
-	} );
-	material.uniforms[ "tEquirect" ].value = mapSky;
+	
+	
 	
 	
 	
@@ -240,9 +257,7 @@ function initObject3D() {
 		side: THREE.BackSide
 	} );
 	material.uniforms[ "tEquirect" ].value = mapSky;*/
-	objectP = new THREE.Mesh( new THREE.SphereGeometry( 30, 32, 16 ), material );
-	objectP.position.set( -100, 0, 0 );
-	scene.add( objectP );
+	
 	
 	
 	
