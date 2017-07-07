@@ -223,9 +223,11 @@ function initObject3D() {
 		vertexShader: shader.vertexShader,
 		fragmentShader: shader.fragmentShader
 	} );
-	objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
+	objectP = new THREE.Mesh( new THREE.SphereGeometry( 100, 32, 16 ), material );
 	objectP.position.set( -100, 0, 0 );
 	scene.add( objectP );
+	
+	
 	
 	
 	
