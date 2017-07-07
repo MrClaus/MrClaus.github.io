@@ -196,9 +196,9 @@ function initObject3D() {
 	var path = "res/";
 	var format = '.png';
 	var urls = [
-		path + 'ppx' + format, path + 'nnx' + format,
-		path + 'ppy' + format, path + 'nny' + format,
-		path + 'ppz' + format, path + 'nnz' + format
+		path + 'nnx' + format, path + 'ppx' + format,
+		path + 'ppyy' + format, path + 'nnyy' + format,
+		path + 'nnz' + format, path + 'ppz' + format
 	];
 	var textureCube = new THREE.CubeTextureLoader().load( urls );
 	textureCube.format = THREE.RGBFormat;
@@ -212,8 +212,8 @@ function initObject3D() {
 		fragmentShader: shader.fragmentShader
 	} );
 	material.uniforms[ "tCube" ].value = textureCube;
-	objectP = new THREE.Mesh( new THREE.SphereGeometry( 30, 32, 16 ), material );
-	objectP.position.set( -100, 0, 0 );
+	objectP = new THREE.Mesh( new THREE.SphereGeometry( 80, 32, 16 ), material );
+	objectP.position.set( 0, 0, 0 );
 	scene.add( objectP );
 	
 	// создаём систему частиц
