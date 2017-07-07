@@ -226,6 +226,7 @@ function initObject3D() {
 	objectP = new THREE.Mesh( new THREE.SphereGeometry( 100, 32, 16 ), material );
 	objectP.position.set( -100, 0, 0 );
 	scene.add( objectP );
+	scene.matrixAutoUpdate = false;
 	
 	
 	
