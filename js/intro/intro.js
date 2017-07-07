@@ -39,7 +39,7 @@ var paramsBloom = {
 };
 
 var spriteRes, sprite, sceneOrtho, cameraOrtho;
-var effectA;
+var objectP;
 
 	
 	
@@ -212,6 +212,23 @@ function initObject3D() {
 		verticalSpeed: 1.33,
 		timeScale: 1
 	};
+	
+	
+	
+	var shader = THREE.FresnelShader;
+	var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+	//uniforms[ "tCube" ].value = textureCube;
+	var material = new THREE.ShaderMaterial( {
+		uniforms: uniforms,
+		vertexShader: shader.vertexShader,
+		fragmentShader: shader.fragmentShader
+	} );
+	objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
+	objectP.position.set( -100, 0, 0 );
+	scene.add( objectP );
+	
+	
+	
 			
 	// добавляем в контейнер параметры отображения статистики (фпс, миллисекунды на кадр и ...)
 	stats = new Stats();
@@ -331,10 +348,7 @@ function initEffectRender() {
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
 	
-	effectA = new THREE.AnaglyphEffect(render3D, width, height);
-	//effectA.setSize(width, height);
 	
-	composer_alpha.addPass(effectA);
 	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
 	var renderScene = new THREE.TexturePass(composer_alpha.readBuffer.texture);
 	renderScene.opacity = 0.618;
@@ -385,7 +399,7 @@ function renderIntro() {
 		
 		// итоговый рендер сцены
 		//render3D.clear();
-		effectA.render(scene, camera);
+		
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
