@@ -135,15 +135,16 @@ function initScene3D() {
 	camera.position.z = 100;
 					
 	// создаем рендерный движок и задаем ему параметры
-	render3D = new THREE.WebGLRenderer( { antialias: false, alpha: true } );
+	//render3D = new THREE.WebGLRenderer( { antialias: false, alpha: true } );
+	render3D = new THREE.WebGLRenderer( { antialias: false } );
 	render3D.setPixelRatio(window.devicePixelRatio);
 	render3D.setSize(width, height);				
-	render3D.autoClear = false; //
+	//render3D.autoClear = false; //
 	//render3D.autoClearDepth = true; //
 	//render3D.autoClearStencil = true; //
-	render3D.gammaInput = true;
-	render3D.gammaOutput = true;
-	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
+	//render3D.gammaInput = true;
+	//render3D.gammaOutput = true;
+	//render3D.shadowMap.enabled = true; // желателен для эффекта bloom
 	container.appendChild(render3D.domElement);
 					
 }
