@@ -39,6 +39,7 @@ var paramsBloom = {
 };
 
 var spriteRes, sprite, sceneOrtho, cameraOrtho;
+var effectA;
 
 	
 	
@@ -330,9 +331,9 @@ function initEffectRender() {
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
 	
-	var effectA = new THREE.AnaglyphEffect(render3D, width, height);
+	effectA = new THREE.AnaglyphEffect(render3D, width, height);
 	//effectA.setSize(width, height);
-	effectA.render(scene, camera);
+	
 	composer_alpha.addPass(effectA);
 	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
 	var renderScene = new THREE.TexturePass(composer_alpha.readBuffer.texture);
@@ -384,6 +385,7 @@ function renderIntro() {
 		
 		// итоговый рендер сцены
 		//render3D.clear();
+		effectA.render(scene, camera);
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
