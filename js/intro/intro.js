@@ -39,7 +39,7 @@ var paramsBloom = {
 };
 
 var spriteRes, sprite, sceneOrtho, cameraOrtho;
-var objectP;
+var objectP, uniforms, shader;
 
 	
 	
@@ -215,8 +215,8 @@ function initObject3D() {
 	
 	
 	
-	var shader = THREE.FresnelShader;
-	var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+	shader = THREE.FresnelShader;
+	uniforms = THREE.UniformsUtils.clone( shader.uniforms );
 	//uniforms[ "tCube" ].value = textureCube;
 	var material = new THREE.ShaderMaterial( {
 		uniforms: uniforms,
