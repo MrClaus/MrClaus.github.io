@@ -135,7 +135,7 @@ function initScene3D() {
 	camera.position.z = 100;
 					
 	// создаем рендерный движок и задаем ему параметры
-	render3D = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+	render3D = new THREE.WebGLRenderer( { antialias: false, alpha: true } );
 	render3D.setPixelRatio(window.devicePixelRatio);
 	render3D.setSize(width, height);				
 	render3D.autoClear = false; //
