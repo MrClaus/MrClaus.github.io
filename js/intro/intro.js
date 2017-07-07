@@ -325,14 +325,14 @@ function initEffectRender() {
 	
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	// Пробуем добавить размазывающий эффект как ночью в гта3
-	composer_alpha.setSize(width, height);
+	//composer_alpha.setSize(width, height);
 	var renderPass = new THREE.RenderPass(scene, camera);		
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
 	
 	var effectA = new THREE.AnaglyphEffect(render3D, width, height);
-	effectA.setSize(width, height);
-	composer_alpha.addPass(effectA.render(scene, camera));
+	//effectA.setSize(width, height);
+	composer_alpha.addPass(effectA);
 	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
 	var renderScene = new THREE.TexturePass(composer_alpha.readBuffer.texture);
 	renderScene.opacity = 0.618;
