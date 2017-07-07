@@ -220,18 +220,18 @@ function initObject3D() {
 	
 	
 	
-	/*shader = THREE.FresnelShader;
-	uniforms = THREE.UniformsUtils.clone( shader.uniforms );
-	//uniforms[ "tCube" ].value = textureCube;
-	uniforms[ "tEquirect" ].value = mapSky;
+	var shader = THREE.FresnelShader;
+	//uniforms = THREE.UniformsUtils.clone( shader.uniforms );	
 	var material = new THREE.ShaderMaterial( {
-		uniforms: uniforms,
+		uniforms: shader.uniforms,
 		vertexShader: shader.vertexShader,
 		fragmentShader: shader.fragmentShader
-	} );*/
+	} );
+	material.uniforms[ "tEquirect" ].value = mapSky;
 	
 	
-	var shader = THREE.ShaderLib[ "equirect" ];
+	
+	/*var shader = THREE.ShaderLib[ "equirect" ];
 	var material = new THREE.ShaderMaterial( {
 		fragmentShader: shader.fragmentShader,
 		vertexShader: shader.vertexShader,
@@ -239,7 +239,7 @@ function initObject3D() {
 		depthWrite: false,
 		side: THREE.BackSide
 	} );
-	material.uniforms[ "tEquirect" ].value = mapSky;
+	material.uniforms[ "tEquirect" ].value = mapSky;*/
 	objectP = new THREE.Mesh( new THREE.SphereGeometry( 30, 32, 16 ), material );
 	objectP.position.set( -100, 0, 0 );
 	scene.add( objectP );
