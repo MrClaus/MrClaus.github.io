@@ -74,6 +74,10 @@ function resLoad() {
 	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
+	mapSky.mapping = THREE.EquirectangularReflectionMapping;
+	mapSky.magFilter = THREE.LinearFilter;
+	mapSky.minFilter = THREE.LinearMipMapLinearFilter;
+	
 	spriteRes = loadIMG("res/intro/testDevice.png");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
@@ -219,6 +223,7 @@ function initObject3D() {
 	shader = THREE.FresnelShader;
 	uniforms = THREE.UniformsUtils.clone( shader.uniforms );
 	//uniforms[ "tCube" ].value = textureCube;
+	uniforms[ "tEquirect" ].value = mapSky;
 	var material = new THREE.ShaderMaterial( {
 		uniforms: uniforms,
 		vertexShader: shader.vertexShader,
