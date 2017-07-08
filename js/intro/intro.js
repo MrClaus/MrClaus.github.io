@@ -146,12 +146,12 @@ function initScene3D() {
 	render3D = new THREE.WebGLRenderer( { antialias: false } );
 	render3D.setPixelRatio(window.devicePixelRatio);
 	render3D.setSize(width, height);				
-	//render3D.autoClear = false; //
+	render3D.autoClear = false; //
 	//render3D.autoClearDepth = true; //
 	//render3D.autoClearStencil = true; //
-	//render3D.gammaInput = true;
-	//render3D.gammaOutput = true;
-	//render3D.shadowMap.enabled = true; // желателен для эффекта bloom
+	render3D.gammaInput = true;
+	render3D.gammaOutput = true;
+	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
 	container.appendChild(render3D.domElement);
 					
 }
@@ -205,7 +205,7 @@ function initObject3D() {
 	];
 	var textureCube = new THREE.CubeTextureLoader().load( urls );
 	textureCube.format = THREE.RGBFormat;
-	scene.background = textureCube;
+	//scene.background = textureCube;
 	
 	
 	
@@ -319,7 +319,7 @@ function initObject3D() {
 	
 	
 	//objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
-	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), material );
+	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 50, 30 ), material );
 	objectP.position.set( 0, 0, 0 );
 	scene.add( objectP );
 	
@@ -490,8 +490,8 @@ function initEffectRender() {
 	 
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
-	composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraL) );
-	composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraR) );
+	//composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraL) );
+	//composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraR) );
 	
 	
 	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
@@ -546,8 +546,8 @@ function renderIntro() {
 		// итоговый рендер сцены
 		//render3D.clear();
 		cameraS.update( camera );
-		//render3D.render( scene, cameraS.cameraL, _renderTargetL, true );
-		//render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
+		render3D.render( scene, cameraS.cameraL, _renderTargetL, true );
+		render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
@@ -606,8 +606,8 @@ function renderIntro() {
 	
 	function onDocumentMouseWheel(event) {
 		distance += event.deltaY * 0.05;
-		console.log('X(',options_particleSystem.position.x,') Y(',options_particleSystem.position.y,') Z(',options_particleSystem.position.z,')');
-		console.log('>> delta ', delta,' / tick ', tick_particle, ' /');
+		//console.log('X(',options_particleSystem.position.x,') Y(',options_particleSystem.position.y,') Z(',options_particleSystem.position.z,')');
+		//console.log('>> delta ', delta,' / tick ', tick_particle, ' /');
 	}
 	
 	function ControlsMove() {
