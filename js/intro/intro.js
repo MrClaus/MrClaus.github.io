@@ -321,7 +321,7 @@ function initObject3D() {
 	//objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
 	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 50, 30 ), material );
 	objectP.position.set( 0, 0, 0 );
-	scene.add( objectP );
+	//scene.add( objectP );
 	
 	// создаём систему частиц
 	particleSystem = new THREE.GPUParticleSystem( {
