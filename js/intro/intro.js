@@ -222,7 +222,7 @@ function initObject3D() {
 	
 	colorMatrixLeft = new THREE.Matrix3().fromArray( [
 
-			1.0, 	0.0,	0.0, // r out
+			0.0, 	0.0,	0.0, // r out
 			0.0,	0.0,	0.0, // g out
 			0.0,	0.0,	0.0 // b out
 
@@ -233,7 +233,7 @@ function initObject3D() {
 	colorMatrixRight = new THREE.Matrix3().fromArray( [
 
 			0.0,	0.0,	0.0,	// r out
-			0.0,	1.0,	0.0,	// g out
+			0.0,	0.0,	0.0,	// g out
 			0.0,	0.0,	0.0	// b out
 
 	] );
