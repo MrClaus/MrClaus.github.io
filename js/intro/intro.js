@@ -216,7 +216,9 @@ function initObject3D() {
 	material.uniforms[ "tCube" ].value = textureCube;
 	//objectP = new THREE.Mesh( new THREE.SphereGeometry( 80, 32, 16 ), material );
 	*/
-	
+	var _params = { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat };
+	var _renderTargetL = new THREE.WebGLRenderTarget( width, height, _params );
+	var _renderTargetR = new THREE.WebGLRenderTarget( width, height, _params );
 	var material = new THREE.ShaderMaterial( {
 
 		uniforms: {
