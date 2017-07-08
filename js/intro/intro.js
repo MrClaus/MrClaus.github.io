@@ -342,7 +342,7 @@ function initObject3D() {
 		sizeRandomness: 1
 	};
 	spawn_particleSystem = {
-		spawnRate: 150,
+		spawnRate: 150000,
 		horizontalSpeed: 1.5,
 		verticalSpeed: 1.33,
 		timeScale: 1
