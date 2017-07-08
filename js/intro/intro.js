@@ -325,9 +325,9 @@ function initObject3D() {
 	
 	// создаём систему частиц
 	particleSystem = new THREE.GPUParticleSystem( {
-		maxParticles: 250000
+		maxParticles: 150
 	} );
-	//scene.add( particleSystem );
+	scene.add( particleSystem );
 	// настойки общих и параметров движения системы частиц
 	options_particleSystem = {
 		position: new THREE.Vector3(),
@@ -342,7 +342,7 @@ function initObject3D() {
 		sizeRandomness: 1
 	};
 	spawn_particleSystem = {
-		spawnRate: 15000,
+		spawnRate: 150,
 		horizontalSpeed: 1.5,
 		verticalSpeed: 1.33,
 		timeScale: 1
@@ -559,7 +559,7 @@ function renderIntro() {
 		//controls.update(delta);
 		
 		// анимируем движение системы частиц
-		/*
+		
 		var particlesDelta = delta * spawn_particleSystem.timeScale;
 		tick_particle += particlesDelta;
 		if ( tick_particle < 0 ) tick_particle = 0;
@@ -571,7 +571,7 @@ function renderIntro() {
 				particleSystem.spawnParticle( options_particleSystem );
 			}
 		}
-		particleSystem.update( tick_particle );*/
+		particleSystem.update( tick_particle );
 				
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
