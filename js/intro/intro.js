@@ -238,6 +238,9 @@ function initObject3D() {
 	var _params = { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat };
 	var _renderTargetL = new THREE.WebGLRenderTarget( width, height, _params );
 	var _renderTargetR = new THREE.WebGLRenderTarget( width, height, _params );
+	
+	
+	
 	var material = new THREE.ShaderMaterial( {
 
 		uniforms: {
@@ -313,7 +316,8 @@ function initObject3D() {
 	//var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), _material );
 	
 	
-	objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
+	//objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
+	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), material );
 	objectP.position.set( 0, 0, 0 );
 	scene.add( objectP );
 	
