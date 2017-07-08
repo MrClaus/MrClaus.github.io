@@ -41,6 +41,7 @@ var paramsBloom = {
 var spriteRes, sprite, sceneOrtho, cameraOrtho;
 var objectP, uniforms, shader;
 var colorMatrixLeft, colorMatrixRight;
+var _renderTargetL, _renderTargetR;
 
 	
 	
@@ -237,8 +238,8 @@ function initObject3D() {
 
 	] );
 	var _params = { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat };
-	var _renderTargetL = new THREE.WebGLRenderTarget( width, height, _params );
-	var _renderTargetR = new THREE.WebGLRenderTarget( width, height, _params );
+	_renderTargetL = new THREE.WebGLRenderTarget( width, height, _params );
+	_renderTargetR = new THREE.WebGLRenderTarget( width, height, _params );
 	
 	
 	
@@ -484,7 +485,7 @@ function initEffectRender() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	// Пробуем добавить размазывающий эффект как ночью в гта3
 	//composer_alpha.setSize(width, height);
-	var renderPass = new THREE.RenderPass(scene, cameraS);		
+	var renderPass = new THREE.RenderPass(scene, camera);		
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
 	
@@ -541,6 +542,8 @@ function renderIntro() {
 		// итоговый рендер сцены
 		//render3D.clear();
 		cameraS.update( camera );
+		render3D.render( scene, cameraS.cameraL, _renderTargetL, true );
+		render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
