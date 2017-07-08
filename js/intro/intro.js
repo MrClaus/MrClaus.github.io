@@ -222,9 +222,9 @@ function initObject3D() {
 	
 	colorMatrixLeft = new THREE.Matrix3().fromArray( [
 
-			1.5, 	-0.005,		 0.0005, // r out
-			-0.05,	-0.001,	-0.001, // g out
-			-0.1,	 0.00005,	-0.0005 // b out
+			1.0, 	0.0,	0.0, // r out
+			0.0,	0.0,	0.0, // g out
+			0.0,	0.0,	0.0 // b out
 
 	] );
 
@@ -232,9 +232,9 @@ function initObject3D() {
 
 	colorMatrixRight = new THREE.Matrix3().fromArray( [
 
-			-0.05,	-0.1,		 0.05,	// r out
-			-0.5,	 1.0,		-0.05,	// g out
-			0.001,	-0.01,		 0.5		// b out
+			0.0,	0.0,	0.0,	// r out
+			0.0,	1.0,	0.0,	// g out
+			0.0,	0.0,	0.0	// b out
 
 	] );
 	var _params = { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat };
