@@ -319,15 +319,15 @@ function initObject3D() {
 	
 	
 	//objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
-	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 50, 30 ), material );
+	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 121, 81 ), material );
 	objectP.position.set( 0, 0, 0 );
-	//scene.add( objectP );
+	scene.add( objectP );
 	
 	// создаём систему частиц
 	particleSystem = new THREE.GPUParticleSystem( {
 		maxParticles: 250000
 	} );
-	scene.add( particleSystem );
+	//scene.add( particleSystem );
 	// настойки общих и параметров движения системы частиц
 	options_particleSystem = {
 		position: new THREE.Vector3(),
@@ -559,6 +559,7 @@ function renderIntro() {
 		//controls.update(delta);
 		
 		// анимируем движение системы частиц
+		/*
 		var particlesDelta = delta * spawn_particleSystem.timeScale;
 		tick_particle += particlesDelta;
 		if ( tick_particle < 0 ) tick_particle = 0;
@@ -570,7 +571,7 @@ function renderIntro() {
 				particleSystem.spawnParticle( options_particleSystem );
 			}
 		}
-		particleSystem.update( tick_particle );
+		particleSystem.update( tick_particle );*/
 				
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
