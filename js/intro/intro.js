@@ -40,6 +40,7 @@ var paramsBloom = {
 
 var spriteRes, sprite, sceneOrtho, cameraOrtho;
 var objectP, uniforms, shader;
+var colorMatrixLeft, colorMatrixRight;
 
 	
 	
@@ -216,6 +217,24 @@ function initObject3D() {
 	material.uniforms[ "tCube" ].value = textureCube;
 	//objectP = new THREE.Mesh( new THREE.SphereGeometry( 80, 32, 16 ), material );
 	*/
+	
+	colorMatrixLeft = new THREE.Matrix3().fromArray( [
+
+			1.0671679973602295, 	-0.0016435992438346148,		 0.0001777536963345483, // r out
+			-0.028107794001698494,	-0.00019593400065787137,	-0.0002875397040043026, // g out
+			-0.04279090091586113,	 0.000015809757314855233,	-0.00024287120322696865 // b out
+
+	] );
+
+	//		red						green 						blue  						in
+
+	colorMatrixRight = new THREE.Matrix3().fromArray( [
+
+			-0.0355340838432312,	-0.06440307199954987,		 0.018319187685847282,	// r out
+			-0.10269022732973099,	 0.8079727292060852,		-0.04835830628871918,	// g out
+			0.0001224992738571018,	-0.009558862075209618,		 0.567823588848114		// b out
+
+	] );
 	var _params = { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBAFormat };
 	var _renderTargetL = new THREE.WebGLRenderTarget( width, height, _params );
 	var _renderTargetR = new THREE.WebGLRenderTarget( width, height, _params );
@@ -226,8 +245,8 @@ function initObject3D() {
 			"mapLeft": { value: _renderTargetL.texture },
 			"mapRight": { value: _renderTargetR.texture },
 
-			"colorMatrixLeft": { value: this.colorMatrixLeft },
-			"colorMatrixRight": { value: this.colorMatrixRight }
+			"colorMatrixLeft": { value: colorMatrixLeft },
+			"colorMatrixRight": { value: colorMatrixRight }
 
 		},
 
