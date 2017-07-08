@@ -490,8 +490,8 @@ function initEffectRender() {
 	 
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
-	composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraL, _renderTargetL, true) );
-	composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraR, _renderTargetR, true) );
+	composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraL) );
+	composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraR) );
 	
 	
 	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
