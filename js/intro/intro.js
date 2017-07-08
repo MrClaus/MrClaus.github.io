@@ -485,9 +485,13 @@ function initEffectRender() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	// Пробуем добавить размазывающий эффект как ночью в гта3
 	//composer_alpha.setSize(width, height);
-	var renderPass = new THREE.RenderPass(scene, camera);		
+	var renderPass = new THREE.RenderPass(scene, camera);
+	
+	 
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
+	composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraL, _renderTargetL, true) );
+	composer_alpha.addPass( new THREE.RenderPass(scene, cameraS.cameraR, _renderTargetR, true) );
 	
 	
 	//var renderScene = new THREE.TexturePass(composer_alpha.renderTarget2.texture);
@@ -542,8 +546,8 @@ function renderIntro() {
 		// итоговый рендер сцены
 		//render3D.clear();
 		cameraS.update( camera );
-		render3D.render( scene, cameraS.cameraL, _renderTargetL, true );
-		render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
+		//render3D.render( scene, cameraS.cameraL, _renderTargetL, true );
+		//render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
