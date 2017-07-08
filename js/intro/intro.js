@@ -13,7 +13,7 @@ var requestAF = window.requestAnimationFrame ||
 
 
 // Инициализируем прочие глобальные переменные
-var container, scene, camera, render3D;
+var container, scene, camera, render3D, cameraS;
 var particleSystem, options_particleSystem, spawn_particleSystem;
 var tick_particle = 0;
 var width = window.innerWidth;
@@ -138,6 +138,7 @@ function initScene3D() {
 	camera.position.x = 0;
 	camera.position.y = 0;
 	camera.position.z = 100;
+	cameraS = new THREE.StereoCamera();
 					
 	// создаем рендерный движок и задаем ему параметры
 	//render3D = new THREE.WebGLRenderer( { antialias: false, alpha: true } );
@@ -483,7 +484,7 @@ function initEffectRender() {
 	// добавляем созданные эффекты в композёр, начиная с рендринга сцены
 	// Пробуем добавить размазывающий эффект как ночью в гта3
 	//composer_alpha.setSize(width, height);
-	var renderPass = new THREE.RenderPass(scene, camera);		
+	var renderPass = new THREE.RenderPass(scene, cameraS);		
 	composer_alpha.addPass(renderPass);
 	composer_alpha.addPass(bloomPass);
 	
@@ -529,7 +530,8 @@ function renderIntro() {
 	
 	function render() {
 		delta = clock.getDelta();
-		requestAF(render);		
+		requestAF(render);
+		
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
 		// bloom шейдер
@@ -538,7 +540,7 @@ function renderIntro() {
 		
 		// итоговый рендер сцены
 		//render3D.clear();
-		
+		cameraS.update( camera );
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
