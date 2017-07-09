@@ -333,11 +333,11 @@ function initObject3D() {
 		position: new THREE.Vector3(),
 		positionRandomness: .3,
 		velocity: new THREE.Vector3(),
-		velocityRandomness: .5,
+		velocityRandomness: 3.0,
 		color: 0xaa88ff,
 		colorRandomness: .2,
 		turbulence: 1.0,
-		lifetime: 7,
+		lifetime: 5,
 		size: 20,
 		sizeRandomness: 20
 	};
