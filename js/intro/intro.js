@@ -455,10 +455,10 @@ function initObject2D() {
 		transparent: true
 		//blending: THREE.AdditiveBlending
 	} );
-	var width = material_t.map.image.width;
-	var height = material_t.map.image.height;
+	//var width = material.map.image.width;
+	//var height = material.map.image.height;
 	sprite = new THREE.Sprite( material_t );
-	sprite.scale.set( width, height, 1 );
+	sprite.scale.set( 128, 80, 1 );
 	sprite.position.set( 0, 0, 1 ); // center
 	sceneOrtho.add( sprite );
 	
