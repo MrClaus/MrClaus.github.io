@@ -14,7 +14,8 @@ var requestAF = window.requestAnimationFrame ||
 
 // Инициализируем прочие глобальные переменные
 var container, scene, camera, render3D, cameraS;
-var particleSystem, options_particleSystem, spawn_particleSystem;
+var particleSystem1, options_particleSystem1, spawn_particleSystem1;
+var particleSystem2, options_particleSystem2, spawn_particleSystem2;
 var tick_particle = 0;
 var width = window.innerWidth;
 var height = window.innerHeight;			
@@ -324,17 +325,33 @@ function initObject3D() {
 	scene.add( objectP );
 	
 	// создаём систему частиц
-	particleSystem = new THREE.GPUParticleSystem( {
+	particleSystem1 = new THREE.GPUParticleSystem( {
 		maxParticles: 5000
 	} );
-	scene.add( particleSystem );
+	particleSystem2 = new THREE.GPUParticleSystem( {
+		maxParticles: 5000
+	} );
+	scene.add( particleSystem1 );
+	scene.add( particleSystem2 );
 	// настойки общих и параметров движения системы частиц
-	options_particleSystem = {
+	options_particleSystem1 = {
 		position: new THREE.Vector3(),
 		positionRandomness: .3,
 		velocity: new THREE.Vector3(),
 		velocityRandomness: 3.0,
 		color: 0xaa88ff,
+		colorRandomness: .2,
+		turbulence: 1.0,
+		lifetime: 5,
+		size: 20,
+		sizeRandomness: 20
+	};
+	options_particleSystem2 = {
+		position: new THREE.Vector3(),
+		positionRandomness: .3,
+		velocity: new THREE.Vector3(),
+		velocityRandomness: 3.0,
+		color: 0xff60a2,
 		colorRandomness: .2,
 		turbulence: 1.0,
 		lifetime: 5,
@@ -564,14 +581,21 @@ function renderIntro() {
 		tick_particle += particlesDelta;
 		if ( tick_particle < 0 ) tick_particle = 0;
 		if ( particlesDelta > 0 ) {
-			options_particleSystem.position.x = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed ) * 200;
-			options_particleSystem.position.y = Math.sin( tick_particle * spawn_particleSystem.verticalSpeed ) * 100;
-			options_particleSystem.position.z = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 50;
+			options_particleSystem1.position.x = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed ) * 200;
+			options_particleSystem1.position.y = Math.sin( tick_particle * spawn_particleSystem.verticalSpeed ) * 100;
+			options_particleSystem1.position.z = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 50;
+			
+			options_particleSystem2.position.x = Math.cos( tick_particle * spawn_particleSystem.horizontalSpeed ) * 200;
+			options_particleSystem2.position.y = Math.cos( tick_particle * spawn_particleSystem.verticalSpeed ) * 100;
+			options_particleSystem2.position.z = Math.cos( tick_particle * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 50;
+			
 			for ( var x = 0; x < spawn_particleSystem.spawnRate * particlesDelta; x++ ) {				
-				particleSystem.spawnParticle( options_particleSystem );
+				particleSystem1.spawnParticle( options_particleSystem1 );
+				particleSystem2.spawnParticle( options_particleSystem2 );
 			}
 		}
-		particleSystem.update( tick_particle );
+		particleSystem1.update( tick_particle );
+		particleSystem2.update( tick_particle );
 				
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
