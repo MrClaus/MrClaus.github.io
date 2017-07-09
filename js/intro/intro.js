@@ -325,7 +325,7 @@ function initObject3D() {
 	
 	// создаём систему частиц
 	particleSystem = new THREE.GPUParticleSystem( {
-		maxParticles: 250000
+		maxParticles: 1000
 	} );
 	scene.add( particleSystem );
 	// настойки общих и параметров движения системы частиц
@@ -342,7 +342,7 @@ function initObject3D() {
 		sizeRandomness: 1
 	};
 	spawn_particleSystem = {
-		spawnRate: 150000,
+		spawnRate: 1000,
 		horizontalSpeed: 1.5,
 		verticalSpeed: 1.33,
 		timeScale: 1
@@ -564,9 +564,9 @@ function renderIntro() {
 		tick_particle += particlesDelta;
 		if ( tick_particle < 0 ) tick_particle = 0;
 		if ( particlesDelta > 0 ) {
-			options_particleSystem.position.x = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed ) * 20;
-			options_particleSystem.position.y = Math.sin( tick_particle * spawn_particleSystem.verticalSpeed ) * 10;
-			options_particleSystem.position.z = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 5;
+			options_particleSystem.position.x = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed ) * 200;
+			options_particleSystem.position.y = Math.sin( tick_particle * spawn_particleSystem.verticalSpeed ) * 100;
+			options_particleSystem.position.z = Math.sin( tick_particle * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 50;
 			for ( var x = 0; x < spawn_particleSystem.spawnRate * particlesDelta; x++ ) {				
 				particleSystem.spawnParticle( options_particleSystem );
 			}
