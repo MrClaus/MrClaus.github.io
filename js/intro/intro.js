@@ -568,7 +568,7 @@ function renderIntro() {
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
 		//render3D.clearDepth();
-		//render3D.render( sceneOrtho, cameraOrtho );
+		render3D.render( sceneOrtho, cameraOrtho );
 	}
 	
 	function animate(delta) {
