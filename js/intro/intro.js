@@ -587,7 +587,7 @@ function renderIntro() {
 			
 			options_particleSystem2.position.x = Math.cos( tick_particle * spawn_particleSystem.horizontalSpeed ) * 200;
 			options_particleSystem2.position.y = Math.cos( tick_particle * spawn_particleSystem.verticalSpeed ) * 100;
-			options_particleSystem2.position.z = Math.cos( tick_particle * spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed ) * 50;
+			options_particleSystem2.position.z = Math.cos( tick_particle * (spawn_particleSystem.horizontalSpeed + spawn_particleSystem.verticalSpeed) ) * 100;
 			
 			for ( var x = 0; x < spawn_particleSystem.spawnRate * particlesDelta; x++ ) {				
 				particleSystem1.spawnParticle( options_particleSystem1 );
