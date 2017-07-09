@@ -197,6 +197,7 @@ function initObject3D() {
 	skyBox = createSky(300, 64, mapSky);
 	scene.add(skyBox);
 	// создаём кубическую текстуру скайбокса для шейдеров
+	/*
 	var path = "res/";
 	var format = '.png';
 	var urls = [
@@ -207,6 +208,7 @@ function initObject3D() {
 	var textureCube = new THREE.CubeTextureLoader().load( urls );
 	textureCube.format = THREE.RGBFormat;
 	//scene.background = textureCube;
+	*/
 	
 	
 	
@@ -561,7 +563,7 @@ function renderIntro() {
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
 		// итоговый рендер сцены
-		//render3D.clear();
+		render3D.clear();
 		cameraS.update( camera );
 		render3D.render( scene, cameraS.cameraL, _renderTargetL, true );
 		render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
