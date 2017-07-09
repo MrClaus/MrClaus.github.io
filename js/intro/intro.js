@@ -39,7 +39,7 @@ var paramsBloom = {
 	bloomRadius: 0.4
 };
 
-var spriteRes, sprite, sceneOrtho, cameraOrtho;
+var spriteRes, sprite, sceneOrtho, cameraOrtho, material_t;
 var objectP, uniforms, shader;
 var colorMatrixLeft, colorMatrixRight;
 var _renderTargetL, _renderTargetR;
@@ -246,7 +246,7 @@ function initObject3D() {
 	
 	
 	
-	var material = new THREE.ShaderMaterial( {
+	material_t = new THREE.ShaderMaterial( {
 
 		uniforms: {
 
@@ -322,9 +322,11 @@ function initObject3D() {
 	
 	
 	//objectP = new THREE.Mesh( new THREE.PlaneGeometry( 100, 100, 4, 4 ), material );
-	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 121, 81 ), material );
+	/*
+	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 121, 81 ), material_t );
 	objectP.position.set( 0, 0, 0 );
 	scene.add( objectP );
+	*/
 	
 	// создаём систему частиц
 	particleSystem1 = new THREE.GPUParticleSystem( {
@@ -453,9 +455,9 @@ function initObject2D() {
 		transparent: true
 		//blending: THREE.AdditiveBlending
 	} );
-	var width = material.map.image.width;
-	var height = material.map.image.height;
-	sprite = new THREE.Sprite( material );
+	var width = material_t.map.image.width;
+	var height = material_t.map.image.height;
+	sprite = new THREE.Sprite( material_t );
 	sprite.scale.set( width, height, 1 );
 	sprite.position.set( 0, 0, 1 ); // center
 	sceneOrtho.add( sprite );
@@ -563,7 +565,7 @@ function renderIntro() {
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
 		// итоговый рендер сцены
-		render3D.clear();
+		//render3D.clear();
 		cameraS.update( camera );
 		render3D.render( scene, cameraS.cameraL, _renderTargetL, true );
 		render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
