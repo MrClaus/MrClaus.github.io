@@ -337,9 +337,9 @@ function initObject3D() {
 		color: 0xaa88ff,
 		colorRandomness: .2,
 		turbulence: .5,
-		lifetime: 2,
-		size: 5,
-		sizeRandomness: 1
+		lifetime: 7,
+		size: 20,
+		sizeRandomness: 20
 	};
 	spawn_particleSystem = {
 		spawnRate: 5000,
