@@ -450,6 +450,7 @@ function initObject2D() {
 	// *** Основной код ***
 	
 	// создаём спрайт и добавляем его на сцену геймплэя
+	/*
 	var material = new THREE.SpriteMaterial( {
 		map: spriteRes,
 		transparent: true
@@ -460,7 +461,11 @@ function initObject2D() {
 	sprite = new THREE.Sprite( material_t );
 	sprite.scale.set( 128, 80, 1 );
 	sprite.position.set( 0, 0, 1 ); // center
-	sceneOrtho.add( sprite );
+	*/
+	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 121, 81 ), material_t );
+	objectP.position.set( 0, 0, 0 );
+	sceneOrtho.add( objectP );
+	//sceneOrtho.add( sprite );
 	
 }
 
