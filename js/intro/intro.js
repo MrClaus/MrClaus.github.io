@@ -567,7 +567,7 @@ function renderIntro() {
 		render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
-		//render3D.clearDepth();
+		render3D.clearDepth();
 		render3D.render( sceneOrtho, cameraOrtho );
 	}
 	
