@@ -325,7 +325,7 @@ function initObject3D() {
 	
 	// создаём систему частиц
 	particleSystem = new THREE.GPUParticleSystem( {
-		maxParticles: 1000
+		maxParticles: 5000
 	} );
 	scene.add( particleSystem );
 	// настойки общих и параметров движения системы частиц
@@ -342,7 +342,7 @@ function initObject3D() {
 		sizeRandomness: 1
 	};
 	spawn_particleSystem = {
-		spawnRate: 1000,
+		spawnRate: 5000,
 		horizontalSpeed: 1.5,
 		verticalSpeed: 1.33,
 		timeScale: 1
