@@ -336,7 +336,7 @@ function initObject3D() {
 		velocityRandomness: .5,
 		color: 0xaa88ff,
 		colorRandomness: .2,
-		turbulence: .5,
+		turbulence: 1.0,
 		lifetime: 7,
 		size: 20,
 		sizeRandomness: 20
