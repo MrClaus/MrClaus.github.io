@@ -637,7 +637,10 @@ function renderIntro() {
 		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);		
 		camera.lookAt(scene.position);	
 		
-		sphereMesh.position.set(camera.position.x*RR+xx, camera.position.y*RR+yy, camera.position.z*RR);
+		sphereMesh.position.x = camera.position.x * RR + xx;
+		sphereMesh.position.y = camera.position.y * RR + yy;
+		sphereMesh.position.z = camera.position.z * RR;
+		
 	}
 	
 	function onWindowResize() {
