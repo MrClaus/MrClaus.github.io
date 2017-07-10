@@ -166,8 +166,8 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаём камеру для 2д спрайтовой сцены
-	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 1, 10 );
-	cameraOrtho.position.z = 10;
+	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 0.01, 1000 );
+	cameraOrtho.position.z = 0;
 	
 	// создаём сцену для 2д геймплэя
 	sceneOrtho = new THREE.Scene();
