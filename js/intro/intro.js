@@ -204,9 +204,9 @@ function initObject3D() {
 	var path = "res/";
 	var format = '.png';
 	var urls = [
-		path + 'nnx256' + format, path + 'ppx256' + format,
-		path + 'ppyy256' + format, path + 'nnyy256' + format,
-		path + 'nnz256' + format, path + 'ppz256' + format
+		path + 'nnx128' + format, path + 'ppx128' + format,
+		path + 'ppyy128' + format, path + 'nnyy128' + format,
+		path + 'nnz128' + format, path + 'ppz128' + format
 	];
 	textureCube = new THREE.CubeTextureLoader().load( urls );
 	textureCube.format = THREE.RGBFormat;
