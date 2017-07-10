@@ -45,6 +45,7 @@ var colorMatrixLeft, colorMatrixRight;
 var _renderTargetL, _renderTargetR;
 var sphereMesh;
 var textureCube;
+var RR=1, xx=0, yy=0;
 
 	
 	
@@ -636,7 +637,7 @@ function renderIntro() {
 		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);		
 		camera.lookAt(scene.position);	
 		
-		sphereMesh.lookAt(camera.position);
+		sphereMesh.position.set(camera.position.x*RR+xx, camera.position.y*RR+yy, camera.position.z*RR);
 	}
 	
 	function onWindowResize() {
