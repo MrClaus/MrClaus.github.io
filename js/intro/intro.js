@@ -43,6 +43,7 @@ var spriteRes, sprite, sceneOrtho, cameraOrtho, material_t;
 var objectP, uniforms, shader;
 var colorMatrixLeft, colorMatrixRight;
 var _renderTargetL, _renderTargetR;
+var sphereMesh;
 
 	
 	
@@ -77,7 +78,7 @@ function resLoad() {
 	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
-	mapSky.mapping = THREE.EquirectangularReflectionMapping;
+	mapSky.mapping = THREE.EquirectangularRefractionMapping;
 	mapSky.magFilter = THREE.LinearFilter;
 	mapSky.minFilter = THREE.LinearMipMapLinearFilter;
 	
@@ -467,6 +468,20 @@ function initObject2D() {
 	sceneOrtho.add( objectP );
 	//sceneOrtho.add( sprite );
 	
+	
+	var shader = THREE.ShaderLib[ "equirect" ];
+	var material = new THREE.ShaderMaterial( {
+		fragmentShader: shader.fragmentShader,
+		vertexShader: shader.vertexShader,
+		uniforms: shader.uniforms,
+		depthWrite: false,
+		side: THREE.BackSide
+	} );
+	material.uniforms[ "tEquirect" ].value = mapSky;
+	var geometry = new THREE.SphereBufferGeometry( 400.0, 48, 24 );
+	sphereMesh = new THREE.Mesh( geometry, material );
+	sphereMesh.position.set( 0, 200, 0 );
+	sceneOrtho.add( sphereMesh );
 }
 
 
