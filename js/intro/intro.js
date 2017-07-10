@@ -168,7 +168,7 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаём камеру для 2д спрайтовой сцены
-	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 0.001, 10 );
+	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 0.001, 100 );
 	//cameraOrtho = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 	cameraOrtho.position.z = 10;
 	
@@ -484,9 +484,9 @@ function initObject2D() {
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
 	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
-	var geometry = new THREE.SphereBufferGeometry( 2, 64, 64 );
+	var geometry = new THREE.SphereBufferGeometry( 20, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
-	sphereMesh.position.set( 50, 50, 5 );
+	sphereMesh.position.set( 50, 50, 50 );
 	sceneOrtho.add( sphereMesh );
 }
 
