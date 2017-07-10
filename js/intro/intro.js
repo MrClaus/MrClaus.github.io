@@ -483,10 +483,10 @@ function initObject2D() {
 	} );
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
-	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
-	var geometry = new THREE.SphereBufferGeometry( 20, 64, 64 );
+	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: material_t, refractionRatio: 0.95 } );
+	var geometry = new THREE.SphereBufferGeometry( 10, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
-	sphereMesh.position.set( 50, 50, 50 );
+	sphereMesh.position.set( 50, 50, 0 );
 	sceneOrtho.add( sphereMesh );
 }
 
