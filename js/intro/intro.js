@@ -168,9 +168,9 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаём камеру для 2д спрайтовой сцены
-	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 1, 10 );
+	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 0.001, 10 );
 	//cameraOrtho = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
-	cameraOrtho.position.z = 1;
+	cameraOrtho.position.z = 10;
 	
 	// создаём сцену для 2д геймплэя
 	sceneOrtho = new THREE.Scene();
@@ -484,10 +484,10 @@ function initObject2D() {
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
 	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
-	var geometry = new THREE.SphereBufferGeometry( 10, 64, 64 );
+	var geometry = new THREE.SphereBufferGeometry( 2, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
-	sphereMesh.position.set( 0, 50, 0 );
-	scene.add( sphereMesh );
+	sphereMesh.position.set( 50, 50, 5 );
+	sceneOrtho.add( sphereMesh );
 }
 
 
@@ -584,9 +584,9 @@ function renderIntro() {
 		delta = clock.getDelta();
 		requestAF(render);
 		
-		sphereMesh.position.x = (camera.position.x * RR) + 30;
-		sphereMesh.position.y = (camera.position.y * RR) + 30;
-		sphereMesh.position.z = camera.position.z * RR;
+		//sphereMesh.position.x = (camera.position.x * RR) + 30;
+		//sphereMesh.position.y = (camera.position.y * RR) + 30;
+		//sphereMesh.position.z = camera.position.z * RR;
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
 		// bloom шейдер
