@@ -478,7 +478,7 @@ function initObject2D() {
 		side: THREE.BackSide
 	} );
 	material.uniforms[ "tEquirect" ].value = mapSky;
-	var geometry = new THREE.SphereBufferGeometry( 400.0, 48, 24 );
+	var geometry = new THREE.SphereBufferGeometry( 50.0, 48, 24 );
 	sphereMesh = new THREE.Mesh( geometry, material );
 	sphereMesh.position.set( 0, 200, 0 );
 	sceneOrtho.add( sphereMesh );
