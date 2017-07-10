@@ -204,9 +204,9 @@ function initObject3D() {
 	var path = "res/";
 	var format = '.png';
 	var urls = [
-		path + 'nnx128' + format, path + 'ppx128' + format,
-		path + 'ppyy128' + format, path + 'nnyy128' + format,
-		path + 'nnz128' + format, path + 'ppz128' + format
+		path + 'nnx256' + format, path + 'ppx256' + format,
+		path + 'ppyy256' + format, path + 'nnyy256' + format,
+		path + 'nnz256' + format, path + 'ppz256' + format
 	];
 	textureCube = new THREE.CubeTextureLoader().load( urls );
 	textureCube.format = THREE.RGBFormat;
@@ -634,7 +634,9 @@ function renderIntro() {
 		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
 		camera.position.y = distance * Math.cos(phi);
 		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);		
-		camera.lookAt(scene.position);		
+		camera.lookAt(scene.position);	
+		
+		sphereMesh.lookAt(camera.position);
 	}
 	
 	function onWindowResize() {
