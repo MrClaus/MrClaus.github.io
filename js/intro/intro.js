@@ -204,9 +204,9 @@ function initObject3D() {
 	var path = "res/";
 	var format = '.png';
 	var urls = [
-		path + 'nnx' + format, path + 'ppx' + format,
-		path + 'ppyy' + format, path + 'nnyy' + format,
-		path + 'nnz' + format, path + 'ppz' + format
+		path + 'nnx128' + format, path + 'ppx128' + format,
+		path + 'ppyy128' + format, path + 'nnyy128' + format,
+		path + 'nnz128' + format, path + 'ppz128' + format
 	];
 	textureCube = new THREE.CubeTextureLoader().load( urls );
 	textureCube.format = THREE.RGBFormat;
@@ -483,7 +483,7 @@ function initObject2D() {
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
 	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
-	var geometry = new THREE.SphereBufferGeometry( 50, 50, 50 );
+	var geometry = new THREE.SphereBufferGeometry( 10, 10, 10 );
 	sphereMesh = new THREE.Mesh( geometry, material );
 	sphereMesh.position.set( 0, 50, 0 );
 	scene.add( sphereMesh );
