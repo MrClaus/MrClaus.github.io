@@ -44,6 +44,7 @@ var objectP, uniforms, shader;
 var colorMatrixLeft, colorMatrixRight;
 var _renderTargetL, _renderTargetR;
 var sphereMesh;
+var textureCube;
 
 	
 	
@@ -199,7 +200,7 @@ function initObject3D() {
 	skyBox = createSky(300, 64, mapSky);
 	scene.add(skyBox);
 	// создаём кубическую текстуру скайбокса для шейдеров
-	/*
+	
 	var path = "res/";
 	var format = '.png';
 	var urls = [
@@ -207,10 +208,11 @@ function initObject3D() {
 		path + 'ppyy' + format, path + 'nnyy' + format,
 		path + 'nnz' + format, path + 'ppz' + format
 	];
-	var textureCube = new THREE.CubeTextureLoader().load( urls );
+	textureCube = new THREE.CubeTextureLoader().load( urls );
 	textureCube.format = THREE.RGBFormat;
-	//scene.background = textureCube;
-	*/
+	textureCube.mapping = THREE.CubeRefractionMapping;
+	scene.background = textureCube;
+	
 	
 	
 	
@@ -469,7 +471,7 @@ function initObject2D() {
 	sceneOrtho.add( objectP );
 	//sceneOrtho.add( sprite );
 	
-	
+	/*
 	var shader = THREE.ShaderLib[ "equirect" ];
 	var material = new THREE.ShaderMaterial( {
 		fragmentShader: shader.fragmentShader,
@@ -479,6 +481,8 @@ function initObject2D() {
 		side: THREE.BackSide
 	} );
 	material.uniforms[ "tEquirect" ].value = mapSky;
+	*/
+	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
 	var geometry = new THREE.SphereBufferGeometry( 50, 50, 50 );
 	sphereMesh = new THREE.Mesh( geometry, material );
 	sphereMesh.position.set( 0, 50, 0 );
