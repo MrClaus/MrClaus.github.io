@@ -584,8 +584,8 @@ function renderIntro() {
 		delta = clock.getDelta();
 		requestAF(render);
 		
-		sphereMesh.position.x = (camera.position.x * RR) + xx;
-		sphereMesh.position.y = (camera.position.y * RR) + yy;
+		sphereMesh.position.x = (camera.position.x * RR) + 30;
+		sphereMesh.position.y = (camera.position.y * RR) + 30;
 		sphereMesh.position.z = camera.position.z * RR;
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
