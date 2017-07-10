@@ -483,7 +483,7 @@ function initObject2D() {
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
 	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
-	var geometry = new THREE.SphereBufferGeometry( 10, 10, 10 );
+	var geometry = new THREE.SphereBufferGeometry( 10, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
 	sphereMesh.position.set( 0, 50, 0 );
 	scene.add( sphereMesh );
