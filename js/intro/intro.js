@@ -479,9 +479,9 @@ function initObject2D() {
 		side: THREE.BackSide
 	} );
 	material.uniforms[ "tEquirect" ].value = mapSky;
-	var geometry = new THREE.SphereBufferGeometry( 50.0, 48, 24 );
+	var geometry = new THREE.SphereBufferGeometry( 1, 8, 8 );
 	sphereMesh = new THREE.Mesh( geometry, material );
-	sphereMesh.position.set( 0, 200, 0 );
+	sphereMesh.position.set( 0, 0, 0 );
 	sceneOrtho.add( sphereMesh );
 }
 
@@ -592,7 +592,7 @@ function renderIntro() {
 		render3D.render( scene, cameraS.cameraR, _renderTargetR, true );
 		composer_alpha.render(delta);
 		composer.render(delta); // рендрид 3д слой
-		//render3D.clearDepth();
+		render3D.clearDepth();
 		render3D.render( sceneOrtho, cameraOrtho );
 	}
 	
