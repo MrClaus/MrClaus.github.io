@@ -601,7 +601,7 @@ function renderIntro() {
 		//sphereMesh.rotation.x = camera.getWorldRotation().x
 		sphereMesh.position.x = 50*Math.cos(hjk)+0*Math.sin(hjk);
 		sphereMesh.position.z = -50*Math.sin(hjk)+0*Math.cos(hjk);
-		hjk+=0.0001;
+		hjk+=0.01;
 		//sphereMesh.setRotationFromEuler(camera.getWorldRotation());
 		
 		//sphereMesh.updateMatrix();
