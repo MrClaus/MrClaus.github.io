@@ -610,11 +610,11 @@ function renderIntro() {
 			var x = obj.position.x;
 			var z = obj.position.z;
 			var r = Math.sqrt(x*x + z*z)
-			if (x==0) x = 0.000000000000001;
+			//if (x==0) x = 0.000000000000001;
 			var param = x/r;
-			if ((param > 0) && (param <= 1)) angle = Math.acos(param);
-			if ((param < 0) && (param >= -1)) angle = Math.PI + Math.acos(param);
-			//if (z > 0) angle = 2 * Math.PI - angle;
+			if ((param >= 0) && (param <= 1)) angle = Math.acos(param);
+			if ((param <= 0) && (param >= -1)) angle = Math.PI + Math.acos(param);
+			if (z > 0) angle = 2 * Math.PI - angle;
 			return angle;			
 		}
 		
