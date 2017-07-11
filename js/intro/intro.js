@@ -487,7 +487,7 @@ function initObject2D() {
 	var geometry = new THREE.SphereBufferGeometry( 10, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
 	sphereMesh.position.set( 50, 50, 0 );
-	sceneOrtho.add( sphereMesh );
+	scene.add( sphereMesh );
 }
 
 
@@ -587,7 +587,14 @@ function renderIntro() {
 		//sphereMesh.position.x = (camera.position.x * RR) + 30;
 		//sphereMesh.position.y = (camera.position.y * RR) + 30;
 		//sphereMesh.position.z = camera.position.z * RR;
+		
+		
 		animate(delta); // код сцены, который исполняется во время рендринга
+		
+		sphereMesh.matrix.setPosition(100, 0, 0);
+		sphereMesh.matrix.setRotationFromQuaternion(camera.quaternion);		
+		sphereMesh.matrixAutoUpdate = false;
+		sphereMesh.updateMatrix();
 		
 		// bloom шейдер
 		//composerAlpha.render(delta);
