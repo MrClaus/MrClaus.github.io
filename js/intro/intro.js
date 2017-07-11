@@ -590,13 +590,15 @@ function renderIntro() {
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
 		//sphereMesh.matrix.setPosition(sphereMesh.position);
-		sphereMesh.matrixAutoUpdate = false;
+		//sphereMesh.matrixAutoUpdate = false;
 		//sphereMesh.matrix.makeRotationFromQuaternion(camera.quaternion).updateMatrix();
-		sphereMesh.position.x = (sphereMesh.position.x) + camera.position.x * camera.quaternion.x;
-		sphereMesh.position.y = (sphereMesh.position.y) + camera.position.y * camera.quaternion.y;
-		sphereMesh.position.z = (sphereMesh.position.z) + camera.position.z * camera.quaternion.z;
-		sphereMesh.matrix.compose( sphereMesh.position, camera.quaternion, sphereMesh.scale );
-		sphereMesh.matrixWorldNeedsUpdate = true;
+		//sphereMesh.position.x = (sphereMesh.position.x) + camera.position.x * camera.quaternion.x;
+		//sphereMesh.position.y = (sphereMesh.position.y) + camera.position.y * camera.quaternion.y;
+		//sphereMesh.position.z = (sphereMesh.position.z) + camera.position.z * camera.quaternion.z;
+		//sphereMesh.matrix.compose( sphereMesh.position, camera.quaternion, sphereMesh.scale );
+		//sphereMesh.matrixWorldNeedsUpdate = true;
+		//sphereMesh.rotation.x = camera.getWorldRotation().x
+		sphereMesh.setRotationFromEuler(camera.getWorldRotation());
 		
 		//sphereMesh.updateMatrix();
 		
