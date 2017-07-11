@@ -591,7 +591,7 @@ function renderIntro() {
 		
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
-		sphereMesh.matrix.setPosition(100, 0, 0);
+		sphereMesh.matrix.setPosition(sphereMesh.position);
 		sphereMesh.matrix.makeRotationFromQuaternion(camera.quaternion);		
 		sphereMesh.matrixAutoUpdate = false;
 		sphereMesh.updateMatrix();
