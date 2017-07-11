@@ -604,7 +604,7 @@ function renderIntro() {
 		sphereMesh.position.x = 50*Math.cos(angOY)+0*Math.sin(angOY);
 		sphereMesh.position.z = -50*Math.sin(angOY)+0*Math.cos(angOY);
 		//hjk+=0.01;
-		if (camera.position.z>0) {console.log(111111111111);} else {console.log(0000000000000);}
+		if (camera.position.x>0) {console.log(111111111111);} else {console.log(0000000000000);}
 		
 		function eyler_relBasisY(obj) {
 			var angle;
