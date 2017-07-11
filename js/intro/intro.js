@@ -599,8 +599,8 @@ function renderIntro() {
 		//sphereMesh.matrix.compose( sphereMesh.position, camera.quaternion, sphereMesh.scale );
 		//sphereMesh.matrixWorldNeedsUpdate = true;
 		//sphereMesh.rotation.x = camera.getWorldRotation().x
-		sphereMesh.position.x = 50*Math.cos(camera.getWorldRotation().z)+0*Math.sin(camera.getWorldRotation().z);
-		sphereMesh.position.z = -50*Math.sin(camera.getWorldRotation().z)+0*Math.cos(camera.getWorldRotation().z);
+		sphereMesh.position.x = 50*Math.cos(camera.getWorldRotation().y)+0*Math.sin(camera.getWorldRotation().y);
+		sphereMesh.position.z = -50*Math.sin(camera.getWorldRotation().y)+0*Math.cos(camera.getWorldRotation().y);
 		hjk+=0.01;
 		//sphereMesh.setRotationFromEuler(camera.getWorldRotation().x);
 		
