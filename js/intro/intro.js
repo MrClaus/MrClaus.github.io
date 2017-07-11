@@ -592,7 +592,7 @@ function renderIntro() {
 		//sphereMesh.matrix.setPosition(sphereMesh.position);
 		sphereMesh.matrixAutoUpdate = false;
 		//sphereMesh.matrix.makeRotationFromQuaternion(camera.quaternion).updateMatrix();
-		sphereMesh.position.x = (camera.position.x * 0.8) + 15;
+		sphereMesh.position.x = (camera.position.x * 0.8) * camera.quaternion.x;
 		sphereMesh.position.y = (camera.position.y * 0.8);
 		sphereMesh.position.z = (camera.position.z * 0.8);
 		sphereMesh.matrix.compose( sphereMesh.position, camera.quaternion, sphereMesh.scale );
