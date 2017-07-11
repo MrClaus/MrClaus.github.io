@@ -600,7 +600,7 @@ function renderIntro() {
 		//sphereMesh.matrixWorldNeedsUpdate = true;
 		//sphereMesh.rotation.x = camera.getWorldRotation().x
 		var angOY;
-		angOY = eyler_relBasisY(sphereMesh);
+		angOY = eyler_relBasisY(camera);
 		sphereMesh.position.x = 50*Math.cos(angOY)+0*Math.sin(angOY);
 		sphereMesh.position.z = -50*Math.sin(angOY)+0*Math.cos(angOY);
 		//hjk+=0.01;
