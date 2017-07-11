@@ -46,6 +46,7 @@ var _renderTargetL, _renderTargetR;
 var sphereMesh;
 var textureCube;
 var RR=1, xx=0, yy=0;
+var hjk = 0;
 
 	
 	
@@ -598,8 +599,9 @@ function renderIntro() {
 		//sphereMesh.matrix.compose( sphereMesh.position, camera.quaternion, sphereMesh.scale );
 		//sphereMesh.matrixWorldNeedsUpdate = true;
 		//sphereMesh.rotation.x = camera.getWorldRotation().x
-		sphereMesh.position.x = 50*Math.cos(camera.getWorldRotation().y)+0*Math.sin(camera.getWorldRotation().y);
-		sphereMesh.position.z = -50*Math.sin(camera.getWorldRotation().y)+0*Math.cos(camera.getWorldRotation().y);
+		sphereMesh.position.x = 50*Math.cos(hjk)+0*Math.sin(hjk);
+		sphereMesh.position.z = -50*Math.sin(hjk)+0*Math.cos(hjk);
+		hjk+=0.0001;
 		//sphereMesh.setRotationFromEuler(camera.getWorldRotation());
 		
 		//sphereMesh.updateMatrix();
