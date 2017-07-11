@@ -614,7 +614,7 @@ function renderIntro() {
 			var param = x/r;
 			if ((param > 0) && (param <= 1)) angle = Math.acos(param);
 			if ((param < 0) && (param >= -1)) angle = Math.PI + Math.acos(param);
-			if (z > 0) angle = 2 * Math.PI - angle;
+			if (z < 0) angle = 2 * Math.PI - angle;
 			return angle;			
 		}
 		
