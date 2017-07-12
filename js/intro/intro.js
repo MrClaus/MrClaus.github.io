@@ -627,7 +627,7 @@ function renderIntro() {
 		function eyler_BasisZ(obj) {
 			var angle;
 			var x = obj.position.x;
-			var y = obj.position.z;
+			var y = obj.position.y;
 			var r = Math.sqrt(x*x + y*y)
 			//if (x==0) x = 0.000000000000001;
 			var param = x/r;
