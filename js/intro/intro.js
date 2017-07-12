@@ -599,24 +599,42 @@ function renderIntro() {
 		//sphereMesh.matrix.compose( sphereMesh.position, camera.quaternion, sphereMesh.scale );
 		//sphereMesh.matrixWorldNeedsUpdate = true;
 		//sphereMesh.rotation.x = camera.getWorldRotation().x
-		var angOY;
-		angOY = eyler_relBasisY(camera);
+		// OY
+		/*
+		var angOY = eyler_BasisY(camera);
 		sphereMesh.position.x = 50*Math.cos(angOY)+0*Math.sin(angOY);
 		sphereMesh.position.z = -50*Math.sin(angOY)+0*Math.cos(angOY);
-		//hjk+=0.01;
+		*/
+		// OZ
+		var angOZ = eyler_BasisZ(camera);
+		sphereMesh.position.x = 50*Math.cos(angOZ)-50*Math.sin(angOZ);
+		sphereMesh.position.y = 50*Math.sin(angOZ)+50*Math.cos(angOZ);
 		
 		
-		function eyler_relBasisY(obj) {
+		function eyler_BasisY(obj) {
 			var angle;
 			var x = obj.position.x;
 			var z = obj.position.z;
 			var r = Math.sqrt(x*x + z*z)
 			//if (x==0) x = 0.000000000000001;
 			var param = x/r;
-			angle = Math.acos(param) + hjk;
+			angle = Math.acos(param);
 			//if ((param >= 0) && (param <= 1)) angle = Math.PI + Math.acos(param);
 			//if ((param < 0) && (param >= -1)) angle = Math.acos(param);
 			if (z > 0) angle = 2 * Math.PI - angle;
+			return angle;			
+		}
+		function eyler_BasisZ(obj) {
+			var angle;
+			var x = obj.position.x;
+			var y = obj.position.z;
+			var r = Math.sqrt(x*x + y*y)
+			//if (x==0) x = 0.000000000000001;
+			var param = x/r;
+			angle = Math.acos(param) + hjk;
+			//if ((param >= 0) && (param <= 1)) angle = Math.PI + Math.acos(param);
+			//if ((param < 0) && (param >= -1)) angle = Math.acos(param);
+			if (y > 0) angle = 2 * Math.PI - angle;
 			return angle;			
 		}
 		
