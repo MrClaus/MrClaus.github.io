@@ -607,8 +607,9 @@ function renderIntro() {
 		*/
 		// OZ
 		var angOZ = eyler_BasisZ(camera);
-		sphereMesh.position.x = 50*Math.cos(angOZ)-50*Math.sin(angOZ);
-		sphereMesh.position.y = 50*Math.sin(angOZ)+50*Math.cos(angOZ);
+		sphereMesh.position.x = 50*Math.cos(hjk)-50*Math.sin(hjk);
+		sphereMesh.position.y = 50*Math.sin(hjk)+50*Math.cos(hjk);
+		hjk+=0.1;
 		
 		
 		function eyler_BasisY(obj) {
