@@ -470,7 +470,7 @@ function initObject2D() {
 	*/
 	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 121, 81 ), material_t );
 	objectP.position.set( 0, 0, 0 );
-	sceneOrtho.add( objectP );
+	//sceneOrtho.add( objectP );
 	//sceneOrtho.add( sprite );
 	
 	/*
@@ -607,8 +607,8 @@ function renderIntro() {
 		*/
 		// OZ
 		var angOZ = eyler_BasisZ(camera);
-		sphereMesh.position.x = 50*Math.cos(hjk)-50*Math.sin(hjk);
-		sphereMesh.position.y = 50*Math.sin(hjk)+50*Math.cos(hjk);
+		sphereMesh.position.x = 50*Math.cos(angOZ)-50*Math.sin(angOZ);
+		sphereMesh.position.y = 50*Math.sin(angOZ)+50*Math.cos(angOZ);
 		hjk+=0.1;
 		
 		
@@ -632,10 +632,10 @@ function renderIntro() {
 			var r = Math.sqrt(x*x + y*y)
 			//if (x==0) x = 0.000000000000001;
 			var param = x/r;
-			//angle = Math.acos(param) + hjk;
-			if ((param >= 0) && (param <= 1)) angle = Math.acos(param);
-			if ((param < 0) && (param >= -1)) angle = Math.PI + Math.acos(param);
-			if (y > 0) angle = 2 * Math.PI - angle;
+			angle = Math.acos(param);
+			//if ((param >= 0) && (param <= 1)) angle = Math.acos(param);
+			//if ((param < 0) && (param >= -1)) angle = Math.PI + Math.acos(param);
+			if (y < 0) angle = 2 * Math.PI - angle;
 			return angle;			
 		}
 		
