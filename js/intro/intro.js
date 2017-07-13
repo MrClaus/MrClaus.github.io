@@ -607,13 +607,30 @@ function renderIntro() {
 		sphereMesh.position.z = -50*Math.sin(angOY)+0*Math.cos(angOY);
 		*/
 		// OZ
-		angOZ = eyler_BasisZ(camera)+hjk;
-		angOy = eyler_BasisY(camera);
-		sphereMesh.position.x = 100*Math.cos(angOZ)-0*Math.sin(angOZ);
-		sphereMesh.position.y = 100*Math.sin(angOZ)+0*Math.cos(angOZ);
+		angOX = eyler_BasisX(camera);
+		angOZ = eyler_BasisZ(camera);
+		angOY = eyler_BasisY(camera);
+		//sphereMesh.position.x = 100*Math.cos(angOZ)-0*Math.sin(angOZ);
+		//sphereMesh.position.y = 100*Math.sin(angOZ)+0*Math.cos(angOZ);
+		
+		sphereMesh.position.x = 100*Math.cos(angOY);
+		sphereMesh.position.y = -100*Math.sin(angOZ);
+		sphereMesh.position.z = -100*Math.cos(angOX);
+		
+		
+		
 		///hjk+=0.1;
 		
+		// rotate XYZ
+		//sphereMesh.position.x = xx*Math.cos(angB)*Math.cos(angC) + yy*(Math.sin(angA)*Math.sin(angB)*Math.cos(angC)-Math.cos(angA)*Math.sin(angC)) + zz*(Math.cos(angA)*Math.sin(angB)*Math.cos(angC)+Math.sin(angA)*Math.sin(angC));
 		
+		function eyler_BasisX(obj) {			
+			var z = obj.position.z;
+			var y = obj.position.y;			
+			var angle = Math.acos(z / Math.sqrt(z*z + y*y));			
+			if (y < 0) angle = 2 * Math.PI - angle;
+			return angle;			
+		}
 		function eyler_BasisY(obj) {			
 			var x = obj.position.x;
 			var z = obj.position.z;			
