@@ -484,10 +484,10 @@ function initObject2D() {
 	} );
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
-	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, refractionRatio: 0.95 } ); //envMap: textureCube, 
+	var material = new THREE.MeshBasicMaterial( { color: 0x000000, refractionRatio: 0.95 } ); //envMap: textureCube, 
 	var geometry = new THREE.SphereBufferGeometry( 10, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
-	sphereMesh.position.set( 50, 50, 0 );
+	sphereMesh.position.set( 100, 0, 0 );
 	scene.add( sphereMesh );
 }
 
@@ -607,8 +607,8 @@ function renderIntro() {
 		*/
 		// OZ
 		var angOZ = eyler_BasisZ(camera);
-		sphereMesh.position.x = 50*Math.cos(angOZ)-50*Math.sin(angOZ);
-		sphereMesh.position.y = 50*Math.sin(angOZ)+50*Math.cos(angOZ);
+		sphereMesh.position.x = 100*Math.cos(angOZ)-0*Math.sin(angOZ);
+		sphereMesh.position.y = 100*Math.sin(angOZ)+0*Math.cos(angOZ);
 		hjk+=0.1;
 		
 		
