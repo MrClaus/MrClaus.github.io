@@ -626,7 +626,9 @@ function renderIntro() {
 		sphereMesh.position.y = 100*Math.sin(alfa)*Math.sin(betta);
 		sphereMesh.position.z = 100*Math.cos(alfa);
 		*/
-		
+		objectP.rotation.x = camera.rotation.x;
+		objectP.rotation.y = camera.rotation.y;
+		objectP.rotation.z = camera.rotation.z;
 		
 		
 		
