@@ -607,15 +607,15 @@ function renderIntro() {
 		sphereMesh.position.z = -50*Math.sin(angOY)+0*Math.cos(angOY);
 		*/
 		// OZ
-		angOX = eyler_BasisX(camera);
+		//angOX = eyler_BasisX(camera);
 		angOZ = eyler_BasisZ(camera);
 		angOY = eyler_BasisY(camera);
 		//sphereMesh.position.x = 100*Math.cos(angOZ)-0*Math.sin(angOZ);
 		//sphereMesh.position.y = 100*Math.sin(angOZ)+0*Math.cos(angOZ);
 		
-		sphereMesh.position.x = 100*Math.cos(angOY);
-		sphereMesh.position.y = -100*Math.sin(angOZ);
-		sphereMesh.position.z = -100*Math.cos(angOX);
+		sphereMesh.position.x = 100*Math.sin(angOZ)*Math.cos(angOY);
+		sphereMesh.position.y = 100*Math.sin(angOZ)*Math.sin(angOY);
+		sphereMesh.position.z = 100*Math.cos(angOZ);
 		
 		
 		
