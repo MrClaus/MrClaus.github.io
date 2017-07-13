@@ -470,7 +470,7 @@ function initObject2D() {
 	sprite.position.set( 0, 0, 1 ); // center
 	*/
 	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 150, 100 )); //, material_t 
-	objectP.position.set( 0, 0, 0 );
+	objectP.position.set( 50, 85, 10 );
 	scene.add( objectP );
 	//sceneOrtho.add( sprite );
 	
@@ -635,7 +635,15 @@ function renderIntro() {
 		///hjk+=0.1;
 		
 		// rotate XYZ
-		//sphereMesh.position.x = xx*Math.cos(angB)*Math.cos(angC) + yy*(Math.sin(angA)*Math.sin(angB)*Math.cos(angC)-Math.cos(angA)*Math.sin(angC)) + zz*(Math.cos(angA)*Math.sin(angB)*Math.cos(angC)+Math.sin(angA)*Math.sin(angC));
+		var angA = camera.rotation.x;
+		var angB = camera.rotation.y;
+		var angC = camera.rotation.z;
+		var xx = 100;
+		var yy = 100;
+		var zz = 0;
+		sphereMesh.position.x = xx*Math.cos(angB)*Math.cos(angC) + yy*(Math.sin(angA)*Math.sin(angB)*Math.cos(angC)-Math.cos(angA)*Math.sin(angC)) + zz*(Math.cos(angA)*Math.sin(angB)*Math.cos(angC)+Math.sin(angA)*Math.sin(angC));
+		sphereMesh.position.y = xx*Math.cos(angB)*Math.sin(angC) + yy*(Math.sin(angA)*Math.sin(angB)*Math.sin(angC)+Math.cos(angA)*Math.cos(angC)) + zz*(Math.cos(angA)*Math.sin(angB)*Math.sin(angC)-Math.sin(angA)**Math.cos(angC));
+		sphereMesh.position.z = -xx*Math.sin(angB) + yy*Math.sin(angA)*Math.cos(angB) + zz*Math.cos(angA)*Math.cos(angB);
 		
 		function eyler_BasisX(obj) {			
 			var z = obj.position.z;
