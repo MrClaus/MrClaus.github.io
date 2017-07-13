@@ -47,6 +47,7 @@ var sphereMesh;
 var textureCube;
 var RR=1, xx=0, yy=0;
 var hjk = 0;
+var angOZ, angOY, angOX;
 
 	
 	
@@ -606,7 +607,8 @@ function renderIntro() {
 		sphereMesh.position.z = -50*Math.sin(angOY)+0*Math.cos(angOY);
 		*/
 		// OZ
-		var angOZ = eyler_BasisZ(camera)+hjk;
+		angOZ = eyler_BasisZ(camera)+hjk;
+		angOy = eyler_BasisY(camera);
 		sphereMesh.position.x = 100*Math.cos(angOZ)-0*Math.sin(angOZ);
 		sphereMesh.position.y = 100*Math.sin(angOZ)+0*Math.cos(angOZ);
 		///hjk+=0.1;
