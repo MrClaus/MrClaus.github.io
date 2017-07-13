@@ -469,9 +469,9 @@ function initObject2D() {
 	sprite.scale.set( 128, 80, 1 );
 	sprite.position.set( 0, 0, 1 ); // center
 	*/
-	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 121, 81 ), material_t );
+	objectP = new THREE.Mesh( new THREE.PlaneBufferGeometry( 150, 100 )); //, material_t 
 	objectP.position.set( 0, 0, 0 );
-	//sceneOrtho.add( objectP );
+	scene.add( objectP );
 	//sceneOrtho.add( sprite );
 	
 	/*
@@ -614,24 +614,18 @@ function renderIntro() {
 		//sphereMesh.position.y = 100*Math.sin(angOZ)+0*Math.cos(angOZ);
 		
 		
-		
+		/*
 		var xx = camera.position.x;
 		var yy = camera.position.y;
 		var zz = camera.position.z;
 		var rad = Math.sqrt(xx*xx + yy*yy + zz*zz);
-		var alfa = Math.acos(zz/rad);
-		
-		
-		
+		var alfa = Math.acos(zz/rad);		
 		var betta = Math.acos(xx/(rad*Math.sin(alfa)));
-		if (yy < 0) betta = 2 * Math.PI - betta;
-		
-		
-		
-		sphereMesh.position.x = 100*Math.sin(alfa)*Math.cos(betta+0.3);
-		sphereMesh.position.y = 100*Math.sin(alfa)*Math.sin(betta+0.3);
+		if (yy < 0) betta = 2 * Math.PI - betta;		
+		sphereMesh.position.x = 100*Math.sin(alfa)*Math.cos(betta);
+		sphereMesh.position.y = 100*Math.sin(alfa)*Math.sin(betta);
 		sphereMesh.position.z = 100*Math.cos(alfa);
-		///console.log(alfa);
+		*/
 		
 		
 		
