@@ -621,8 +621,13 @@ function renderIntro() {
 		var rad = Math.sqrt(xx*xx + yy*yy + zz*zz);
 		var alfa = Math.acos(zz/rad);
 		
+		alfa+=0.5;
+		
 		var betta = Math.acos(xx/(rad*Math.sin(alfa)));
 		if (yy < 0) betta = 2 * Math.PI - betta;
+		
+		betta+=0.5;
+		
 		sphereMesh.position.x = 100*Math.sin(alfa)*Math.cos(betta);
 		sphereMesh.position.y = 100*Math.sin(alfa)*Math.sin(betta);
 		sphereMesh.position.z = 100*Math.cos(alfa);
