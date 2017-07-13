@@ -626,7 +626,7 @@ function renderIntro() {
 		sphereMesh.position.x = 100*Math.sin(alfa)*Math.cos(betta);
 		sphereMesh.position.y = 100*Math.sin(alfa)*Math.sin(betta);
 		sphereMesh.position.z = 100*Math.cos(alfa);
-		console.log(alfa);
+		///console.log(alfa);
 		
 		
 		
