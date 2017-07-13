@@ -615,8 +615,8 @@ function renderIntro() {
 		
 		
 		
-		var xx = camera.position.x+30;
-		var yy = camera.position.y+30;
+		var xx = camera.position.x;
+		var yy = camera.position.y;
 		var zz = camera.position.z;
 		var rad = Math.sqrt(xx*xx + yy*yy + zz*zz);
 		var alfa = Math.acos(zz/rad);
@@ -628,9 +628,9 @@ function renderIntro() {
 		
 		
 		
-		sphereMesh.position.x = 100*Math.sin(alfa)*Math.cos(betta);
-		sphereMesh.position.y = 100*Math.sin(alfa)*Math.sin(betta);
-		sphereMesh.position.z = 100*Math.cos(alfa);
+		sphereMesh.position.x = 100*Math.sin(alfa+0.5)*Math.cos(betta+0.5);
+		sphereMesh.position.y = 100*Math.sin(alfa+0.5)*Math.sin(betta+0.5);
+		sphereMesh.position.z = 100*Math.cos(alfa+0.5);
 		///console.log(alfa);
 		
 		
