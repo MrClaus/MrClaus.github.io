@@ -606,7 +606,7 @@ function renderIntro() {
 		sphereMesh.position.z = -50*Math.sin(angOY)+0*Math.cos(angOY);
 		*/
 		// OZ
-		var angOZ = eyler_BasisZ(camera);
+		var angOZ = eyler_BasisZ(camera)+hjk;
 		sphereMesh.position.x = 100*Math.cos(angOZ)-0*Math.sin(angOZ);
 		sphereMesh.position.y = 100*Math.sin(angOZ)+0*Math.cos(angOZ);
 		hjk+=0.1;
