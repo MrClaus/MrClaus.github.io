@@ -484,7 +484,7 @@ function initObject2D() {
 	} );
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
-	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
+	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, refractionRatio: 0.95 } ); //envMap: textureCube, 
 	var geometry = new THREE.SphereBufferGeometry( 10, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
 	sphereMesh.position.set( 50, 50, 0 );
@@ -612,29 +612,17 @@ function renderIntro() {
 		hjk+=0.1;
 		
 		
-		function eyler_BasisY(obj) {
-			var angle;
+		function eyler_BasisY(obj) {			
 			var x = obj.position.x;
-			var z = obj.position.z;
-			var r = Math.sqrt(x*x + z*z)
-			//if (x==0) x = 0.000000000000001;
-			var param = x/r;
-			angle = Math.acos(param);
-			//if ((param >= 0) && (param <= 1)) angle = Math.PI + Math.acos(param);
-			//if ((param < 0) && (param >= -1)) angle = Math.acos(param);
+			var z = obj.position.z;			
+			var angle = Math.acos(x / Math.sqrt(x*x + z*z));			
 			if (z > 0) angle = 2 * Math.PI - angle;
 			return angle;			
 		}
-		function eyler_BasisZ(obj) {
-			var angle;
+		function eyler_BasisZ(obj) {			
 			var x = obj.position.x;
-			var y = obj.position.y;
-			var r = Math.sqrt(x*x + y*y)
-			//if (x==0) x = 0.000000000000001;
-			var param = x/r;
-			angle = Math.acos(param);
-			//if ((param >= 0) && (param <= 1)) angle = Math.acos(param);
-			//if ((param < 0) && (param >= -1)) angle = Math.PI + Math.acos(param);
+			var y = obj.position.y;			
+			var angle = Math.acos(x / Math.sqrt(x*x + y*y));			
 			if (y < 0) angle = 2 * Math.PI - angle;
 			return angle;			
 		}
