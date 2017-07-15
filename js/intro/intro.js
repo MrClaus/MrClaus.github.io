@@ -50,7 +50,7 @@ var hjk = 0;
 var angOZ, angOY, angOX;
 var pos;
 var alfa_Camera = 0, betta_Camera = 0;
-
+var aal=false;
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -707,7 +707,7 @@ function renderIntro() {
 	
 	function ControlsMove() {
 		lon += 0.618 * (mouseX - width / 2)/(width / 2);
- 		lat += 0.618 * (mouseY - height / 2)/(height / 2);
+ 		if (aal=true) lat += 0.618 * (mouseY - height / 2)/(height / 2);
 		//if (alfa_Camera < 0) alfa_Camera = 0;
 		//if (alfa_Camera > 3.1415) alfa_Camera = 3.1415;
 		
@@ -721,6 +721,7 @@ function renderIntro() {
 		var alfa = Math.acos(zz/rad);		
 		var betta = Math.acos(xx/(rad*Math.sin(alfa)));
 		if (yy < 0) betta = 2 * Math.PI - betta;
+		//if (aal=true) {console.log('ALFA= ', alfa);} else {console.log(BETTA= ', betta);}
 		console.log('ALFA= ', alfa, '     BETTA= ', betta);
 	}
 	
