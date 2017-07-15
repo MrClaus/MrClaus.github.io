@@ -49,6 +49,7 @@ var RR=1, xx=0, yy=0;
 var hjk = 0;
 var angOZ, angOY, angOX;
 var pos;
+var alfa_Camera = 0, betta_Camera = 0;
 
 	
 	
@@ -145,17 +146,13 @@ function initScene3D() {
 	camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 	camera.position.x = 0;
 	camera.position.y = 0;
-	camera.position.z = 100;
-	cameraS = new THREE.StereoCamera();
+	camera.position.z = 100;	
 					
 	// создаем рендерный движок и задаем ему параметры
-	//render3D = new THREE.WebGLRenderer( { antialias: false, alpha: true } );
-	render3D = new THREE.WebGLRenderer( { antialias: false } );
+	render3D = new THREE.WebGLRenderer( { antialias: false, alpha: true } );	
 	render3D.setPixelRatio(window.devicePixelRatio);
 	render3D.setSize(width, height);				
-	render3D.autoClear = false; //
-	//render3D.autoClearDepth = true; //
-	//render3D.autoClearStencil = true; //
+	render3D.autoClear = false;	
 	render3D.gammaInput = true;
 	render3D.gammaOutput = true;
 	render3D.shadowMap.enabled = true; // желателен для эффекта bloom
@@ -171,8 +168,7 @@ function initScene2D() {
 	// *** Основной код ***
 	
 	// создаём камеру для 2д спрайтовой сцены
-	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 0.001, 100 );
-	//cameraOrtho = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
+	cameraOrtho = new THREE.OrthographicCamera( - width / 2, width / 2, height / 2, - height / 2, 1, 10 );	
 	cameraOrtho.position.z = 10;
 	
 	// создаём сцену для 2д геймплэя
@@ -597,64 +593,14 @@ function renderIntro() {
 		
 		animate(delta); // код сцены, который исполняется во время рендринга
 		
-		//sphereMesh.matrix.setPosition(sphereMesh.position);
-		//sphereMesh.matrixAutoUpdate = false;
-		//sphereMesh.matrix.makeRotationFromQuaternion(camera.quaternion).updateMatrix();
-		//sphereMesh.position.x = (sphereMesh.position.x) + camera.position.x * camera.quaternion.x;
-		//sphereMesh.position.y = (sphereMesh.position.y) + camera.position.y * camera.quaternion.y;
-		//sphereMesh.position.z = (sphereMesh.position.z) + camera.position.z * camera.quaternion.z;
-		//sphereMesh.matrix.compose( sphereMesh.position, camera.quaternion, sphereMesh.scale );
-		//sphereMesh.matrixWorldNeedsUpdate = true;
-		//sphereMesh.rotation.x = camera.getWorldRotation().x
-		// OY
-		/*
-		var angOY = eyler_BasisY(camera);
-		sphereMesh.position.x = 50*Math.cos(angOY)+0*Math.sin(angOY);
-		sphereMesh.position.z = -50*Math.sin(angOY)+0*Math.cos(angOY);
-		*/
-		// OZ
-		//angOX = eyler_BasisX(camera);
-		angOZ = eyler_BasisZ(camera);
-		angOY = eyler_BasisY(camera);
-		//sphereMesh.position.x = 100*Math.cos(angOZ)-0*Math.sin(angOZ);
-		//sphereMesh.position.y = 100*Math.sin(angOZ)+0*Math.cos(angOZ);
 		
-		
-		/*
-		var xx = camera.position.x;
-		var yy = camera.position.y;
-		var zz = camera.position.z;
-		var rad = Math.sqrt(xx*xx + yy*yy + zz*zz);
-		var alfa = Math.acos(zz/rad);		
-		var betta = Math.acos(xx/(rad*Math.sin(alfa)));
-		if (yy < 0) betta = 2 * Math.PI - betta;		
-		sphereMesh.position.x = 100*Math.sin(alfa)*Math.cos(betta);
-		sphereMesh.position.y = 100*Math.sin(alfa)*Math.sin(betta);
-		sphereMesh.position.z = 100*Math.cos(alfa);
-		*/
 		objectP.rotation.x = camera.rotation.x;
 		objectP.rotation.y = camera.rotation.y;
 		objectP.rotation.z = camera.rotation.z;
 		
 		
 		
-		///hjk+=0.1;
 		
-		// rotate XYZ
-		var angA = camera.rotation.x;
-		var angB = camera.rotation.y;
-		var angC = camera.rotation.z;
-		var xx = 100;
-		var yy = 100;
-		var zz = 0;
-		//sphereMesh.position.x = xx*Math.cos(angB)*Math.cos(angC) + yy*(Math.sin(angA)*Math.sin(angB)*Math.cos(angC)-Math.cos(angA)*Math.sin(angC)) + zz*(Math.cos(angA)*Math.sin(angB)*Math.cos(angC)+Math.sin(angA)*Math.sin(angC));
-		//sphereMesh.position.y = xx*Math.cos(angB)*Math.sin(angC) + yy*(Math.sin(angA)*Math.sin(angB)*Math.sin(angC)+Math.cos(angA)*Math.cos(angC)) + zz*(Math.cos(angA)*Math.sin(angB)*Math.sin(angC)-Math.sin(angA)**Math.cos(angC));
-		//sphereMesh.position.z = -xx*Math.sin(angB) + yy*Math.sin(angA)*Math.cos(angB) + zz*Math.cos(angA)*Math.cos(angB);
-		
-		
-		//sphereMesh.position.x = xx*Math.cos(angC)*Math.cos(angB) - yy*(Math.sin(angC)*Math.cos(angB)) + zz*(Math.sin(angB));
-		//sphereMesh.position.y = xx*(Math.cos(angA)*Math.sin(angC)+Math.cos(angC)*Math.sin(angB)*Math.sin(angA)) + yy*(Math.cos(angA)*Math.cos(angC)-Math.sin(angA)*Math.sin(angB)*Math.sin(angC)) - zz*(Math.cos(angB)*Math.sin(angA));
-		//sphereMesh.position.z = xx*(Math.sin(angC)*Math.sin(angA)-Math.cos(angC)*Math.sin(angB)*Math.cos(angA)) + yy*(Math.sin(angA)*Math.cos(angC)+Math.sin(angC)*Math.sin(angB)*Math.cos(angA)) + zz*Math.cos(angA)*Math.cos(angB);
 		object_stick_toCamera(sphereMesh, pos, camera);
 		
 		function object_stick_toCamera(obj, pos, camera) {
@@ -666,34 +612,9 @@ function renderIntro() {
 			obj.position.z = pos.x * (Math.sin(angOZ)*Math.sin(angOX)-Math.cos(angOZ)*Math.sin(angOY)*Math.cos(angOX)) + pos.y * (Math.sin(angOX)*Math.cos(angOZ)+Math.sin(angOZ)*Math.sin(angOY)*Math.cos(angOX)) + pos.z * (Math.cos(angOX)*Math.cos(angOY));		
 		}
 		
-		function eyler_BasisX(obj) {			
-			var z = obj.position.z;
-			var y = obj.position.y;			
-			var angle = Math.acos(z / Math.sqrt(z*z + y*y));			
-			if (y < 0) angle = 2 * Math.PI - angle;
-			return angle;			
-		}
-		function eyler_BasisY(obj) {			
-			var x = obj.position.x;
-			var z = obj.position.z;			
-			var angle = Math.acos(x / Math.sqrt(x*x + z*z));			
-			if (z > 0) angle = 2 * Math.PI - angle;
-			return angle;			
-		}
-		function eyler_BasisZ(obj) {			
-			var x = obj.position.x;
-			var y = obj.position.y;			
-			var angle = Math.acos(x / Math.sqrt(x*x + y*y));			
-			if (y < 0) angle = 2 * Math.PI - angle;
-			return angle;			
-		}
 		
-		//sphereMesh.setRotationFromEuler(camera.getWorldRotation().x);
 		
-		//sphereMesh.updateMatrix();
-		
-		// bloom шейдер
-		//composerAlpha.render(delta);
+		// bloom шейдер		
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
 		// итоговый рендер сцены
@@ -735,12 +656,20 @@ function renderIntro() {
 				
 		// эффект камеры - рыбий глаз
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
+		
+		
+		/*		
 		lat = Math.max(-89.99999999, Math.min(89.99999999, lat));
 		phi = THREE.Math.degToRad(90 - lat);
 		theta = THREE.Math.degToRad(lon);
 		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
 		camera.position.y = distance * Math.cos(phi);
-		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);		
+		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);	
+		*/
+		camera.position.x = distance * Math.sin(alfa_Camera) * Math.cos(betta_Camera);
+		camera.position.y = distance * Math.sin(alfa_Camera) * Math.sin(betta_Camera);
+		camera.position.z = distance * Math.cos(alfa_Camera);
+		
 		camera.lookAt(scene.position);	
 		
 		
@@ -775,8 +704,8 @@ function renderIntro() {
 	}
 	
 	function ControlsMove() {
-		lon += 0.618 * (mouseX - width / 2)/(width / 2);
-		lat += 0.618 * (mouseY - height / 2)/(height / 2);
+		betta_Camera += 0.0618 * (mouseX - width / 2)/(width / 2);
+		alfa_Camera += 0.0618 * (mouseY - height / 2)/(height / 2);
 		
 		//camera.position.x+=lon*0.01;
 		//camera.position.y+=lat*0.01;
