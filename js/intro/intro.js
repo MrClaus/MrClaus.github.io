@@ -711,7 +711,7 @@ function renderIntro() {
 	
 	function ControlsMove() {
 		lon += 0.618 * (mouseX - width / 2)/(width / 2);
- 		lat += 0.618 * (mouseY - height / 2)/(height / 2);
+ 		lat -= 0.618 * (mouseY - height / 2)/(height / 2);
 		if (lat>=150) lat=150;
 		if (lat<=30) lat=30;
 		if (lon>=360) lon=lon-360;
