@@ -487,14 +487,13 @@ function initObject2D() {
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
 	
-	pos = new THREE.Points();
-	pos.position.x = 100;
-	pos.position.y = 100;
-	pos.position.z = 0;
+	
+	
 	
 	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } ); //envMap: textureCube, 
 	var geometry = new THREE.SphereBufferGeometry( 10, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
+	pos = new THREE.Vector3( 100, 100, 0 );
 	//sphereMesh.position.set( 100, 0, 0 );
 	scene.add( sphereMesh );
 }
@@ -656,13 +655,16 @@ function renderIntro() {
 		//sphereMesh.position.x = xx*Math.cos(angC)*Math.cos(angB) - yy*(Math.sin(angC)*Math.cos(angB)) + zz*(Math.sin(angB));
 		//sphereMesh.position.y = xx*(Math.cos(angA)*Math.sin(angC)+Math.cos(angC)*Math.sin(angB)*Math.sin(angA)) + yy*(Math.cos(angA)*Math.cos(angC)-Math.sin(angA)*Math.sin(angB)*Math.sin(angC)) - zz*(Math.cos(angB)*Math.sin(angA));
 		//sphereMesh.position.z = xx*(Math.sin(angC)*Math.sin(angA)-Math.cos(angC)*Math.sin(angB)*Math.cos(angA)) + yy*(Math.sin(angA)*Math.cos(angC)+Math.sin(angC)*Math.sin(angB)*Math.cos(angA)) + zz*Math.cos(angA)*Math.cos(angB);
+		object_stick_toCamera(sphereMesh, pos, camera);
 		
-		pos.rotation.x = camera.rotation.x;
-		pos.rotation.y = camera.rotation.y;
-		pos.rotation.z = camera.rotation.z;
-		sphereMesh.position.x = pos.position.x;
-		sphereMesh.position.y = pos.position.y;
-		sphereMesh.position.z = pos.position.z;
+		function object_stick_toCamera(obj, pos, camera) {
+			var angOX = camera.rotation.x;
+			var angOY = camera.rotation.y;
+			var angOZ = camera.rotation.z;
+			obj.position.x = pos.x * (Math.cos(angOZ)*Math.cos(angOY)) - pos.y * (Math.sin(angOZ)*Math.cos(angOY)) + pos.z * (Math.sin(angOY));
+			obj.position.y = pos.x * (Math.cos(angOX)*Math.sin(angOZ)+Math.cos(angOZ)*Math.sin(angOY)*Math.sin(angOX)) + pos.y * (Math.cos(angOX)*Math.cos(angOZ)-Math.sin(angOX)*Math.sin(angOY)*Math.sin(angOZ)) - pos.z * (Math.cos(angOY)*Math.sin(angOX));
+			obj.position.z = pos.x * (Math.sin(angOZ)*Math.sin(angOX)-Math.cos(angOZ)*Math.sin(angOY)*Math.cos(angOX)) + pos.y * (Math.sin(angOX)*Math.cos(angOZ)+Math.sin(angOZ)*Math.sin(angOY)*Math.cos(angOX)) + pos.z * (Math.cos(angOX)*Math.cos(angOY));		
+		}
 		
 		function eyler_BasisX(obj) {			
 			var z = obj.position.z;
