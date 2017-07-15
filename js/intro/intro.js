@@ -707,7 +707,7 @@ function renderIntro() {
 	
 	function ControlsMove() {
 		lon += 0.618 * (mouseX - width / 2)/(width / 2);
- 		if (aal=true) lat += 0.618 * (mouseY - height / 2)/(height / 2);
+ 		if (aal==true) lat += 0.618 * (mouseY - height / 2)/(height / 2);
 		//if (alfa_Camera < 0) alfa_Camera = 0;
 		//if (alfa_Camera > 3.1415) alfa_Camera = 3.1415;
 		
