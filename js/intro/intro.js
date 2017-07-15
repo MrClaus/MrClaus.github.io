@@ -51,6 +51,7 @@ var angOZ, angOY, angOX;
 var pos;
 var alfa_Camera = 0, betta_Camera = 0;
 var aal=false;
+var angCam_W = 0, angCam_H = 0;
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -589,32 +590,8 @@ function renderIntro() {
 		delta = clock.getDelta();
 		requestAF(render);
 		
-		
-		
-		
 		animate(delta); // код сцены, который исполняется во время рендринга
-		
-		
-		objectP.rotation.x = camera.rotation.x;
-		objectP.rotation.y = camera.rotation.y;
-		objectP.rotation.z = camera.rotation.z;
-		
-		
-		
-		
-		object_stick_toCamera(sphereMesh, pos, camera);
-		
-		function object_stick_toCamera(obj, pos, camera) {
-			var angOX = camera.rotation.x;
-			var angOY = camera.rotation.y;
-			var angOZ = camera.rotation.z;
-			obj.position.x = pos.x * (Math.cos(angOZ)*Math.cos(angOY)) - pos.y * (Math.sin(angOZ)*Math.cos(angOY)) + pos.z * (Math.sin(angOY));
-			obj.position.y = pos.x * (Math.cos(angOX)*Math.sin(angOZ)+Math.cos(angOZ)*Math.sin(angOY)*Math.sin(angOX)) + pos.y * (Math.cos(angOX)*Math.cos(angOZ)-Math.sin(angOX)*Math.sin(angOY)*Math.sin(angOZ)) - pos.z * (Math.cos(angOY)*Math.sin(angOX));
-			obj.position.z = pos.x * (Math.sin(angOZ)*Math.sin(angOX)-Math.cos(angOZ)*Math.sin(angOY)*Math.cos(angOX)) + pos.y * (Math.sin(angOX)*Math.cos(angOZ)+Math.sin(angOZ)*Math.sin(angOY)*Math.cos(angOX)) + pos.z * (Math.cos(angOX)*Math.cos(angOY));		
-		}
-		
-		
-		
+				
 		// bloom шейдер		
 		render3D.toneMappingExposure = Math.pow(paramsBloom.exposure, 4.0);
 		
@@ -631,10 +608,10 @@ function renderIntro() {
 	
 	function animate(delta) {
 		stats.update();
-		//controls.update(delta);
+		//controls.update(delta);		
+		controlsUpdate(); // обновление параметров камеры
 		
-		// анимируем движение системы частиц
-		
+		// анимируем движение системы частиц		
 		var particlesDelta = delta * spawn_particleSystem.timeScale;
 		tick_particle += particlesDelta;
 		if ( tick_particle < 0 ) tick_particle = 0;
@@ -654,32 +631,19 @@ function renderIntro() {
 		}
 		particleSystem1.update( tick_particle );
 		particleSystem2.update( tick_particle );
-				
-		// эффект камеры - рыбий глаз
-		ControlsMove(); // контроль поворота камеры - рыбий глаз
 		
+		// закрепляем объект к вьюпорту камеры
+		object_stick_toCamera(sphereMesh, pos, camera);
 		
-				
-		//lat = Math.max(-90, Math.min(90, lat));
-		//phi = THREE.Math.degToRad(90 - lat);
-		phi = THREE.Math.degToRad(lat);
-		theta = THREE.Math.degToRad(lon);
-		console.log('Alfa',phi*180/3.1416, '     Betta',theta*180/3.1416);
-		
-		
-		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
-		camera.position.y = distance * Math.cos(phi); // OY direction UPward
-		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);	
-		
-		/*
-		camera.position.x = distance * Math.sin(alfa_Camera) * Math.cos(betta_Camera);
-		camera.position.y = distance * Math.sin(alfa_Camera) * Math.sin(betta_Camera);
-		camera.position.z = distance * Math.cos(alfa_Camera);*/
-		
-		camera.lookAt(scene.position);	
-		
-		
-		
+		function object_stick_toCamera(obj, pos, camera) {
+			// поворачивает позицию объекта в пространстве таким образом, что при поворотах камеры объект остаётся неподвижным - через последовательно перемноженные матрицы поворота OZ*OY*OX
+			var angOX = camera.rotation.x;
+			var angOY = camera.rotation.y;
+			var angOZ = camera.rotation.z;
+			obj.position.x = pos.x * (Math.cos(angOZ)*Math.cos(angOY)) - pos.y * (Math.sin(angOZ)*Math.cos(angOY)) + pos.z * (Math.sin(angOY));
+			obj.position.y = pos.x * (Math.cos(angOX)*Math.sin(angOZ)+Math.cos(angOZ)*Math.sin(angOY)*Math.sin(angOX)) + pos.y * (Math.cos(angOX)*Math.cos(angOZ)-Math.sin(angOX)*Math.sin(angOY)*Math.sin(angOZ)) - pos.z * (Math.cos(angOY)*Math.sin(angOX));
+			obj.position.z = pos.x * (Math.sin(angOZ)*Math.sin(angOX)-Math.cos(angOZ)*Math.sin(angOY)*Math.cos(angOX)) + pos.y * (Math.sin(angOX)*Math.cos(angOZ)+Math.sin(angOZ)*Math.sin(angOY)*Math.cos(angOX)) + pos.z * (Math.cos(angOX)*Math.cos(angOY));		
+		}		
 	}
 	
 	function onWindowResize() {
@@ -704,36 +668,24 @@ function renderIntro() {
 	}
 	
 	function onDocumentMouseWheel(event) {
-		distance += event.deltaY * 0.05;
-		//console.log('X(',options_particleSystem.position.x,') Y(',options_particleSystem.position.y,') Z(',options_particleSystem.position.z,')');
-		//console.log('>> delta ', delta,' / tick ', tick_particle, ' /');
+		distance += event.deltaY * 0.05; // значение дистанции камеры от цели - начала координат
 	}
 	
-	function ControlsMove() {
-		lon += 0.618 * (mouseX - width / 2)/(width / 2);
- 		lat -= 0.618 * (mouseY - height / 2)/(height / 2);
-		if (lat>=150) lat=150;
-		if (lat<=30) lat=30;
-		if (lon>=360) lon=lon-360;
-		if (lon<=0) lon=360+lon;
-		//if (alfa_Camera < 0) alfa_Camera = 0;
-		//if (alfa_Camera > 3.1415) alfa_Camera = 3.1415;
-		
-		//camera.position.x+=lon*0.01;
-		//camera.position.y+=lat*0.01;
-		/*
-		var xx = camera.position.x;
-		var yy = camera.position.y;
-		var zz = camera.position.z;
-		var rad = Math.sqrt(xx*xx + yy*yy + zz*zz);
-		var alfa = Math.acos(zz/rad);		
-		var betta = Math.acos(xx/(rad*Math.sin(alfa)));
-		if (yy < 0) betta = 2 * Math.PI - betta;
-		//if (aal=true) {console.log('ALFA= ', alfa);} else {console.log(BETTA= ', betta);}
-		console.log('ALFA= ', alfa, '     BETTA= ', betta);
-		*/
+	function controlsUpdate() {
+		// перерасчёт углов Эйлера (в градусах)
+		angCam_W += 0.618 * (mouseX-width/2) / (width/2);
+ 		angCam_H -= 0.618 * (mouseY-height/2) / (height/2);
+		if (angCam_H>=150) angCam_H = 150; // 150' нижняя граница обзора камеры
+		if (angCam_H<=30) angCam_H = 30; // 30' верхняя граница обзора камеры
+		if (angCam_W>=360) angCam_W -= 360;
+		if (angCam_W<=0) angCam_W += 360;
+		var phi = THREE.Math.degToRad(angCam_H);
+		var theta = THREE.Math.degToRad(angCam_W);
+		// перерасчёт позиции камеры - по параметрическому уравнению сферы
+		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
+		camera.position.y = distance * Math.cos(phi); // OY direction UPward
+		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);
+		camera.lookAt(scene.position);	// камера наводится на цель - начало координат
 	}
-	
-	// *** Конец неосновного кода ***
 	
 }
