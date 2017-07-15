@@ -659,17 +659,18 @@ function renderIntro() {
 		ControlsMove(); // контроль поворота камеры - рыбий глаз
 		
 		
-		/*		
+				
 		lat = Math.max(-89.99999999, Math.min(89.99999999, lat));
 		phi = THREE.Math.degToRad(90 - lat);
 		theta = THREE.Math.degToRad(lon);
 		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
 		camera.position.y = distance * Math.cos(phi);
 		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);	
-		*/
+		
+		/*
 		camera.position.x = distance * Math.sin(alfa_Camera) * Math.cos(betta_Camera);
 		camera.position.y = distance * Math.sin(alfa_Camera) * Math.sin(betta_Camera);
-		camera.position.z = distance * Math.cos(alfa_Camera);
+		camera.position.z = distance * Math.cos(alfa_Camera);*/
 		
 		camera.lookAt(scene.position);	
 		
@@ -705,11 +706,22 @@ function renderIntro() {
 	}
 	
 	function ControlsMove() {
-		betta_Camera += 0.0618 * (mouseX - width / 2)/(width / 2);
-		alfa_Camera += 0.0618 * (mouseY - height / 2)/(height / 2);
+		lon += 0.618 * (mouseX - width / 2)/(width / 2);
+ 		lat += 0.618 * (mouseY - height / 2)/(height / 2);
+		//if (alfa_Camera < 0) alfa_Camera = 0;
+		//if (alfa_Camera > 3.1415) alfa_Camera = 3.1415;
 		
 		//camera.position.x+=lon*0.01;
 		//camera.position.y+=lat*0.01;
+		
+		var xx = camera.position.x;
+		var yy = camera.position.y;
+		var zz = camera.position.z;
+		var rad = Math.sqrt(xx*xx + yy*yy + zz*zz);
+		var alfa = Math.acos(zz/rad);		
+		var betta = Math.acos(xx/(rad*Math.sin(alfa)));
+		if (yy < 0) betta = 2 * Math.PI - betta;
+		console.log('ALFA= ', alfa, '     BETTA= ', betta);
 	}
 	
 	// *** Конец неосновного кода ***
