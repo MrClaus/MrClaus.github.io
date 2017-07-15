@@ -48,6 +48,7 @@ var textureCube;
 var RR=1, xx=0, yy=0;
 var hjk = 0;
 var angOZ, angOY, angOX;
+var pos;
 
 	
 	
@@ -485,10 +486,16 @@ function initObject2D() {
 	} );
 	material.uniforms[ "tEquirect" ].value = mapSky;
 	*/
+	
+	pos = new THREE.Points();
+	pos.position.x = 100;
+	pos.position.y = 100;
+	pos.position.z = 0;
+	
 	var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } ); //envMap: textureCube, 
 	var geometry = new THREE.SphereBufferGeometry( 10, 64, 64 );
 	sphereMesh = new THREE.Mesh( geometry, material );
-	sphereMesh.position.set( 100, 0, 0 );
+	//sphereMesh.position.set( 100, 0, 0 );
 	scene.add( sphereMesh );
 }
 
@@ -645,9 +652,17 @@ function renderIntro() {
 		//sphereMesh.position.y = xx*Math.cos(angB)*Math.sin(angC) + yy*(Math.sin(angA)*Math.sin(angB)*Math.sin(angC)+Math.cos(angA)*Math.cos(angC)) + zz*(Math.cos(angA)*Math.sin(angB)*Math.sin(angC)-Math.sin(angA)**Math.cos(angC));
 		//sphereMesh.position.z = -xx*Math.sin(angB) + yy*Math.sin(angA)*Math.cos(angB) + zz*Math.cos(angA)*Math.cos(angB);
 		
-		sphereMesh.position.x = xx*Math.cos(angC)*Math.cos(angB) - yy*(Math.sin(angC)*Math.cos(angB)) + zz*(Math.sin(angB));
-		sphereMesh.position.y = xx*(Math.cos(angA)*Math.sin(angC)+Math.cos(angC)*Math.sin(angB)*Math.sin(angA)) + yy*(Math.cos(angA)*Math.cos(angC)-Math.sin(angA)*Math.sin(angB)*Math.sin(angC)) - zz*(Math.cos(angB)*Math.sin(angA));
-		sphereMesh.position.z = xx*(Math.sin(angC)*Math.sin(angA)-Math.cos(angC)*Math.sin(angB)*Math.cos(angA)) + yy*(Math.sin(angA)*Math.cos(angC)+Math.sin(angC)*Math.sin(angB)*Math.cos(angA)) + zz*Math.cos(angA)*Math.cos(angB);
+		
+		//sphereMesh.position.x = xx*Math.cos(angC)*Math.cos(angB) - yy*(Math.sin(angC)*Math.cos(angB)) + zz*(Math.sin(angB));
+		//sphereMesh.position.y = xx*(Math.cos(angA)*Math.sin(angC)+Math.cos(angC)*Math.sin(angB)*Math.sin(angA)) + yy*(Math.cos(angA)*Math.cos(angC)-Math.sin(angA)*Math.sin(angB)*Math.sin(angC)) - zz*(Math.cos(angB)*Math.sin(angA));
+		//sphereMesh.position.z = xx*(Math.sin(angC)*Math.sin(angA)-Math.cos(angC)*Math.sin(angB)*Math.cos(angA)) + yy*(Math.sin(angA)*Math.cos(angC)+Math.sin(angC)*Math.sin(angB)*Math.cos(angA)) + zz*Math.cos(angA)*Math.cos(angB);
+		
+		pos.rotation.x = camera.rotation.x;
+		pos.rotation.y = camera.rotation.y;
+		pos.rotation.z = camera.rotation.z;
+		sphereMesh.position.x = pos.position.x;
+		sphereMesh.position.y = pos.position.y;
+		sphereMesh.position.z = pos.position.z;
 		
 		function eyler_BasisX(obj) {			
 			var z = obj.position.z;
