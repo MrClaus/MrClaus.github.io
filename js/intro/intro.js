@@ -660,12 +660,15 @@ function renderIntro() {
 		
 		
 				
-		lat = Math.max(-90, Math.min(90, lat));
-		phi = THREE.Math.degToRad(90 - lat);
+		//lat = Math.max(-90, Math.min(90, lat));
+		//phi = THREE.Math.degToRad(90 - lat);
+		phi = THREE.Math.degToRad(lat);
 		theta = THREE.Math.degToRad(lon);
 		console.log('Alfa',phi*180/3.1416, '     Betta',theta*180/3.1416);
+		
+		
 		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
-		camera.position.y = distance * Math.cos(phi);
+		camera.position.y = distance * Math.cos(phi); // OY direction UPward
 		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);	
 		
 		/*
@@ -708,7 +711,11 @@ function renderIntro() {
 	
 	function ControlsMove() {
 		lon += 0.618 * (mouseX - width / 2)/(width / 2);
- 		if (aal==true) lat += 0.618 * (mouseY - height / 2)/(height / 2);
+ 		lat += 0.618 * (mouseY - height / 2)/(height / 2);
+		if (lat>=150) lat=150;
+		if (lat<=30) lat=30;
+		if (lon>=360) lon=lon-360;
+		if (lon<=0) lon=360+lon;
 		//if (alfa_Camera < 0) alfa_Camera = 0;
 		//if (alfa_Camera > 3.1415) alfa_Camera = 3.1415;
 		
