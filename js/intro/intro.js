@@ -660,9 +660,10 @@ function renderIntro() {
 		
 		
 				
-		lat = Math.max(-89.99999999, Math.min(89.99999999, lat));
+		lat = Math.max(-90, Math.min(90, lat));
 		phi = THREE.Math.degToRad(90 - lat);
 		theta = THREE.Math.degToRad(lon);
+		console.log('Alfa',phi*180/3.1416, '     Betta',theta*180/3.1416);
 		camera.position.x = distance * Math.sin(phi) * Math.cos(theta);
 		camera.position.y = distance * Math.cos(phi);
 		camera.position.z = distance * Math.sin(phi) * Math.sin(theta);	
@@ -713,7 +714,7 @@ function renderIntro() {
 		
 		//camera.position.x+=lon*0.01;
 		//camera.position.y+=lat*0.01;
-		
+		/*
 		var xx = camera.position.x;
 		var yy = camera.position.y;
 		var zz = camera.position.z;
@@ -723,6 +724,7 @@ function renderIntro() {
 		if (yy < 0) betta = 2 * Math.PI - betta;
 		//if (aal=true) {console.log('ALFA= ', alfa);} else {console.log(BETTA= ', betta);}
 		console.log('ALFA= ', alfa, '     BETTA= ', betta);
+		*/
 	}
 	
 	// *** Конец неосновного кода ***
