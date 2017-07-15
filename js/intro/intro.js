@@ -146,7 +146,8 @@ function initScene3D() {
 	camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 101000);
 	camera.position.x = 0;
 	camera.position.y = 0;
-	camera.position.z = 100;	
+	camera.position.z = 100;
+	cameraS = new THREE.StereoCamera();
 					
 	// создаем рендерный движок и задаем ему параметры
 	render3D = new THREE.WebGLRenderer( { antialias: false, alpha: true } );	
