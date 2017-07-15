@@ -645,9 +645,9 @@ function renderIntro() {
 		//sphereMesh.position.y = xx*Math.cos(angB)*Math.sin(angC) + yy*(Math.sin(angA)*Math.sin(angB)*Math.sin(angC)+Math.cos(angA)*Math.cos(angC)) + zz*(Math.cos(angA)*Math.sin(angB)*Math.sin(angC)-Math.sin(angA)**Math.cos(angC));
 		//sphereMesh.position.z = -xx*Math.sin(angB) + yy*Math.sin(angA)*Math.cos(angB) + zz*Math.cos(angA)*Math.cos(angB);
 		
-		sphereMesh.position.x = xx*Math.cos(angC)*Math.cos(angB) - yy*(Math.sin(angC)*Math.cos(angB)) + zz*(Math.sin(angB));
-		sphereMesh.position.y = xx*(Math.cos(angA)*Math.sin(angC)+Math.cos(angC)*Math.sin(angB)*Math.sin(angA)) + yy*(Math.cos(angA)*Math.cos(angC)-Math.sin(angA)*Math.sin(angB)*Math.sin(angC)) - zz*(Math.cos(angB)*Math.sin(angA));
-		sphereMesh.position.z = xx*(Math.sin(angC)*Math.sin(angA)-Math.cos(angC)*Math.sin(angB)*Math.cos(angA)) + yy*(Math.sin(angA)*Math.cos(angC)+Math.sin(angC)*Math.sin(angB)*Math.cos(angA)) + zz*Math.cos(angA)*Math.cos(angB);
+		// sphereMesh.position.x = xx*Math.cos(angC)*Math.cos(angB) - yy*(Math.sin(angC)*Math.cos(angB)) + zz*(Math.sin(angB));
+		// sphereMesh.position.y = xx*(Math.cos(angA)*Math.sin(angC)+Math.cos(angC)*Math.sin(angB)*Math.sin(angA)) + yy*(Math.cos(angA)*Math.cos(angC)-Math.sin(angA)*Math.sin(angB)*Math.sin(angC)) - zz*(Math.cos(angB)*Math.sin(angA));
+		// sphereMesh.position.z = xx*(Math.sin(angC)*Math.sin(angA)-Math.cos(angC)*Math.sin(angB)*Math.cos(angA)) + yy*(Math.sin(angA)*Math.cos(angC)+Math.sin(angC)*Math.sin(angB)*Math.cos(angA)) + zz*Math.cos(angA)*Math.cos(angB);
 		
 		function eyler_BasisX(obj) {			
 			var z = obj.position.z;
