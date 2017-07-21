@@ -52,6 +52,7 @@ var pos;
 var alfa_Camera = 0, betta_Camera = 0;
 var aal=false;
 var angCam_W = 0, angCam_H = 0;
+var mipp;
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -82,7 +83,7 @@ function resLoad() {
 	// *** Основной код ***
 	
 	var count = 0;
-	var count_res = 7;
+	var count_res = 8;
 	
 	mapSky = loadIMG("tex.png");
 	mapSky.mapping = THREE.EquirectangularRefractionMapping;
@@ -90,6 +91,7 @@ function resLoad() {
 	mapSky.minFilter = THREE.LinearMipMapLinearFilter;
 	
 	spriteRes = loadIMG("res/intro/testDevice.png");
+	mipp = loadIMG("mipTest.bmp");
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
