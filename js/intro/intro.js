@@ -52,7 +52,7 @@ var pos;
 var alfa_Camera = 0, betta_Camera = 0;
 var aal=false;
 var angCam_W = 0, angCam_H = 0;
-var mipp, matt;
+var mipp, matt, mesh1;
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -501,6 +501,9 @@ function initObject2D() {
 	pos = new THREE.Vector3( 100, 100, 0 );
 	//sphereMesh.position.set( 100, 0, 0 );
 	scene.add( sphereMesh );
+	
+	mesh1 = new THREE.Mesh( new THREE.TorusGeometry( 100, 50, 32, 16 ), matt );
+	scene.add( mesh );
 }
 
 
