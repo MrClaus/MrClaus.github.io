@@ -94,52 +94,41 @@ function resLoad() {
 	
 	//mipp = loadIMG("mipTest.bmp");
 	//mipp = THREE.ImageUtils.loadTexture("mipTest.bmp");
-	mipp = THREE.ImageUtils.loadTexture( 'mipTest.bmp', undefined, function() {
-		mipp.repeat.set( 1, 1 );
-		//mipp.mipmaps[ 0 ] = mipp;
-		mipp.generateMipmaps = true;
-		mipp.needsUpdate = true;
-	});
-	function loadARGBMip( buffer, dataOffset, width, height ) {
+	mipp = BmpDecoder("mipTest.bmp");
+	function BmpDecoder(buffer) {
+		var width = buffer.readUInt32LE(18);
+		var height = buffer.readUInt32LE(22);
+		var pos = buffer.readUInt32LE(10);
+		var len = width * height * 4;
+		var data = new Buffer(len);
 
-		var dataLength = width * height * 4;
-		var srcBuffer = new Uint8Array( buffer, dataOffset, dataLength );
-		var byteArray = new Uint8Array( dataLength );
-		var dst = 0;
-		var src = 0;
-		for ( var y = 0; y < height; y ++ ) {
-
-			for ( var x = 0; x < width; x ++ ) {
-
-				var b = srcBuffer[ src ]; src ++;
-				var g = srcBuffer[ src ]; src ++;
-				var r = srcBuffer[ src ]; src ++;
-				var a = srcBuffer[ src ]; src ++;
-				byteArray[ dst ] = r; dst ++;	//r
-				byteArray[ dst ] = g; dst ++;	//g
-				byteArray[ dst ] = b; dst ++;	//b
-				byteArray[ dst ] = a; dst ++;	//a
-
+		for (var y = height - 1; y >= 0; y--) {
+			for (var x = 0; x < width; x++) {
+				var blue = buffer.readUInt8(pos++);
+				var green = buffer.readUInt8(pos++);
+				var red = buffer.readUInt8(pos++);
+				var alpha = buffer.readUInt8(pos++);
+				var location = y * width * 4 + x * 4;
+				data[location] = alpha;
+				data[location + 1] = red;
+				data[location + 2] = green;
+				data[location + 3] = blue;
 			}
-
+			//skip extra bytes
+			pos += (width % 4);
 		}
-		return byteArray;
 
+		console.log("source BMP loaded. width:", width, " height:", height);
+		return data;
 	}
-	var off_size = 1;
-	var buffer = "mipTest.bmp";
-	var headerLengthInt = 31; // The header length in 32 bit ints
-	var header = new Int32Array( buffer, 0, headerLengthInt );
-	var dataOffset = header[ off_size ] + 4;
-	byteArray = loadARGBMip( buffer, dataOffset, 4, 4 );
 	
 	
 	
 	
 	
-	mipp.minFilter = mipp.magFilter = THREE.LinearFilter;
-	mipp.anisotropy = 4;
-	matt = new THREE.MeshBasicMaterial( { map: mipp } );
+	/*mipp.minFilter = mipp.magFilter = THREE.LinearFilter;
+	mipp.anisotropy = 4;*/
+	matt = new THREE.MeshBasicMaterial(  );
 	
 	
 	texFlare = loadIMG("res/flare/flare0.png");
