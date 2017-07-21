@@ -99,7 +99,7 @@ function resLoad() {
 		mipp.mipmaps[ 0 ] = mipp.image;
 		mipp.generateMipmaps = true;
 		mipp.needsUpdate = true;
-	};
+	});
 	
 	
 	mipp.minFilter = mipp.magFilter = THREE.LinearFilter;
