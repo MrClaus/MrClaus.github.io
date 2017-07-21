@@ -503,7 +503,7 @@ function initObject2D() {
 	scene.add( sphereMesh );
 	
 	mesh1 = new THREE.Mesh( new THREE.TorusGeometry( 100, 50, 32, 16 ), matt );
-	scene.add( mesh );
+	scene.add( mesh1 );
 }
 
 
