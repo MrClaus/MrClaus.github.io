@@ -83,7 +83,7 @@ function resLoad() {
 	// *** Основной код ***
 	
 	var count = 0;
-	var count_res = 8;
+	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
 	mapSky.mapping = THREE.EquirectangularRefractionMapping;
