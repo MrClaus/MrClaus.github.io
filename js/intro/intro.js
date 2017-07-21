@@ -91,8 +91,11 @@ function resLoad() {
 	mapSky.minFilter = THREE.LinearMipMapLinearFilter;
 	
 	spriteRes = loadIMG("res/intro/testDevice.png");
+	
 	mipp = loadIMG("mipTest.bmp");
+	mipp.anisotropy = 4;
 	matt = new THREE.MeshBasicMaterial( { map: mipp } );
+	
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
