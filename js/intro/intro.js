@@ -92,7 +92,8 @@ function resLoad() {
 	
 	spriteRes = loadIMG("res/intro/testDevice.png");
 	
-	mipp = loadIMG("mipTest.bmp");
+	//mipp = loadIMG("mipTest.bmp");
+	mipp = THREE.ImageUtils.loadTexture("mipTest.bmp");
 	mipp.minFilter = mipp.magFilter = THREE.LinearFilter;
 	mipp.anisotropy = 4;
 	matt = new THREE.MeshBasicMaterial( { map: mipp } );
