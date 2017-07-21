@@ -95,10 +95,10 @@ function resLoad() {
 	//mipp = loadIMG("mipTest.bmp");
 	//mipp = THREE.ImageUtils.loadTexture("mipTest.bmp");
 	mipp = THREE.ImageUtils.loadTexture( 'mipTest.bmp', undefined, function() {
-		mipp.repeat.set( 1, 1 );
-		mipp.mipmaps[ 0 ] = mipp.image;
+		//mipp.repeat.set( 1, 1 );
+		//mipp.mipmaps[ 0 ] = mipp.image;
 		mipp.generateMipmaps = true;
-		mipp.needsUpdate = true;
+		//mipp.needsUpdate = true;
 	});
 	
 	
