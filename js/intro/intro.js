@@ -93,7 +93,15 @@ function resLoad() {
 	spriteRes = loadIMG("res/intro/testDevice.png");
 	
 	//mipp = loadIMG("mipTest.bmp");
-	mipp = THREE.ImageUtils.loadTexture("mipTest.bmp");
+	//mipp = THREE.ImageUtils.loadTexture("mipTest.bmp");
+	mipp = THREE.ImageUtils.loadTexture( 'mipTest.bmp', undefined, function() {
+		mipp.repeat.set( 1, 1 );
+		mipp.mipmaps[ 0 ] = mipp.image;
+		mipp.generateMipmaps = true;
+		mipp.needsUpdate = true;
+	};
+	
+	
 	mipp.minFilter = mipp.magFilter = THREE.LinearFilter;
 	mipp.anisotropy = 4;
 	matt = new THREE.MeshBasicMaterial( { map: mipp } );
