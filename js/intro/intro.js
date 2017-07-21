@@ -52,7 +52,7 @@ var pos;
 var alfa_Camera = 0, betta_Camera = 0;
 var aal=false;
 var angCam_W = 0, angCam_H = 0;
-var mipp;
+var mipp, matt;
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -92,6 +92,7 @@ function resLoad() {
 	
 	spriteRes = loadIMG("res/intro/testDevice.png");
 	mipp = loadIMG("mipTest.bmp");
+	matt = new THREE.MeshBasicMaterial( { map: mipp } );
 	
 	texFlare = loadIMG("res/flare/flare0.png");
 	texFlare1245 = loadIMG("res/flare/flare1245.png");
