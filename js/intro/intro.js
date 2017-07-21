@@ -94,10 +94,31 @@ function resLoad() {
 	
 	//mipp = loadIMG("mipTest.bmp");
 	//mipp = THREE.ImageUtils.loadTexture("mipTest.bmp");
-	mipp = BmpDecoder("mipTest.bmp");
+	BmpDecoder("mipTest.bmp");
 	function BmpDecoder(buffer) {
+		
+		
+		var input = buffer;
+		var ffile = input.files[0];
+		var reader = new FileReader();
+		reader.onload = function (event){
+			var reader = event.target;
+			var arrayBuffer = reader.result;
+			dalee(new Int32Array(arrayBuffer));
+		};
+		reader.readAsArrayBuffer(ffile);
+		function dalee(array) {			
+			var width = reader.readAsBinaryString(ffile.webkitSlice(18, 21));
+			var height = reader.readAsBinaryString(ffile.webkitSlice(22, 25));
+			console.log("source BMP loaded. width:", width, " height:", height);
+		}	
+			
+		
+
+		
+		/*
 		var width = buffer.readUInt32LE(18);
-		var height = buffer.readUInt32LE(22);
+		
 		var pos = buffer.readUInt32LE(10);
 		var len = width * height * 4;
 		var data = new Buffer(len);
@@ -119,7 +140,7 @@ function resLoad() {
 		}
 
 		console.log("source BMP loaded. width:", width, " height:", height);
-		return data;
+		return data;*/
 	}
 	
 	
