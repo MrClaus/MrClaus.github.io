@@ -52,7 +52,7 @@ var pos;
 var alfa_Camera = 0, betta_Camera = 0;
 var aal=false;
 var angCam_W = 0, angCam_H = 0;
-var mipp, matt, mesh1;
+var mipp, matt, mesh1,byteArray;
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -100,6 +100,41 @@ function resLoad() {
 		mipp.generateMipmaps = true;
 		mipp.needsUpdate = true;
 	});
+	function loadARGBMip( buffer, dataOffset, width, height ) {
+
+		var dataLength = width * height * 4;
+		var srcBuffer = new Uint8Array( buffer, dataOffset, dataLength );
+		var byteArray = new Uint8Array( dataLength );
+		var dst = 0;
+		var src = 0;
+		for ( var y = 0; y < height; y ++ ) {
+
+			for ( var x = 0; x < width; x ++ ) {
+
+				var b = srcBuffer[ src ]; src ++;
+				var g = srcBuffer[ src ]; src ++;
+				var r = srcBuffer[ src ]; src ++;
+				var a = srcBuffer[ src ]; src ++;
+				byteArray[ dst ] = r; dst ++;	//r
+				byteArray[ dst ] = g; dst ++;	//g
+				byteArray[ dst ] = b; dst ++;	//b
+				byteArray[ dst ] = a; dst ++;	//a
+
+			}
+
+		}
+		return byteArray;
+
+	}
+	var off_size = 1;
+	var buffer = "mipTest.bmp";
+	var headerLengthInt = 31; // The header length in 32 bit ints
+	var header = new Int32Array( buffer, 0, headerLengthInt );
+	var dataOffset = header[ off_size ] + 4;
+	byteArray = loadARGBMip( buffer, dataOffset, 4, 4 );
+	
+	
+	
 	
 	
 	mipp.minFilter = mipp.magFilter = THREE.LinearFilter;
