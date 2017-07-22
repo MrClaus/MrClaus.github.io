@@ -98,6 +98,44 @@ function resLoad() {
 	function BmpDecoder(buffer) {
 		
 		
+		
+		
+		
+		
+		window.requestFileSystem(window.PERSISTENT, 1024*1024, onInitFs, errorHandler);
+
+		function onInitFs(fs) {
+			fs.root.getFile('mipTest.bmp', {create: true, exclusive: true}, function(fileEntry) {
+				fileEntry.file(function(file) {
+					var reader = new FileReader();
+
+					reader.onload = function (event){
+						var reader = event.target;
+						var arrayBuffer = reader.result;
+						dalee(new Int32Array(arrayBuffer));
+					};
+					reader.readAsArrayBuffer(file);
+					function dalee(array) {			
+						var width = reader.readAsBinaryString(array.webkitSlice(18, 21));
+						var height = reader.readAsBinaryString(array.webkitSlice(22, 25));
+						console.log("source BMP loaded. width:", width, " height:", height);
+					}
+				
+				}, errorHandler);
+
+
+		  }, errorHandler);
+
+		}
+		function errorHandler() {
+			console.log('Error load BitMap file!');
+		}
+		
+		
+		
+		
+		
+		/*
 		//var input = buffer;
 		//var ffile = input.files[0];
 		var reader = new FileReader();
@@ -111,7 +149,7 @@ function resLoad() {
 			var width = reader.readAsBinaryString(ffile.webkitSlice(18, 21));
 			var height = reader.readAsBinaryString(ffile.webkitSlice(22, 25));
 			console.log("source BMP loaded. width:", width, " height:", height);
-		}	
+		}*/	
 			
 		
 
