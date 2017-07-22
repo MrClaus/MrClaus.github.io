@@ -94,7 +94,7 @@ function resLoad() {
 	
 	//mipp = loadIMG("mipTest.bmp");
 	var loader = new THREE.DDSLoader();
-	mipp = loader.load( 'mipTest.dds' );
+	mipp = loader.load( 'mipTest2.dds' );
 	
 	
 	
