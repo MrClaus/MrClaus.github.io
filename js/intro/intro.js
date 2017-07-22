@@ -98,15 +98,15 @@ function resLoad() {
 	function BmpDecoder(buffer) {
 		
 		
-		var input = buffer;
-		var ffile = input.files[0];
+		//var input = buffer;
+		//var ffile = input.files[0];
 		var reader = new FileReader();
 		reader.onload = function (event){
 			var reader = event.target;
 			var arrayBuffer = reader.result;
 			dalee(new Int32Array(arrayBuffer));
 		};
-		reader.readAsArrayBuffer(ffile);
+		reader.readAsArrayBuffer('mipTest.bmp');
 		function dalee(array) {			
 			var width = reader.readAsBinaryString(ffile.webkitSlice(18, 21));
 			var height = reader.readAsBinaryString(ffile.webkitSlice(22, 25));
