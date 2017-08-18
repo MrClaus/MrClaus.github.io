@@ -509,7 +509,8 @@ function initObject2D() {
 	//sphereMesh.position.set( 100, 0, 0 );
 	scene.add( sphereMesh );
 	
-	mesh1 = new THREE.Mesh( new THREE.BoxGeometry( 50, 200, 32, 16 ), matt );
+	var material = new THREE.MeshBasicMaterial( { color: 0x000000}
+	mesh1 = new THREE.Mesh( new THREE.BoxGeometry( 50, 200, 32, 16 ), material );
 	mesh1.position.x = 100;
 	scene.add( mesh1 );
 }
