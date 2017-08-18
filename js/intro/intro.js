@@ -541,7 +541,9 @@ function initEffectRender() {
 	
 	// создаём эффект для композёра Film
 	effectFilm = new THREE.FilmPass(0.35, 0.75, 2048, false);
-	effectFilm.renderToScreen = true;				
+	effectFilm.renderToScreen = false;
+	var effectScreen = new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );
+	effectScreen.renderToScreen = true;
 					
 	// создаём эффект для композёра Glitch
 	glitchPass = new THREE.GlitchPass();
@@ -575,6 +577,7 @@ function initEffectRender() {
 	composer.addPass(renderScene);
 	composer.addPass(bloomPass);
 	composer.addPass(effectFilm);
+	composer.addPass(effectScreen);
 	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 			
 	//composer.addPass(effectVignette);				
