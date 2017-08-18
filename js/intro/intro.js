@@ -546,6 +546,14 @@ function initEffectRender() {
 	effectFilm.renderToScreen = false;
 	var effectScreen = new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );
 	effectScreen.renderToScreen = true;
+	var effectHex = new THREE.ShaderPass( bkcore.threejs.Shaders[ "hexvignette" ] );
+	effectHex.uniforms[ 'size' ].value = 512.0 * (width/1633);
+	effectHex.uniforms[ 'rx' ].value = width;
+	effectHex.uniforms[ 'ry' ].value = height;
+	//effectHex.uniforms[ 'tHex' ].texture = this.track.lib.get("textures", "hex");
+	//effectHex.uniforms[ 'color' ].value = this.extras.vignetteColor;
+
+	effectHex.renderToScreen = true;
 					
 	// создаём эффект для композёра Glitch
 	glitchPass = new THREE.GlitchPass();
@@ -579,7 +587,7 @@ function initEffectRender() {
 	composer.addPass(renderScene);
 	composer.addPass(bloomPass);
 	composer.addPass(effectFilm);
-	composer.addPass(effectScreen);
+	composer.addPass(effectHex);
 	//composer.addPass(new THREE.RenderPass(sceneOrtho, cameraOrtho)); // добавляем 2д слой "геймплэй"
 			
 	//composer.addPass(effectVignette);				
