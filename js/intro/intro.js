@@ -509,7 +509,8 @@ function initObject2D() {
 	//sphereMesh.position.set( 100, 0, 0 );
 	scene.add( sphereMesh );
 	
-	mesh1 = new THREE.Mesh( new THREE.TorusGeometry( 100, 50, 32, 16 ), matt );
+	mesh1 = new THREE.Mesh( new THREE.BoxGeometry( 50, 200, 32, 16 ), matt );
+	mesh1.position.x = 100;
 	scene.add( mesh1 );
 }
 
