@@ -551,7 +551,7 @@ function initEffectRender() {
 	var effectScreen = new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );
 	effectScreen.renderToScreen = true;
 	
-	var effectHex = new THREE.ShaderPass( bkcore[ "hexvignette" ] );
+	var effectHex = new THREE.ShaderPass( bkcore.threejs.Shaders[ "hexvignette" ] );
 	effectHex.uniforms[ 'size' ].value = 512.0 * (width/1633);
 	//effectHex.uniforms[ 'sizeW' ].value = 512.0 * (width/1633);
 	//effectHex.uniforms[ 'sizeH' ].value = 512.0 * (width/1633);
