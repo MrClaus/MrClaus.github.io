@@ -539,8 +539,8 @@ function initEffectRender() {
 	var rtParameters = {
 		minFilter: THREE.LinearFilter,
 		magFilter: THREE.LinearFilter,
-		format: THREE.RGBAFormat,
-		stencilBuffer: true
+		format: THREE.RGBFormat, //
+		stencilBuffer: false //
 	};
 	
 	// создаем композёр (для добавления различных эффектов)
