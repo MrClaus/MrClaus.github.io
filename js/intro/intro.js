@@ -566,7 +566,7 @@ function initEffectRender() {
 	//effectHex.uniforms[ 'sizeH' ].value = 512.0 * (width/1633);
 	effectHex.uniforms[ 'rx' ].value = width;
 	effectHex.uniforms[ 'ry' ].value = height;
-	effectHex.uniforms[ 'tHex' ].texture = texhex.img;
+	effectHex.uniforms[ 'tHex' ].texture = texhex;
 	effectHex.uniforms[ 'color' ].value = new THREE.Color(0x458ab1);
 
 	effectHex.renderToScreen = true;
