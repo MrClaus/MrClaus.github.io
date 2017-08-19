@@ -113,7 +113,7 @@ function resLoad() {
 	texFlare6 = loadIMG("res/flare/flare6.png");
 	texFlare7 = loadIMG("res/flare/flare7.png");
 	
-	texhex = loadIMG("res/hex-test.jpg");
+	texhex = loadIMG("res/hex-test2.jpg");
 	
 	
 	// *** Неосновной код, содержащий используемые функции в данной процедуре ***	
@@ -550,16 +550,22 @@ function initEffectRender() {
 	effectFilm.renderToScreen = false;
 	var effectScreen = new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );
 	effectScreen.renderToScreen = true;
+	
 	var effectHex = new THREE.ShaderPass( bkcore[ "hexvignette" ] );
 	//effectHex.uniforms[ 'size' ].value = 512.0 * (width/1633);
-	effectHex.uniforms[ 'sizeW' ].value = width;
-	effectHex.uniforms[ 'sizeH' ].value = height;
+	effectHex.uniforms[ 'sizeW' ].value = 512.0 * (width/1633);
+	effectHex.uniforms[ 'sizeH' ].value = 512.0 * (width/1633);
 	effectHex.uniforms[ 'rx' ].value = width;
 	effectHex.uniforms[ 'ry' ].value = height;
 	effectHex.uniforms[ 'tHex' ].texture = texhex;
 	//effectHex.uniforms[ 'color' ].value = this.extras.vignetteColor;
 
 	effectHex.renderToScreen = true;
+	
+	
+	
+	
+	
 					
 	// создаём эффект для композёра Glitch
 	glitchPass = new THREE.GlitchPass();
