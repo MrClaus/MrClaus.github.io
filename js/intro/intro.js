@@ -53,6 +53,8 @@ var alfa_Camera = 0, betta_Camera = 0;
 var aal=false;
 var angCam_W = 0, angCam_H = 0;
 var mipp, matt, mesh1,byteArray;
+
+var texhex; //
 	
 	
 // Стартовая функция, которая инициализирует текущее iFrame приложение для VK 
@@ -83,7 +85,7 @@ function resLoad() {
 	// *** Основной код ***
 	
 	var count = 0;
-	var count_res = 7;
+	var count_res = 8;
 	
 	mapSky = loadIMG("tex.png");
 	mapSky.mapping = THREE.EquirectangularRefractionMapping;
@@ -110,6 +112,8 @@ function resLoad() {
 	texFlare3 = loadIMG("res/flare/flare3.png");
 	texFlare6 = loadIMG("res/flare/flare6.png");
 	texFlare7 = loadIMG("res/flare/flare7.png");
+	
+	texhex = loadIMG("res/hex-test.jpg");
 	
 	
 	// *** Неосновной код, содержащий используемые функции в данной процедуре ***	
@@ -546,11 +550,13 @@ function initEffectRender() {
 	effectFilm.renderToScreen = false;
 	var effectScreen = new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );
 	effectScreen.renderToScreen = true;
-	var effectHex = new THREE.ShaderPass( bkcore.threejs.Shaders[ "hexvignette" ] );
-	effectHex.uniforms[ 'size' ].value = 512.0 * (width/1633);
+	var effectHex = new THREE.ShaderPass( bkcore[ "hexvignette" ] );
+	//effectHex.uniforms[ 'size' ].value = 512.0 * (width/1633);
+	effectHex.uniforms[ 'sizeW' ].value = width;
+	effectHex.uniforms[ 'sizeH' ].value = height;
 	effectHex.uniforms[ 'rx' ].value = width;
 	effectHex.uniforms[ 'ry' ].value = height;
-	//effectHex.uniforms[ 'tHex' ].texture = this.track.lib.get("textures", "hex");
+	effectHex.uniforms[ 'tHex' ].texture = texhex;
 	//effectHex.uniforms[ 'color' ].value = this.extras.vignetteColor;
 
 	effectHex.renderToScreen = true;
