@@ -85,7 +85,7 @@ function resLoad() {
 	// *** Основной код ***
 	
 	var count = 0;
-	var count_res = 8;
+	var count_res = 7;
 	
 	mapSky = loadIMG("tex.png");
 	mapSky.mapping = THREE.EquirectangularRefractionMapping;
@@ -101,6 +101,15 @@ function resLoad() {
 	
 	
 	
+	texhex = THREE.ImageUtils.loadTexture(
+		'res/hex-test2.jpg', 
+		undefined, 
+		function(){ 
+			console.log('texhex'); 
+		}
+	);
+	
+	
 	
 	/*mipp.minFilter = mipp.magFilter = THREE.LinearFilter;
 	mipp.anisotropy = 4;*/
@@ -113,7 +122,7 @@ function resLoad() {
 	texFlare6 = loadIMG("res/flare/flare6.png");
 	texFlare7 = loadIMG("res/flare/flare7.png");
 	
-	texhex = loadIMG("res/hex-test2.jpg");
+	
 	
 	
 	// *** Неосновной код, содержащий используемые функции в данной процедуре ***	
@@ -557,8 +566,8 @@ function initEffectRender() {
 	//effectHex.uniforms[ 'sizeH' ].value = 512.0 * (width/1633);
 	effectHex.uniforms[ 'rx' ].value = width;
 	effectHex.uniforms[ 'ry' ].value = height;
-	effectHex.uniforms[ 'tHex' ].texture = texhex;
-	//effectHex.uniforms[ 'color' ].value = this.extras.vignetteColor;
+	effectHex.uniforms[ 'tHex' ].texture = texhex.img;
+	effectHex.uniforms[ 'color' ].value = new THREE.Color(0x458ab1);
 
 	effectHex.renderToScreen = true;
 	
