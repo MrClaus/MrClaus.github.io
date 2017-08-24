@@ -567,8 +567,8 @@ function initEffectRender() {
 	effectHex.uniforms[ 'size' ].value = 512.0 * (width/1633);
 	//effectHex.uniforms[ 'sizeW' ].value = 512.0 * (width/1633);
 	//effectHex.uniforms[ 'sizeH' ].value = 512.0 * (width/1633);
-	effectHex.uniforms[ 'rx' ].value = width;
-	effectHex.uniforms[ 'ry' ].value = height;
+	effectHex.uniforms[ 'rx' ].value = 100;
+	effectHex.uniforms[ 'ry' ].value = 50;
 	
 	effectHex.uniforms[ 'color' ].value = new THREE.Color(0x458ab1);
 
