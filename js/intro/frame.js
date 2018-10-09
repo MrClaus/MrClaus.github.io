@@ -1,5 +1,5 @@
 // Запускает скрипт только после полной загрузки страницы (кода)
-window.onload = initApplication;
+window.onload = start;
 
 
 // Добавляем поддежку плавного обновления экрана (requestAnimationFrame) в разных браузерах 
@@ -13,8 +13,10 @@ var requestAF = window.requestAnimationFrame ||
 var renderer, composer, texturePass;
 
 
-init();
-animate();
+function start() {
+  init();
+  animate();
+}
 
 
 function init() {
