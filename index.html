@@ -15,39 +15,19 @@
 			}
 			canvas { pointer-events:none; z-index:0; position:relative; }
 			.label { background-color: black; position: absolute; z-index: 100; padding: 5px }
-		</style>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.2.2/pixi.min.js"></script>		
-		<script src="js/three.js"></script>
-		<script src="js/Detector.js"></script>
-		<script src="js/GPUParticleSystem.js"></script>
-		<script src="js/stats.min.js"></script>		
-		<script src="js/OrbitControls.js"></script>
-		<script src="js/FlyControls.js"></script>
-		<script src="js/CopyShader.js"></script>
-		<script src="js/EffectComposer.js"></script>
-		<script src="js/RenderPass.js"></script>
-		<script src="js/AnaglyphEffect.js"></script>
+		</style>		
+		<script src="js/three.min.js"></script>
+		<script src="js/CopyShaderMin.js"></script>
+		<script src="js/DigitalGlitchMin.js"></script>		
+		<script src="js/EffectComposerMin.js"></script>
+		<script src="js/TexturePassMin.js"></script>
+		<script src="js/MaskPassMin.js"></script>
+		<script src="js/ShaderPassMin.js"></script>
+		<script src="js/GlitchPassMin.js"></script>
 		
-		<script src="https://rawgit.com/mrdoob/three.js/master/examples/js/postprocessing/TexturePass.js"></script>
-		<script src="js/ShaderPass.js"></script>
-		<!--
-		<script src="https://rawgit.com/BKcore/HexGL/master/bkcore/threejs/Shaders.js"></script>
-		-->
-		
-		<script src="https://rawgit.com/MrBrin/MrBrin.github.io/master/hexagonal.js"></script>
-		
-		<script src="https://rawgit.com/mrdoob/three.js/master/examples/js/shaders/FresnelShader.js"></script>
-		<script src="js/DigitalGlitch.js"></script>
-		<script src="js/GlitchPass.js"></script>
-		<script src="js/FilmShader.js"></script>
-		<script src="js/FilmPass.js"></script>
-		<script src="js/VignetteShader.js"></script>
-		<script src="js/LuminosityHighPassShader.js"></script>
-		<script src="js/UnrealBloomPass.js"></script>
-		<script src="https://rawgit.com/mrdoob/three.js/master/examples/js/loaders/DDSLoader.js"></script>
-		<script src="https://rawgit.com/BKcore/HexGL/master/libs/ShaderExtras.js"></script>
 	</head>
 	<body>
-		<script src="js/intro/intro.js"></script>
+		<div id="container"></div>
+		<script src="js/intro/frame.js"></script>
 	</body>
 </html>
