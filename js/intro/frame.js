@@ -10,13 +10,12 @@ var requestAF = window.requestAnimationFrame ||
 		window.msRequestAnimationFrame;
 
 
-var renderer, composer;
-var texturePass;
-
+var renderer, composer, texturePass;
 
 
 init();
 animate();
+
 
 function init() {
   var container = document.getElementById( "container" );
@@ -36,16 +35,21 @@ function init() {
   texturePass.opacity = 1.0;
   composer.addPass( texturePass );
   var textureLoader = new THREE.TextureLoader();
-  textureLoader.load( "textures/hardwood2_diffuse.jpg", function( map ) {
+  textureLoader.load( "res/logo-min.jpg", function( map ) {
     texturePass.map = map;
   });
+	
+  var glitchPass = new THREE.GlitchPass();
+  glitchPass.renderToScreen = true;
+  composer.addPass( glitchPass );
 
-  var copyPass = new THREE.ShaderPass( THREE.CopyShader );
-  copyPass.renderToScreen = true;
-  composer.addPass( copyPass );        
+  //var copyPass = new THREE.ShaderPass( THREE.CopyShader );
+  //copyPass.renderToScreen = true;
+  //composer.addPass( copyPass );        
 
   window.addEventListener( 'resize', onWindowResize, false );
 }
+
 
 function onWindowResize() {
   var width = window.innerWidth;
@@ -56,6 +60,7 @@ function onWindowResize() {
   var newHeight = Math.floor( height / pixelRatio ) || 1;
   composer.setSize( newWidth, newHeight );
 }
+
 
 function animate() {
   requestAF( animate );
