@@ -21,10 +21,10 @@ function start() {
 
 function init() {
   var container = document.getElementById('container');
-  var width = 950; //window.innerWidth || 1;
-  var height = 190; //window.innerHeight || 1;
-  //var width = container.offsetWidth;
-  //var height = container.offsetHeight;
+  //var width = 950; //window.innerWidth || 1;
+  //var height = 190; //window.innerHeight || 1;
+  var width = container.getBoundingClientRect().width;
+  var height = container.getBoundingClientRect().height;
   //var aspect = width / height;
   var devicePixelRatio = window.devicePixelRatio || 1;
   renderer = new THREE.WebGLRenderer();
