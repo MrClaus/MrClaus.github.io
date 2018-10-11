@@ -13,7 +13,24 @@
 				margin:0;
 				overflow:hidden;
 			}
-			canvas { pointer-events:none; z-index:0; position:relative; }
+			container {
+				pointer-events:none;
+				z-index:0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+			}
+			.rations {
+				position: relative;
+				width: 50%;
+			}
+			.rations:before {
+				content: "";
+				display: block;
+				padding-top: 20%; 	/* initial ratio of 1:1*/
+			}
 			.label { background-color: black; position: absolute; z-index: 100; padding: 5px }
 		</style>		
 		<script src="js/three.min.js"></script>
@@ -25,7 +42,9 @@
 		<script src="js/GlitchPassMin.js"></script>		
 	</head>
 	<body>
-		<div id="container"></div>
+		<div class="rations"> 
+			<div id="container"></div>
+		</div>
 		<script src="js/intro/frame.js"></script>
 	</body>
 </html>
