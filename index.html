@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
-				background:#888;
+				background:#000;
 				color:#fff;
 				padding:0;
 				margin:0;
@@ -15,24 +15,11 @@
 			}
 			container {
 				pointer-events:none;
-				z-index:0;
-				position: absolute;
-				top: 0;
-				left: 0;
-				bottom: 0;
-				right: 0;
-			}
-			.rations {
 				position: relative;
 				width: 100%;
-			}
-			.rations:before {
-				
-				display: block;
-				padding-top: 20%; 	/* initial ratio of 1:1*/
+				height: auto;
 			}
 		</style>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<script src="js/three.min.js"></script>
 		<script src="js/CopyShaderMin.js"></script>		
 		<script src="js/DigitalGlitchMin.js"></script>		
@@ -42,9 +29,8 @@
 		<script src="js/GlitchPassMin.js"></script>		
 	</head>
 	<body>
-		<div id="cul" class="rations">
-			<div id="container"></div>
-		</div>
+		<div id="container"></div>
+		<div>HELLO!!!</div>
 		<script src="js/intro/frame.js"></script>
 	</body>
 </html>
