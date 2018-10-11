@@ -40,9 +40,9 @@ function init() {
     texturePass.map = map;
   });
 	
-  var effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, false );
+  var effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, true );
   var effectFilmBW = new THREE.FilmPass( 0.35, 0.5, 2048, true );
-  composer.addPass( effectFilmBW ); 
+  composer.addPass( effectFilm ); 
 	
   var glitchPass = new THREE.GlitchPass();
   glitchPass.renderToScreen = true;
