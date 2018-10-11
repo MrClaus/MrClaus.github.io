@@ -20,7 +20,7 @@ function start() {
 
 
 function init() {
-  var container = document.getElementById('cul');
+  var container = document.getElementById('container');
   //var width = 950; //window.innerWidth || 1;
   //var height = 190; //window.innerHeight || 1;
   var width = $( container ).width();
