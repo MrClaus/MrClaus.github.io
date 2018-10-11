@@ -21,14 +21,17 @@ function start() {
 
 function init() {
   var container = document.getElementById( "container" );
-  var width = window.innerWidth || 1;
-  var height = window.innerHeight || 1;
-  var aspect = width / height;
+  //var width = window.innerWidth || 1;
+  //var height = window.innerHeight || 1;
+  var width = container.offsetWidth;
+  var height = container.offsetHeight;
+  //var aspect = width / height;
   var devicePixelRatio = window.devicePixelRatio || 1;
   renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio( devicePixelRatio );
   renderer.setSize( width, height );
-  document.body.appendChild( renderer.domElement );        
+  container.appendChild(renderer.domElement);
+  //document.body.appendChild( renderer.domElement );        
 
   // postprocessing        
   composer = new THREE.EffectComposer( renderer );
