@@ -21,8 +21,8 @@ function start() {
 
 function init() {
   var container = document.getElementById( "container" );
-  var width = window.innerWidth || 1;
-  var height = window.innerHeight || 1;
+  var width = 950; //window.innerWidth || 1;
+  var height = 190; //window.innerHeight || 1;
   //var width = container.offsetWidth;
   //var height = container.offsetHeight;
   //var aspect = width / height;
@@ -57,8 +57,8 @@ function init() {
 
 
 function onWindowResize() {
-  var width = window.innerWidth;
-  var height = window.innerHeight;
+  var width = 950; //window.innerWidth;
+  var height = 190; //window.innerHeight;
   renderer.setSize( width, height );
   var pixelRatio = renderer.getPixelRatio();
   var newWidth  = Math.floor( width / pixelRatio ) || 1;
