@@ -62,7 +62,7 @@ function onWindowResize() {
   //var width = 950; //window.innerWidth;
   //var height = 190; //window.innerHeight;
   var width = container.getBoundingClientRect().width;
-  var height = container.getBoundingClientRect().height;
+  var height = $( container ).height();
   console.log(width, height, "-zoo");
 	
   renderer.setSize( width, height );
