@@ -20,20 +20,14 @@ function start() {
 
 
 function init() {
-  var container = document.getElementById('container');
-  //var width = 950; //window.innerWidth || 1;
-  //var height = 190; //window.innerHeight || 1;
-  var width = $( container ).width();
-  var height = $( container ).height();
-  console.log(width, height, "-zoo");
-	
-  //var aspect = width / height;
+  var container = document.getElementById('container');  
+  var width = window.innerWidth || 1;
+  var height = width / 5;
   var devicePixelRatio = window.devicePixelRatio || 1;
   renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio( devicePixelRatio );
   renderer.setSize( width, height );
-  container.appendChild(renderer.domElement);
-  //document.body.appendChild( renderer.domElement );        
+  container.appendChild(renderer.domElement);      
 
   // postprocessing        
   composer = new THREE.EffectComposer( renderer );
@@ -48,23 +42,15 @@ function init() {
 	
   var glitchPass = new THREE.GlitchPass();
   glitchPass.renderToScreen = true;
-  composer.addPass( glitchPass );
-
-  //var copyPass = new THREE.ShaderPass( THREE.CopyShader );
-  //copyPass.renderToScreen = true;
-  //composer.addPass( copyPass );        
+  composer.addPass( glitchPass );       
 
   window.addEventListener( 'resize', onWindowResize, false );
 }
 
 
 function onWindowResize() {
-  //var width = 950; //window.innerWidth;
-  //var height = 190; //window.innerHeight;
-  var width = container.getBoundingClientRect().width;
-  var height = $( container ).height();
-  console.log(width, height, "-zoo");
-	
+  var width = window.innerWidth || 1;
+  var height = width / 5;	
   renderer.setSize( width, height );
   var pixelRatio = renderer.getPixelRatio();
   var newWidth  = Math.floor( width / pixelRatio ) || 1;
