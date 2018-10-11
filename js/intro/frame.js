@@ -25,6 +25,8 @@ function init() {
   //var height = 190; //window.innerHeight || 1;
   var width = container.getBoundingClientRect().width;
   var height = container.getBoundingClientRect().height;
+  console.log(width, height, "-zoo");
+	
   //var aspect = width / height;
   var devicePixelRatio = window.devicePixelRatio || 1;
   renderer = new THREE.WebGLRenderer();
@@ -57,8 +59,12 @@ function init() {
 
 
 function onWindowResize() {
-  var width = 950; //window.innerWidth;
-  var height = 190; //window.innerHeight;
+  //var width = 950; //window.innerWidth;
+  //var height = 190; //window.innerHeight;
+  var width = container.getBoundingClientRect().width;
+  var height = container.getBoundingClientRect().height;
+  console.log(width, height, "-zoo");
+	
   renderer.setSize( width, height );
   var pixelRatio = renderer.getPixelRatio();
   var newWidth  = Math.floor( width / pixelRatio ) || 1;
