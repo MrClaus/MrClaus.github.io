@@ -23,8 +23,8 @@ function init() {
   var container = document.getElementById('container');
   //var width = 950; //window.innerWidth || 1;
   //var height = 190; //window.innerHeight || 1;
-  var width = container.style.width;
-  var height = container.style.height;
+  var width = getComputedStyle(container).width;
+  var height = getComputedStyle(container).height;
   console.log(width, height, "-zoo");
 	
   //var aspect = width / height;
