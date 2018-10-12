@@ -49,10 +49,11 @@
 			}
 			a{
 			    display: block;
+			    font: 32px/24px sans-serif;
 			    text-decoration: none;
 			    pointer-events:none;
 			    color: #000;
-			    opacity: 0.0;
+			    opacity: 0.2;
 			    -webkit-transition: opacity 0.8s ease;
 			}
 			a.active{
@@ -82,13 +83,13 @@
 				}
 			})});
 
-			/*$("nav").on("click","a", function (event) {
+			$("nav").on("click","a", function (event) {
 				event.preventDefault(); 
 				var id  = $(this).attr('href');
 				top = $(id).offset().top;
 				// анимируем переход к блоку, время: 800 мс
 				$('body,html').animate({scrollTop: top}, 800);
-			});*/
+			});
 		</script>		
 		<script src="js/three.min.js"></script>
 		<script src="js/CopyShaderMin.js"></script>		
