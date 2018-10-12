@@ -80,7 +80,8 @@
 									      '-=' + Math.abs(delta * 48) + 'px';						
 						$('nav').css( 'top', top_delta );
 						id_global = id;	
-					}											
+					}
+					if (id_global == null) id_global = id;
 				}
 					
 				function getId(id_name) {
