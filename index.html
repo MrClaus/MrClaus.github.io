@@ -76,7 +76,7 @@
 					$('a.active').removeClass('active');
 					$('a[href="#'+id+'"]').addClass('active');
 					
-					var delta = 20 + (getId(id) - 1) * 48;
+					var delta = 20 - (getId(id) - 1) * 48;
 					var top_delta = String(delta) + 'px';
 					$('nav').css( 'top', top_delta );
 					/*if (id_global != id) {
