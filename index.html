@@ -53,7 +53,7 @@
 			    text-decoration: none;
 			    pointer-events:none;
 			    color: #000;
-			    opacity: 0.2;
+			    opacity: 0.0;
 			    -webkit-transition: opacity 0.8s ease;
 			}
 			a.active{
@@ -75,8 +75,8 @@
 					$('a.active').removeClass('active');
 					$('a[href="#'+id+'"]').addClass('active');
 					if (id_global != null && id_global != id) {
-						if (scroll>scroll_global) $('nav').css( 'top', '-=18px' );
-						else $('nav').css( 'top', '+=18px' );
+						if (scroll>scroll_global) $('nav').css( 'top', '-=48px' );
+						else $('nav').css( 'top', '+=48px' );
 					}
 					id_global = id;
 					scroll_global = scroll;			
