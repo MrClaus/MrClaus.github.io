@@ -112,12 +112,16 @@
 			});
 			
 			$(document).on( 'mousewheel', function (e) { 
-			    var nt = $(document.body).scrollTop()-(e.deltaY*e.deltaFactor*200); 
+			    var nt = $(window).scrollTop()-(e.deltaY*e.deltaFactor*200);
+				console.log(nt, e.deltaY, e.deltaFactor);
 			    e.preventDefault(); 
 			    $(document.body).stop().animate( { 
 				 scrollTop : nt
 			     } , 500 );
 			});
+			
+			
+			// $(document.body)
 			
 			    /*$(document).on('mousewheel', function(event) {
 				var top = $(window).scrollTop() - (event.originalEvent.wheelDelta );
