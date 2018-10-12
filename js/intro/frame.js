@@ -23,6 +23,7 @@ function init() {
   var container = document.getElementById('home');  
   var width = window.innerWidth || 1;
   var height = width / 5;
+  width = width - 100;
   console.log(width, height);
   var devicePixelRatio = window.devicePixelRatio || 1;
   renderer = new THREE.WebGLRenderer();
