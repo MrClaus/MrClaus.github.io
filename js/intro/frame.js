@@ -20,7 +20,7 @@ function start() {
 
 
 function init() {
-  var container = document.getElementById('container');  
+  var container = document.getElementById('home');  
   var width = window.innerWidth || 1;
   var height = width / 5;
   var devicePixelRatio = window.devicePixelRatio || 1;
@@ -39,10 +39,6 @@ function init() {
   textureLoader.load( "res/logo-min.jpg", function( map ) {
     texturePass.map = map;
   });
-	
-  var effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, true );
-  var effectFilmBW = new THREE.FilmPass( 0.35, 0.5, 2048, true );
-  composer.addPass( effectFilm ); 
 	
   var glitchPass = new THREE.GlitchPass();
   glitchPass.renderToScreen = true;
