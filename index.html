@@ -49,7 +49,7 @@
 			    position: fixed;
 			    z-index: 10;
 			    right:-8px;
-			    top: 4px;
+			    top: 0px;
 			    padding: 20px;
 			    background: #00000000;
 			    -webkit-transition: top 0.8s ease;
@@ -83,7 +83,7 @@
 					if( scroll > top && scroll < bottom){
 						$('a.active').removeClass('active');
 						$('a[href="#'+id+'"]').addClass('active');
-						var delta = 4 - (getId(id) - 1) * 24;
+						var delta = 0 - (getId(id) - 1) * 24;
 						var top_delta = String(delta) + 'px';
 						$('nav').css( 'top', top_delta );					
 					}
