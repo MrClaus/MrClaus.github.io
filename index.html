@@ -69,15 +69,23 @@
 		</style>
 		<script src="js/jquery-1.8.3.min.js"></script>
 		<script>
-			start();
-			
-			function start() {
+			//start();
+			$(window).load(function() {
 				$('section').each(function(i,el) {
 					var id = $(el).attr('id');
 					$('a.active').removeClass('active');
 					$('a[href="#'+id+'"]').addClass('active');
 				});
-			}
+				console.log('HELLO!');
+			});
+			
+			/*function start() {
+				$('section').each(function(i,el) {
+					var id = $(el).attr('id');
+					$('a.active').removeClass('active');
+					$('a[href="#'+id+'"]').addClass('active');
+				});
+			}*/
 
 			jQuery(window).scroll(function() {
 				$('section').each(function(i,el){
