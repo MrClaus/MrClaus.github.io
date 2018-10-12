@@ -75,13 +75,17 @@
 				if( scroll > top && scroll < bottom){
 					$('a.active').removeClass('active');
 					$('a[href="#'+id+'"]').addClass('active');
-					if (id_global != id) {
+					
+					var delta = 20 + (getId(id) - 1) * 48;
+					var top_delta = String(delta) + 'px';
+					$('nav').css( 'top', top_delta );
+					/*if (id_global != id) {
 						var delta = getId(id) - getId(id_global);
 						var top_delta = (delta < 0) ? '+=' + Math.abs(delta * 48) + 'px' :
 									      '-=' + Math.abs(delta * 48) + 'px';						
 						$('nav').css( 'top', top_delta );
 						id_global = id;	
-					}					
+					}*/					
 				}
 					
 				function getId(id_name) {
