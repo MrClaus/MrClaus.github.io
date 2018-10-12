@@ -111,21 +111,21 @@
 				$('body,html').animate({scrollTop: top}, 800);
 			});
 			
-			/*$(document).on( 'mousewheel', function (e) { 
-			    var nt = $(document.body).scrollTop()-(e.deltaY*e.deltaFactor*100); 
+			$(document).on( 'mousewheel', function (e) { 
+			    var nt = $(document.body).scrollTop()-(e.deltaY*e.deltaFactor*200); 
 			    e.preventDefault(); 
 			    $(document.body).stop().animate( { 
 				 scrollTop : nt
 			     } , 500 );
-			} )*/
+			});
 			
-			    $(document).on('mousewheel', function(event) {
+			    /*$(document).on('mousewheel', function(event) {
 				var top = $(window).scrollTop() - (event.originalEvent.wheelDelta );
 				event.preventDefault();
 				 $('html, body').stop().animate({
 				    scrollTop: top
 				}, 200);
-			    });
+			    });*/
 		</script>		
 		<script src="js/three.min.js"></script>
 		<script src="js/CopyShaderMin.js"></script>		
