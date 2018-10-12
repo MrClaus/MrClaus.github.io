@@ -111,7 +111,7 @@
 				$('body,html').animate({scrollTop: top}, 800);
 			});
 			
-			$(document).bind( 'mousewheel', function (e) { 
+			$(document).on( 'mousewheel', function (e) { 
 			    var nt = $(document.body).scrollTop()-(e.deltaY*e.deltaFactor*100); 
 			    e.preventDefault(); 
 			    $(document.body).stop().animate( { 
