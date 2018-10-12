@@ -62,7 +62,7 @@
 		</style>
 		<script src="js/jquery-1.8.3.min.js"></script>
 		<script>
-			var id_global, scroll_global;
+			var id_global;
 
 			jQuery(window).scroll(function(){
 				var $sections = $('section');
@@ -79,9 +79,8 @@
 						var top_delta = (delta < 0) ? '+=' + Math.abs(delta * 48) + 'px' :
 									      '-=' + Math.abs(delta * 48) + 'px';						
 						$('nav').css( 'top', top_delta );
-					}
-					scroll_global = scroll;	
-					id_global = id;							
+						id_global = id;	
+					}											
 				}
 					
 				function getId(id_name) {
