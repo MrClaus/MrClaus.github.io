@@ -78,8 +78,31 @@
 						if (scroll>scroll_global) $('nav').css( 'top', '-=48px' );
 						else $('nav').css( 'top', '+=48px' );
 					}
+					console.log(id);
 					id_global = id;
 					scroll_global = scroll;			
+				}
+					
+				function getId(id_name) {
+					var result;
+					switch(id_name) {
+						case 'home':
+							result = 1;
+							break;
+						case 'more':
+							result = 2;
+							break;
+						case 'projects':
+							result = 3;
+							break;
+						case 'about':
+							result = 4;
+							break;
+						case 'contacts':
+							result = 5;
+							break;
+					}
+					return result;
 				}
 			})});
 
