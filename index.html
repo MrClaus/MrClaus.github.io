@@ -73,7 +73,7 @@
 			$(window).load(function() {
 				$('section').each(function(i,el) {
 					var id = $(el).attr('id');
-					$('a.active').removeClass('active');
+					//$('a.active').removeClass('active');
 					$('a[href="#'+id+'"]').addClass('active');
 				});
 				console.log('HELLO!');
