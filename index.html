@@ -71,9 +71,9 @@
 		<script>
 			//start();
 			$(window).load(function() {
+				$('a.active').removeClass('active');
 				$('section').each(function(i,el) {
-					var id = $(el).attr('id');
-					//$('a.active').removeClass('active');
+					var id = $(el).attr('id');					
 					$('a[href="#'+id+'"]').addClass('active');
 				});
 				console.log('HELLO!');
