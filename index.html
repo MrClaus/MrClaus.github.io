@@ -42,22 +42,22 @@
 			nav{
 			    position: fixed;
 			    right:20px;
-			    top: 20px;
+			    top: 0px;
 			    padding: 10px;
 			    background: #00000000;
 			    -webkit-transition: top 0.8s ease;
 			}
 			a{
 			    display: block;
-			    font: 24px/48px sans-serif;
+			    font: 24px/24px sans-serif;
 			    text-decoration: none;
 			    pointer-events:none;
-			    color: #000;
+			    color: #fff;
 			    opacity: 0.0;
 			    -webkit-transition: opacity 0.8s ease;
 			}
 			a.active{
-			  opacity: 1.0;
+			  opacity: 0.8;
 			}
 		</style>
 		<script src="js/jquery-1.8.3.min.js"></script>
@@ -76,7 +76,7 @@
 					$('a.active').removeClass('active');
 					$('a[href="#'+id+'"]').addClass('active');
 					
-					var delta = 20 - (getId(id) - 1) * 48;
+					var delta = 0 - (getId(id) - 1) * 48;
 					var top_delta = String(delta) + 'px';
 					$('nav').css( 'top', top_delta );
 					/*if (id_global != id) {
