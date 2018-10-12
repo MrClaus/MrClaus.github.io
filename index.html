@@ -75,33 +75,25 @@
 					$('a.active').removeClass('active');
 					$('a[href="#'+id+'"]').addClass('active');
 					if (id_global != null && id_global != id) {
-						if (scroll>scroll_global) $('nav').css( 'top', '-=48px' );
-						else $('nav').css( 'top', '+=48px' );
+						var delta = getId(id) - getId(id_global);
+						var top_delta = (delta < 0) ? '-=' + Math.abs(delta * 48) + 'px' :
+									      '+=' + Math.abs(delta * 48) + 'px';						
+						$('nav').css( 'top', top_delta );
 					}
-					console.log(id);
-					id_global = id;
-					scroll_global = scroll;			
+					scroll_global = scroll;	
+					id_global = id;							
 				}
 					
 				function getId(id_name) {
 					var result;
-					switch(id_name) {
-						case 'home':
-							result = 1;
-							break;
-						case 'more':
-							result = 2;
-							break;
-						case 'projects':
-							result = 3;
-							break;
-						case 'about':
-							result = 4;
-							break;
-						case 'contacts':
-							result = 5;
-							break;
+					switch (id_name) {
+						case 'home': result = 1; break;
+						case 'more': result = 2; break;
+						case 'projects': result = 3; break;
+						case 'about': result = 4; break;
+						case 'contacts': result = 5; break;
 					}
+					console.log(result);
 					return result;
 				}
 			})});
