@@ -71,17 +71,17 @@
 				var bottom = top +$(el).height();
 				var scroll = $(window).scrollTop();
 				var id = $(el).attr('id');
+				if (id_global == null) id_global = id;
 				if( scroll > top && scroll < bottom){
 					$('a.active').removeClass('active');
 					$('a[href="#'+id+'"]').addClass('active');
-					if (id_global != null && id_global != id) {
+					if (id_global != id) {
 						var delta = getId(id) - getId(id_global);
 						var top_delta = (delta < 0) ? '+=' + Math.abs(delta * 48) + 'px' :
 									      '-=' + Math.abs(delta * 48) + 'px';						
 						$('nav').css( 'top', top_delta );
 						id_global = id;	
-					}
-					if (id_global == null) id_global = id;
+					}					
 				}
 					
 				function getId(id_name) {
