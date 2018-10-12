@@ -13,13 +13,83 @@
 				margin:0;
 				overflow:hidden;
 			}
-			container {
+			section#home {
 				pointer-events:none;
 				position: relative;
 				width: 100%;
 				height: auto;
 			}
+			section#more{			    
+			    height: 500px;
+			    text-align: center;
+			    background: #F05222;
+			}
+			section#projects{			    
+			    height: 700px;
+			    text-align: center;
+			    background: #7CBA01;
+			}
+			section#about{
+			    height: 500px;
+			    text-align: center;
+			    background: #00A6F0;
+			}
+			section#contacts{
+			    height: 300px;
+			    text-align: center;
+			    background: #FFB901;
+			}
+			nav{
+			    position: fixed;
+			    right:20px;
+			    top: 20px;
+			    padding: 10px;
+			    background: #00000000;
+			    -webkit-transition: top 0.8s ease;
+			}
+			a{
+			    display: block;
+			    text-decoration: none;
+			    pointer-events:none;
+			    color: #000;
+			    opacity: 0.0;
+			    -webkit-transition: opacity 0.8s ease;
+			}
+			a.active{
+			  opacity: 1.0;
+			}
 		</style>
+		<script src="js/jquery-1.8.3.min.js"></script>
+		<script>
+			var id_global, scroll_global;
+
+			jQuery(window).scroll(function(){
+				var $sections = $('section');
+				$sections.each(function(i,el){
+				var top  = $(el).offset().top-100;
+				var bottom = top +$(el).height();
+				var scroll = $(window).scrollTop();
+				var id = $(el).attr('id');
+				if( scroll > top && scroll < bottom){
+					$('a.active').removeClass('active');
+					$('a[href="#'+id+'"]').addClass('active');
+					if (id_global != null && id_global != id) {
+						if (scroll>scroll_global) $('nav').css( 'top', '-=18px' );
+						else $('nav').css( 'top', '+=18px' );
+					}
+					id_global = id;
+					scroll_global = scroll;			
+				}
+			})});
+
+			$("nav").on("click","a", function (event) {
+				event.preventDefault(); 
+				var id  = $(this).attr('href');
+				top = $(id).offset().top;
+				// анимируем переход к блоку, время: 800 мс
+				$('body,html').animate({scrollTop: top}, 800);
+			});
+		</script>		
 		<script src="js/three.min.js"></script>
 		<script src="js/CopyShaderMin.js"></script>		
 		<script src="js/DigitalGlitchMin.js"></script>
@@ -30,9 +100,21 @@
 		<script src="js/GlitchPassMin.js"></script>		
 		<script src="js/FilmPassMin.js"></script>
 	</head>
-	<body>
-		<div id="container"></div>
-		<div>HELLO!!!</div>
+	<body>		
+		<nav>
+		    <a href="#home"> Home </a>
+		    <a href="#more"> More </a>
+		    <a href="#projects"> Projects </a>
+		    <a href="#about"> About </a>
+		    <a href="#contacts"> Contacts </a>
+		</nav>
+		<div>
+		    <section id ="home"></section>
+		    <section id ="more"> More Info </section>
+		    <section id ="projects"> Provide Services for Projects </section>
+		    <section id ="about"> About Us </section>
+		    <section id ="contacts"> Contacts </section>
+		<div>
 		<script src="js/intro/frame.js"></script>
 	</body>
 </html>
