@@ -119,14 +119,15 @@
 				if (!isScrolling) {
 					isScrolling = true;
 					$('html, body').animate({
-							scrollTop: String(top) + 'px'
+							scrollTop: top
 						}, {
-							durration: '500',
+							durration: 500,
 							specialEasing: {
-								scrollTop: 'easeOutCubic'
+								scrollTop: "easeOutBounce"
+							},
+							complete: function() {
+								isScrolling = false;
 							}
-						}, function() {
-							isScrolling = false;
 						}
 					);
 				}
