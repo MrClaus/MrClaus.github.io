@@ -127,12 +127,8 @@
 							scrollTop: top
 						}, {
 							durration: 500,
-							specialEasing: {
-								scrollTop: "easeOutBounce"
-							},
-							complete: function() {
-								isScrolling = false;
-							}
+							specialEasing: { scrollTop: "easeOutCubic" },
+							complete: function() { isScrolling = false; }
 						}
 					);
 				}
