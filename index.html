@@ -126,10 +126,10 @@
 			    $(document).bind('mousewheel', function(event) {
 				var delta = ((event.originalEvent.wheelDelta < 0) ? -200 : 200);
 				    console.log(delta);
-				var top = $(document.body).scrollTop() - delta;
+				var top = $(this).scrollTop() - delta;
 				event.preventDefault();
 				event.stopPropagation();
-				 $(document.body).stop().animate({
+				 $(this).stop().animate({
 				    scrollTop: top
 				}, 500);
 			    });
