@@ -78,11 +78,11 @@
 			var isScrolling = false;
 			
 			$(window).on("load", function () {
-				$('a.active').removeClass('active');
-				$('a[href="#'+'home'+'"]').addClass('active');
+				$('nav').css( 'top', '0px' );
 				var top = $('#home').offset().top;
 				animateToScroll(top, 1500, "easeOutQuart");
-				$('nav').css( 'top', '0px' );
+				$('a.active').removeClass('active');
+				$('a[href="#'+'home'+'"]').addClass('active');				
 			});			
 
 			$(window).scroll(function() {
