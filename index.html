@@ -68,9 +68,7 @@
 			  opacity: 0.8;
 			}
 		</style>		
-		<script src="js/jquery-3.3.1.min.js"></script>
-		
-		<link rel="stylesheet" href="res/jquery.mCustomScrollbar.min.css">
+		<script src="js/jquery-3.3.1.min.js"></script>		
 		<script>
 			$(window).on("load", function () {
 				$('a.active').removeClass('active');
@@ -80,7 +78,7 @@
 				});*/
 			});			
 
-			jQuery( window ).scroll(function() {
+			$( window ).scroll(function() {
 				console.log('scroll');
 				$('section').each(function(i,el){
 					var top  = $(el).offset().top-100;
