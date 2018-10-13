@@ -121,15 +121,15 @@
 			});*/
 			
 			
-			// $(document.body)
+			// $(document.body)      $('html, body')
 			
 			    $(document).bind('mousewheel', function(event) {
 				var delta = ((event.originalEvent.wheelDelta < 0) ? -200 : 200);
 				    console.log(delta);
-				var top = $(window).scrollTop() - delta;
+				var top = $(document.body).scrollTop() - delta;
 				event.preventDefault();
 				event.stopPropagation();
-				 $('html, body').stop().animate({
+				 $(document.body).stop().animate({
 				    scrollTop: top
 				}, 500);
 			    });
