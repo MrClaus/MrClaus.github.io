@@ -52,7 +52,7 @@
 			    right:-8px;
 			    top: 0px;
 			    padding: 20px;
-			    background: #00000000;
+			    background: #77000000;
 			    -webkit-transition: top 0.8s ease;
 			}
 			a{
@@ -80,17 +80,12 @@
 			$(window).on("load", function () {
 				$('a.active').removeClass('active');
 				$('a[href="#'+'home'+'"]').addClass('active');
-				//jQuery.scrollSpeed(100, 800);
-				/*$('body').mCustomScrollbar({
-					  theme: "dark-thin"
-				});*/
-			});
-			
-			
+				var top = $(id).offset().top;
+				animateToScroll(top, 800, "easeOutCubic");				
+			});			
 
-			$( window ).scroll(function() {
-				console.log('scroll');
-				$('section').each(function(i,el){
+			$(window).scroll(function() {
+				$('section').each(function(i,el) {
 					var top  = $(el).offset().top-100;
 					var bottom = top +$(el).height();
 					var scroll = $(window).scrollTop();
@@ -121,26 +116,30 @@
 				var delta = ((event.originalEvent.wheelDelta < 0) ? -300 : 300);
 				var top = $('html, body').scrollTop() - delta;
 				event.preventDefault();
-				if (!isScrolling) {
-					isScrolling = true;
-					$('html, body').animate({
-							scrollTop: top
-						}, {
-							duration: 500,
-							specialEasing: { scrollTop: "easeOutCubic" },
-							complete: function() { isScrolling = false; }
-						}
-					);
-				}
+				animateToScroll(top, 500, "easeOutCubic");
 			});
 
-			$("nav").on("click","a", function (event) {
+			/*$("nav").on("click","a", function (event) {
 				event.preventDefault(); 
 				var id  = $(this).attr('href');
 				top = $(id).offset().top;
 				// анимируем переход к блоку, время: 800 мс
 				$('body,html').animate({scrollTop: top}, 800);
-			});
+			});*/
+			
+			function animateToScroll(position, time, animation) {
+				if (!isScrolling) {
+					isScrolling = true;
+					$('html, body').animate({
+							scrollTop: position
+						}, {
+							duration: time,
+							specialEasing: { scrollTop: animation },
+							complete: function() { isScrolling = false; }
+						}
+					);
+				}
+			}
 		</script>		
 		<script src="js/three.min.js"></script>
 		<script src="js/CopyShaderMin.js"></script>		
