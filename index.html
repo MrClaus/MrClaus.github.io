@@ -110,6 +110,10 @@
 					}
 				})
 			});
+			
+			document.addEventListener('scroll', function (event) {
+			    console.log('scroll++');
+			}, true /*Capture event*/);
 
 			$("nav").on("click","a", function (event) {
 				event.preventDefault(); 
