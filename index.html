@@ -119,10 +119,16 @@
 				if (!isScrolling) {
 					isScrolling = true;
 					$('html, body').animate({
-						scrollTop: top
-					}, 500, "swing", function() {
-						isScrolling = false;
-					});
+							scrollTop: String(top) + 'px'
+						}, {
+							durration: '500',
+							specialEasing: {
+								scrollTop: 'easeOutCubic'
+							}
+						}, function() {
+							isScrolling = false;
+						}
+					);
 				}
 			});
 
