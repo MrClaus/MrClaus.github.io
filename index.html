@@ -124,11 +124,11 @@
 			// $(document.body)
 			
 			    $(document).on('mousewheel', function(event) {
-				var top = $(window).scrollTop() - (event.originalEvent.wheelDelta );
+				var top = $(window).scrollTop() - (200);
 				event.preventDefault();
 				 $('html, body').stop().animate({
 				    scrollTop: top
-				}, 1000);
+				}, 500);
 			    });
 		</script>		
 		<script src="js/three.min.js"></script>
