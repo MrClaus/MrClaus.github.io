@@ -68,11 +68,13 @@
 			  opacity: 0.8;
 			}
 		</style>		
-		<script src="js/jquery-3.3.1.min.js"></script>		
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/jQuery.scrollSpeed.js"></script>
 		<script>
 			$(window).on("load", function () {
 				$('a.active').removeClass('active');
 				$('a[href="#'+'home'+'"]').addClass('active');
+				jQuery.scrollSpeed(100, 800, 'easeOutCubic');
 				/*$('body').mCustomScrollbar({
 					  theme: "dark-thin"
 				});*/
