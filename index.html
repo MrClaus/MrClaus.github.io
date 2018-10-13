@@ -112,12 +112,12 @@
 			});
 			
 			$(document).on( 'mousewheel', function (e) { 
-			    var nt = $(window).scrollTop()-(200);
+			    var nt = $(window).scrollTop()-(e..originalEvent.wheelDelta);
 				console.log(nt, e.deltaY, e.deltaFactor);
 			    e.preventDefault(); 
 			    $(document.body).stop().animate( { 
 				 scrollTop : nt
-			     } , 500 );
+			     } , 1000 );
 			});
 			
 			
