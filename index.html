@@ -124,8 +124,9 @@
 			// $(document.body)
 			
 			    $(document).on('mousewheel', function(event) {
-				var top = $(window).scrollTop() - (200);
+				var top = $(window).scrollTop() - ((e.originalEvent.wheelDelta < 0) ? -200 : 200);
 				event.preventDefault();
+				event.stopPropagation();
 				 $('html, body').stop().animate({
 				    scrollTop: top
 				}, 500);
