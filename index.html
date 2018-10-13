@@ -81,7 +81,8 @@
 				$('a.active').removeClass('active');
 				$('a[href="#'+'home'+'"]').addClass('active');
 				var top = $('#home').offset().top;
-				animateToScroll(top, 800, "easeOutCubic");				
+				animateToScroll(top, 1000, "easeOutBounce");
+				$('nav').css( 'top', '0px' );
 			});			
 
 			$(window).scroll(function() {
