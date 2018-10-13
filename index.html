@@ -83,6 +83,7 @@
 			});			
 
 			$(window).scroll(function() {
+				console.log('scroll');
 				$('section').each(function(i,el){
 					var top  = $(el).offset().top-100;
 					var bottom = top +$(el).height();
