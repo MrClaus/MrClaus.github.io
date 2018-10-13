@@ -74,7 +74,7 @@
 		<script src="js/jquery.mCustomScrollbar.min.js"></script>
 		<link rel="stylesheet" href="res/jquery.mCustomScrollbar.min.css">
 		<script>
-			$(window).load(function() {
+			$(window).on("load", function () {
 				$('a.active').removeClass('active');
 				$('a[href="#'+'home'+'"]').addClass('active');
 				$('body').mCustomScrollbar({
