@@ -67,7 +67,8 @@
 			a.active{
 			  opacity: 0.8;
 			}
-		</style>		
+		</style>
+		<link type="text/css" href="res/scrollbar.css" rel="stylesheet" media="all" />
 		<script src="js/jquery-3.3.1.min.js"></script>
 		<script
 			src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
@@ -78,6 +79,7 @@
 			var isScrolling = false;
 			
 			$(window).on("load", function () {
+				$('.scrollbar-dynamic').scrollbar();
 				$('nav').css( 'top', '0px' );
 				var top = $('#home').offset().top;
 				animateToScroll(top, 1500, "easeOutQuart");
@@ -150,22 +152,24 @@
 		<script src="js/TexturePassMin.js"></script>
 		<script src="js/GlitchPassMin.js"></script>
 	</head>
-	<body>		
-		<nav>
-		    <a href="#home"> Home <img src="res/ic-home-min.png"></a>
-		    <a href="#more"> More <img src="res/ic-more-min.png"></a>
-		    <a href="#projects"> Projects <img src="res/ic-projects-min.png"></a>
-		    <a href="#about"> About <img src="res/ic-about-min.png"></a>
-		    <a href="#contacts"> Contacts <img src="res/ic-contacts-min.png"></a>
-		</nav>
-		<div style="font-size:0;">
-		    <section id ="home"></section>
-		    <div class="navbar"></div>
-		    <section id ="more"> More Info </section>
-		    <section id ="projects"> Provide Services for Projects </section>
-		    <section id ="about"> About Us </section>
-		    <section id ="contacts"> Contacts </section>
-		<div>
+	<body>
+		<div class="scrollbar-dynamic">	
+			<nav>
+			    <a href="#home"> Home <img src="res/ic-home-min.png"></a>
+			    <a href="#more"> More <img src="res/ic-more-min.png"></a>
+			    <a href="#projects"> Projects <img src="res/ic-projects-min.png"></a>
+			    <a href="#about"> About <img src="res/ic-about-min.png"></a>
+			    <a href="#contacts"> Contacts <img src="res/ic-contacts-min.png"></a>
+			</nav>
+			<div style="font-size:0;">
+			    <section id ="home"></section>
+			    <div class="navbar"></div>
+			    <section id ="more"> More Info </section>
+			    <section id ="projects"> Provide Services for Projects </section>
+			    <section id ="about"> About Us </section>
+			    <section id ="contacts"> Contacts </section>
+			<div>
+		</div>
 		<script src="js/intro/frame.js"></script>
 	</body>
 </html>
