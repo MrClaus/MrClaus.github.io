@@ -5,8 +5,9 @@
 		<link rel="SHORTCUT ICON" href="/favicon.ico" type="image/x-icon">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link rel="stylesheet" href="res/jquery.scrollbar.style.css" />
-		<link rel="stylesheet" href="res/jquery.scrollbar.css" />
+		
+		<link href="http://buzinas.github.io/simple-scrollbar/simple-scrollbar.css" rel="stylesheet"/>
+		
 		<style>
 			
 			body {
@@ -78,9 +79,9 @@
 			integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
 			crossorigin="anonymous">
 		</script>
-		<script src="js/jquery.scrollbar.js"></script>
 		
-		
+		<!--[if IE 9]><script src="https://cdn.jsdelivr.net/classlist/2014.01.31/classList.min.js"></script><![endif]-->
+		<script src="http://buzinas.github.io/simple-scrollbar/simple-scrollbar.min.js"></script>
 		
 		<script>
 			var isScrolling = false;
@@ -91,7 +92,7 @@
 			
 			// при загрузке страницы инициализируем скроллбар и плавно смещаемся в самый верх
 			$(window).on("load", function () {
-				$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
+				//$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
 				$('nav').css( 'top', '0px' );
 				var top = $('#home').offset().top;
 				animateToScroll(top, 1500, "easeOutQuart");
@@ -184,7 +185,7 @@
 		<script src="js/GlitchPassMin.js"></script>
 	</head>
 	<body>
-		<div class="wrapper scrollbar-macosx">	
+		<div ss-container>	
 			<nav>
 			    <a href="#home"> Home <img src="res/ic-home-min.png"></a>
 			    <a href="#more"> More <img src="res/ic-more-min.png"></a>
