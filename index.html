@@ -136,7 +136,7 @@
 				if (delta !== undefined) {
 					var delta_top = (delta < 0) ? -300 : 300;
 					var top = $('html, body').scrollTop() - delta_top;
-					console.log('is scrolling!', top);
+					console.log('is scrolling!', top, isScrolling);
 					//e.preventDefault();
 					animateToScroll(top, 500, "easeOutCubic");
 				}				
