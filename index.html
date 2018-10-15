@@ -97,7 +97,15 @@
 				animateToScroll(top, 1500, "easeOutQuart");
 				$('a.active').removeClass('active');
 				$('a[href="#'+'home'+'"]').addClass('active');				
-			});			
+			});
+			
+			( function( $ ) {
+			    $(document).ready(function(){
+				$(window).scroll(function(){
+				    console.log('SCROLL IT');
+				});
+			    });
+			} )( jQuery );
 
 			// показывает инфо-статус текущего якоря с анимированным переходом
 			$(window).scroll(function() {
