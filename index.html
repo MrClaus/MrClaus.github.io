@@ -119,7 +119,7 @@
 				})
 			});
 			
-			$('html, body').bind('mousewheel', function(event) {
+			$('html, body').bind('mousewheel DOMMouseScroll', function(event) {
 				var delta = ((event.originalEvent.wheelDelta < 0) ? -300 : 300);
 				var top = $('html, body').scrollTop() - delta;
 				console.log('scroll: ',delta, event.originalEvent.wheelDelta, event.wheelDelta);
