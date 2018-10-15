@@ -154,7 +154,7 @@
 			function animateToScroll(position, time, animation) {
 				if (!isScrolling) {
 					isScrolling = true;
-					$('html, body').animate({
+					$('html, body').stop().animate({
 							scrollTop: position
 						}, {
 							duration: time,
