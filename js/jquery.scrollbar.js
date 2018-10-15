@@ -225,7 +225,7 @@
                                 var touch = event.originalEvent.targetTouches && event.originalEvent.targetTouches[0] || event;
                                 c.scrollLeft(originalScroll.left + originalTouch.pageX - touch.pageX);
                                 c.scrollTop(originalScroll.top + originalTouch.pageY - touch.pageY);
-                                event.preventDefault();
+                                //event.preventDefault();
                             });
                             $(document).on('touchend' + namespace, function () {
                                 $(document).off(namespace);
@@ -306,7 +306,7 @@
                             }, 1);
                         }
 
-                        event.preventDefault();
+                        //event.preventDefault();
                         return false;
                     };
 
@@ -524,7 +524,7 @@
                 callback && callback();
             });
             $(document).on('dragstart' + namespace, function (event) {
-                event.preventDefault();
+                //event.preventDefault();
                 return false;
             });
             $(document).on('mouseup' + namespace, function () {
@@ -532,11 +532,11 @@
                 callback && callback();
             });
             $('body').on('selectstart' + namespace, function (event) {
-                event.preventDefault();
+                //event.preventDefault();
                 return false;
             });
 
-            event && event.preventDefault();
+            //event && event.preventDefault();
             return false;
         },
 
