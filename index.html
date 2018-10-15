@@ -80,9 +80,9 @@
 			crossorigin="anonymous">
 		</script>
 		
-		<!--[if IE 9]><script src="https://cdn.jsdelivr.net/classlist/2014.01.31/classList.min.js"></script><![endif]-->
-		<script src="js/simple-scrollbar.min.js"></script>
-		<link href="res/simple-scrollbar.css" rel="stylesheet"/>
+		
+		<script src="js/baron.js"></script>
+		<link href="res/baron.css" rel="stylesheet"/>
 		
 		<script>
 			var isScrolling = false;
@@ -93,6 +93,7 @@
 			
 			// при загрузке страницы инициализируем скроллбар и плавно смещаемся в самый верх
 			$(window).on("load", function () {
+				baron('.my-scroller');
 				//$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
 				$('nav').css( 'top', '0px' );
 				var top = $('#home').offset().top;
@@ -185,7 +186,7 @@
 		<script src="js/TexturePassMin.js"></script>
 		<script src="js/GlitchPassMin.js"></script>
 	</head>
-	<body ss-container>
+	<body>
 		<div>	
 			<nav>
 			    <a href="#home"> Home <img src="res/ic-home-min.png"></a>
