@@ -92,7 +92,7 @@
         this.container = container;
         this.namespace = '.scrollbar_' + browser.data.index++;
         this.options = $.extend({}, defaults, window.jQueryScrollbarOptions || {});
-        this.scrollTo = null;
+        //this.scrollTo = null;
         this.scrollx = {};
         this.scrolly = {};
 
@@ -301,7 +301,7 @@
                                     /*c.stop().animate(S.scrollTo, 240, 'linear', function () {
                                         scrollToValue = c[scrollOffset]();
                                     });*/
-                                    S.scrollTo = null;
+                                    //S.scrollTo = null;
                                 }
                             }, 1);
                         }
@@ -368,7 +368,7 @@
                                 if (S.scrollTo) {
                                     // блокируем стандартный скролл
                                     // c.animate(S.scrollTo, o.duration);
-                                    S.scrollTo = null;
+                                    //S.scrollTo = null;
                                 }
                             }, 1);
 
