@@ -84,6 +84,11 @@
 		<script src="js/baron.js"></script>
 		<link href="res/baron.css" rel="stylesheet"/>
 		<link href="res/baron-styles.css" rel="stylesheet"/>
+		<style>
+		    ::-webkit-scrollbar { /* for Mac OS X support */
+			width: 0;
+		    }
+		</style>
 		
 		<script>
 			var isScrolling = false;
@@ -94,6 +99,7 @@
 			
 			// при загрузке страницы инициализируем скроллбар и плавно смещаемся в самый верх
 			$(window).on("load", function () {
+				baron('.my-scroller');
 				baron({
 					root: '.baron',
 					scroller: '.baron__scroller',
@@ -112,7 +118,7 @@
 					forward: '.baron__down',
 					backward: '.baron__up'
 				    });
-				baron('.my-scroller');
+				
 				
 				//$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
 				$('nav').css( 'top', '0px' );
