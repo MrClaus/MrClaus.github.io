@@ -106,6 +106,7 @@
 					var bottom = top +$(el).height();
 					var scroll = $(window).scrollTop();
 					var id = $(el).attr('id');
+					console.log('current#: ', id);
 					if( scroll > top && scroll < bottom){
 						$('a.active').removeClass('active');
 						$('a[href="#'+id+'"]').addClass('active');
