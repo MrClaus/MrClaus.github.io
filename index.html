@@ -76,14 +76,19 @@
 			integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
 			crossorigin="anonymous">
 		</script>
-		<script src="js/jquery.mousewheel.min.js"></script>
-		<link type="text/css" href="res/scrollbar.css" rel="stylesheet" media="all" />
+		<script src="js/jquery.scrollbar.min.js"></script>
+		<script src="js/jquery.scrollbar.prettify.js"></script>		
+		<link rel="stylesheet" href="res/jquery.scrollbar.css" />
+		<link rel="stylesheet" href="res/jquery.scrollbar.style.css" />
+		<link rel="stylesheet" href="res/jquery.scrollbar.prettify.css" />
+		
 		
 		<script>
 			var isScrolling = false;
 			
+			// при загрузке страницы инициализируем скроллбар и плавно смещаемся в самый верх
 			$(window).on("load", function () {
-				$('.scrollbar-dynamic').scrollbar();
+				$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
 				$('nav').css( 'top', '0px' );
 				var top = $('#home').offset().top;
 				animateToScroll(top, 1500, "easeOutQuart");
@@ -91,6 +96,7 @@
 				$('a[href="#'+'home'+'"]').addClass('active');				
 			});			
 
+			// показывает инфо-статус текущего якоря с анимированным переходом
 			$(window).scroll(function() {
 				$('section').each(function(i,el) {
 					var top  = $(el).offset().top-100;
@@ -117,36 +123,29 @@
 						return result;
 					}
 				})
-			});
+			});			
 			
-			/*$(window).on('mousewheel', function(event) {
-				var delta = ((event.originalEvent.wheelDelta < 0) ? -300 : 300);
-				var top = $('html, body').scrollTop() - delta;
-				console.log('scroll: ',delta, event.originalEvent.wheelDelta, event.originalEvent.detail);
-				event.preventDefault();
-				animateToScroll(top, 500, "easeOutCubic");
-			});*/
-			
+			// плавный скролл страницы со смещением в 300 px и временем анимации 500 ms
 			$(window).on('mousewheel DOMMouseScroll', function(e) {
 				var event = e.originalEvent, delta = 0;				
 				delta = (event.detail) ? event.detail * -40 : event.wheelDelta;
 				if (delta !== undefined) {
 					var delta_top = (delta < 0) ? -300 : 300;
 					var top = $('html, body').scrollTop() - delta_top;
-					console.log('scroll: ', delta_top, top);
 					e.preventDefault();
 					animateToScroll(top, 500, "easeOutCubic");
 				}				
 			});
 
-			/*$("nav").on("click","a", function (event) {
+			// якорный переход к контенту по клику navbar-а
+			/*$("navbar").on("click","a", function (event) {
 				event.preventDefault(); 
 				var id  = $(this).attr('href');
 				top = $(id).offset().top;
-				// анимируем переход к блоку, время: 800 мс
-				$('body,html').animate({scrollTop: top}, 800);
+				animateToScroll(top, 1500, "easeOutQuart");
 			});*/
 			
+			// анимация скролла (параметры - смещение скролла на..., время анимации, тип анимации)
 			function animateToScroll(position, time, animation) {
 				if (!isScrolling) {
 					isScrolling = true;
