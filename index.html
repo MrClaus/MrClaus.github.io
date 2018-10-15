@@ -119,10 +119,10 @@
 				})
 			});
 			
-			$(window).on('mousewheel DOMMouseScroll', function(event) {
+			$(window).on('mousewheel', function(event) {
 				var delta = ((event.originalEvent.wheelDelta < 0) ? -300 : 300);
 				var top = $('html, body').scrollTop() - delta;
-				console.log('scroll: ',delta, event.originalEvent.wheelDelta, event.wheelDelta);
+				console.log('scroll: ',delta, event.originalEvent.wheelDelta, event.originalEvent.detail);
 				event.preventDefault();
 				animateToScroll(top, 500, "easeOutCubic");
 			});
