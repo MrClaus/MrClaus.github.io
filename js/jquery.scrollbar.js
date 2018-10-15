@@ -297,9 +297,10 @@
                             S.scrollTo[scrollOffset] = scrollToValue;
                             setTimeout(function () {
                                 if (S.scrollTo) {
-                                    c.stop().animate(S.scrollTo, 240, 'linear', function () {
+                                    // блокируем стандартный скролл
+                                    /*c.stop().animate(S.scrollTo, 240, 'linear', function () {
                                         scrollToValue = c[scrollOffset]();
-                                    });
+                                    });*/
                                     S.scrollTo = null;
                                 }
                             }, 1);
@@ -365,7 +366,8 @@
 
                             setTimeout(function () {
                                 if (S.scrollTo) {
-                                    c.animate(S.scrollTo, o.duration);
+                                    // блокируем стандартный скролл
+                                    // c.animate(S.scrollTo, o.duration);
                                     S.scrollTo = null;
                                 }
                             }, 1);
