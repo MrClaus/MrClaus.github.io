@@ -132,6 +132,7 @@
 			$(window).on('mousewheel DOMMouseScroll', function(e) {
 				var event = e.originalEvent, delta = 0;				
 				delta = (event.detail) ? event.detail * -40 : event.wheelDelta;
+				console.log('is scrolling!');
 				if (delta !== undefined) {
 					var delta_top = (delta < 0) ? -300 : 300;
 					var top = $('html, body').scrollTop() - delta_top;
@@ -189,6 +190,6 @@
 			    <section id ="contacts"> Contacts </section>
 			<div>
 		</div>
-		
+		<script src="js/intro/frame.js"></script>
 	</body>
 </html>
