@@ -82,7 +82,7 @@
     margin: 0;
     padding: 0;
     position: absolute;
-    z-index: 10;
+    z-index: 100;
 }
  
 .scrollbar-macosx > .scroll-element div {
@@ -125,7 +125,7 @@
     height: 0px;
     left: 0;
     min-width: 100%;
-    overflow: visible;
+    
     width: 100%;
 }
  
@@ -140,7 +140,7 @@
  
 /* scrollbar height/width & offset from container borders */
 .scrollbar-macosx > .scroll-element.scroll-x .scroll-bar { height: 7px; min-width: 10px; top: -9px; }
-.scrollbar-macosx > .scroll-element.scroll-y .scroll-bar { left: -9px; min-height: 10px; width: 7px; }
+.scrollbar-macosx > .scroll-element.scroll-y .scroll-bar { left: -9px; min-height: 10px; width: 70px; }
  
 .scrollbar-macosx > .scroll-element.scroll-x .scroll-element_outer { left: 2px; }
 .scrollbar-macosx > .scroll-element.scroll-x .scroll-element_size { left: -4px; }
