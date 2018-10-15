@@ -119,12 +119,22 @@
 				})
 			});
 			
-			$(window).on('mousewheel', function(event) {
+			/*$(window).on('mousewheel', function(event) {
 				var delta = ((event.originalEvent.wheelDelta < 0) ? -300 : 300);
 				var top = $('html, body').scrollTop() - delta;
 				console.log('scroll: ',delta, event.originalEvent.wheelDelta, event.originalEvent.detail);
 				event.preventDefault();
 				animateToScroll(top, 500, "easeOutCubic");
+			});*/
+			
+			$(window).on('mousewheel DOMMouseScroll', function(e) {
+				var E = e.originalEvent, delta = 0;
+				if (E.detail) {
+					delta = E.detail * -40; // -3 * -40 = 120
+				} else {
+					delta = E.wheelDelta; // 120
+				}  // делаем всё, что надо с delta
+				console.log('scroll: ', delta);
 			});
 
 			/*$("nav").on("click","a", function (event) {
