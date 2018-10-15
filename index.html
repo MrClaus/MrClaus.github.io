@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
-				overflow-x: hidden;
+				overflow: hidden;
 				background:#000;
 				color:#fff;
 				padding:0;
@@ -86,13 +86,13 @@
 		<script>
 			var isScrolling = false;
 			
-			jQuery(document).ready(function(){
+			/*jQuery(document).ready(function(){
 				jQuery('.scrollbar-macosx').scrollbar();
-			});
+			});*/
 			
 			// при загрузке страницы инициализируем скроллбар и плавно смещаемся в самый верх
 			$(window).on("load", function () {
-				//$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
+				$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
 				$('nav').css( 'top', '0px' );
 				var top = $('#home').offset().top;
 				animateToScroll(top, 1500, "easeOutQuart");
