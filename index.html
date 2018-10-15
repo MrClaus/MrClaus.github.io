@@ -122,6 +122,7 @@
 			$('html, body').bind('mousewheel', function(event) {
 				var delta = ((event.originalEvent.wheelDelta < 0) ? -300 : 300);
 				var top = $('html, body').scrollTop() - delta;
+				console.log('scroll: ',delta, top);
 				event.preventDefault();
 				animateToScroll(top, 500, "easeOutCubic");
 			});
