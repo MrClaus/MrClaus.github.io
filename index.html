@@ -128,13 +128,15 @@
 			});*/
 			
 			$(window).on('mousewheel DOMMouseScroll', function(e) {
-				var E = e.originalEvent, delta = 0;
-				if (E.detail) {
-					delta = E.detail * -40; // -3 * -40 = 120
-				} else {
-					delta = E.wheelDelta; // 120
-				}  // делаем всё, что надо с delta
-				console.log('scroll: ', delta);
+				var event = e.originalEvent, delta = 0;				
+				delta = (event.detail) ? event.detail * -40 : event.wheelDelta;
+				if (delta !== undefined) {
+					var delta_top = (delta < 0) ? -300 : 300;
+					var top = $('html, body').scrollTop() - delta_top;
+					console.log('scroll: ', delta_top, top);
+					e.preventDefault();
+					animateToScroll(top, 500, "easeOutCubic");
+				}				
 			});
 
 			/*$("nav").on("click","a", function (event) {
