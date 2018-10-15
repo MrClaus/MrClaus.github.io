@@ -100,7 +100,8 @@
 			});			
 
 			// показывает инфо-статус текущего якоря с анимированным переходом
-			$(window).scroll(function() {
+			//$(window).scroll(function() {
+			$(window).on('mousewheel DOMMouseScroll', function(e) {
 				$('section').each(function(i,el) {
 					var top  = $(el).offset().top-100;
 					var bottom = top +$(el).height();
