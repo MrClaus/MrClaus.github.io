@@ -86,9 +86,13 @@
 		<script>
 			var isScrolling = false;
 			
+			jQuery(document).ready(function(){
+				jQuery('.scrollbar-macosx').scrollbar();
+			});
+			
 			// при загрузке страницы инициализируем скроллбар и плавно смещаемся в самый верх
 			$(window).on("load", function () {
-				$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
+				//$('.scrollbar-macosx').scrollbar(); // инициализируем кастомный скроллбар
 				$('nav').css( 'top', '0px' );
 				var top = $('#home').offset().top;
 				animateToScroll(top, 1500, "easeOutQuart");
