@@ -1177,6 +1177,9 @@ baron.prototype = {
             styles[padding] = (macmsxffScrollbarSize + numWas) + 'px'
             css(this.scroller, styles)
         }
+	
+	// Вызывается для слушателя события инициализации текущего scrollbar-а  (by mr.gifo)
+	baron.toCallbackInit(this.scroller);
 
         return this
     },
@@ -1268,26 +1271,44 @@ baron.prototype.autoUpdate = __webpack_require__(4)(scopedWindow)
 baron.prototype.fix = __webpack_require__(7)
 baron.prototype.controls = __webpack_require__(6)
 
-// --------------------------------- hack by mr.gifo --------------------------------------
-/* Слушатель события 'onscroll' customBar-а.
-   Возвращает объект scroller - прокручиваемый контейнер.
-   Пример использования со страницы:
 
-	baron.eventScroll( function(container) {
-		if (container !== undefined) {
-			console.log('Content scrolled: ', container.scrollTop);
-		}
+// ----------------------------------- hack by mr.gifo --------------------------------------
+/* Слушатели событий инициализации и 'onscroll' customBar-а.
+
+   - Событие инициализации срабатывает после того, как полностью создался объект текущего
+   scrollbar-а, и готов к работе и взаимодействию с ним.
+   - Событие 'onscroll' срабатывает во время скроллинга страницы мышью, клавиатурой,
+   выделением контента, перетаскиванием scrollbar-а ЛКМ, и передает объект scroller со всеми
+   текущими параметрами для взаимодействия с ним.
+   
+   Пример использования со страницы:
+   
+	baron.onCreate( function(scroller) {		
+		console.log('Scrollbar initialized: ', scroller);
+	});
+
+	baron.onScroll( function(o) {		
+		console.log('Content scrolled: ', o.scrollTop);
 	});
 
 */
+	
+var callInit = function() {}
+baron.onCreate = function(callback) { callInit = callback; }
+	
+// Принимает объект scroller при инициации scrollbar-а. Вызов из 'constructor', строка 1181
+baron.toCallbackInit = function(scroller) { callInit(scroller); }
 
 var callScroll = function() {}
-baron.eventScroll = function(callback) { callScroll = callback; }
+baron.onScroll = function(callback) { callScroll = callback; }
     
-// Принимает объект scrollbar события 'onscroll'. Вызов из 'onScroll handler', строка 1078
-baron.toCallbackScroll = function(scroller) { callScroll(scroller); }
-// --------------------------------- hack by mr.gifo --------------------------------------
-    
+// Принимает объект scroller события 'onscroll'. Вызов из 'onScroll handler', строка 1078
+baron.toCallbackScroll = function(scroller) {
+	if (scroller !== undefined) callScroll(scroller);
+}
+// ----------------------------------- hack by mr.gifo --------------------------------------
+
+
 module.exports = baron
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
