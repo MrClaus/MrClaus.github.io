@@ -1074,6 +1074,9 @@ baron.prototype = {
         // onScroll handler
         this.scroll = function() {
             var self = this
+            
+            // Вызывается для слушателя событий 'onscroll' текущего scrollbar-а (by mr.gifo)
+            baron.toCallbackScroll(self.scroller);
 
             self.updatePositions()
 
@@ -1265,6 +1268,26 @@ baron.prototype.autoUpdate = __webpack_require__(4)(scopedWindow)
 baron.prototype.fix = __webpack_require__(7)
 baron.prototype.controls = __webpack_require__(6)
 
+// --------------------------------- hack by mr.gifo --------------------------------------
+/* Слушатель события 'onscroll' customBar-а.
+   Возвращает объект scroller - прокручиваемый контейнер.
+   Пример использования со страницы:
+
+	baron.eventScroll( function(container) {
+		if (container !== undefined) {
+			console.log('Content scrolled: ', container.scrollTop);
+		}
+	});
+
+*/
+
+var callScroll = function() {}
+baron.eventScroll = function(callback) { callScroll = callback; }
+    
+// Принимает объект scrollbar события 'onscroll'. Вызов из 'onScroll handler', строка 1078
+baron.toCallbackScroll = function(scroller) { callScroll(scroller); }
+// --------------------------------- hack by mr.gifo --------------------------------------
+    
 module.exports = baron
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
