@@ -1,4 +1,6 @@
-window.onload = function() {
+//window.onload = function() {
+$(window).on("load", function () {
+
     // Horizontal
     baron({
         root: '.main__clipper',
@@ -28,4 +30,4 @@ window.onload = function() {
         forward: '.baron__down',
         backward: '.baron__up'
     });
-};
+});
