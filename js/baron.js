@@ -686,7 +686,7 @@ function manageEvents(item, eventManager, mode) {
 
             type: 'scroll'
         }, {
-            // Добавляем обработчик событий 'mousewheel' для слушателя событий onWheel (by mr.gifo)
+            // Добавляем обработчик  событий 'mousewheel' для слушателя событий onWheel (by mr.gifo)
 
             element: item.scroller,
             handler: function(e) {
