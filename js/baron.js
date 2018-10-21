@@ -580,11 +580,11 @@ function manageEvents(item, eventManager, mode) {
             element: item.scroller,
 
             handler: function(e) {
-		console.log('scrolling')
+		console.log('scrolling');
 		// Добавляем в слушатель событий onScroll (by mr.gifo)
-		baron.toCallbackScroll(e, item.scroller)
+		baron.toCallbackScroll(e, item.scroller);
 		    
-                item.scroll(e)
+                item.scroll(e);
             },
 
             type: 'scroll'
