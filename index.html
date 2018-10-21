@@ -134,6 +134,7 @@
 				if (delta !== undefined) {
 					var delta_top = (delta < 0) ? -300 : 300;
 					var top = o.scrollTop - delta_top;
+					console.log(o.scrollTop, top);
 					animateToScroll(o, top, 500, "easeOutCubic");
 				}				
 			});
