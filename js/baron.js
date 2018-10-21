@@ -587,7 +587,7 @@ function manageEvents(item, eventManager, mode) {
                 item.scroll(e);
             },
 
-            type: 'scroll'
+            type: 'onscroll'
         }, {
             // css transitions & animations
             element: item.root,
@@ -680,6 +680,7 @@ function manageEvents(item, eventManager, mode) {
             element: item.clipper,
 
             handler: function() {
+		console.log('scr222')
                 item.clipperOnScroll()
             },
 
