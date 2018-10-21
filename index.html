@@ -92,16 +92,16 @@
 			
 			baron.onCreate(function(o) {
 				console.log('INIT');
-				$('nav').css( 'top', '0px' );
+				/*$('nav').css( 'top', '0px' );
 				var top = $('#home').offset().top;
 				animateToScroll(o, top, 1500, "easeOutQuart");
 				$('a.active').removeClass('active');
-				$('a[href="#'+'home'+'"]').addClass('active');				
+				$('a[href="#'+'home'+'"]').addClass('active');	*/			
 			});
 			
 			baron.onScroll(function(e, o) {
 				console.log('SCROLLED');
-				$('section').each(function(i,el) {
+				/*$('section').each(function(i,el) {
 					var top  = $(el).offset().top - 100;
 					var bottom = top + $(el).height();
 					var scroll = o.scrollTop();
@@ -125,7 +125,7 @@
 						}
 						return result;
 					}
-				})
+				})*/
 			});
 			
 			// плавный скролл страницы со смещением в 300 px и временем анимации 500 ms
