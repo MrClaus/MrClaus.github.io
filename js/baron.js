@@ -1323,7 +1323,7 @@ baron.toCallbackInit = function(scroller) { callInit(scroller); }
     
 // Принимает событие 'onscroll' с текущими параметрами объекта scroller. Вызов из 'manageEvents', строка 585
 baron.toCallbackScroll = function(event, scroller) {
-	if (scroller !== undefined) callScroll(event, scroller);
+	callScroll(event, scroller);
 }
 
 // Принимает событие 'mousewheel' с текущими параметрами объекта scroller. Вызов из 'manageEvents', строка 686
