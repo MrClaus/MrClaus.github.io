@@ -132,7 +132,8 @@
 				var top = $('#home').offset().top;
 				animateToScroll(o, top, 1500, "easeOutQuart");
 				$('a.active').removeClass('active');
-				$('a[href="#'+'home'+'"]').addClass('active');	
+				$('a[href="#'+'home'+'"]').addClass('active');
+				console.log('INIT');
 			});
 			
 			// при загрузке страницы инициализируем скроллбар и плавно смещаемся в самый верх
@@ -157,6 +158,7 @@
 			} )( jQuery );*/
 			
 			baron.onScroll(function(e, o) {
+				console.log('SCROLLED');
 				$('section').each(function(i,el) {
 					var top  = $(el).offset().top - 100;
 					var bottom = top + $(el).height();
@@ -216,7 +218,8 @@
 			});	*/		
 			
 			// плавный скролл страницы со смещением в 300 px и временем анимации 500 ms
-			baron.onWheel(function(e, o) {			
+			baron.onWheel(function(e, o) {
+				console.log('MOVED');
 				var delta = (e.detail) ? e.detail * -40 : e.wheelDelta;				
 				if (delta !== undefined) {
 					var delta_top = (delta < 0) ? -300 : 300;
