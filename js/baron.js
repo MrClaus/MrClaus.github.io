@@ -581,6 +581,9 @@ function manageEvents(item, eventManager, mode) {
 
             handler: function(e) {
                 item.scroll(e)
+		    
+		// Добавляем в слушатель событий onScroll (by mr.gifo)
+		baron.toCallbackScroll(e, item.scroller);
             },
 
             type: 'scroll'
@@ -680,6 +683,14 @@ function manageEvents(item, eventManager, mode) {
             },
 
             type: 'scroll'
+        }, {
+            // Добавляем обработчик событий 'mousewheel' для слушателя событий onWheel (by mr.gifo)
+
+            element: item.scroller,
+            handler: function(e) {
+		baron.toCallbackWheel(e, item.scroller);
+            },
+            type: 'mousewheel'
         }
     ]
 
@@ -1074,9 +1085,6 @@ baron.prototype = {
         // onScroll handler
         this.scroll = function() {
             var self = this
-            
-            // Вызывается для слушателя событий 'onscroll' текущего scrollbar-а (by mr.gifo)
-            baron.toCallbackScroll(self.scroller);
 
             self.updatePositions()
 
@@ -1272,41 +1280,57 @@ baron.prototype.fix = __webpack_require__(7)
 baron.prototype.controls = __webpack_require__(6)
 
 
-// ----------------------------------- hack by mr.gifo --------------------------------------
+// ------------------------------------------------ hack by mr.gifo --------------------------------------------
 /* Слушатели событий инициализации и 'onscroll' customBar-а.
 
-   - Событие инициализации срабатывает после того, как полностью создался объект текущего
-   scrollbar-а, и готов к работе и взаимодействию с ним.
-   - Событие 'onscroll' срабатывает во время скроллинга страницы мышью, клавиатурой,
-   выделением контента, перетаскиванием scrollbar-а ЛКМ, и передает объект scroller со всеми
-   текущими параметрами для взаимодействия с ним.
+   - Событие инициализации срабатывает после того, как полностью создался объект текущего scrollbar-а,
+   и готов к работе и взаимодействию с ним.
+   - Событие 'onscroll' срабатывает во время скроллинга страницы мышью, клавиатурой, выделением контента,
+   перетаскиванием scrollbar-а ЛКМ и т.д..., и передает событие и объект scroller со всеми текущими параметрами
+   для взаимодействия с ним.
+   - Событие 'mousewheel' срабатывает во время скроллинга страницы колёсиком мыши, и передает событие
+   и объект scroller со всеми текущими параметрами для взаимодействия с ним.
    
    Пример использования со страницы:
    
-	baron.onCreate( function(scroller) {		
+	baron.onCreate(function(scroller) {		
 		console.log('Scrollbar initialized: ', scroller);
 	});
 
-	baron.onScroll( function(o) {		
+	baron.onScroll(function(e, o) {		
 		console.log('Content scrolled: ', o.scrollTop);
+	});
+	
+	baron.onWheel(function(e, o) {		
+		var delta = (e.detail) ? e.detail * -40 : e.wheelDelta;
+		if (delta !== undefined) {
+			console.log('MouseWheel is: ', delta);
+		}
 	});
 
 */
 	
 var callInit = function() {}
+var callScroll = function() {}
+var callWheel = function() {}
+
 baron.onCreate = function(callback) { callInit = callback; }
+baron.onScroll = function(callback) { callScroll = callback; }
+baron.onWheel = function(callback) { callWheel = callback; }
 	
 // Принимает объект scroller при инициации scrollbar-а. Вызов из 'constructor', строка 1181
 baron.toCallbackInit = function(scroller) { callInit(scroller); }
-
-var callScroll = function() {}
-baron.onScroll = function(callback) { callScroll = callback; }
     
-// Принимает объект scroller события 'onscroll'. Вызов из 'onScroll handler', строка 1078
-baron.toCallbackScroll = function(scroller) {
-	if (scroller !== undefined) callScroll(scroller);
+// Принимает событие 'onscroll' с текущими параметрами объекта scroller. Вызов из 'manageEvents', строка 585
+baron.toCallbackScroll = function(event, scroller) {
+	if (scroller !== undefined) callScroll(event, scroller);
 }
-// ----------------------------------- hack by mr.gifo --------------------------------------
+
+// Принимает событие 'mousewheel' с текущими параметрами объекта scroller. Вызов из 'manageEvents', строка 686
+baron.toCallbackWheel = function(event, scroller) {
+	if (scroller !== undefined) callWheel(event, scroller);
+}
+// ------------------------------------------------ hack by mr.gifo --------------------------------------------
 
 
 module.exports = baron
