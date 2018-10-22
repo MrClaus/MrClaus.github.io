@@ -587,6 +587,7 @@ function manageEvents(item, eventManager, mode) {
                 item.scroll(e);
             },
 
+
             type: 'onscroll'
         }, {
             // css transitions & animations
