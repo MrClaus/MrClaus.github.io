@@ -73,7 +73,7 @@ function initApplication() {
 
 // Предстартовая проверка на поддержку WebGL текущим браузером
 function start() {
-	if (!Detector.webgl) Detector.addGetWebGLMessage();
+	//if (!Detector.webgl) Detector.addGetWebGLMessage();
 	resLoad();	
 }
 
